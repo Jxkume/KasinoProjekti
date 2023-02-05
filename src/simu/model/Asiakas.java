@@ -10,6 +10,8 @@ public class Asiakas {
 	private double saapumisaika;
 	private double poistumisaika;
 	private int id;
+	private int poletit = 0;
+	private int pelimaara = 0;
 	private static int i = 1;
 	private static long sum = 0;
 	
@@ -23,7 +25,23 @@ public class Asiakas {
 	public double getPoistumisaika() {
 		return poistumisaika;
 	}
-
+	
+	public int getPoletit() {
+		return poletit;
+	}
+	
+	public int getPelimaara() {
+		return pelimaara;
+	}
+	
+	public void lisaaPelimaara() {
+		pelimaara++;
+	}
+	
+	public void muutaPolettiMaara(int poletit) {
+		this.poletit += poletit;
+	}
+	
 	public void setPoistumisaika(double poistumisaika) {
 		this.poistumisaika = poistumisaika;
 	}

@@ -5,6 +5,7 @@ public class Kello {
 	private double aika;
 	private static Kello instanssi;
 	
+	
 	private Kello(){
 		aika = 0;
 	}

@@ -27,6 +27,9 @@ public abstract class Moottori {
 		simulointiaika = aika;
 	}
 	
+	public double getSimulointiaika() {
+		return simulointiaika;
+	}
 	
 	public void aja(){
 		alustukset(); // luodaan mm. ensimmäinen tapahtuma
