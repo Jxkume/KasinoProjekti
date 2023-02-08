@@ -11,5 +11,6 @@ public class Simulaattori { //Tekstipohjainen
 		Moottori m = new OmaMoottori();
 		m.setSimulointiaika(100);
 		m.aja();
+		// hello
 	}
 }
