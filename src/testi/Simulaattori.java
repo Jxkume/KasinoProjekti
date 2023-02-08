@@ -1,4 +1,4 @@
-package testi;
+package testi; //masdiasokdma
 import simu.framework.*;
 import simu.framework.Trace.Level;
 import simu.model.OmaMoottori;
