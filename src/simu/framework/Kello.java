@@ -16,7 +16,7 @@ public class Kello {
 		}
 		return instanssi;
 	}
-	// ddd
+	// dddd
 	public void setAika(double aika){
 		this.aika = aika;
 	}
