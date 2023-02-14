@@ -19,7 +19,7 @@ public class OmaMoottori extends Moottori {
 		
 		saapumisprosessi = new Saapumisprosessi(new Negexp(15,5), tapahtumalista, TapahtumanTyyppi.ARR1);
 	
-		// TO-DO: muutetaan jakaumat oikeiksi, kun ollaan päätetty ne - Valdo
+		// TO-DO: muutetaan jakaumat oikeiksi, kun ollaan päätetty ne. - Valdo
 		palvelupisteet = new Palvelupiste[5];
 		palvelupisteet[0]=new Palvelupiste(new Normal(10,6), tapahtumalista, TapahtumanTyyppi.DEP1); 	// Palvelutiski
 		palvelupisteet[1]=new Palvelupiste(new Normal(10,10), tapahtumalista, TapahtumanTyyppi.DEP2); 	// Ruletti
@@ -73,14 +73,34 @@ public class OmaMoottori extends Moottori {
 	*/
 
 	// Tähän tulee simulaation logiikka miten asiakkaat liikkuvat palvelupisteille
+	// TO-DO: Pitää kirjoittaa pelien logiikka, miten asiakkaat arvotaan peleihin yms. ja sit yhdistää kaikki if-else rakenteeseen tai johonkin vastaavaan. - Valdo
 	@Override
 	protected void suoritaTapahtuma(Tapahtuma t) {  // B-vaiheen tapahtumat
+		Asiakas asiakas = new Asiakas();
+		// Asiakkaan saapuessa kasinoon hänet ohjataan kasinon palvelutiskin jonoon.
+		// TO-DO: Asiakas pitää lisätä johonkin peliin palvelutiskin jonosta, peli arvotaan. - Valdo
 		if (t.getTyyppi().equals(TapahtumanTyyppi.ARR1)) {
-			palvelupisteet[0].lisaaJonoon(new Asiakas());
+			palvelupisteet[0].lisaaJonoon(asiakas);
 		    saapumisprosessi.generoiSeuraava();	
 		    kontrolleri.visualisoiAsiakas(); // UUSI
-		    System.out.println("Asiakas saapuu kasinolle.");
-		    System.out.println("Asiakas saapuu palvelutiskin jonoon.");
+		    System.out.println("Asiakas " + asiakas.getId() + " saapuu kasinolle.");
+		    System.out.println("Asiakas " + asiakas.getId() + " saapuu palvelutiskin jonoon.");
+		}
+		
+		// TO-DO: Asiakas pitää ottaa jonkun pelin jonosta, ei ole välttämättä 3. palvelupiste, koska pelit arvotaan. - Valdo
+		if (t.getTyyppi().equals(TapahtumanTyyppi.DEP4)) {
+			// asiakas = palvelupisteet[3].otaJonosta();
+	   		palvelupisteet[4].lisaaJonoon(asiakas);
+	   		System.out.println("Asiakas " + asiakas.getId() + " saapuu voittojen nostopisteen jonoon.");
+		}
+		
+		// Asiakkaan lunastettua mahdolliset voitot voittojen nostopisteeltä, hän poistuu kasinosta
+		// TO-DO: Asiakkaalle pitää antaa voitot ja pitää laskea paljon kasino teki voittoa/tappiota, en oo varma tehäänkö se tässä kohtaa. - Valdo
+		if (t.getTyyppi().equals(TapahtumanTyyppi.DEP5)) {
+		    asiakas = palvelupisteet[4].otaJonosta();
+		    System.out.println("Asiakas " + asiakas.getId() + " poistuu kasinolta.");
+			asiakas.setPoistumisaika(Kello.getInstance().getAika());
+	        asiakas.raportti(); 
 		}
 	}
 	
