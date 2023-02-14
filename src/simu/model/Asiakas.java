@@ -7,15 +7,16 @@ import simu.framework.Trace;
 // TODO:
 // Asiakas koodataan simulointimallin edellyttämällä tavalla (data!)
 public class Asiakas {
+	
 	private double saapumisaika;
 	private double poistumisaika;
 	private int id;
 	private static int i = 1;
 	private static long sum = 0;
+	private int polettimaara;
 	
-	public Asiakas(){
+	public Asiakas() {
 	    id = i++;
-	    
 		saapumisaika = Kello.getInstance().getAika();
 		Trace.out(Trace.Level.INFO, "Uusi asiakas:" + id + ":"+saapumisaika);
 	}
@@ -36,13 +37,21 @@ public class Asiakas {
 		this.saapumisaika = saapumisaika;
 	}
 	
-	public void raportti(){
+	public void raportti() {
 		Trace.out(Trace.Level.INFO, "Asiakas "+id+ " saapui:" +saapumisaika);
 		Trace.out(Trace.Level.INFO,"Asiakas "+id+ " poistui:" +poistumisaika);
 		Trace.out(Trace.Level.INFO,"Asiakas "+id+ " viipyi:" +(poistumisaika-saapumisaika));
 		sum += (poistumisaika-saapumisaika);
 		double keskiarvo = sum/id;
 		System.out.println("Asiakkaiden läpimenoaikojen keskiarvo "+ keskiarvo);
+	}
+	
+	public void setPolettimaara(int polettimaara) {
+		this.polettimaara = polettimaara;
+	}
+	
+	public int getPolettimaara() {
+		return polettimaara;
 	}
 
 }
