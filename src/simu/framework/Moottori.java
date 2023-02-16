@@ -3,7 +3,7 @@ package simu.framework;
 import controller.IKontrolleri;
 import simu.model.Palvelupiste;
 
-public abstract class Moottori extends Thread implements IMoottori{  // UUDET MÄÄRITYKSET
+public abstract class Moottori extends Thread implements IMoottori {  // UUDET MÄÄRITYKSET
 	
 	private double simulointiaika = 0;
 	private long viive = 0;
@@ -47,7 +47,7 @@ public abstract class Moottori extends Thread implements IMoottori{  // UUDET M�
 	@Override
 	public void run(){ // Entinen aja()
 		alustukset(); // luodaan mm. ensimmäinen tapahtuma
-		while (simuloidaan()){
+		while (simuloidaan()) {
 			viive(); // UUSI
 			kello.setAika(nykyaika());
 			suoritaBTapahtumat();
