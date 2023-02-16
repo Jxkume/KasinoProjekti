@@ -27,8 +27,8 @@ public class Palvelupiste {
 		this.skeduloitavanTapahtumanTyyppi = tyyppi;		
 	}
 
-	public void lisaaJonoon(Asiakas a) {   // Jonon 1. asiakas aina palvelussa
-		jono.add(a);
+	public void lisaaJonoon(Asiakas asiakas) {   // Jonon 1. asiakas aina palvelussa
+		jono.add(asiakas);
 	}
 
 	public Asiakas otaJonosta() {  // Poistetaan palvelussa ollut
@@ -69,9 +69,22 @@ public class Palvelupiste {
 		}
 	}
 	
-	public void jatkaPelaamista(Asiakas a) {
-		jono.addFirst(a);
+	public void jatkaPelaamista(Asiakas asiakas) {
+		jono.addFirst(asiakas);
 	}
+	
+	public boolean poistuukoKasinosta(Asiakas asiakas) {
+        int erotus = asiakas.getAlkuperainenPolettimaara() - asiakas.getNykyinenPolettimaara();
+        if (erotus < 0) {
+            erotus = erotus * (-1);
+        }
+        int arpa = (int) Math.floor(Math.random() * ((asiakas.getAlkuperainenPolettimaara() - 1) - 0) + 1) + erotus;
+        if (arpa >= asiakas.getAlkuperainenPolettimaara()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 	
 	public String toString() {
 		String string = "";
