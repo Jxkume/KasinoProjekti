@@ -60,7 +60,7 @@ public class OmaMoottori extends Moottori {
 			case DEP1: // Lähtö palvelutiskiltä
 				asiakas = palvelupisteet[0].getJono().getFirst();
 				asiakas.annaPoletteja(); // Asiakkaalle annetaan poletteja palvelutiskillä ennen lähtöä
-				palvelupisteet[0].otaJonosta();
+				palvelupisteet[0].otaJonosta(asiakas);
 				// Asiakas arvotaan yhteen peliin.
 				randomPeli = (int) Math.floor(Math.random() * (3 - 1 + 1) + 1);
 				if (randomPeli == 1) {
@@ -75,7 +75,7 @@ public class OmaMoottori extends Moottori {
 				}
 				break;
 			case DEP2: // Lähtö ruletista
-				asiakas = palvelupisteet[1].getJono().getFirst();		
+				asiakas = palvelupisteet[1].getJono().getFirst();
 				if (palvelupisteet[1].pelaa(asiakas)) {
 					// Arvotaan luku väliltä 1-4 ja lisätään siihen 1
 					todennakoisyys = (int) Math.floor(Math.random() * (4 - 1 + 1) + 1) + 1;
@@ -87,10 +87,11 @@ public class OmaMoottori extends Moottori {
 				if (todennakoisyys <= 2) {
 					// Tarkistetaan siirtyykö asiakas voittojen nostopisteelle
 					if (palvelupisteet[1].siirtyykoVoittojenNostopisteelle(asiakas)) {
-						palvelupisteet[1].otaJonosta();
+						palvelupisteet[1].otaJonosta(asiakas);
 						palvelupisteet[4].lisaaJonoon(asiakas);
+						palvelupisteet[4].tulostaJononAsiakkaat();
 					} else {
-						palvelupisteet[1].otaJonosta();
+						palvelupisteet[1].otaJonosta(asiakas);
 						// Asiakas arvotaan uuteen peliin
 						randomPeli = (int) Math.floor(Math.random() * (2 - 1 + 1) + 1);
 						if (randomPeli == 1) {
@@ -101,10 +102,12 @@ public class OmaMoottori extends Moottori {
 							palvelupisteet[3].tulostaJononAsiakkaat();
 						}
 					}
+				} else {
+					palvelupisteet[1].jatkaPelaamista(asiakas);
 				}
 				break;
 			case DEP3: // Lähtö Blackjackistä
-				asiakas = palvelupisteet[2].getJono().getFirst();		
+				asiakas = palvelupisteet[2].getJono().getFirst();
 				if (palvelupisteet[2].pelaa(asiakas)) {
 					// Arvotaan luku väliltä 1-4 ja lisätään siihen 1
 					todennakoisyys = (int) Math.floor(Math.random() * (4 - 1 + 1) + 1) + 1;
@@ -116,10 +119,11 @@ public class OmaMoottori extends Moottori {
 				if (todennakoisyys <= 2) {
 					// Tarkistetaan siirtyykö asiakas voittojen nostopisteelle
 					if (palvelupisteet[2].siirtyykoVoittojenNostopisteelle(asiakas)) {
-						palvelupisteet[2].otaJonosta();
+						palvelupisteet[2].otaJonosta(asiakas);
 						palvelupisteet[4].lisaaJonoon(asiakas);
+						palvelupisteet[4].tulostaJononAsiakkaat();
 					} else {
-						palvelupisteet[2].otaJonosta();
+						palvelupisteet[2].otaJonosta(asiakas);
 						// Asiakas arvotaan uuteen peliin
 						randomPeli = (int) Math.floor(Math.random() * (2 - 1 + 1) + 1);
 						if (randomPeli == 1) {
@@ -130,10 +134,12 @@ public class OmaMoottori extends Moottori {
 							palvelupisteet[3].tulostaJononAsiakkaat();
 						}
 					}
+				} else {
+					palvelupisteet[2].jatkaPelaamista(asiakas);
 				}
 		   	   	break;  
 			case DEP4: // Lähtö Krapsistä
-				asiakas = palvelupisteet[3].getJono().getFirst();	
+				asiakas = palvelupisteet[3].getJono().getFirst();
 				if (palvelupisteet[3].pelaa(asiakas)) {
 					// Arvotaan luku väliltä 1-4 ja lisätään siihen 1
 					todennakoisyys = (int) Math.floor(Math.random() * (4 - 1 + 1) + 1) + 1;
@@ -145,10 +151,11 @@ public class OmaMoottori extends Moottori {
 				if (todennakoisyys <= 2) {
 					// Tarkistetaan siirtyykö asiakas voittojen nostopisteelle
 					if (palvelupisteet[3].siirtyykoVoittojenNostopisteelle(asiakas)) {
-						palvelupisteet[3].otaJonosta();
+						palvelupisteet[3].otaJonosta(asiakas);
 						palvelupisteet[4].lisaaJonoon(asiakas);
+						palvelupisteet[4].tulostaJononAsiakkaat();
 					} else {
-						palvelupisteet[3].otaJonosta();
+						palvelupisteet[3].otaJonosta(asiakas);
 						// Asiakas arvotaan uuteen peliin
 						randomPeli = (int) Math.floor(Math.random() * (2 - 1 + 1) + 1);
 						if (randomPeli == 1) {
@@ -159,10 +166,13 @@ public class OmaMoottori extends Moottori {
 							palvelupisteet[2].tulostaJononAsiakkaat();
 						}
 					}
+				} else {
+					palvelupisteet[3].jatkaPelaamista(asiakas);
 				}
 		   	   	break;  
 			case DEP5: // Lähtö voittojen nostopisteeltä
-		    	asiakas = palvelupisteet[4].otaJonosta();
+		    	asiakas = palvelupisteet[4].getJono().getFirst();
+		    	palvelupisteet[4].otaJonosta(asiakas);
 		    	System.out.println("Asiakas " + asiakas.getId() + " poistuu kasinolta.");
 				asiakas.setPoistumisaika(Kello.getInstance().getAika());
 	        	asiakas.raportti();

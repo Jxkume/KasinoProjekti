@@ -44,17 +44,17 @@ public class Palvelupiste {
 		jono.add(asiakas);
 	}
 
-	public Asiakas otaJonosta() {  // Poistetaan palvelussa ollut
+	public Asiakas otaJonosta(Asiakas asiakas) {  // Poistetaan palvelussa ollut
 		if (nimi.equals("Palvelutiski")) {
-			System.out.println("Asiakas " + jono.peek().getId() + " poistuu palvelutiskin jonosta.");
+			System.out.println("Asiakas " + asiakas.getId() + " poistuu palvelutiskin jonosta.");
 		} else if (nimi.equals("Ruletti")) {
-			System.out.println("Asiakas " + jono.peek().getId() + " poistuu ruletin jonosta.");
+			System.out.println("Asiakas " + asiakas.getId() + " poistuu ruletin jonosta.");
 		} else if (nimi.equals("Blackjack")) {
-			System.out.println("Asiakas " + jono.peek().getId() + " poistuu Blackjackin jonosta.");
+			System.out.println("Asiakas " + asiakas.getId() + " poistuu Blackjackin jonosta.");
 		} else if (nimi.equals("Kraps")) {
-			System.out.println("Asiakas " + jono.peek().getId() + " poistuu Krapsin jonosta.");
+			System.out.println("Asiakas " + asiakas.getId() + " poistuu Krapsin jonosta.");
 		} else if (nimi.equals("Voittojen nostopiste")) {
-			System.out.println("Asiakas " + jono.peek().getId() + " poistuu voittojen nostopisteen jonosta.");
+			System.out.println("Asiakas " + asiakas.getId() + " poistuu voittojen nostopisteen jonosta.");
 		}
 		varattu = false;
 		return jono.poll();
