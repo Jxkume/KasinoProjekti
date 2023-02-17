@@ -19,7 +19,7 @@ public class Asiakas {
 	public Asiakas() {
 	    id = i++;
 		saapumisaika = Kello.getInstance().getAika();
-		Trace.out(Trace.Level.INFO, "Uusi asiakas: " + id + ": " + String.format("%.02f", saapumisaika));
+		Trace.out(Trace.Level.INFO, "Uusi asiakas: " + id + ": " + saapumisaika);
 	}
 
 	public int getId() {
@@ -43,20 +43,19 @@ public class Asiakas {
 	}
 	
 	public void raportti() {
-		Trace.out(Trace.Level.INFO, "Asiakas " + id + " saapui: " + String.format("%.02f", saapumisaika));
-		Trace.out(Trace.Level.INFO,"Asiakas " + id + " poistui: " + String.format("%.02f", poistumisaika));
-		Trace.out(Trace.Level.INFO,"Asiakas " + id + " viipyi: " + String.format("%.02f", (poistumisaika-saapumisaika)));
+		Trace.out(Trace.Level.INFO, "Asiakas " + id + " saapui:" +saapumisaika);
+		Trace.out(Trace.Level.INFO,"Asiakas " + id + " poistui:" +poistumisaika);
+		Trace.out(Trace.Level.INFO,"Asiakas " + id + " viipyi:" +(poistumisaika-saapumisaika));
 		sum += (poistumisaika-saapumisaika);
 		double keskiarvo = sum/id;
 		System.out.println("Asiakkaiden läpimenoaikojen keskiarvo "+ keskiarvo);
 	}
 	
-	public void annaPoletteja() {
-		// Arvotaan poletteja 1-10 väliltä ja kerrotaan se kymmenellä (maksimimäärä 100 polettia per asiakas)
-		int polettimaara = (int) Math.floor(Math.random() * (10 - 1 + 1) + 1) * 10;
+	public void setPolettimaara() {
+		// Arvotaan poletteja 10-100 väliltä
+		int polettimaara = (int) Math.floor(Math.random() * (100 - 10 + 1) + 10);
 		nykyinenPolettimaara = polettimaara;
 		alkuperainenPolettimaara = nykyinenPolettimaara;
-		System.out.println("Asiakkaalle " + id + " annettiin palvelutiskillä poletteja yhteensä " + alkuperainenPolettimaara + ".");
 	}
 	
 	public int getPolettimaara() {
@@ -70,13 +69,4 @@ public class Asiakas {
 	public void vahennaPoletteja(int polettimaara) {
 		nykyinenPolettimaara -= polettimaara;
 	}
-	
-	public int getAlkuperainenPolettimaara() {
-		return alkuperainenPolettimaara;
-	}
-
-	public int getNykyinenPolettimaara() {
-		return nykyinenPolettimaara;
-	}
-	
 }
