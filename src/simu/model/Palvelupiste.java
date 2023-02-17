@@ -33,7 +33,7 @@ public class Palvelupiste {
 
 	public Asiakas otaJonosta() {  // Poistetaan palvelussa ollut
 		varattu = false;
-		return jono.poll();
+		return jono.poll(); 
 	}
 
 	public void aloitaPalvelu() {  //Aloitetaan uusi palvelu, asiakas on jonossa palvelun aikana
