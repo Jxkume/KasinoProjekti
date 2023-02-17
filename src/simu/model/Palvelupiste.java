@@ -17,7 +17,7 @@ public class Palvelupiste {
 	private Tapahtumalista tapahtumalista;
 	private TapahtumanTyyppi skeduloitavanTapahtumanTyyppi; 
 	
-	//JonoStrategia strategia; //optio: asiakkaiden järjestys
+	//JonoStrategia strategia; //optio: asiakkaiden j채rjestys
 	
 	private boolean varattu = false;
 
@@ -27,13 +27,13 @@ public class Palvelupiste {
 		this.skeduloitavanTapahtumanTyyppi = tyyppi;		
 	}
 
-	public void lisaaJonoon(Asiakas asiakas) {   // Jonon 1. asiakas aina palvelussa
-		jono.add(asiakas);
+	public void lisaaJonoon(Asiakas a) {   // Jonon 1. asiakas aina palvelussa
+		jono.add(a);
 	}
 
 	public Asiakas otaJonosta() {  // Poistetaan palvelussa ollut
 		varattu = false;
-		return jono.poll();
+		return jono.poll(); 
 	}
 
 	public void aloitaPalvelu() {  //Aloitetaan uusi palvelu, asiakas on jonossa palvelun aikana
@@ -59,32 +59,19 @@ public class Palvelupiste {
 		if (random == 1) {
 			System.out.println("Asiakas " + asiakas.getId() + " voitti pelin!");
 			asiakas.lisaaPoletteja(10);
-			System.out.println("Asiakkaalla " + asiakas.getId() + " poletteja yhteensä " + asiakas.getPolettimaara());
+			System.out.println("Asiakkaalla " + asiakas.getId() + " poletteja yhteens채 " + asiakas.getPolettimaara());
 			return true;
 		} else {
-			System.out.println("Asiakas " + asiakas.getId() + " hävisi pelin..");
+			System.out.println("Asiakas " + asiakas.getId() + " h채visi pelin..");
 			asiakas.vahennaPoletteja(10);
-			System.out.println("Asiakkaalla " + asiakas.getId() + " poletteja yhteensä " + asiakas.getPolettimaara());
+			System.out.println("Asiakkaalla " + asiakas.getId() + " poletteja yhteens채 " + asiakas.getPolettimaara());
 			return false;
 		}
 	}
 	
-	public void jatkaPelaamista(Asiakas asiakas) {
-		jono.addFirst(asiakas);
+	public void jatkaPelaamista(Asiakas a) {
+		jono.addFirst(a);
 	}
-	
-	public boolean poistuukoKasinosta(Asiakas asiakas) {
-        int erotus = asiakas.getAlkuperainenPolettimaara() - asiakas.getNykyinenPolettimaara();
-        if (erotus < 0) {
-            erotus = erotus * (-1);
-        }
-        int arpa = (int) Math.floor(Math.random() * ((asiakas.getAlkuperainenPolettimaara() - 1) - 0) + 1) + erotus;
-        if (arpa >= asiakas.getAlkuperainenPolettimaara()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 	
 	public String toString() {
 		String string = "";

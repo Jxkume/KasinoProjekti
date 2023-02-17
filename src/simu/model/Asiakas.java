@@ -43,9 +43,9 @@ public class Asiakas {
 	}
 	
 	public void raportti() {
-		Trace.out(Trace.Level.INFO, "Asiakas " + id + " saapui: " + saapumisaika);
-		Trace.out(Trace.Level.INFO,"Asiakas " + id + " poistui: " + poistumisaika);
-		Trace.out(Trace.Level.INFO,"Asiakas " + id + " viipyi: " + (poistumisaika-saapumisaika));
+		Trace.out(Trace.Level.INFO, "Asiakas " + id + " saapui:" +saapumisaika);
+		Trace.out(Trace.Level.INFO,"Asiakas " + id + " poistui:" +poistumisaika);
+		Trace.out(Trace.Level.INFO,"Asiakas " + id + " viipyi:" +(poistumisaika-saapumisaika));
 		sum += (poistumisaika-saapumisaika);
 		double keskiarvo = sum/id;
 		System.out.println("Asiakkaiden läpimenoaikojen keskiarvo "+ keskiarvo);
@@ -69,13 +69,4 @@ public class Asiakas {
 	public void vahennaPoletteja(int polettimaara) {
 		nykyinenPolettimaara -= polettimaara;
 	}
-	
-	public int getAlkuperainenPolettimaara() {
-		return alkuperainenPolettimaara;
-	}
-
-	public int getNykyinenPolettimaara() {
-		return nykyinenPolettimaara;
-	}
-	
 }

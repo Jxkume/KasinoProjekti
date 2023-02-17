@@ -17,7 +17,7 @@ public class OmaMoottori extends Moottori {
 	
 	public OmaMoottori(IKontrolleri kontrolleri) { // UUSI
 
-		super(kontrolleri); //UUSI
+		super(kontrolleri); //UUSI mo : Jhon
 		
 		// TO-DO: muutetaan jakaumat oikeiksi, kun ollaan päätetty ne. - Valdo
 		saapumisprosessi = new Saapumisprosessi(new Negexp(15,5), tapahtumalista, TapahtumanTyyppi.ARR1);
@@ -77,17 +77,14 @@ public class OmaMoottori extends Moottori {
 	@Override
 	protected void suoritaTapahtuma(Tapahtuma t) {  // B-vaiheen tapahtumat
 		Asiakas asiakas;
-		int todennakoisyys;
 		// Asiakkaan saapuessa kasinoon hänet ohjataan kasinon palvelutiskin jonoon.
 		if (t.getTyyppi().equals(TapahtumanTyyppi.ARR1)) {
-			// Luodaan uusi asiakas saapumisprosessin aikana
-			asiakas = new Asiakas();
-			palvelupisteet[0].lisaaJonoon(asiakas);	
+			palvelupisteet[0].lisaaJonoon(new Asiakas());	
 		    kontrolleri.visualisoiAsiakas(); // UUSI
-		    System.out.println("Asiakas " + asiakas.getId() + " saapuu palvelutiskin jonoon.");
+		    //System.out.println("Asiakas " + palvelupisteet[0].getJono().getFirst().getId() + " saapuu palvelutiskin jonoon.");
 		    System.out.println("Asiakkaat palvelutiskin jonossa: " + palvelupisteet[0]);
 		    saapumisprosessi.generoiSeuraava();
-		// Lähtö palvelutiskiltä    
+		    
 		} else if (t.getTyyppi().equals(TapahtumanTyyppi.DEP1)) {
 			asiakas = palvelupisteet[0].getJono().getFirst();
 			// Asiakkaalle annetaan poletteja palvelutiskillä
@@ -112,10 +109,11 @@ public class OmaMoottori extends Moottori {
 				System.out.println("Asiakkaalla " + asiakas.getId() + " poletteja yhteensä " + asiakas.getPolettimaara());
 				System.out.println("Asiakkaat Krapsin jonossa: " + palvelupisteet[3]);
 			}
-			// Lähtö ruletista 
+			
 		} else if (t.getTyyppi().equals(TapahtumanTyyppi.DEP2)) {
-			asiakas = palvelupisteet[1].getJono().getFirst();		
-			if (palvelupisteet[1].pelaa(asiakas)) {
+			asiakas = palvelupisteet[1].getJono().getFirst();
+			int todennakoisyys;			
+			if (palvelupisteet[1].pelaa(asiakas) == true) {
 				// Arvotaan luku väliltä 1-4 ja lisätään siihen 1
 				todennakoisyys = (int) Math.floor(Math.random() * (4 - 1 + 1) + 1) + 1;
 			} else {
@@ -123,38 +121,20 @@ public class OmaMoottori extends Moottori {
 				todennakoisyys = (int) Math.floor(Math.random() * (4 - 1 + 1) + 1) - 1;
 			}
 			
-			// Jos todennäköisyys on 2 tai alle, asiakas poistuu pelistä
+			// Jos todennäköisyys on 2 tai alle, asiakas poistuu pelistä kokonaan
 			if (todennakoisyys <= 2) {
-				// Tarkistetaan siirtyykö asiakas voittojen nostopisteelle
-				if (palvelupisteet[1].poistuukoKasinosta(asiakas)) {
-					palvelupisteet[1].otaJonosta();
-					System.out.println("Asiakas " + asiakas.getId() + " poistuu ruletin jonosta.");
-					palvelupisteet[4].lisaaJonoon(asiakas);
-					System.out.println("Asiakas " + asiakas.getId() + " saapuu voittojen nostopisteen jonoon.");
-				} else {
-					palvelupisteet[1].otaJonosta();
-					System.out.println("Asiakas " + asiakas.getId() + " poistuu ruletin jonosta.");
-					int random = (int) Math.floor(Math.random() * (2 - 1 + 1) + 1);
-					if (random == 1) {
-						palvelupisteet[2].lisaaJonoon(asiakas);
-						System.out.println("Asiakas " + asiakas.getId() + " saapuu Blackjackin jonoon.");
-						System.out.println("Asiakkaalla " + asiakas.getId() + " poletteja yhteensä " + asiakas.getPolettimaara());
-						System.out.println("Asiakkaat Blackjackin jonossa: " + palvelupisteet[2]);
-					} else {
-						palvelupisteet[3].lisaaJonoon(asiakas);
-						System.out.println("Asiakas " + asiakas.getId() + " saapuu Krapsin jonoon.");
-						System.out.println("Asiakkaalla " + asiakas.getId() + " poletteja yhteensä " + asiakas.getPolettimaara());
-						System.out.println("Asiakkaat Krapsin jonossa: " + palvelupisteet[3]);
-					}
-				}
+				palvelupisteet[1].otaJonosta();
+				System.out.println("Asiakas " + asiakas.getId() + " poistuu ruletin jonosta.");
+				palvelupisteet[4].lisaaJonoon(asiakas);
 			} else {
 				palvelupisteet[1].otaJonosta();
 				palvelupisteet[1].jatkaPelaamista(asiakas);
 			}
-			// Lähtö Blackjackistä
+			
 		} else if (t.getTyyppi().equals(TapahtumanTyyppi.DEP3)) {
-			asiakas = palvelupisteet[2].getJono().getFirst();		
-			if (palvelupisteet[2].pelaa(asiakas)) {
+			asiakas = palvelupisteet[2].getJono().getFirst();
+			int todennakoisyys;			
+			if (palvelupisteet[2].pelaa(asiakas) == true) {
 				// Arvotaan luku väliltä 1-4 ja lisätään siihen 1
 				todennakoisyys = (int) Math.floor(Math.random() * (4 - 1 + 1) + 1) + 1;
 			} else {
@@ -164,36 +144,18 @@ public class OmaMoottori extends Moottori {
 			
 			// Jos todennäköisyys on 2 tai alle, asiakas poistuu pelistä kokonaan
 			if (todennakoisyys <= 2) {
-				// Tarkistetaan siirtyykö asiakas voittojen nostopisteelle
-				if (palvelupisteet[2].poistuukoKasinosta(asiakas)) {
-					palvelupisteet[2].otaJonosta();
-					System.out.println("Asiakas " + asiakas.getId() + " poistuu Blackjackin jonosta.");
-					palvelupisteet[4].lisaaJonoon(asiakas);
-					System.out.println("Asiakas " + asiakas.getId() + " saapuu voittojen nostopisteen jonoon.");
-				} else {
-					palvelupisteet[2].otaJonosta();
-					System.out.println("Asiakas " + asiakas.getId() + " poistuu Blackjackin jonosta.");
-					int random = (int) Math.floor(Math.random() * (2 - 1 + 1) + 1);
-					if (random == 1) {
-						palvelupisteet[1].lisaaJonoon(asiakas);
-						System.out.println("Asiakas " + asiakas.getId() + " saapuu ruletin jonoon.");
-						System.out.println("Asiakkaalla " + asiakas.getId() + " poletteja yhteensä " + asiakas.getPolettimaara());
-						System.out.println("Asiakkaat ruletin jonossa: " + palvelupisteet[1]);
-					} else {
-						palvelupisteet[3].lisaaJonoon(asiakas);
-						System.out.println("Asiakas " + asiakas.getId() + " saapuu Krapsin jonoon.");
-						System.out.println("Asiakkaalla " + asiakas.getId() + " poletteja yhteensä " + asiakas.getPolettimaara());
-						System.out.println("Asiakkaat Krapsin jonossa: " + palvelupisteet[3]);
-					}
-				}
+				palvelupisteet[2].otaJonosta();
+				System.out.println("Asiakas " + asiakas.getId() + " poistuu Krapsin jonosta.");
+				palvelupisteet[4].lisaaJonoon(asiakas);
 			} else {
 				palvelupisteet[2].otaJonosta();
 				palvelupisteet[2].jatkaPelaamista(asiakas);
 			}
-			// Lähtö Krapsistä
+			
 		} else if (t.getTyyppi().equals(TapahtumanTyyppi.DEP4)) {
-			asiakas = palvelupisteet[3].getJono().getFirst();	
-			if (palvelupisteet[3].pelaa(asiakas)) {
+			asiakas = palvelupisteet[3].getJono().getFirst();
+			int todennakoisyys;			
+			if (palvelupisteet[3].pelaa(asiakas) == true) {
 				// Arvotaan luku väliltä 1-4 ja lisätään siihen 1
 				todennakoisyys = (int) Math.floor(Math.random() * (4 - 1 + 1) + 1) + 1;
 			} else {
@@ -203,33 +165,14 @@ public class OmaMoottori extends Moottori {
 			
 			// Jos todennäköisyys on 2 tai alle, asiakas poistuu pelistä kokonaan
 			if (todennakoisyys <= 2) {
-				// Tarkistetaan siirtyykö asiakas voittojen nostopisteelle
-				if (palvelupisteet[3].poistuukoKasinosta(asiakas)) {
-					palvelupisteet[3].otaJonosta();
-					System.out.println("Asiakas " + asiakas.getId() + " poistuu Krapsin jonosta.");
-					palvelupisteet[4].lisaaJonoon(asiakas);
-					System.out.println("Asiakas " + asiakas.getId() + " saapuu voittojen nostopisteen jonoon.");
-				} else {
-					palvelupisteet[3].otaJonosta();
-					System.out.println("Asiakas " + asiakas.getId() + " poistuu Krapsin jonosta.");
-					int random = (int) Math.floor(Math.random() * (2 - 1 + 1) + 1);
-					if (random == 1) {
-						palvelupisteet[1].lisaaJonoon(asiakas);
-						System.out.println("Asiakas " + asiakas.getId() + " saapuu ruletin jonoon.");
-						System.out.println("Asiakkaalla " + asiakas.getId() + " poletteja yhteensä " + asiakas.getPolettimaara());
-						System.out.println("Asiakkaat ruletin jonossa: " + palvelupisteet[1]);
-					} else {
-						palvelupisteet[2].lisaaJonoon(asiakas);
-						System.out.println("Asiakas " + asiakas.getId() + " saapuu Blackjackin jonoon.");
-						System.out.println("Asiakkaalla " + asiakas.getId() + " poletteja yhteensä " + asiakas.getPolettimaara());
-						System.out.println("Asiakkaat Krapsin jonossa: " + palvelupisteet[2]);
-					}
-				}
+				palvelupisteet[3].otaJonosta();
+				System.out.println("Asiakas " + asiakas.getId() + " poistuu ruletin jonosta.");
+				palvelupisteet[4].lisaaJonoon(asiakas);
 			} else {
 				palvelupisteet[3].otaJonosta();
 				palvelupisteet[3].jatkaPelaamista(asiakas);
 			}
-			// Lähtö voittojen nostopisteeltä
+			
 		} else if (t.getTyyppi().equals(TapahtumanTyyppi.DEP5)) {
 		    asiakas = palvelupisteet[4].otaJonosta();
 		    System.out.println("Asiakas " + asiakas.getId() + " poistuu kasinolta.");
