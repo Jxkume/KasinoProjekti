@@ -16,7 +16,7 @@ public abstract class Moottori extends Thread implements IMoottori {  // UUDET M
 	protected IKontrolleri kontrolleri; // UUSI
 	
 
-	public Moottori(IKontrolleri kontrolleri){  // UUSITTU
+	public Moottori(IKontrolleri kontrolleri) {  // UUSITTU
 		
 		this.kontrolleri = kontrolleri;  //UUSI
 
@@ -45,7 +45,7 @@ public abstract class Moottori extends Thread implements IMoottori {  // UUDET M
 	}
 	
 	@Override
-	public void run(){ // Entinen aja()
+	public void run() { // Entinen aja()
 		alustukset(); // luodaan mm. ensimmäinen tapahtuma
 		while (simuloidaan()) {
 			viive(); // UUSI
@@ -57,13 +57,13 @@ public abstract class Moottori extends Thread implements IMoottori {  // UUDET M
 		
 	}
 	
-	private void suoritaBTapahtumat(){
+	private void suoritaBTapahtumat() {
 		while (tapahtumalista.getSeuraavanAika() == kello.getAika()){
 			suoritaTapahtuma(tapahtumalista.poista());
 		}
 	}
 
-	private void yritaCTapahtumat(){    // määrittele protectediksi, josa haluat ylikirjoittaa
+	private void yritaCTapahtumat() {    // määrittele protectediksi, josa haluat ylikirjoittaa
 		for (Palvelupiste p: palvelupisteet){
 			if (!p.onVarattu() && p.onJonossa()){
 				p.aloitaPalvelu();
@@ -72,12 +72,12 @@ public abstract class Moottori extends Thread implements IMoottori {  // UUDET M
 	}
 
 	
-	private double nykyaika(){
+	private double nykyaika() {
 		return tapahtumalista.getSeuraavanAika();
 	}
 	
-	private boolean simuloidaan(){
-		Trace.out(Trace.Level.INFO, "Kello on: " + kello.getAika());
+	private boolean simuloidaan() {
+		Trace.out(Trace.Level.INFO, "\nKello on: " + String.format("%.02f", kello.getAika()));
 		return kello.getAika() < simulointiaika;
 	}
 	
