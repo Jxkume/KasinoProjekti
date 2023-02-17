@@ -17,7 +17,7 @@ public class OmaMoottori extends Moottori {
 	
 	public OmaMoottori(IKontrolleri kontrolleri) { // UUSI
 
-		super(kontrolleri); //UUSI
+		super(kontrolleri); //UUSI mo : Jhon
 		
 		// TO-DO: muutetaan jakaumat oikeiksi, kun ollaan päätetty ne. - Valdo
 		saapumisprosessi = new Saapumisprosessi(new Negexp(15,5), tapahtumalista, TapahtumanTyyppi.ARR1);
