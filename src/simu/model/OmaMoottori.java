@@ -73,7 +73,7 @@ public class OmaMoottori extends Moottori {
 	}
 	*/
 
-	// Simulaation logiikka miten asiakkaat liikkuvat palvelupisteillä
+	// Simulaation logiikka miten asiakkaat liikkuvat palvelupisteillä :)
 	@Override
 	protected void suoritaTapahtuma(Tapahtuma t) {  // B-vaiheen tapahtumat
 		Asiakas asiakas;
