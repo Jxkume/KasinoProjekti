@@ -1,5 +1,6 @@
 package simu.model;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 
 import eduni.distributions.ContinuousGenerator;
@@ -15,23 +16,50 @@ public class Palvelupiste {
 	
 	private ContinuousGenerator generator;
 	private Tapahtumalista tapahtumalista;
-	private TapahtumanTyyppi skeduloitavanTapahtumanTyyppi; 
+	private TapahtumanTyyppi skeduloitavanTapahtumanTyyppi;
+	private String nimi;
 	
 	//JonoStrategia strategia; //optio: asiakkaiden j채rjestys
 	
 	private boolean varattu = false;
 
-	public Palvelupiste(ContinuousGenerator generator, Tapahtumalista tapahtumalista, TapahtumanTyyppi tyyppi) {
+	public Palvelupiste(ContinuousGenerator generator, Tapahtumalista tapahtumalista, TapahtumanTyyppi tyyppi, String nimi) {
 		this.tapahtumalista = tapahtumalista;
 		this.generator = generator;
-		this.skeduloitavanTapahtumanTyyppi = tyyppi;		
+		this.skeduloitavanTapahtumanTyyppi = tyyppi;
+		this.nimi = nimi;
 	}
 
-	public void lisaaJonoon(Asiakas a) {   // Jonon 1. asiakas aina palvelussa
-		jono.add(a);
+	public void lisaaJonoon(Asiakas asiakas) {   // Jonon 1. asiakas aina palvelussa
+		
+		jono.add(asiakas);
+		if (nimi.equals("Palvelutiski")) {
+			System.out.println("Asiakas " + asiakas.getId() + " saapuu palvelutiskin jonoon.");
+		} else if (nimi.equals("Ruletti")) {
+			System.out.println("Asiakas " + asiakas.getId() + " saapuu ruletin jonoon.");
+		} else if (nimi.equals("Blackjack")) {
+			System.out.println("Asiakas " + asiakas.getId() + " saapuu Blackjackin jonoon.");
+		} else if (nimi.equals("Kraps")) {
+			System.out.println("Asiakas " + asiakas.getId() + " saapuu Krapsin jonoon.");
+		} else if (nimi.equals("Voittojen nostopiste")) {
+			System.out.println("Asiakas " + asiakas.getId() + " saapuu voittojen nostopisteen jonoon.");
+		}
 	}
 
-	public Asiakas otaJonosta() {  // Poistetaan palvelussa ollut
+	public Asiakas otaJonosta(Asiakas asiakas) {  // Poistetaan palvelussa ollut
+		
+		if (nimi.equals("Palvelutiski")) {
+			System.out.println("Asiakas " + asiakas.getId() + " poistuu palvelutiskin jonosta.");
+		} else if (nimi.equals("Ruletti")) {
+			System.out.println("Asiakas " + asiakas.getId() + " poistuu ruletin jonosta.");
+		} else if (nimi.equals("Blackjack")) {
+			System.out.println("Asiakas " + asiakas.getId() + " poistuu Blackjackin jonosta.");
+		} else if (nimi.equals("Kraps")) {
+			System.out.println("Asiakas " + asiakas.getId() + " poistuu Krapsin jonosta.");
+		} else if (nimi.equals("Voittojen nostopiste")) {
+			System.out.println("Asiakas " + asiakas.getId() + " poistuu voittojen nostopisteen jonosta.");
+		}
+		System.out.println("Asiakkaalla " + asiakas.getId() + " poletteja yhteensä " + asiakas.getPolettimaara() + ".");
 		varattu = false;
 		return jono.poll(); 
 	}
@@ -59,25 +87,46 @@ public class Palvelupiste {
 		if (random == 1) {
 			System.out.println("Asiakas " + asiakas.getId() + " voitti pelin!");
 			asiakas.lisaaPoletteja(10);
-			System.out.println("Asiakkaalla " + asiakas.getId() + " poletteja yhteens채 " + asiakas.getPolettimaara());
+			System.out.println("Asiakkaalla " + asiakas.getId() + " poletteja yhteensä " + asiakas.getPolettimaara());
 			return true;
 		} else {
-			System.out.println("Asiakas " + asiakas.getId() + " h채visi pelin..");
+			System.out.println("Asiakas " + asiakas.getId() + " hävisi pelin..");
 			asiakas.vahennaPoletteja(10);
-			System.out.println("Asiakkaalla " + asiakas.getId() + " poletteja yhteens채 " + asiakas.getPolettimaara());
+			System.out.println("Asiakkaalla " + asiakas.getId() + " poletteja yhteensä " + asiakas.getPolettimaara());
 			return false;
 		}
 	}
 	
-	public void jatkaPelaamista(Asiakas a) {
-		jono.addFirst(a);
+	public void jatkaPelaamista(Asiakas asiakas) {
+		// Asiakas poistetaan jonosta ja lisätään takaisin samalle paikalle
+		System.out.println("Asiakas " + asiakas.getId() + " jatkaa pelaamista.");
+		varattu = false;
+		jono.poll(); 
+		jono.addFirst(asiakas);
 	}
 	
-	public String toString() {
-		String string = "";
-		for (int i = 0; i < jono.size(); i++) {
-			string += jono.get(i).getId() + " ";
+	public void tulostaJononAsiakkaat() {
+
+		String asiakkaat = null;
+		int[] asiakkaatJonossa = new int[jono.size()];
+
+		if (nimi.equals("Palvelutiski")) {
+			asiakkaat = "Asiakkaat palvelutiskin jonossa: ";
+		} else if (nimi.equals("Ruletti")) {
+			asiakkaat = "Asiakkaat ruletin jonossa: ";
+		} else if (nimi.equals("Blackjack")) {
+			asiakkaat = "Asiakkaat Blackjackin jonossa: ";
+		} else if (nimi.equals("Kraps")) {
+			asiakkaat = "Asiakkaat Krapsin jonossa: ";
+		} else if (nimi.equals("Voittojen nostopiste")) {
+			asiakkaat = "Asiakkaat voittojen nostopisteen jonossa: ";
 		}
-		return string;
+
+		for (int i = 0; i < jono.size(); i++) {
+			asiakkaatJonossa[i] = jono.get(i).getId();
+		}
+
+		System.out.println(asiakkaat + Arrays.toString(asiakkaatJonossa).replace("[", "").replace("]", "") + ".");
 	}
+	
 }

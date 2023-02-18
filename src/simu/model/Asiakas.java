@@ -19,7 +19,7 @@ public class Asiakas {
 	public Asiakas() {
 	    id = i++;
 		saapumisaika = Kello.getInstance().getAika();
-		Trace.out(Trace.Level.INFO, "Uusi asiakas: " + id + ": " + saapumisaika);
+		Trace.out(Trace.Level.INFO, "Uusi asiakas: " + id + ": " + String.format("%.02f", saapumisaika));
 	}
 
 	public int getId() {
@@ -43,19 +43,23 @@ public class Asiakas {
 	}
 	
 	public void raportti() {
-		Trace.out(Trace.Level.INFO, "Asiakas " + id + " saapui:" +saapumisaika);
-		Trace.out(Trace.Level.INFO,"Asiakas " + id + " poistui:" +poistumisaika);
-		Trace.out(Trace.Level.INFO,"Asiakas " + id + " viipyi:" +(poistumisaika-saapumisaika));
+		Trace.out(Trace.Level.INFO, "Asiakas " + id + " saapui: " + String.format("%.02f", saapumisaika));
+		Trace.out(Trace.Level.INFO, "Asiakas " + id + " poistui: " + String.format("%.02f", poistumisaika));
+		Trace.out(Trace.Level.INFO, "Asiakas " + id + " viipyi: " + String.format("%.02f", (poistumisaika-saapumisaika)));
 		sum += (poistumisaika-saapumisaika);
 		double keskiarvo = sum/id;
 		System.out.println("Asiakkaiden läpimenoaikojen keskiarvo "+ keskiarvo);
 	}
 	
-	public void setPolettimaara() {
+	public void annaPoletteja() {
 		// Arvotaan poletteja 10-100 väliltä
 		int polettimaara = (int) Math.floor(Math.random() * (100 - 10 + 1) + 10);
 		nykyinenPolettimaara = polettimaara;
 		alkuperainenPolettimaara = nykyinenPolettimaara;
+	}
+	
+	public int getAlkuperainenPolettimaara() {
+		return alkuperainenPolettimaara;
 	}
 	
 	public int getPolettimaara() {
