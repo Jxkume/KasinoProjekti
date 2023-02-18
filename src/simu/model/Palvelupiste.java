@@ -18,6 +18,8 @@ public class Palvelupiste {
 	private Tapahtumalista tapahtumalista;
 	private TapahtumanTyyppi skeduloitavanTapahtumanTyyppi;
 	private String nimi;
+	private int id;
+	private static int i = 1;
 	
 	//JonoStrategia strategia; //optio: asiakkaiden j채rjestys
 	
@@ -28,6 +30,7 @@ public class Palvelupiste {
 		this.generator = generator;
 		this.skeduloitavanTapahtumanTyyppi = tyyppi;
 		this.nimi = nimi;
+		id = i++;
 	}
 
 	public void lisaaJonoon(Asiakas asiakas) {   // Jonon 1. asiakas aina palvelussa
@@ -127,6 +130,10 @@ public class Palvelupiste {
 		}
 
 		System.out.println(asiakkaat + Arrays.toString(asiakkaatJonossa).replace("[", "").replace("]", "") + ".");
+	}
+	
+	public int getId() {
+		return id;
 	}
 	
 }

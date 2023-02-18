@@ -35,7 +35,6 @@ public class OmaMoottori extends Moottori {
 	
 	// Simulaation logiikka miten asiakkaat liikkuvat palvelupisteillä
 	// TO-DO: Tarkistetaan toimiiko tapahtumalista oikein - Valdo
-	// TO-DO: Anna palvelupisteelle id, Tapsa tietää miksi - Valdo
 	// TO-DO: Luodaanko asiakas oikeassa paikassa? Pitää tarkistaa - Valdo
 	// TO-DO: Asiakas voi mennä uuteen peliin eikä suoraan voittojen nostopisteelle - Valdo
 	// TO-DO: Asiakas voi hakea lisää poletteja palvelutiskiltä - Valdo
