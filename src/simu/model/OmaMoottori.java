@@ -34,7 +34,6 @@ public class OmaMoottori extends Moottori {
 	}
 	
 	// Simulaation logiikka miten asiakkaat liikkuvat palvelupisteillä
-	// TO-DO: Tarkistetaan toimiiko tapahtumalista oikein - Valdo
 	// TO-DO: Luodaanko asiakas oikeassa paikassa? Pitää tarkistaa - Valdo
 	// TO-DO: Asiakas voi mennä uuteen peliin eikä suoraan voittojen nostopisteelle - Valdo
 	// TO-DO: Asiakas voi hakea lisää poletteja palvelutiskiltä - Valdo
@@ -47,11 +46,10 @@ public class OmaMoottori extends Moottori {
 		int todennakoisyys;
 		int randomPeli;
 		
-		switch (t.getTyyppi()){
+		switch (t.getTyyppi()) {
 			
 			case ARR1:
-				asiakas = new Asiakas();
-				palvelupisteet[0].lisaaJonoon(asiakas);	
+				palvelupisteet[0].lisaaJonoon(new Asiakas());	
 		    	kontrolleri.visualisoiAsiakas(); // UUSI
 		    	palvelupisteet[0].tulostaJononAsiakkaat();
 		    	saapumisprosessi.generoiSeuraava();
@@ -60,30 +58,35 @@ public class OmaMoottori extends Moottori {
 				asiakas = palvelupisteet[0].getJono().getFirst();
 				// Asiakkaalle annetaan poletteja palvelutiskillä
 				asiakas.annaPoletteja();
-				palvelupisteet[0].otaJonosta(asiakas);
 				// Arvotaan luku väliltä 1-3
 				randomPeli = (int) Math.floor(Math.random() * (3 - 1 + 1) + 1);
 				if (randomPeli == 1) {
+					palvelupisteet[0].otaJonosta(asiakas);
 					palvelupisteet[1].lisaaJonoon(asiakas);
 					palvelupisteet[1].tulostaJononAsiakkaat();
 				} else if (randomPeli == 2) {
+					palvelupisteet[0].otaJonosta(asiakas);
 					palvelupisteet[2].lisaaJonoon(asiakas);
 					palvelupisteet[2].tulostaJononAsiakkaat();
 				} else {
+					palvelupisteet[0].otaJonosta(asiakas);
 					palvelupisteet[3].lisaaJonoon(asiakas);
 					palvelupisteet[3].tulostaJononAsiakkaat();
 				}
 				break;
 			case DEP2:
-				asiakas = palvelupisteet[1].getJono().getFirst();		
-				if (palvelupisteet[1].pelaa(asiakas) == true) {
-					// Arvotaan luku väliltä 1-4 ja lisätään siihen 1
-					todennakoisyys = (int) Math.floor(Math.random() * (4 - 1 + 1) + 1) + 1;
+				asiakas = palvelupisteet[1].getJono().getFirst();
+				// Arvotaan luku väliltä 1-4
+				todennakoisyys = (int) Math.floor(Math.random() * (4 - 1 + 1) + 1);
+				// Asiakas pelaa ja tarkistetaan voittiko vai hävisikö asiakas
+				if (palvelupisteet[1].voittikoAsiakas(asiakas)) {
+					// Lisätään lukuun 1
+					todennakoisyys += 1;
 				} else {
-					// Arvotaan luku väliltä 1-4 ja vähennetään siitä 1
-					todennakoisyys = (int) Math.floor(Math.random() * (4 - 1 + 1) + 1) - 1;
+					// Vähennetään luvusta 1
+					todennakoisyys -= 1;
 				}
-				// Jos todennäköisyys on 2 tai alle, asiakas poistuu pelistä kokonaan
+				// Jos todennäköisyys on 2 tai alle, asiakas poistuu hakemaan lisää poletteja tai voittojen nostopisteelle
 				if (todennakoisyys <= 2) {
 					palvelupisteet[1].otaJonosta(asiakas);
 					palvelupisteet[4].lisaaJonoon(asiakas);
@@ -91,17 +94,20 @@ public class OmaMoottori extends Moottori {
 				} else {
 					palvelupisteet[1].jatkaPelaamista(asiakas);
 				}
-				break;
+		   	   	break;
 			case DEP3:
-				asiakas = palvelupisteet[2].getJono().getFirst();		
-				if (palvelupisteet[2].pelaa(asiakas) == true) {
-					// Arvotaan luku väliltä 1-4 ja lisätään siihen 1
-					todennakoisyys = (int) Math.floor(Math.random() * (4 - 1 + 1) + 1) + 1;
+				asiakas = palvelupisteet[2].getJono().getFirst();
+				// Arvotaan luku väliltä 1-4
+				todennakoisyys = (int) Math.floor(Math.random() * (4 - 1 + 1) + 1);
+				// Asiakas pelaa ja tarkistetaan voittiko vai hävisikö asiakas
+				if (palvelupisteet[2].voittikoAsiakas(asiakas)) {
+					// Lisätään lukuun 1
+					todennakoisyys += 1;
 				} else {
-					// Arvotaan luku väliltä 1-4 ja vähennetään siitä 1
-					todennakoisyys = (int) Math.floor(Math.random() * (4 - 1 + 1) + 1) - 1;
+					// Vähennetään luvusta 1
+					todennakoisyys -= 1;
 				}
-				// Jos todennäköisyys on 2 tai alle, asiakas poistuu pelistä kokonaan
+				// Jos todennäköisyys on 2 tai alle, asiakas poistuu voittojen nostopisteelle
 				if (todennakoisyys <= 2) {
 					palvelupisteet[2].otaJonosta(asiakas);
 					palvelupisteet[4].lisaaJonoon(asiakas);
@@ -109,17 +115,20 @@ public class OmaMoottori extends Moottori {
 				} else {
 					palvelupisteet[2].jatkaPelaamista(asiakas);
 				}
-		   	   	break;  
+		   	   	break;
 			case DEP4:
-				asiakas = palvelupisteet[3].getJono().getFirst();		
-				if (palvelupisteet[3].pelaa(asiakas) == true) {
-					// Arvotaan luku väliltä 1-4 ja lisätään siihen 1
-					todennakoisyys = (int) Math.floor(Math.random() * (4 - 1 + 1) + 1) + 1;
+				asiakas = palvelupisteet[3].getJono().getFirst();
+				// Arvotaan luku väliltä 1-4
+				todennakoisyys = (int) Math.floor(Math.random() * (4 - 1 + 1) + 1);
+				// Asiakas pelaa ja tarkistetaan voittiko vai hävisikö asiakas
+				if (palvelupisteet[3].voittikoAsiakas(asiakas)) {
+					// Lisätään lukuun 1
+					todennakoisyys += 1;
 				} else {
-					// Arvotaan luku väliltä 1-4 ja vähennetään siitä 1
-					todennakoisyys = (int) Math.floor(Math.random() * (4 - 1 + 1) + 1) - 1;
+					// Vähennetään luvusta 1
+					todennakoisyys -= 1;
 				}
-				// Jos todennäköisyys on 2 tai alle, asiakas poistuu pelistä kokonaan
+				// Jos todennäköisyys on 2 tai alle, asiakas poistuu hakemaan lisää poletteja tai voittojen nostopisteelle
 				if (todennakoisyys <= 2) {
 					palvelupisteet[3].otaJonosta(asiakas);
 					palvelupisteet[4].lisaaJonoon(asiakas);
@@ -127,7 +136,7 @@ public class OmaMoottori extends Moottori {
 				} else {
 					palvelupisteet[3].jatkaPelaamista(asiakas);
 				}
-		   	   	break;  
+		   	   	break;
 			case DEP5: 
 				asiakas = palvelupisteet[4].getJono().getFirst(); 
 		    	palvelupisteet[4].otaJonosta(asiakas);

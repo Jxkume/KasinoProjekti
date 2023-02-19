@@ -13,7 +13,7 @@ public class Asiakas {
 	private int id;
 	private static int i = 1;
 	private static long sum = 0;
-	private int alkuperainenPolettimaara;
+	private int alkuperainenPolettimaara = 0;
 	private int nykyinenPolettimaara;
 	
 	public Asiakas() {
@@ -52,17 +52,24 @@ public class Asiakas {
 	}
 	
 	public void annaPoletteja() {
-		// Arvotaan poletteja 10-100 väliltä
-		int polettimaara = (int) Math.floor(Math.random() * (100 - 10 + 1) + 10);
-		nykyinenPolettimaara = polettimaara;
-		alkuperainenPolettimaara = nykyinenPolettimaara;
+		int polettimaara;
+		if (alkuperainenPolettimaara == 0) { // Poletteja annetaan ensimmäisen kerran
+			// Arvotaan poletteja 1-10 väliltä ja kerrotaan se 10:llä
+			polettimaara = (int) Math.floor(Math.random() * (10 - 1 + 1) + 1) * 10;
+			nykyinenPolettimaara = polettimaara;
+			alkuperainenPolettimaara = nykyinenPolettimaara;
+		} else {
+			// Arvotaan poletteja 1-10 väliltä ja kerrotaan se 10:llä
+			polettimaara = (int) Math.floor(Math.random() * (10 - 1 + 1) + 1) * 10;
+			nykyinenPolettimaara += polettimaara;
+		}
 	}
 	
 	public int getAlkuperainenPolettimaara() {
 		return alkuperainenPolettimaara;
 	}
 	
-	public int getPolettimaara() {
+	public int getNykyinenPolettimaara() {
 		return nykyinenPolettimaara;
 	}
 

@@ -53,6 +53,7 @@ public class Palvelupiste {
 		
 		if (nimi.equals("Palvelutiski")) {
 			System.out.println("Asiakas " + asiakas.getId() + " poistuu palvelutiskin jonosta.");
+			System.out.println("Asiakkaalla " + asiakas.getId() + " on poletteja yhteensä " + asiakas.getNykyinenPolettimaara() + ".");
 		} else if (nimi.equals("Ruletti")) {
 			System.out.println("Asiakas " + asiakas.getId() + " poistuu ruletin jonosta.");
 		} else if (nimi.equals("Blackjack")) {
@@ -61,8 +62,14 @@ public class Palvelupiste {
 			System.out.println("Asiakas " + asiakas.getId() + " poistuu Krapsin jonosta.");
 		} else if (nimi.equals("Voittojen nostopiste")) {
 			System.out.println("Asiakas " + asiakas.getId() + " poistuu voittojen nostopisteen jonosta.");
+			if (asiakas.getNykyinenPolettimaara() > asiakas.getAlkuperainenPolettimaara()) {
+				System.out.println("Asiakas " + asiakas.getId() + " voitti poletteja kasinolla yhteensä " + (asiakas.getNykyinenPolettimaara() - asiakas.getAlkuperainenPolettimaara()) + ".");
+			} else if (asiakas.getNykyinenPolettimaara() < asiakas.getAlkuperainenPolettimaara()) {
+				System.out.println("Asiakas " + asiakas.getId() + " hävisi poletteja kasinolla yhteensä " + (asiakas.getAlkuperainenPolettimaara() - asiakas.getNykyinenPolettimaara()) + ".");
+			} else {
+				System.out.println("Asiakas " + asiakas.getId() + " ei voittanut tai hävinnyt poletteja kasinolla.");
+			}
 		}
-		System.out.println("Asiakkaalla " + asiakas.getId() + " poletteja yhteensä " + asiakas.getPolettimaara() + ".");
 		varattu = false;
 		return jono.poll(); 
 	}
@@ -85,17 +92,17 @@ public class Palvelupiste {
 		return jono;
 	}
 	
-	public boolean pelaa(Asiakas asiakas) {
+	public boolean voittikoAsiakas(Asiakas asiakas) {
 		int random = (int) Math.floor(Math.random() * (2 - 1 + 1) + 1);
 		if (random == 1) {
 			System.out.println("Asiakas " + asiakas.getId() + " voitti pelin!");
 			asiakas.lisaaPoletteja(10);
-			System.out.println("Asiakkaalla " + asiakas.getId() + " poletteja yhteensä " + asiakas.getPolettimaara());
+			System.out.println("Asiakkaalla " + asiakas.getId() + " poletteja yhteensä " + asiakas.getNykyinenPolettimaara() + ".");
 			return true;
 		} else {
-			System.out.println("Asiakas " + asiakas.getId() + " hävisi pelin..");
+			System.out.println("Asiakas " + asiakas.getId() + " hävisi pelin.");
 			asiakas.vahennaPoletteja(10);
-			System.out.println("Asiakkaalla " + asiakas.getId() + " poletteja yhteensä " + asiakas.getPolettimaara());
+			System.out.println("Asiakkaalla " + asiakas.getId() + " poletteja yhteensä " + asiakas.getNykyinenPolettimaara() + ".");
 			return false;
 		}
 	}
