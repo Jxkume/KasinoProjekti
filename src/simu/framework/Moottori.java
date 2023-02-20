@@ -48,8 +48,9 @@ public abstract class Moottori extends Thread implements IMoottori {  // UUDET M
 	public void run() { // Entinen aja()
 		alustukset(); // luodaan mm. ensimmäinen tapahtuma
 		while (simuloidaan()) {
-			viive(); // UUSI
 			kello.setAika(nykyaika());
+			Trace.out(Trace.Level.INFO, "\nKello on: " + String.format("%.02f", kello.getAika()));
+			viive(); 
 			suoritaBTapahtumat();
 			yritaCTapahtumat();
 		}
@@ -77,7 +78,6 @@ public abstract class Moottori extends Thread implements IMoottori {  // UUDET M
 	}
 	
 	private boolean simuloidaan() {
-		Trace.out(Trace.Level.INFO, "\nKello on: " + String.format("%.02f", kello.getAika()));
 		return kello.getAika() < simulointiaika;
 	}
 	

@@ -23,9 +23,9 @@ public class OmaMoottori extends Moottori {
 		// MUISTUTUS: Jakaumat on pakko olla samat palvelupisteille, ettei jonot kasaannu!!!!!
 		palvelupisteet = new Palvelupiste[5];
 		palvelupisteet[0] = new Palvelupiste(new Normal(5,3), tapahtumalista, TapahtumanTyyppi.DEP1, "Palvelutiski");
-		palvelupisteet[1] = new Palvelupiste(new Normal(5,3), tapahtumalista, TapahtumanTyyppi.DEP2, "Ruletti");
-		palvelupisteet[2] = new Palvelupiste(new Normal(5,3), tapahtumalista, TapahtumanTyyppi.DEP3, "Blackjack");
-		palvelupisteet[3] = new Palvelupiste(new Normal(5,3), tapahtumalista, TapahtumanTyyppi.DEP4, "Kraps");
+		palvelupisteet[1] = new Palvelupiste(new Normal(6,3), tapahtumalista, TapahtumanTyyppi.DEP2, "Ruletti");
+		palvelupisteet[2] = new Palvelupiste(new Normal(7,3), tapahtumalista, TapahtumanTyyppi.DEP3, "Blackjack");
+		palvelupisteet[3] = new Palvelupiste(new Normal(4,3), tapahtumalista, TapahtumanTyyppi.DEP4, "Kraps");
 		palvelupisteet[4] = new Palvelupiste(new Normal(5,3), tapahtumalista, TapahtumanTyyppi.DEP5, "Voittojen nostopiste");
 	}
 
@@ -35,19 +35,21 @@ public class OmaMoottori extends Moottori {
 	}
 	
 	// Simulaation logiikka miten asiakkaat liikkuvat palvelupisteillä
-	// TO-DO: Luodaanko asiakas oikeassa paikassa? Pitää tarkistaa - Valdo
 	// TO-DO: Asiakkaalle pitää antaa voitot ja pitää laskea paljon kasino teki voittoa/tappiota. - Valdo
-	// TO-DO: Polettien laskeminen pitää tarkistaa, meneekö oikein? Pitää selvittää miten polettien hakeminen uudestaan vaikuttaa laskuihin. - Valdo
+	// TO-DO: Loppuraportti - Tapio
+	// TO-DO: Tulosteet kuntoon - Tapio
+	// TO-DO: Opettele Trace - Tapio
+	
 	@Override
 	protected void suoritaTapahtuma(Tapahtuma t){  // B-vaiheen tapahtumat
 
 		Asiakas asiakas;
 		// Arvotaan luku välillä 1-4
 		int todennakoisyys = (int) Math.floor(Math.random() * (4 - 1 + 1) + 1);
-		// Arvotaan luku väliltä 1-3
-		int randomPeli = (int) Math.floor(Math.random() * (3 - 1 + 1) + 1);
-		// Arvotaan luku välillä 1-4
-		int randomPalvelupiste = (int) Math.floor(Math.random() * (4 - 1 + 1) + 1);
+		// Arvotaan luku välillä 1-3
+		int randomPalvelupiste = (int) Math.floor(Math.random() * (3 - 1 + 1) + 1);
+		
+		int kotiinko = (int) Math.floor(Math.random() * (2 - 1 + 1) + 1);
 		
 		switch (t.getTyyppi()) {
 			
@@ -62,11 +64,11 @@ public class OmaMoottori extends Moottori {
 				asiakas = palvelupisteet[0].getJono().getFirst();
 				// Asiakkaalle annetaan poletteja palvelutiskillä
 				asiakas.annaPoletteja();
-				if (randomPeli == 1) {
+				if (randomPalvelupiste == 1) {
 					palvelupisteet[0].otaJonosta(asiakas);
 					palvelupisteet[1].lisaaJonoon(asiakas);
 					palvelupisteet[1].tulostaJononAsiakkaat();
-				} else if (randomPeli == 2) {
+				} else if (randomPalvelupiste == 2) {
 					palvelupisteet[0].otaJonosta(asiakas);
 					palvelupisteet[2].lisaaJonoon(asiakas);
 					palvelupisteet[2].tulostaJononAsiakkaat();
@@ -95,8 +97,8 @@ public class OmaMoottori extends Moottori {
 					palvelupisteet[0].tulostaJononAsiakkaat();
 					break;
 				}
-				// Jos todennäköisyys on 2 tai alle, asiakas poistuu uuteen peliin, hakemaan lisää poletteja tai voittojen nostopisteelle
-				if (todennakoisyys <= 2) {
+				// Jos todennäköisyys on 2 tai alle, asiakas poistuu uuteen peliin tai voittojen nostopisteelle
+				if (todennakoisyys <= 2 && asiakas.getNykyinenPolettimaara() >= 10) {
 					if (randomPalvelupiste == 1) {
 						palvelupisteet[1].otaJonosta(asiakas);
 						palvelupisteet[2].lisaaJonoon(asiakas);
@@ -105,10 +107,6 @@ public class OmaMoottori extends Moottori {
 						palvelupisteet[1].otaJonosta(asiakas);
 						palvelupisteet[3].lisaaJonoon(asiakas);
 						palvelupisteet[3].tulostaJononAsiakkaat();
-					} else if (randomPalvelupiste == 3) {
-						palvelupisteet[1].otaJonosta(asiakas);
-						palvelupisteet[0].lisaaJonoon(asiakas);
-						palvelupisteet[0].tulostaJononAsiakkaat();
 					} else {
 						palvelupisteet[1].otaJonosta(asiakas);
 						palvelupisteet[4].lisaaJonoon(asiakas);
@@ -117,12 +115,19 @@ public class OmaMoottori extends Moottori {
 				} else if (todennakoisyys >= 3 && asiakas.getNykyinenPolettimaara() >= 10) { // Asiakas voi jatkaa pelaamista vain, jos hänellä on vähintään 10 polettia
 					palvelupisteet[1].jatkaPelaamista(asiakas);
 				} else { // Asiakas hakee lisää poletteja
-					palvelupisteet[1].otaJonosta(asiakas);
-					palvelupisteet[0].lisaaJonoon(asiakas);
-					palvelupisteet[0].tulostaJononAsiakkaat();
+					if(kotiinko == 1) {
+						palvelupisteet[1].otaJonosta(asiakas);
+						palvelupisteet[0].lisaaJonoon(asiakas);
+						palvelupisteet[0].tulostaJononAsiakkaat();
+					} else {
+						palvelupisteet[1].otaJonosta(asiakas);
+						palvelupisteet[4].lisaaJonoon(asiakas);
+						palvelupisteet[4].tulostaJononAsiakkaat();
+					}
 				}
 		   	   	break;
-		   	   	
+		   	   
+				
 			case DEP3: // Asiakas lähtee kasinon Blackjackistä
 				asiakas = palvelupisteet[2].getJono().getFirst();
 				// Asiakkaalla pitää olla vähintään 10 polettia pelatakseen
@@ -142,7 +147,7 @@ public class OmaMoottori extends Moottori {
 					break;
 				}
 				// Jos todennäköisyys on 2 tai alle, asiakas poistuu uuteen peliin, hakemaan lisää poletteja tai voittojen nostopisteelle
-				if (todennakoisyys <= 2) {
+				if (todennakoisyys <= 2 && asiakas.getNykyinenPolettimaara() >= 10) {
 					if (randomPalvelupiste == 1) {
 						palvelupisteet[2].otaJonosta(asiakas);
 						palvelupisteet[1].lisaaJonoon(asiakas);
@@ -151,10 +156,6 @@ public class OmaMoottori extends Moottori {
 						palvelupisteet[2].otaJonosta(asiakas);
 						palvelupisteet[3].lisaaJonoon(asiakas);
 						palvelupisteet[3].tulostaJononAsiakkaat();
-					} else if (randomPalvelupiste == 3) {
-						palvelupisteet[2].otaJonosta(asiakas);
-						palvelupisteet[0].lisaaJonoon(asiakas);
-						palvelupisteet[0].tulostaJononAsiakkaat();
 					} else {
 						palvelupisteet[2].otaJonosta(asiakas);
 						palvelupisteet[4].lisaaJonoon(asiakas);
@@ -163,9 +164,15 @@ public class OmaMoottori extends Moottori {
 				} else if (todennakoisyys >= 3 && asiakas.getNykyinenPolettimaara() >= 10) { // Asiakas voi jatkaa pelaamista vain, jos hänellä on vähintään 10 polettia
 					palvelupisteet[2].jatkaPelaamista(asiakas);
 				} else { // Asiakas hakee lisää poletteja
-					palvelupisteet[2].otaJonosta(asiakas);
-					palvelupisteet[0].lisaaJonoon(asiakas);
-					palvelupisteet[0].tulostaJononAsiakkaat();
+					if(kotiinko == 1) {
+						palvelupisteet[2].otaJonosta(asiakas);
+						palvelupisteet[0].lisaaJonoon(asiakas);
+						palvelupisteet[0].tulostaJononAsiakkaat();
+					} else {
+						palvelupisteet[2].otaJonosta(asiakas);
+						palvelupisteet[4].lisaaJonoon(asiakas);
+						palvelupisteet[4].tulostaJononAsiakkaat();
+					}
 				}
 		   	   	break;
 		   	   	
@@ -188,7 +195,7 @@ public class OmaMoottori extends Moottori {
 					break;
 				}
 				// Jos todennäköisyys on 2 tai alle, asiakas poistuu uuteen peliin, hakemaan lisää poletteja tai voittojen nostopisteelle
-				if (todennakoisyys <= 2) {
+				if (todennakoisyys <= 2 && asiakas.getNykyinenPolettimaara() >= 10) {
 					if (randomPalvelupiste == 1) {
 						palvelupisteet[3].otaJonosta(asiakas);
 						palvelupisteet[1].lisaaJonoon(asiakas);
@@ -197,10 +204,6 @@ public class OmaMoottori extends Moottori {
 						palvelupisteet[3].otaJonosta(asiakas);
 						palvelupisteet[2].lisaaJonoon(asiakas);
 						palvelupisteet[2].tulostaJononAsiakkaat();
-					} else if (randomPalvelupiste == 3) {
-						palvelupisteet[3].otaJonosta(asiakas);
-						palvelupisteet[0].lisaaJonoon(asiakas);
-						palvelupisteet[0].tulostaJononAsiakkaat();
 					} else {
 						palvelupisteet[3].otaJonosta(asiakas);
 						palvelupisteet[4].lisaaJonoon(asiakas);
@@ -209,18 +212,37 @@ public class OmaMoottori extends Moottori {
 				} else if (todennakoisyys >= 3 && asiakas.getNykyinenPolettimaara() >= 10) { // Asiakas voi jatkaa pelaamista vain, jos hänellä on vähintään 10 polettia
 					palvelupisteet[3].jatkaPelaamista(asiakas);
 				} else { // Asiakas hakee lisää poletteja
-					palvelupisteet[3].otaJonosta(asiakas);
-					palvelupisteet[0].lisaaJonoon(asiakas);
-					palvelupisteet[0].tulostaJononAsiakkaat();
+					if(kotiinko == 1) {
+						palvelupisteet[3].otaJonosta(asiakas);
+						palvelupisteet[0].lisaaJonoon(asiakas);
+						palvelupisteet[0].tulostaJononAsiakkaat();
+					} else {
+						palvelupisteet[3].otaJonosta(asiakas);
+						palvelupisteet[4].lisaaJonoon(asiakas);
+						palvelupisteet[4].tulostaJononAsiakkaat();
+					}
 				}
 		   	   	break;
 		   	   	
 			case DEP5: // Asiakas lähtee kasinon voittojen nostopisteeltä
 				asiakas = palvelupisteet[4].getJono().getFirst(); 
+				int kaynnit[] = new int[4];
 		    	palvelupisteet[4].otaJonosta(asiakas);
 		    	System.out.println("Asiakas " + asiakas.getId() + " poistuu kasinolta.");
 				asiakas.setPoistumisaika(Kello.getInstance().getAika());
+				for(int i = 0; i < palvelupisteet.length; i++) {
+					for(int j = 0; j < palvelupisteet[i].getKaynteja().size(); j++) {
+						if(palvelupisteet[i].getKaynteja().get(j).getId() == asiakas.getId()) {
+							kaynnit[i]++;
+						}
+					}
+				}
 	        	asiakas.raportti();
+	        	System.out.println("Asiakas " + asiakas.getId() + " kävi palvelutiskillä " + kaynnit[0] + " kertaa.");
+	        	System.out.println("Asiakas " + asiakas.getId() + " kävi ruletissa " + kaynnit[1] + " kertaa.");
+	        	System.out.println("Asiakas " + asiakas.getId() + " kävi Blackjackissä " + kaynnit[2] + " kertaa.");
+	        	System.out.println("Asiakas " + asiakas.getId() + " kävi krapssissä " + kaynnit[3] + " kertaa.");
+	        	
 	        	break;
 		}	
 	}

@@ -1,5 +1,6 @@
 package simu.model;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 
@@ -18,8 +19,10 @@ public class Palvelupiste {
 	private Tapahtumalista tapahtumalista;
 	private TapahtumanTyyppi skeduloitavanTapahtumanTyyppi;
 	private String nimi;
-	private int id;
-	private static int i = 1;
+	private int palvellutAsiakkaat = 0;
+	private ArrayList<Asiakas> kaynteja;
+	
+	
 	
 	//JonoStrategia strategia; //optio: asiakkaiden j채rjestys
 	
@@ -30,7 +33,39 @@ public class Palvelupiste {
 		this.generator = generator;
 		this.skeduloitavanTapahtumanTyyppi = tyyppi;
 		this.nimi = nimi;
-		id = i++;
+		kaynteja = new ArrayList<>();
+	}
+
+	public ArrayList<Asiakas> getKaynteja() {
+		return kaynteja;
+	}
+
+	public void setKaynteja(ArrayList<Asiakas> kaynteja) {
+		this.kaynteja = kaynteja;
+	}
+
+	public ContinuousGenerator getGenerator() {
+		return generator;
+	}
+
+	public Tapahtumalista getTapahtumalista() {
+		return tapahtumalista;
+	}
+
+	public TapahtumanTyyppi getSkeduloitavanTapahtumanTyyppi() {
+		return skeduloitavanTapahtumanTyyppi;
+	}
+
+	public String getNimi() {
+		return nimi;
+	}
+
+	public int getPalvellutAsiakkaat() {
+		return palvellutAsiakkaat;
+	}
+
+	public boolean isVarattu() {
+		return varattu;
 	}
 
 	public void lisaaJonoon(Asiakas asiakas) {   // Jonon 1. asiakas aina palvelussa
@@ -51,17 +86,25 @@ public class Palvelupiste {
 
 	public Asiakas otaJonosta(Asiakas asiakas) {  // Poistetaan palvelussa ollut
 		
+		palvellutAsiakkaat++;
+		kaynteja.add(asiakas);
+		
 		if (nimi.equals("Palvelutiski")) {
 			System.out.println("Asiakas " + asiakas.getId() + " poistuu palvelutiskin jonosta.");
-			System.out.println("Asiakkaalla " + asiakas.getId() + " on poletteja yhteensä " + asiakas.getNykyinenPolettimaara() + ".");
+			System.out.println("Asiakkaalla " + asiakas.getId() + " poletteja yhteensä " + asiakas.getNykyinenPolettimaara() + ".");
+			System.out.println(nimi + " palvellut " + palvellutAsiakkaat + " asiakasta.");
 		} else if (nimi.equals("Ruletti")) {
 			System.out.println("Asiakas " + asiakas.getId() + " poistuu ruletin jonosta.");
+			System.out.println(nimi + " palvellut " + palvellutAsiakkaat + " asiakasta.");
 		} else if (nimi.equals("Blackjack")) {
 			System.out.println("Asiakas " + asiakas.getId() + " poistuu Blackjackin jonosta.");
+			System.out.println(nimi + " palvellut " + palvellutAsiakkaat + " asiakasta.");
 		} else if (nimi.equals("Kraps")) {
 			System.out.println("Asiakas " + asiakas.getId() + " poistuu Krapsin jonosta.");
+			System.out.println(nimi + " palvellut " + palvellutAsiakkaat + " asiakasta.");
 		} else if (nimi.equals("Voittojen nostopiste")) {
 			System.out.println("Asiakas " + asiakas.getId() + " poistuu voittojen nostopisteen jonosta.");
+			System.out.println(nimi + " palvellut " + palvellutAsiakkaat + " asiakasta.");
 			if (asiakas.getNykyinenPolettimaara() > asiakas.getAlkuperainenPolettimaara()) {
 				System.out.println("Asiakas " + asiakas.getId() + " voitti poletteja kasinolla yhteensä " + (asiakas.getNykyinenPolettimaara() - asiakas.getAlkuperainenPolettimaara()) + ".");
 			} else if (asiakas.getNykyinenPolettimaara() < asiakas.getAlkuperainenPolettimaara()) {
@@ -71,6 +114,7 @@ public class Palvelupiste {
 			}
 		}
 		varattu = false;
+		
 		return jono.poll(); 
 	}
 
@@ -111,8 +155,6 @@ public class Palvelupiste {
 		// Asiakas poistetaan jonosta ja lisätään takaisin samalle paikalle
 		System.out.println("Asiakas " + asiakas.getId() + " jatkaa pelaamista.");
 		varattu = false;
-		jono.poll(); 
-		jono.addFirst(asiakas);
 	}
 	
 	public void tulostaJononAsiakkaat() {
@@ -137,10 +179,6 @@ public class Palvelupiste {
 		}
 
 		System.out.println(asiakkaat + Arrays.toString(asiakkaatJonossa).replace("[", "").replace("]", "") + ".");
-	}
-	
-	public int getId() {
-		return id;
 	}
 	
 }

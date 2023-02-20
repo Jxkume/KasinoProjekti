@@ -14,7 +14,8 @@ public class Asiakas {
 	private static int i = 1;
 	private static long sum = 0;
 	private int alkuperainenPolettimaara = 0;
-	private int nykyinenPolettimaara;
+	private int nykyinenPolettimaara = 0;
+	
 	
 	public Asiakas() {
 	    id = i++;
@@ -48,21 +49,14 @@ public class Asiakas {
 		Trace.out(Trace.Level.INFO, "Asiakas " + id + " viipyi: " + String.format("%.02f", (poistumisaika-saapumisaika)));
 		sum += (poistumisaika-saapumisaika);
 		double keskiarvo = sum/id;
-		System.out.println("Asiakkaiden läpimenoaikojen keskiarvo "+ keskiarvo);
+		System.out.println("Asiakkaiden läpimenoaikojen keskiarvo tähän mennessä: "+ keskiarvo);
 	}
 	
 	public void annaPoletteja() {
 		int polettimaara;
-		if (alkuperainenPolettimaara == 0) { // Poletteja annetaan ensimmäisen kerran
-			// Arvotaan poletteja 1-10 väliltä ja kerrotaan se 10:llä
-			polettimaara = (int) Math.floor(Math.random() * (10 - 1 + 1) + 1) * 10;
-			nykyinenPolettimaara = polettimaara;
-			alkuperainenPolettimaara = nykyinenPolettimaara;
-		} else {
-			// Arvotaan poletteja 1-10 väliltä ja kerrotaan se 10:llä
-			polettimaara = (int) Math.floor(Math.random() * (10 - 1 + 1) + 1) * 10;
-			nykyinenPolettimaara += polettimaara;
-		}
+		polettimaara = (int) Math.floor(Math.random() * (10 - 1 + 1) + 1) * 10;
+		nykyinenPolettimaara += polettimaara;
+		alkuperainenPolettimaara += polettimaara;
 	}
 	
 	public int getAlkuperainenPolettimaara() {
