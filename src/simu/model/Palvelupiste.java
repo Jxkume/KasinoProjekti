@@ -8,6 +8,7 @@ import eduni.distributions.ContinuousGenerator;
 import simu.framework.Kello;
 import simu.framework.Tapahtuma;
 import simu.framework.Tapahtumalista;
+import simu.framework.Trace;
 
 // TODO:
 // Palvelupistekohtaiset toiminnallisuudet, laskutoimitukset (+ tarvittavat muuttujat) ja raportointi koodattava
@@ -20,6 +21,7 @@ public class Palvelupiste {
 	private TapahtumanTyyppi skeduloitavanTapahtumanTyyppi;
 	private String nimi;
 	private int palvellutAsiakkaat = 0;
+	private static int talonPoletit = 0;
 	private ArrayList<Asiakas> kaynteja;
 	
 	
@@ -141,11 +143,15 @@ public class Palvelupiste {
 		if (random == 1) {
 			System.out.println("Asiakas " + asiakas.getId() + " voitti pelin!");
 			asiakas.lisaaPoletteja(10);
+			// Uusi metodi - Jhon
+			laskeTalonHaviot(10);
 			System.out.println("Asiakkaalla " + asiakas.getId() + " poletteja yhteensä " + asiakas.getNykyinenPolettimaara() + ".");
 			return true;
 		} else {
 			System.out.println("Asiakas " + asiakas.getId() + " hävisi pelin.");
 			asiakas.vahennaPoletteja(10);
+			// Uusi metodi - Jhon
+			laskeTalonVoitot(10);
 			System.out.println("Asiakkaalla " + asiakas.getId() + " poletteja yhteensä " + asiakas.getNykyinenPolettimaara() + ".");
 			return false;
 		}
@@ -156,7 +162,25 @@ public class Palvelupiste {
 		System.out.println("Asiakas " + asiakas.getId() + " jatkaa pelaamista.");
 		varattu = false;
 	}
-	
+	// Uusi metodi - Jhon
+	public void laskeTalonVoitot(int polettimaara) {
+		
+		talonPoletit += polettimaara;
+	}
+	// Uusi metodi - Jhon
+	public void laskeTalonHaviot(int polettimaara) {
+		
+		talonPoletit -= polettimaara;
+	}
+	// Uusi metodi - Jhon (Parametriks laitoin asiakas että saadan sieltä annaPolettissa olevaa talonTappioMaara)
+	public void talonRaportti(Asiakas asiakas) {
+		int talonLopullinenPolettiMaara = talonPoletit += asiakas.getTalonTappioMaara();
+		if(talonLopullinenPolettiMaara < 0) {
+			Trace.out(Trace.Level.INFO,"Talo päättyi päivän " + talonLopullinenPolettiMaara + " polettien tappiolla");
+		} else {
+			Trace.out(Trace.Level.INFO,"Talo päättyi päivän " + talonLopullinenPolettiMaara + " polettien voitolla");
+		}
+	}
 	public void tulostaJononAsiakkaat() {
 
 		String asiakkaat = null;

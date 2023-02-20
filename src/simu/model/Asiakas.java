@@ -15,6 +15,8 @@ public class Asiakas {
 	private static long sum = 0;
 	private int alkuperainenPolettimaara = 0;
 	private int nykyinenPolettimaara = 0;
+	// Uusi parametri - Jhon
+	private static int talonTappioMaara;
 	
 	
 	public Asiakas() {
@@ -57,8 +59,13 @@ public class Asiakas {
 		polettimaara = (int) Math.floor(Math.random() * (10 - 1 + 1) + 1) * 10;
 		nykyinenPolettimaara += polettimaara;
 		alkuperainenPolettimaara += polettimaara;
+		// Uusi metodi - Jhon
+		talonTappioMaara -= polettimaara;
 	}
-	
+	// Uusi metodi - Jhon
+	public int getTalonTappioMaara() {
+		return talonTappioMaara;
+	}
 	public int getAlkuperainenPolettimaara() {
 		return alkuperainenPolettimaara;
 	}

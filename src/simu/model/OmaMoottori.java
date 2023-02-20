@@ -35,7 +35,7 @@ public class OmaMoottori extends Moottori {
 	}
 	
 	// Simulaation logiikka miten asiakkaat liikkuvat palvelupisteillä
-	// TO-DO: Asiakkaalle pitää antaa voitot ja pitää laskea paljon kasino teki voittoa/tappiota. - Valdo
+	// TO-DO: Asiakkaalle pitää antaa voitot - Valdo
 	// TO-DO: Loppuraportti - Tapio
 	// TO-DO: Tulosteet kuntoon - Tapio
 	// TO-DO: Opettele Trace - Tapio
@@ -246,12 +246,13 @@ public class OmaMoottori extends Moottori {
 
 	@Override
 	protected void tulokset() {
-		
+		// Uudet metodit - Jhon
+		Asiakas asiakas = palvelupisteet[4].getJono().getFirst();
+		palvelupisteet[4].talonRaportti(asiakas);
 		// VANHAA tekstipohjaista
 		// System.out.println("Simulointi päättyi kello " + Kello.getInstance().getAika());
 		// System.out.println("Tulokset ... puuttuvat vielä");
-		
-		// UUTTA graafista
+		// UUTTA graafisa
 		kontrolleri.naytaLoppuaika(Kello.getInstance().getAika());
 		
 	}
