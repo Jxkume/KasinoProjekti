@@ -51,13 +51,14 @@ public class OmaMoottori extends Moottori {
 		
 		switch (t.getTyyppi()) {
 			
-			case ARR1:
+			case ARR1: // Asiakas saapuu kasinoon
 				palvelupisteet[0].lisaaJonoon(new Asiakas());	
 		    	kontrolleri.visualisoiAsiakas(); // UUSI
 		    	palvelupisteet[0].tulostaJononAsiakkaat();
 		    	saapumisprosessi.generoiSeuraava();
 				break;
-			case DEP1:
+				
+			case DEP1: // Asiakas lähtee kasinon palvelutiskiltä
 				asiakas = palvelupisteet[0].getJono().getFirst();
 				// Asiakkaalle annetaan poletteja palvelutiskillä
 				asiakas.annaPoletteja();
@@ -75,7 +76,8 @@ public class OmaMoottori extends Moottori {
 					palvelupisteet[3].tulostaJononAsiakkaat();
 				}
 				break;
-			case DEP2:
+				
+			case DEP2: // Asiakas lähtee kasinon ruletista
 				asiakas = palvelupisteet[1].getJono().getFirst();
 				// Asiakkaalla pitää olla vähintään 10 polettia pelatakseen
 				if (asiakas.getNykyinenPolettimaara() >= 10) {
@@ -120,7 +122,8 @@ public class OmaMoottori extends Moottori {
 					palvelupisteet[0].tulostaJononAsiakkaat();
 				}
 		   	   	break;
-			case DEP3:
+		   	   	
+			case DEP3: // Asiakas lähtee kasinon Blackjackistä
 				asiakas = palvelupisteet[2].getJono().getFirst();
 				// Asiakkaalla pitää olla vähintään 10 polettia pelatakseen
 				if (asiakas.getNykyinenPolettimaara() >= 10) {
@@ -165,7 +168,8 @@ public class OmaMoottori extends Moottori {
 					palvelupisteet[0].tulostaJononAsiakkaat();
 				}
 		   	   	break;
-			case DEP4:
+		   	   	
+			case DEP4: // Asiakas lähtee kasinon Krapsistä
 				asiakas = palvelupisteet[3].getJono().getFirst();
 				// Asiakkaalla pitää olla vähintään 10 polettia pelatakseen
 				if (asiakas.getNykyinenPolettimaara() >= 10) {
@@ -210,7 +214,8 @@ public class OmaMoottori extends Moottori {
 					palvelupisteet[0].tulostaJononAsiakkaat();
 				}
 		   	   	break;
-			case DEP5: 
+		   	   	
+			case DEP5: // Asiakas lähtee kasinon voittojen nostopisteeltä
 				asiakas = palvelupisteet[4].getJono().getFirst(); 
 		    	palvelupisteet[4].otaJonosta(asiakas);
 		    	System.out.println("Asiakas " + asiakas.getId() + " poistuu kasinolta.");
