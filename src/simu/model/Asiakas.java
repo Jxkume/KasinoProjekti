@@ -15,9 +15,6 @@ public class Asiakas {
 	private static long sum = 0;
 	private int alkuperainenPolettimaara = 0;
 	private int nykyinenPolettimaara = 0;
-	// Uusi parametri - Jhon
-	private static int talonTappioMaara;
-	
 	
 	public Asiakas() {
 	    id = i++;
@@ -51,7 +48,7 @@ public class Asiakas {
 		Trace.out(Trace.Level.INFO, "Asiakas " + id + " viipyi: " + String.format("%.02f", (poistumisaika-saapumisaika)));
 		sum += (poistumisaika-saapumisaika);
 		double keskiarvo = sum/id;
-		System.out.println("Asiakkaiden läpimenoaikojen keskiarvo tähän mennessä: "+ keskiarvo);
+		System.out.println("Asiakkaiden läpimenoaikojen keskiarvo tähän mennessä: " + keskiarvo);
 	}
 	
 	public void annaPoletteja() {
@@ -59,13 +56,8 @@ public class Asiakas {
 		polettimaara = (int) Math.floor(Math.random() * (10 - 1 + 1) + 1) * 10;
 		nykyinenPolettimaara += polettimaara;
 		alkuperainenPolettimaara += polettimaara;
-		// Uusi metodi - Jhon
-		talonTappioMaara -= polettimaara;
 	}
-	// Uusi metodi - Jhon
-	public int getTalonTappioMaara() {
-		return talonTappioMaara;
-	}
+	
 	public int getAlkuperainenPolettimaara() {
 		return alkuperainenPolettimaara;
 	}

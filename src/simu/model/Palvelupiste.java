@@ -21,11 +21,9 @@ public class Palvelupiste {
 	private TapahtumanTyyppi skeduloitavanTapahtumanTyyppi;
 	private String nimi;
 	private int palvellutAsiakkaat = 0;
-	private static int talonPoletit = 0;
+	private static int talonVoittoEuroina = 0;
 	private ArrayList<Asiakas> kaynteja;
-	
-	
-	
+
 	//JonoStrategia strategia; //optio: asiakkaiden j채rjestys
 	
 	private boolean varattu = false;
@@ -109,14 +107,21 @@ public class Palvelupiste {
 			System.out.println(nimi + " palvellut " + palvellutAsiakkaat + " asiakasta.");
 			if (asiakas.getNykyinenPolettimaara() > asiakas.getAlkuperainenPolettimaara()) {
 				System.out.println("Asiakas " + asiakas.getId() + " voitti poletteja kasinolla yhteensä " + (asiakas.getNykyinenPolettimaara() - asiakas.getAlkuperainenPolettimaara()) + ".");
+				talonVoittoEuroina -= (asiakas.getNykyinenPolettimaara() - asiakas.getAlkuperainenPolettimaara());
 			} else if (asiakas.getNykyinenPolettimaara() < asiakas.getAlkuperainenPolettimaara()) {
 				System.out.println("Asiakas " + asiakas.getId() + " hävisi poletteja kasinolla yhteensä " + (asiakas.getAlkuperainenPolettimaara() - asiakas.getNykyinenPolettimaara()) + ".");
+				talonVoittoEuroina += (asiakas.getAlkuperainenPolettimaara() - asiakas.getNykyinenPolettimaara());
 			} else {
 				System.out.println("Asiakas " + asiakas.getId() + " ei voittanut tai hävinnyt poletteja kasinolla.");
 			}
+			// Tulostetaan kasinon voitot
+			if (talonVoittoEuroina > 0) {
+				System.out.println("Kasino on tehnyt voittoa tähän mennessä yhteensä " + talonVoittoEuroina + " euroa.");
+			} else {
+				System.out.println("Kasino on tehnyt liiketappiota tähän mennessä yhteensä " + (talonVoittoEuroina * -1) + " euroa.");
+			}
 		}
 		varattu = false;
-		
 		return jono.poll(); 
 	}
 
@@ -147,93 +152,68 @@ public class Palvelupiste {
 		switch (nimi) {
 			
 			case "Ruletti":
-				// Ruletissa 1% mahdollisuus voittoon
-				todennakoisyysVoittoon = (int) Math.floor(Math.random() * (100 - 1 + 1) + 1);
+				// Ruletissa 5% mahdollisuus voittoon
+				todennakoisyysVoittoon = (int) Math.floor(Math.random() * (50 - 1 + 1) + 1);
 				if (todennakoisyysVoittoon == 1) {
 					// Voittosumma on 10-50 polettia.
 					polettimaara = (int) Math.floor(Math.random() * (5 - 1 + 1) + 1) * 10;
 					System.out.println("Asiakas " + asiakas.getId() + " voitti ruletissa " + polettimaara + " polettia!");
 					asiakas.lisaaPoletteja(polettimaara);
-					laskeTalonHaviot(polettimaara);
 					System.out.println("Asiakkaalla " + asiakas.getId() + " poletteja yhteensä " + asiakas.getNykyinenPolettimaara() + ".");
 					return true;
 				} else {
 					System.out.println("Asiakas " + asiakas.getId() + " hävisi pelin.");
 					// Asiakas häviää 10 polettia.
 					asiakas.vahennaPoletteja(10);
-					laskeTalonVoitot(10);
 					System.out.println("Asiakkaalla " + asiakas.getId() + " poletteja yhteensä " + asiakas.getNykyinenPolettimaara() + ".");
 					return false;
 				}
 				
 			case "Blackjack":
-				// Blackjackissa 1% mahdollisuus voittoon
-				todennakoisyysVoittoon = (int) Math.floor(Math.random() * (100 - 1 + 1) + 1);
+				// Blackjackissa 20% mahdollisuus voittoon
+				todennakoisyysVoittoon = (int) Math.floor(Math.random() * (5 - 1 + 1) + 1);
 				if (todennakoisyysVoittoon == 1) {
 					// Voittosumma on 10-50 polettia.
 					polettimaara = (int) Math.floor(Math.random() * (5 - 1 + 1) + 1) * 10;
 					System.out.println("Asiakas " + asiakas.getId() + " voitti Blackjackissä " + polettimaara + " polettia!");
 					asiakas.lisaaPoletteja(polettimaara);
-					laskeTalonHaviot(polettimaara);
 					System.out.println("Asiakkaalla " + asiakas.getId() + " poletteja yhteensä " + asiakas.getNykyinenPolettimaara() + ".");
 					return true;
 				} else {
 					System.out.println("Asiakas " + asiakas.getId() + " hävisi pelin.");
 					// Asiakas häviää 10 polettia.
 					asiakas.vahennaPoletteja(10);
-					laskeTalonVoitot(10);
 					System.out.println("Asiakkaalla " + asiakas.getId() + " poletteja yhteensä " + asiakas.getNykyinenPolettimaara() + ".");
 					return false;
 				}
 				
 			case "Kraps":
-				// Krapsissä 1% mahdollisuus voittoon
-				todennakoisyysVoittoon = (int) Math.floor(Math.random() * (100 - 1 + 1) + 1);
+				// Krapsissä 10% mahdollisuus voittoon
+				todennakoisyysVoittoon = (int) Math.floor(Math.random() * (10 - 1 + 1) + 1);
 				if (todennakoisyysVoittoon == 1) {
 					// Voittosumma on 10-50 polettia.
 					polettimaara = (int) Math.floor(Math.random() * (5 - 1 + 1) + 1) * 10;
 					System.out.println("Asiakas " + asiakas.getId() + " voitti Krapsissä " + polettimaara + " polettia!");
 					asiakas.lisaaPoletteja(polettimaara);
-					laskeTalonHaviot(polettimaara);
 					System.out.println("Asiakkaalla " + asiakas.getId() + " poletteja yhteensä " + asiakas.getNykyinenPolettimaara() + ".");
 					return true;
 				} else {
 					System.out.println("Asiakas " + asiakas.getId() + " hävisi pelin.");
 					// Asiakas häviää 10 polettia.
 					asiakas.vahennaPoletteja(10);
-					laskeTalonVoitot(10);
 					System.out.println("Asiakkaalla " + asiakas.getId() + " poletteja yhteensä " + asiakas.getNykyinenPolettimaara() + ".");
 					return false;
 				}
-
 		}
+		
 		return false;
 	}
 	
 	public void jatkaPelaamista(Asiakas asiakas) {
-		// Asiakas poistetaan jonosta ja lisätään takaisin samalle paikalle
 		System.out.println("Asiakas " + asiakas.getId() + " jatkaa pelaamista.");
 		varattu = false;
 	}
-	// Uusi metodi - Jhon
-	public void laskeTalonVoitot(int polettimaara) {
-		
-		talonPoletit += polettimaara;
-	}
-	// Uusi metodi - Jhon
-	public void laskeTalonHaviot(int polettimaara) {
-		
-		talonPoletit -= polettimaara;
-	}
-	// Uusi metodi - Jhon (Parametriks laitoin asiakas että saadan sieltä annaPolettissa olevaa talonTappioMaara)
-	public void talonRaportti(Asiakas asiakas) {
-		int talonLopullinenPolettiMaara = talonPoletit + asiakas.getTalonTappioMaara();
-		if(talonLopullinenPolettiMaara < 0) {
-			Trace.out(Trace.Level.INFO,"Talo päättyi päivän " + talonLopullinenPolettiMaara + " polettien tappiolla");
-		} else {
-			Trace.out(Trace.Level.INFO,"Talo päättyi päivän " + talonLopullinenPolettiMaara + " polettien voitolla");
-		}
-	}
+
 	public void tulostaJononAsiakkaat() {
 
 		String asiakkaat = null;
@@ -256,6 +236,10 @@ public class Palvelupiste {
 		}
 
 		System.out.println(asiakkaat + Arrays.toString(asiakkaatJonossa).replace("[", "").replace("]", "") + ".");
+	}
+	
+	public int getTalonVoittoEuroina() {
+		return talonVoittoEuroina;
 	}
 	
 }

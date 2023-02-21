@@ -248,16 +248,17 @@ public class OmaMoottori extends Moottori {
 
 	@Override
 	protected void tulokset() {
-		// Uudet metodit - Jhon
-		Asiakas asiakas = new Asiakas();
-        palvelupisteet[4].talonRaportti(asiakas);
 		// VANHAA tekstipohjaista
 		// System.out.println("Simulointi päättyi kello " + Kello.getInstance().getAika());
 		// System.out.println("Tulokset ... puuttuvat vielä");
 		// UUTTA graafisa
 		kontrolleri.naytaLoppuaika(Kello.getInstance().getAika());
+		if (palvelupisteet[4].getTalonVoittoEuroina() > 0) {
+			System.out.println("\nKasino teki voittoa ajassa " + String.format("%.02f", Kello.getInstance().getAika()) + " yhteensä " + palvelupisteet[4].getTalonVoittoEuroina() + " euroa.");
+		} else {
+			System.out.println("\nKasino teki liiketappiota ajassa " + String.format("%.02f", Kello.getInstance().getAika()) + " yhteensä " + (palvelupisteet[4].getTalonVoittoEuroina() * -1) + " euroa.");
+		}
 		
 	}
-
 	
 }
