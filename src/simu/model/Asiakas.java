@@ -51,7 +51,7 @@ public class Asiakas {
 		System.out.println("Asiakkaiden läpimenoaikojen keskiarvo tähän mennessä: " + keskiarvo);
 	}
 	
-	public void annaPoletteja() {
+	public void annaPolettejaPalvelutiskilla() {
 		int polettimaara;
 		polettimaara = (int) Math.floor(Math.random() * (10 - 1 + 1) + 1) * 10;
 		nykyinenPolettimaara += polettimaara;

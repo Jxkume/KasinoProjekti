@@ -35,21 +35,20 @@ public class OmaMoottori extends Moottori {
 	}
 	
 	// Simulaation logiikka miten asiakkaat liikkuvat palvelupisteillä
-	// TO-DO: Asiakkaalle pitää antaa voitot - Valdo
 	// TO-DO: Loppuraportti - Tapio
+	// TO-DO: Asiakaskohtainen raportti - Valdo
 	// TO-DO: Tulosteet kuntoon - Tapio
 	// TO-DO: Opettele Trace - Tapio
-	// TO-DO: Asiakkaiden pitää olla kauemmin kasinossa, että kasino voi tehdä voittoa? Tai sit keksiä joku parempi tapa, kasino ei tee voittoa tällä hetkellä. - Valdo
 	// TO-DO: Pitää miettiä peleille järkevät voittotodennäköisyydet ja voittosummat (voittikoAsiakas-metodi Palvelupiste-luokassa) - Valdo
 	@Override
 	protected void suoritaTapahtuma(Tapahtuma t){  // B-vaiheen tapahtumat
 
 		Asiakas asiakas;
-		// Arvotaan luku välillä 1-4
+		// Arvotaan luku väliltä 1-4
 		int todennakoisyys = (int) Math.floor(Math.random() * (4 - 1 + 1) + 1);
-		// Arvotaan luku välillä 1-3
+		// Arvotaan luku väliltä 1-3
 		int randomPalvelupiste = (int) Math.floor(Math.random() * (3 - 1 + 1) + 1);
-		
+		// Arvotaan luku väliltä 1-2
 		int kotiinko = (int) Math.floor(Math.random() * (2 - 1 + 1) + 1);
 		
 		switch (t.getTyyppi()) {
@@ -64,7 +63,7 @@ public class OmaMoottori extends Moottori {
 			case DEP1: // Asiakas lähtee kasinon palvelutiskiltä
 				asiakas = palvelupisteet[0].getJono().getFirst();
 				// Asiakkaalle annetaan poletteja palvelutiskillä
-				asiakas.annaPoletteja();
+				asiakas.annaPolettejaPalvelutiskilla();
 				if (randomPalvelupiste == 1) {
 					palvelupisteet[0].otaJonosta(asiakas);
 					palvelupisteet[1].lisaaJonoon(asiakas);
