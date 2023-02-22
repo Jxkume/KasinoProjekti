@@ -63,7 +63,7 @@ public class OmaMoottori extends Moottori {
 				break;
 				
 			case DEP1: // Asiakas lähtee kasinon palvelutiskiltä
-				asiakas = palvelupisteet[0].getJono().getFirst();
+				asiakas = palvelupisteet[0].getJononEnsimmainen();
 				// Asiakkaalle annetaan poletteja palvelutiskillä
 				asiakas.annaPolettejaPalvelutiskilla();
 				if (randomPalvelupiste == 1) {
@@ -82,7 +82,7 @@ public class OmaMoottori extends Moottori {
 				break;
 				
 			case DEP2: // Asiakas lähtee kasinon ruletista
-				asiakas = palvelupisteet[1].getJono().getFirst();
+				asiakas = palvelupisteet[1].getJononEnsimmainen();
 				// Asiakkaalla pitää olla vähintään 10 polettia pelatakseen
 				if (asiakas.getNykyinenPolettimaara() >= 10) {
 					// Asiakas pelaa ja tarkistetaan voittiko vai hävisikö asiakas
@@ -130,7 +130,7 @@ public class OmaMoottori extends Moottori {
 		   	   	break;
 		   	   
 			case DEP3: // Asiakas lähtee kasinon Blackjackistä
-				asiakas = palvelupisteet[2].getJono().getFirst();
+				asiakas = palvelupisteet[2].getJononEnsimmainen();
 				// Asiakkaalla pitää olla vähintään 10 polettia pelatakseen
 				if (asiakas.getNykyinenPolettimaara() >= 10) {
 					// Asiakas pelaa ja tarkistetaan voittiko vai hävisikö asiakas
@@ -178,7 +178,7 @@ public class OmaMoottori extends Moottori {
 		   	   	break;
 		   	   	
 			case DEP4: // Asiakas lähtee kasinon Krapsistä
-				asiakas = palvelupisteet[3].getJono().getFirst();
+				asiakas = palvelupisteet[3].getJononEnsimmainen();
 				// Asiakkaalla pitää olla vähintään 10 polettia pelatakseen
 				if (asiakas.getNykyinenPolettimaara() >= 10) {
 					// Asiakas pelaa ja tarkistetaan voittiko vai hävisikö asiakas
@@ -226,7 +226,7 @@ public class OmaMoottori extends Moottori {
 		   	   	break;
 		   	   	
 			case DEP5: // Asiakas lähtee kasinon voittojen nostopisteeltä
-				asiakas = palvelupisteet[4].getJono().getFirst(); 
+				asiakas = palvelupisteet[4].getJononEnsimmainen(); 
 				int kaynnit[] = new int[4];
 		    	palvelupisteet[4].otaJonosta(asiakas);
 		    	System.out.println("Asiakas " + asiakas.getId() + " poistuu kasinolta.");
@@ -267,6 +267,13 @@ public class OmaMoottori extends Moottori {
         System.out.println("Asiakkaat nosti voittoja voittojen nostopisteellä yhteensä " + palvelupisteet[4].getKaynteja().size() + " kertaa." );
 
         System.out.println("\nKasinolle saapui yhteensä " + asiakasLkm + " asiakasta.");
+        
+        System.out.println("Palvelutiskin suoritusteho oli " + (palvelupisteet[0].getSuoritusteho(getSimulointiaika()) * 100) + " prosenttia.");
+        System.out.println("Palvelutiskin käyttöaste oli " + (palvelupisteet[0].getKayttoaste(getSimulointiaika()) * 100) + " prosenttia.");
+        System.out.println("Palvelutiskin keskimääräinen palveluaika oli " + String.format("%.02f", palvelupisteet[0].getKeskimaarainenPalveluaika()) + ".");
+        System.out.println("Palvelutiskin kokonaisoleskeluaika oli " + String.format("%.02f", palvelupisteet[0].getKokonaisoleskeluaika()) + ".");
+        System.out.println("Palvelutiskin keskimääräinen läpimenoaika oli " + String.format("%.02f", palvelupisteet[0].getKeskimaarainenLapimenoaika()) + ".");
+        System.out.println("Palvelutiskin keskimääräinen jononpituus oli " + String.format("%.02f", palvelupisteet[0].getKeskimaarainenJononpituus(getSimulointiaika())) + " asiakasta.");
 	}
 	
 }

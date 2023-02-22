@@ -16,24 +16,22 @@ import simu.framework.Trace;
 public class Palvelupiste {
 
 	private LinkedList<Asiakas> jono = new LinkedList<Asiakas>(); // Tietorakennetoteutus
+	private ArrayList<Asiakas> kaynteja = new ArrayList<>();
 	private Kello kello = Kello.getInstance();
 	private ContinuousGenerator generator;
 	private Tapahtumalista tapahtumalista;
 	private TapahtumanTyyppi skeduloitavanTapahtumanTyyppi;
 	private String nimi;
-	private static int talonVoittoEuroina = 0;
-	private ArrayList<Asiakas> kaynteja;
-	private int palvellutAsiakkaat = 0;
+	private static int talonVoittoEuroina;
+	private int palvellutAsiakkaat;
 	private double suoritusteho;
-	
-	// TO-DO: Alhaalla olevat muuttujat ja niiden laskeminen oikein - Valdo
-	// private double aktiiviaika;
-	// private double kayttoaste; (prosentteina?)
-	// private double keskimaarainenPalveluaika;
-	// private double lapimenoaika;
-	// private double kokonaisoleskeluaika; (pitääkö olla static?)
-	// private double keskimaarainenLapimenoaika;
-	// private int keskimaarainenJononpituus;
+	private double aktiiviaika;
+	private double kayttoaste;
+	private double keskimaarainenPalveluaika;
+	private double lapimenoaika;
+	private double kokonaisoleskeluaika;
+	private double keskimaarainenLapimenoaika;
+	private double keskimaarainenJononpituus;
 	
 	//JonoStrategia strategia; //optio: asiakkaiden j채rjestys
 	private boolean varattu = false;
@@ -43,16 +41,33 @@ public class Palvelupiste {
 		this.generator = generator;
 		this.skeduloitavanTapahtumanTyyppi = tyyppi;
 		this.nimi = nimi;
-		kaynteja = new ArrayList<>();
 	}
 
 	public ArrayList<Asiakas> getKaynteja() {
 		return kaynteja;
 	}
 	
-	public void laskeSuoritusteho(double simulointiaika) {
+	public double getSuoritusteho(double simulointiaika) {
 		suoritusteho = palvellutAsiakkaat / simulointiaika;
-		System.out.println("Palvelupisteen suoritusteho on " + suoritusteho);
+		return suoritusteho;
+	}
+	
+	public double getKayttoaste(double simulointiaika) {
+		kayttoaste = aktiiviaika / simulointiaika;
+		return kayttoaste;
+	}
+	
+	public double getKeskimaarainenPalveluaika() {
+		keskimaarainenPalveluaika = aktiiviaika / palvellutAsiakkaat;
+		return keskimaarainenPalveluaika;
+	}
+	
+	public void laskeKokonaisoleskeluaika() {
+		kokonaisoleskeluaika += lapimenoaika;
+	}
+	
+	public double getKokonaisoleskeluaika() {
+		return kokonaisoleskeluaika;
 	}
 
 	public void setKaynteja(ArrayList<Asiakas> kaynteja) {
@@ -82,9 +97,33 @@ public class Palvelupiste {
 	public boolean isVarattu() {
 		return varattu;
 	}
+	
+	public double getAktiiviaika() {
+		return aktiiviaika;
+	}
+	
+	public void laskeLapimenoaika(Asiakas asiakas) {
+		lapimenoaika = asiakas.getPoistumisaikaJonosta() - asiakas.getSaapumisaikaJonoon();
+	}
+	
+	public double getLapimenoaika(Asiakas asiakas) {
+		return lapimenoaika;
+	}
+	
+	public double getKeskimaarainenLapimenoaika() {
+		keskimaarainenLapimenoaika = kokonaisoleskeluaika / palvellutAsiakkaat;
+		return keskimaarainenLapimenoaika;
+	}
+	
+	public double getKeskimaarainenJononpituus(double simulointiaika) {
+		keskimaarainenJononpituus = kokonaisoleskeluaika / simulointiaika;
+		return keskimaarainenJononpituus;
+	}
 
 	public void lisaaJonoon(Asiakas asiakas) {   // Jonon 1. asiakas aina palvelussa
 		
+		// Asetetaan asiakkaalle saapumisaika
+		asiakas.setSaapumisaikaJonoon(kello.getAika());
 		jono.add(asiakas);
 		
 		if (nimi.equals("Palvelutiski")) {
@@ -102,6 +141,12 @@ public class Palvelupiste {
 
 	public Asiakas otaJonosta(Asiakas asiakas) {  // Poistetaan palvelussa ollut
 		
+		// Asetetaan asiakkaalle poistumisaika
+		asiakas.setPoistumisaikaJonosta(kello.getAika());
+		// Lasketaan kyseisen asiakkaan läpimenoaika
+		laskeLapimenoaika(asiakas);
+		// Päivitetään kokonaisoleskeluaikaa
+		laskeKokonaisoleskeluaika();
 		palvellutAsiakkaat++;
 		kaynteja.add(asiakas);
 		
@@ -144,6 +189,7 @@ public class Palvelupiste {
 	public void aloitaPalvelu() {  //Aloitetaan uusi palvelu, asiakas on jonossa palvelun aikana
 		varattu = true;
 		double palveluaika = generator.sample();
+		aktiiviaika += palveluaika;
 		tapahtumalista.lisaa(new Tapahtuma(skeduloitavanTapahtumanTyyppi, Kello.getInstance().getAika()+palveluaika));
 	}
 
@@ -159,6 +205,10 @@ public class Palvelupiste {
 		return jono;
 	}
 	
+	public Asiakas getJononEnsimmainen() {
+		return jono.getFirst();
+	}
+	
 	public boolean voittikoAsiakas(Asiakas asiakas) {
 		
 		// Tässä jotain todennäköisyyksiä ja voittosummia peleihin, näitä voi vapaasti muutella - Valdo
@@ -168,8 +218,8 @@ public class Palvelupiste {
 		switch (nimi) {
 			
 			case "Ruletti":
-				// Ruletissa 5% mahdollisuus voittoon
-				todennakoisyysVoittoon = (int) Math.floor(Math.random() * (50 - 1 + 1) + 1);
+				// Ruletissa 50% mahdollisuus voittoon
+				todennakoisyysVoittoon = (int) Math.floor(Math.random() * (2 - 1 + 1) + 1);
 				if (todennakoisyysVoittoon == 1) {
 					// Voittosumma on 10-50 polettia.
 					polettimaara = (int) Math.floor(Math.random() * (5 - 1 + 1) + 1) * 10;

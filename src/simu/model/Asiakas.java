@@ -8,8 +8,10 @@ import simu.framework.Trace;
 // Asiakas koodataan simulointimallin edellyttämällä tavalla (data!)
 public class Asiakas {
 	
-	private double saapumisaika;
-	private double poistumisaika;
+	private double saapumisaika; // saapuminen Kasinoon
+	private double poistumisaika; // poistuminen Kasinosta
+	private double saapumisaikaJonoon;
+	private double poistumisaikaJonosta;
 	private int id;
 	private static int saapuneetAsiakkaat = 1;
 	private static long sum = 0;
@@ -44,6 +46,22 @@ public class Asiakas {
 
 	public void setSaapumisaika(double saapumisaika) {
 		this.saapumisaika = saapumisaika;
+	}
+	
+	public double getSaapumisaikaJonoon() {
+		return saapumisaikaJonoon;
+	}
+	
+	public void setSaapumisaikaJonoon(double saapumisaikaJonoon) {
+		this.saapumisaikaJonoon = saapumisaikaJonoon;
+	}
+	
+	public double getPoistumisaikaJonosta() {
+		return poistumisaikaJonosta;
+	}
+	
+	public void setPoistumisaikaJonosta(double poistumisaikaJonosta) {
+		this.poistumisaikaJonosta = poistumisaikaJonosta;
 	}
 	
 	public void raportti() {
