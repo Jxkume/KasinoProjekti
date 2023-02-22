@@ -11,19 +11,23 @@ public class Asiakas {
 	private double saapumisaika;
 	private double poistumisaika;
 	private int id;
-	private static int i = 1;
+	private static int saapuneetAsiakkaat = 1;
 	private static long sum = 0;
 	private int alkuperainenPolettimaara = 0;
 	private int nykyinenPolettimaara = 0;
 	
 	public Asiakas() {
-	    id = i++;
+	    id = saapuneetAsiakkaat++;
 		saapumisaika = Kello.getInstance().getAika();
 		Trace.out(Trace.Level.INFO, "Uusi asiakas: " + id + ": " + String.format("%.02f", saapumisaika));
 	}
 
 	public int getId() {
 		return id;
+	}
+	
+	public int getSaapuneetAsiakkaat() {
+		return saapuneetAsiakkaat;
 	}
 	
 	public double getPoistumisaika() {

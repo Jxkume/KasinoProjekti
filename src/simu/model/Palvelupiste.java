@@ -6,6 +6,7 @@ import java.util.LinkedList;
 
 import eduni.distributions.ContinuousGenerator;
 import simu.framework.Kello;
+import simu.framework.Moottori;
 import simu.framework.Tapahtuma;
 import simu.framework.Tapahtumalista;
 import simu.framework.Trace;
@@ -23,6 +24,7 @@ public class Palvelupiste {
 	private int palvellutAsiakkaat = 0;
 	private static int talonVoittoEuroina = 0;
 	private ArrayList<Asiakas> kaynteja;
+	private double suoritusteho;
 
 	//JonoStrategia strategia; //optio: asiakkaiden j채rjestys
 	
@@ -38,6 +40,11 @@ public class Palvelupiste {
 
 	public ArrayList<Asiakas> getKaynteja() {
 		return kaynteja;
+	}
+	
+	public void laskeSuoritusteho(double simulointiaika) {
+		suoritusteho = palvellutAsiakkaat / simulointiaika;
+		System.out.println("Palvelupisteen suoritusteho on " + suoritusteho);
 	}
 
 	public void setKaynteja(ArrayList<Asiakas> kaynteja) {

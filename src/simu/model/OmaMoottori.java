@@ -12,6 +12,7 @@ import simu.framework.Tapahtuma;
 public class OmaMoottori extends Moottori {
 	
 	private Saapumisprosessi saapumisprosessi;
+	private static int asiakasLkm = 0;
 	
 	public OmaMoottori(IKontrolleri kontrolleri) { // UUSI
 
@@ -54,7 +55,8 @@ public class OmaMoottori extends Moottori {
 		switch (t.getTyyppi()) {
 			
 			case ARR1: // Asiakas saapuu kasinoon
-				palvelupisteet[0].lisaaJonoon(new Asiakas());	
+				palvelupisteet[0].lisaaJonoon(new Asiakas());
+				asiakasLkm++;
 		    	kontrolleri.visualisoiAsiakas(); // UUSI
 		    	palvelupisteet[0].tulostaJononAsiakkaat();
 		    	saapumisprosessi.generoiSeuraava();
@@ -257,7 +259,13 @@ public class OmaMoottori extends Moottori {
 		} else {
 			System.out.println("\nKasino teki liiketappiota ajassa " + String.format("%.02f", Kello.getInstance().getAika()) + " yhteensä " + (palvelupisteet[4].getTalonVoittoEuroina() * -1) + " euroa.");
 		}
-		
+		System.out.println("Palvelutiski palveli yhteensä " + palvelupisteet[0].getKaynteja().size() + " asiakasta." );
+        System.out.println("Rulettia pelasi yhteensä " + palvelupisteet[1].getKaynteja().size() + " asiakasta." );
+        System.out.println("Blackjackiä pelasi yhteensä " + palvelupisteet[2].getKaynteja().size() + " asiakasta." );
+        System.out.println("Krapsiä pelasi yhteensä " + palvelupisteet[3].getKaynteja().size() + " asiakasta." );
+        System.out.println("Voittojen nostopiste palveli yhteensä " + palvelupisteet[4].getKaynteja().size() + " asiakasta." );
+
+        System.out.println("Kasinolle saapui yhteensä " + asiakasLkm + " asiakasta.");
 	}
 	
 }

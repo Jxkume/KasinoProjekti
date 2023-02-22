@@ -28,10 +28,14 @@ public abstract class Moottori extends Thread implements IMoottori {  // UUDET M
 		
 		
 	}
-
+	
 	@Override
 	public void setSimulointiaika(double aika) {
 		simulointiaika = aika;
+	}
+	
+	public double getSimulointiaika() {
+		return simulointiaika;
 	}
 	
 	@Override // UUSI
@@ -72,7 +76,6 @@ public abstract class Moottori extends Thread implements IMoottori {  // UUDET M
 		}
 	}
 
-	
 	private double nykyaika() {
 		return tapahtumalista.getSeuraavanAika();
 	}
@@ -80,8 +83,7 @@ public abstract class Moottori extends Thread implements IMoottori {  // UUDET M
 	private boolean simuloidaan() {
 		return kello.getAika() < simulointiaika;
 	}
-	
-			
+		
 	private void viive() { // UUSI
 		Trace.out(Trace.Level.INFO, "Viive " + viive);
 		try {
