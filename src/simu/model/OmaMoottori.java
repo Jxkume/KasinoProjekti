@@ -260,11 +260,11 @@ public class OmaMoottori extends Moottori {
 		} else {
 			System.out.println("\nKasino teki liiketappiota ajassa " + String.format("%.02f", Kello.getInstance().getAika()) + " yhteensä " + (palvelupisteet[4].getTalonVoittoEuroina() * -1) + " euroa.");
 		}
-		System.out.println("\nPalvelutiski palveli yhteensä " + palvelupisteet[0].getKaynteja().size() + " asiakasta." );
-        System.out.println("Rulettia pelasi yhteensä " + palvelupisteet[1].getKaynteja().size() + " asiakasta." );
-        System.out.println("Blackjackiä pelasi yhteensä " + palvelupisteet[2].getKaynteja().size() + " asiakasta." );
-        System.out.println("Krapsiä pelasi yhteensä " + palvelupisteet[3].getKaynteja().size() + " asiakasta." );
-        System.out.println("Voittojen nostopiste palveli yhteensä " + palvelupisteet[4].getKaynteja().size() + " asiakasta." );
+		System.out.println("\nPalvelutiski palveli asiakkaita yhteensä " + palvelupisteet[0].getKaynteja().size() + " kertaa." );
+        System.out.println("Rulettia pelattiin yhteensä " + palvelupisteet[1].getKaynteja().size() + " kertaa." );
+        System.out.println("Blackjackiä pelattiin yhteensä " + palvelupisteet[2].getKaynteja().size() + " kertaa." );
+        System.out.println("Krapsiä pelattiin yhteensä " + palvelupisteet[3].getKaynteja().size() + " kertaa." );
+        System.out.println("Asiakkaat nosti voittoja voittojen nostopisteellä yhteensä " + palvelupisteet[4].getKaynteja().size() + " kertaa." );
 
         System.out.println("\nKasinolle saapui yhteensä " + asiakasLkm + " asiakasta.");
 	}
