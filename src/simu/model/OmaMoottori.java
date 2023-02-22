@@ -50,7 +50,7 @@ public class OmaMoottori extends Moottori {
 		// Arvotaan luku väliltä 1-3
 		int randomPalvelupiste = (int) Math.floor(Math.random() * (3 - 1 + 1) + 1);
 		// Arvotaan luku väliltä 1-2
-		int kotiinko = (int) Math.floor(Math.random() * (2 - 1 + 1) + 1);
+		int lisaaPolettejaTaiVoitot = (int) Math.floor(Math.random() * (2 - 1 + 1) + 1);
 		
 		switch (t.getTyyppi()) {
 			
@@ -117,7 +117,7 @@ public class OmaMoottori extends Moottori {
 				} else if (todennakoisyys >= 3 && asiakas.getNykyinenPolettimaara() >= 10) { // Asiakas voi jatkaa pelaamista vain, jos hänellä on vähintään 10 polettia
 					palvelupisteet[1].jatkaPelaamista(asiakas);
 				} else { // Asiakas hakee lisää poletteja tai menee voittojen nostopisteelle
-					if (kotiinko == 1) {
+					if (lisaaPolettejaTaiVoitot == 1) {
 						palvelupisteet[1].otaJonosta(asiakas);
 						palvelupisteet[0].lisaaJonoon(asiakas);
 						palvelupisteet[0].tulostaJononAsiakkaat();
@@ -165,7 +165,7 @@ public class OmaMoottori extends Moottori {
 				} else if (todennakoisyys >= 3 && asiakas.getNykyinenPolettimaara() >= 10) { // Asiakas voi jatkaa pelaamista vain, jos hänellä on vähintään 10 polettia
 					palvelupisteet[2].jatkaPelaamista(asiakas);
 				} else { // Asiakas hakee lisää poletteja tai menee voittojen nostopisteelle
-					if (kotiinko == 1) {
+					if (lisaaPolettejaTaiVoitot == 1) {
 						palvelupisteet[2].otaJonosta(asiakas);
 						palvelupisteet[0].lisaaJonoon(asiakas);
 						palvelupisteet[0].tulostaJononAsiakkaat();
@@ -213,7 +213,7 @@ public class OmaMoottori extends Moottori {
 				} else if (todennakoisyys >= 3 && asiakas.getNykyinenPolettimaara() >= 10) { // Asiakas voi jatkaa pelaamista vain, jos hänellä on vähintään 10 polettia
 					palvelupisteet[3].jatkaPelaamista(asiakas);
 				} else { // Asiakas hakee lisää poletteja tai menee voittojen nostopisteelle
-					if (kotiinko == 1) {
+					if (lisaaPolettejaTaiVoitot == 1) {
 						palvelupisteet[3].otaJonosta(asiakas);
 						palvelupisteet[0].lisaaJonoon(asiakas);
 						palvelupisteet[0].tulostaJononAsiakkaat();
@@ -254,18 +254,19 @@ public class OmaMoottori extends Moottori {
 		// System.out.println("Tulokset ... puuttuvat vielä");
 		// UUTTA graafisa
 		kontrolleri.naytaLoppuaika(Kello.getInstance().getAika());
+		System.out.println("\n**SIMULOINTI PÄÄTTYY**");
 		if (palvelupisteet[4].getTalonVoittoEuroina() > 0) {
 			System.out.println("\nKasino teki voittoa ajassa " + String.format("%.02f", Kello.getInstance().getAika()) + " yhteensä " + palvelupisteet[4].getTalonVoittoEuroina() + " euroa.");
 		} else {
 			System.out.println("\nKasino teki liiketappiota ajassa " + String.format("%.02f", Kello.getInstance().getAika()) + " yhteensä " + (palvelupisteet[4].getTalonVoittoEuroina() * -1) + " euroa.");
 		}
-		System.out.println("Palvelutiski palveli yhteensä " + palvelupisteet[0].getKaynteja().size() + " asiakasta." );
+		System.out.println("\nPalvelutiski palveli yhteensä " + palvelupisteet[0].getKaynteja().size() + " asiakasta." );
         System.out.println("Rulettia pelasi yhteensä " + palvelupisteet[1].getKaynteja().size() + " asiakasta." );
         System.out.println("Blackjackiä pelasi yhteensä " + palvelupisteet[2].getKaynteja().size() + " asiakasta." );
         System.out.println("Krapsiä pelasi yhteensä " + palvelupisteet[3].getKaynteja().size() + " asiakasta." );
         System.out.println("Voittojen nostopiste palveli yhteensä " + palvelupisteet[4].getKaynteja().size() + " asiakasta." );
 
-        System.out.println("Kasinolle saapui yhteensä " + asiakasLkm + " asiakasta.");
+        System.out.println("\nKasinolle saapui yhteensä " + asiakasLkm + " asiakasta.");
 	}
 	
 }

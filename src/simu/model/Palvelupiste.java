@@ -16,18 +16,26 @@ import simu.framework.Trace;
 public class Palvelupiste {
 
 	private LinkedList<Asiakas> jono = new LinkedList<Asiakas>(); // Tietorakennetoteutus
-	
+	private Kello kello = Kello.getInstance();
 	private ContinuousGenerator generator;
 	private Tapahtumalista tapahtumalista;
 	private TapahtumanTyyppi skeduloitavanTapahtumanTyyppi;
 	private String nimi;
-	private int palvellutAsiakkaat = 0;
 	private static int talonVoittoEuroina = 0;
 	private ArrayList<Asiakas> kaynteja;
+	private int palvellutAsiakkaat = 0;
 	private double suoritusteho;
-
-	//JonoStrategia strategia; //optio: asiakkaiden j채rjestys
 	
+	// TO-DO: Alhaalla olevat muuttujat ja niiden laskeminen oikein - Valdo
+	// private double aktiiviaika;
+	// private double kayttoaste; (prosentteina?)
+	// private double keskimaarainenPalveluaika;
+	// private double lapimenoaika;
+	// private double kokonaisoleskeluaika; (pitääkö olla static?)
+	// private double keskimaarainenLapimenoaika;
+	// private int keskimaarainenJononpituus;
+	
+	//JonoStrategia strategia; //optio: asiakkaiden j채rjestys
 	private boolean varattu = false;
 
 	public Palvelupiste(ContinuousGenerator generator, Tapahtumalista tapahtumalista, TapahtumanTyyppi tyyppi, String nimi) {
@@ -78,6 +86,7 @@ public class Palvelupiste {
 	public void lisaaJonoon(Asiakas asiakas) {   // Jonon 1. asiakas aina palvelussa
 		
 		jono.add(asiakas);
+		
 		if (nimi.equals("Palvelutiski")) {
 			System.out.println("Asiakas " + asiakas.getId() + " saapuu palvelutiskin jonoon.");
 		} else if (nimi.equals("Ruletti")) {
