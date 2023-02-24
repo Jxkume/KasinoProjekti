@@ -22,6 +22,7 @@ public class Palvelupiste {
 	private Tapahtumalista tapahtumalista;
 	private TapahtumanTyyppi skeduloitavanTapahtumanTyyppi;
 	private String nimi;
+	
 	private static int talonVoittoEuroina;
 	private int palvellutAsiakkaat;
 	private double suoritusteho;
@@ -280,7 +281,7 @@ public class Palvelupiste {
 		varattu = false;
 	}
 
-	public void tulostaJononAsiakkaat() {
+	public String toString() {
 
 		String asiakkaat = null;
 		int[] asiakkaatJonossa = new int[jono.size()];
@@ -301,7 +302,7 @@ public class Palvelupiste {
 			asiakkaatJonossa[i] = jono.get(i).getId();
 		}
 
-		System.out.println(asiakkaat + Arrays.toString(asiakkaatJonossa).replace("[", "").replace("]", "") + ".");
+		return asiakkaat + Arrays.toString(asiakkaatJonossa).replace("[", "").replace("]", "") + ".";
 	}
 	
 	public int getTalonVoittoEuroina() {
