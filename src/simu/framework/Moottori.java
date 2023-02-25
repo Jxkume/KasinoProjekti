@@ -2,6 +2,7 @@ package simu.framework;
 
 import controller.IKontrolleri;
 import simu.model.Palvelupiste;
+import view.SimulaattorinPaaikkunaKontrolleri;
 
 public abstract class Moottori extends Thread implements IMoottori {  // UUDET MÄÄRITYKSET
 	
@@ -13,11 +14,12 @@ public abstract class Moottori extends Thread implements IMoottori {  // UUDET M
 	protected Tapahtumalista tapahtumalista;
 	protected Palvelupiste[] palvelupisteet;
 	
-	protected IKontrolleri kontrolleri; // UUSI
+	//protected IKontrolleri kontrolleri; // UUSI
+	protected SimulaattorinPaaikkunaKontrolleri kontrolleri;
 	
 
-	public Moottori(IKontrolleri kontrolleri) {  // UUSITTU
-		
+	//public Moottori(IKontrolleri kontrolleri) {  // UUSITTU
+	public Moottori(SimulaattorinPaaikkunaKontrolleri kontrolleri) {	
 		this.kontrolleri = kontrolleri;  //UUSI
 
 		kello = Kello.getInstance(); // Otetaan kello muuttujaan yksinkertaistamaan koodia

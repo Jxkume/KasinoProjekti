@@ -7,8 +7,10 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import simu.framework.Trace;
+import simu.framework.Trace.Level;
 
-public class SimulatorMain extends Application {
+public class SimulaattoriMain extends Application {
 
     private Stage primaryStage;
     private BorderPane rootLayout;
@@ -16,21 +18,19 @@ public class SimulatorMain extends Application {
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        this.primaryStage.setTitle("Simulaatio");
-
-        alustaRootLayout();
-
-        naytaSimulatorOverview();
+        this.primaryStage.setTitle("KasinoSimulaattori");
+        alustaSimulaattorinPaaikkunanPohja();
+        naytaSimulaattorinPaaikkuna();
     }
     
     /**
-     * Alustetaan RootLayout.
+     * Alustetaan simulaattorin pääikkunan pohja.
      */
-    public void alustaRootLayout() {
+    public void alustaSimulaattorinPaaikkunanPohja() {
         try {
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(SimulatorMain.class.getResource("/view/RootLayout.fxml"));
+            loader.setLocation(SimulaattoriMain.class.getResource("/view/SimulaattorinPaaikkunaPohja.fxml"));
             rootLayout = (BorderPane) loader.load();
             
             // Show the scene containing the root layout.
@@ -42,28 +42,28 @@ public class SimulatorMain extends Application {
         }
     }
 
+
     /**
-/**
- * Shows the person overview inside the root layout.
- */
-public void naytaSimulatorOverview() {
+     * Näytetään simulaattorin pääikkuna käyttäjälle.
+     */
+    public void naytaSimulaattorinPaaikkuna() {
     try {
         // Load person overview.
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(SimulatorMain.class.getResource("/view/SimulatorOverview.fxml"));
-        AnchorPane SimulatorOverview = (AnchorPane) loader.load();
+        loader.setLocation(SimulaattoriMain.class.getResource("/view/SimulaattorinPaaikkuna.fxml"));
+        AnchorPane SimulaattorinPaaikkuna = (AnchorPane) loader.load();
         
         // Set person overview into the center of root layout.
-        rootLayout.setCenter(SimulatorOverview);
+        rootLayout.setCenter(SimulaattorinPaaikkuna);
 
         // Give the controller access to the main app.
         //SimulatorOverviewController controller = loader.getController();
         //controller.setSimulatorMain(this);
 
-    } catch (IOException e) {
-        e.printStackTrace();
+    	} catch (IOException e) {
+    		e.printStackTrace();
+    	}
     }
-}
     
 	/**
 	 * Returns the main stage.
@@ -74,6 +74,10 @@ public void naytaSimulatorOverview() {
 	}
 
     public static void main(String[] args) {
+    	// Asetetaan Trace-level
+    	Trace.setTraceLevel(Level.INFO);
+    	// Käynnistetään simulaattori
         launch(args);
     }
+    
 }

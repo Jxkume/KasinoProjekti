@@ -7,6 +7,7 @@ import simu.framework.Kello;
 import simu.framework.Moottori;
 import simu.framework.Saapumisprosessi;
 import simu.framework.Tapahtuma;
+import view.SimulaattorinPaaikkunaKontrolleri;
 
 
 public class OmaMoottori extends Moottori {
@@ -14,7 +15,8 @@ public class OmaMoottori extends Moottori {
 	private Saapumisprosessi saapumisprosessi;
 	private static int asiakasLkm = 0;
 	
-	public OmaMoottori(IKontrolleri kontrolleri) { // UUSI
+	//public OmaMoottori(IKontrolleri kontrolleri) { // UUSI
+	public OmaMoottori(SimulaattorinPaaikkunaKontrolleri kontrolleri) {
 
 		super(kontrolleri); //UUSI
 		
@@ -57,7 +59,7 @@ public class OmaMoottori extends Moottori {
 			case ARR1: // Asiakas saapuu kasinoon
 				palvelupisteet[0].lisaaJonoon(new Asiakas());
 				asiakasLkm++;
-		    	kontrolleri.visualisoiAsiakas(); // UUSI
+		    	//kontrolleri.visualisoiAsiakas(); // UUSI
 		    	System.out.println(palvelupisteet[0]);
 		    	saapumisprosessi.generoiSeuraava();
 				break;
