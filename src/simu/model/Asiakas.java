@@ -69,8 +69,8 @@ public class Asiakas {
 		Trace.out(Trace.Level.INFO, "Asiakas " + id + " poistui: " + String.format("%.02f", poistumisaika));
 		Trace.out(Trace.Level.INFO, "Asiakas " + id + " viipyi: " + String.format("%.02f", (poistumisaika-saapumisaika)));
 		sum += (poistumisaika-saapumisaika);
-		double keskiarvo = sum/id;
-		System.out.println("Asiakkaiden läpimenoaikojen keskiarvo tähän mennessä: " + keskiarvo);
+		double keskiarvo = sum / id;
+		Trace.out(Trace.Level.INFO, "Asiakkaiden läpimenoaikojen keskiarvo tähän mennessä: " + keskiarvo);
 	}
 	
 	public void annaPolettejaPalvelutiskilla() {

@@ -7,6 +7,7 @@ import simu.framework.Kello;
 import simu.framework.Moottori;
 import simu.framework.Saapumisprosessi;
 import simu.framework.Tapahtuma;
+import simu.framework.Trace;
 import view.SimulaattorinPaaikkunaKontrolleri;
 
 
@@ -40,8 +41,6 @@ public class OmaMoottori extends Moottori {
 	// Simulaation logiikka miten asiakkaat liikkuvat palvelupisteillä
 	// TO-DO: Loppuraportti - Tapio
 	// TO-DO: Asiakaskohtainen raportti - Valdo
-	// TO-DO: Tulosteet kuntoon - Tapio
-	// TO-DO: Opettele Trace - Tapio
 	// TO-DO: Pitää miettiä peleille järkevät voittotodennäköisyydet ja voittosummat (voittikoAsiakas-metodi Palvelupiste-luokassa) - Valdo
 	@Override
 	protected void suoritaTapahtuma(Tapahtuma t){  // B-vaiheen tapahtumat
@@ -60,7 +59,7 @@ public class OmaMoottori extends Moottori {
 				palvelupisteet[0].lisaaJonoon(new Asiakas());
 				asiakasLkm++;
 		    	//kontrolleri.visualisoiAsiakas(); // UUSI
-		    	System.out.println(palvelupisteet[0]);
+				Trace.out(Trace.Level.INFO, palvelupisteet[0].toString());
 		    	saapumisprosessi.generoiSeuraava();
 				break;
 				
@@ -71,15 +70,15 @@ public class OmaMoottori extends Moottori {
 				if (randomPalvelupiste == 1) {
 					palvelupisteet[0].otaJonosta(asiakas);
 					palvelupisteet[1].lisaaJonoon(asiakas);
-					System.out.println(palvelupisteet[1]);
+					Trace.out(Trace.Level.INFO, palvelupisteet[1].toString());
 				} else if (randomPalvelupiste == 2) {
 					palvelupisteet[0].otaJonosta(asiakas);
 					palvelupisteet[2].lisaaJonoon(asiakas);
-					System.out.println(palvelupisteet[2]);
+					Trace.out(Trace.Level.INFO, palvelupisteet[2].toString());
 				} else {
 					palvelupisteet[0].otaJonosta(asiakas);
 					palvelupisteet[3].lisaaJonoon(asiakas);
-					System.out.println(palvelupisteet[3]);
+					Trace.out(Trace.Level.INFO, palvelupisteet[3].toString());
 				}
 				break;
 				
@@ -98,7 +97,7 @@ public class OmaMoottori extends Moottori {
 				} else { // Asiakas hakee lisää poletteja
 					palvelupisteet[1].otaJonosta(asiakas);
 					palvelupisteet[0].lisaaJonoon(asiakas);
-					System.out.println(palvelupisteet[0]);
+					Trace.out(Trace.Level.INFO, palvelupisteet[0].toString());
 					break;
 				}
 				// Jos todennäköisyys on 2 tai alle, asiakas poistuu uuteen peliin tai voittojen nostopisteelle
@@ -106,15 +105,15 @@ public class OmaMoottori extends Moottori {
 					if (randomPalvelupiste == 1) {
 						palvelupisteet[1].otaJonosta(asiakas);
 						palvelupisteet[2].lisaaJonoon(asiakas);
-						System.out.println(palvelupisteet[2]);
+						Trace.out(Trace.Level.INFO, palvelupisteet[2].toString());
 					} else if (randomPalvelupiste == 2) {
 						palvelupisteet[1].otaJonosta(asiakas);
 						palvelupisteet[3].lisaaJonoon(asiakas);
-						System.out.println(palvelupisteet[3]);
+						Trace.out(Trace.Level.INFO, palvelupisteet[3].toString());
 					} else {
 						palvelupisteet[1].otaJonosta(asiakas);
 						palvelupisteet[4].lisaaJonoon(asiakas);
-						System.out.println(palvelupisteet[4]);
+						Trace.out(Trace.Level.INFO, palvelupisteet[4].toString());
 					}
 				} else if (todennakoisyys >= 3 && asiakas.getNykyinenPolettimaara() >= 10) { // Asiakas voi jatkaa pelaamista vain, jos hänellä on vähintään 10 polettia
 					palvelupisteet[1].jatkaPelaamista(asiakas);
@@ -122,11 +121,11 @@ public class OmaMoottori extends Moottori {
 					if (lisaaPolettejaTaiVoitot == 1) {
 						palvelupisteet[1].otaJonosta(asiakas);
 						palvelupisteet[0].lisaaJonoon(asiakas);
-						System.out.println(palvelupisteet[0]);
+						Trace.out(Trace.Level.INFO, palvelupisteet[0].toString());
 					} else {
 						palvelupisteet[1].otaJonosta(asiakas);
 						palvelupisteet[4].lisaaJonoon(asiakas);
-						System.out.println(palvelupisteet[4]);
+						Trace.out(Trace.Level.INFO, palvelupisteet[4].toString());
 					}
 				}
 		   	   	break;
@@ -146,7 +145,7 @@ public class OmaMoottori extends Moottori {
 				} else { // Asiakas hakee lisää poletteja
 					palvelupisteet[2].otaJonosta(asiakas);
 					palvelupisteet[0].lisaaJonoon(asiakas);
-					System.out.println(palvelupisteet[0]);
+					Trace.out(Trace.Level.INFO, palvelupisteet[0].toString());
 					break;
 				}
 				// Jos todennäköisyys on 2 tai alle, asiakas poistuu uuteen peliin, hakemaan lisää poletteja tai voittojen nostopisteelle
@@ -154,15 +153,15 @@ public class OmaMoottori extends Moottori {
 					if (randomPalvelupiste == 1) {
 						palvelupisteet[2].otaJonosta(asiakas);
 						palvelupisteet[1].lisaaJonoon(asiakas);
-						System.out.println(palvelupisteet[1]);
+						Trace.out(Trace.Level.INFO, palvelupisteet[1].toString());
 					} else if (randomPalvelupiste == 2) {
 						palvelupisteet[2].otaJonosta(asiakas);
 						palvelupisteet[3].lisaaJonoon(asiakas);
-						System.out.println(palvelupisteet[3]);
+						Trace.out(Trace.Level.INFO, palvelupisteet[3].toString());
 					} else {
 						palvelupisteet[2].otaJonosta(asiakas);
 						palvelupisteet[4].lisaaJonoon(asiakas);
-						System.out.println(palvelupisteet[4]);
+						Trace.out(Trace.Level.INFO, palvelupisteet[4].toString());
 					}
 				} else if (todennakoisyys >= 3 && asiakas.getNykyinenPolettimaara() >= 10) { // Asiakas voi jatkaa pelaamista vain, jos hänellä on vähintään 10 polettia
 					palvelupisteet[2].jatkaPelaamista(asiakas);
@@ -170,11 +169,11 @@ public class OmaMoottori extends Moottori {
 					if (lisaaPolettejaTaiVoitot == 1) {
 						palvelupisteet[2].otaJonosta(asiakas);
 						palvelupisteet[0].lisaaJonoon(asiakas);
-						System.out.println(palvelupisteet[0]);
+						Trace.out(Trace.Level.INFO, palvelupisteet[0].toString());
 					} else {
 						palvelupisteet[2].otaJonosta(asiakas);
 						palvelupisteet[4].lisaaJonoon(asiakas);
-						System.out.println(palvelupisteet[4]);
+						Trace.out(Trace.Level.INFO, palvelupisteet[4].toString());
 					}
 				}
 		   	   	break;
@@ -194,7 +193,7 @@ public class OmaMoottori extends Moottori {
 				} else { // Asiakas hakee lisää poletteja
 					palvelupisteet[3].otaJonosta(asiakas);
 					palvelupisteet[0].lisaaJonoon(asiakas);
-					System.out.println(palvelupisteet[0]);
+					Trace.out(Trace.Level.INFO, palvelupisteet[0].toString());
 					break;
 				}
 				// Jos todennäköisyys on 2 tai alle, asiakas poistuu uuteen peliin, hakemaan lisää poletteja tai voittojen nostopisteelle
@@ -202,15 +201,15 @@ public class OmaMoottori extends Moottori {
 					if (randomPalvelupiste == 1) {
 						palvelupisteet[3].otaJonosta(asiakas);
 						palvelupisteet[1].lisaaJonoon(asiakas);
-						System.out.println(palvelupisteet[1]);
+						Trace.out(Trace.Level.INFO, palvelupisteet[1].toString());
 					} else if (randomPalvelupiste == 2) {
 						palvelupisteet[3].otaJonosta(asiakas);
 						palvelupisteet[2].lisaaJonoon(asiakas);
-						System.out.println(palvelupisteet[2]);
+						Trace.out(Trace.Level.INFO, palvelupisteet[2].toString());
 					} else {
 						palvelupisteet[3].otaJonosta(asiakas);
 						palvelupisteet[4].lisaaJonoon(asiakas);
-						System.out.println(palvelupisteet[4]);
+						Trace.out(Trace.Level.INFO, palvelupisteet[4].toString());
 					}
 				} else if (todennakoisyys >= 3 && asiakas.getNykyinenPolettimaara() >= 10) { // Asiakas voi jatkaa pelaamista vain, jos hänellä on vähintään 10 polettia
 					palvelupisteet[3].jatkaPelaamista(asiakas);
@@ -218,11 +217,11 @@ public class OmaMoottori extends Moottori {
 					if (lisaaPolettejaTaiVoitot == 1) {
 						palvelupisteet[3].otaJonosta(asiakas);
 						palvelupisteet[0].lisaaJonoon(asiakas);
-						System.out.println(palvelupisteet[0]);
+						Trace.out(Trace.Level.INFO, palvelupisteet[0].toString());
 					} else {
 						palvelupisteet[3].otaJonosta(asiakas);
 						palvelupisteet[4].lisaaJonoon(asiakas);
-						System.out.println(palvelupisteet[4]);
+						Trace.out(Trace.Level.INFO, palvelupisteet[4].toString());
 					}
 				}
 		   	   	break;
@@ -231,7 +230,7 @@ public class OmaMoottori extends Moottori {
 				asiakas = palvelupisteet[4].getJononEnsimmainen(); 
 				int kaynnit[] = new int[4];
 		    	palvelupisteet[4].otaJonosta(asiakas);
-		    	System.out.println("Asiakas " + asiakas.getId() + " poistuu kasinolta.");
+		    	Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " poistuu kasinolta.");
 				asiakas.setPoistumisaika(Kello.getInstance().getAika());
 				for(int i = 0; i < (palvelupisteet.length - 1); i++) {
 					for(int j = 0; j < palvelupisteet[i].getKaynteja().size(); j++) {
@@ -241,10 +240,10 @@ public class OmaMoottori extends Moottori {
 					}
 				}
 	        	asiakas.raportti();
-	        	System.out.println("Asiakas " + asiakas.getId() + " kävi palvelutiskillä " + kaynnit[0] + " kertaa.");
-	        	System.out.println("Asiakas " + asiakas.getId() + " kävi ruletissa " + kaynnit[1] + " kertaa.");
-	        	System.out.println("Asiakas " + asiakas.getId() + " kävi Blackjackissä " + kaynnit[2] + " kertaa.");
-	        	System.out.println("Asiakas " + asiakas.getId() + " kävi Krapsissä " + kaynnit[3] + " kertaa.");
+	        	Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " kävi palvelutiskillä " + kaynnit[0] + " kertaa.");
+	        	Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " kävi ruletissa " + kaynnit[1] + " kertaa.");
+	        	Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " kävi Blackjackissä " + kaynnit[2] + " kertaa.");
+	        	Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " kävi Krapsissä " + kaynnit[3] + " kertaa.");
 	        	break;
 		}	
 	}
@@ -256,26 +255,26 @@ public class OmaMoottori extends Moottori {
 		// System.out.println("Tulokset ... puuttuvat vielä");
 		// UUTTA graafisa
 		kontrolleri.naytaLoppuaika(Kello.getInstance().getAika());
-		System.out.println("\n**SIMULOINTI PÄÄTTYY**");
+		Trace.out(Trace.Level.INFO, "\n**SIMULOINTI PÄÄTTYY**");
 		if (palvelupisteet[4].getTalonVoittoEuroina() > 0) {
-			System.out.println("\nKasino teki voittoa ajassa " + String.format("%.02f", Kello.getInstance().getAika()) + " yhteensä " + palvelupisteet[4].getTalonVoittoEuroina() + " euroa.");
+			Trace.out(Trace.Level.INFO, "\nKasino teki voittoa ajassa " + String.format("%.02f", Kello.getInstance().getAika()) + " yhteensä " + palvelupisteet[4].getTalonVoittoEuroina() + " euroa.");
 		} else {
-			System.out.println("\nKasino teki liiketappiota ajassa " + String.format("%.02f", Kello.getInstance().getAika()) + " yhteensä " + (palvelupisteet[4].getTalonVoittoEuroina() * -1) + " euroa.");
+			Trace.out(Trace.Level.INFO, "\nKasino teki liiketappiota ajassa " + String.format("%.02f", Kello.getInstance().getAika()) + " yhteensä " + (palvelupisteet[4].getTalonVoittoEuroina() * -1) + " euroa.");
 		}
-		System.out.println("\nPalvelutiski palveli asiakkaita yhteensä " + palvelupisteet[0].getKaynteja().size() + " kertaa." );
-        System.out.println("Rulettia pelattiin yhteensä " + palvelupisteet[1].getKaynteja().size() + " kertaa." );
-        System.out.println("Blackjackiä pelattiin yhteensä " + palvelupisteet[2].getKaynteja().size() + " kertaa." );
-        System.out.println("Krapsiä pelattiin yhteensä " + palvelupisteet[3].getKaynteja().size() + " kertaa." );
-        System.out.println("Asiakkaat nosti voittoja voittojen nostopisteellä yhteensä " + palvelupisteet[4].getKaynteja().size() + " kertaa." );
+		Trace.out(Trace.Level.INFO, "\nPalvelutiski palveli asiakkaita yhteensä " + palvelupisteet[0].getKaynteja().size() + " kertaa.");
+		Trace.out(Trace.Level.INFO, "Rulettia pelattiin yhteensä " + palvelupisteet[1].getKaynteja().size() + " kertaa.");
+		Trace.out(Trace.Level.INFO, "Blackjackiä pelattiin yhteensä " + palvelupisteet[2].getKaynteja().size() + " kertaa.");
+		Trace.out(Trace.Level.INFO, "Krapsiä pelattiin yhteensä " + palvelupisteet[3].getKaynteja().size() + " kertaa.");
+		Trace.out(Trace.Level.INFO, "Asiakkaat nosti voittoja voittojen nostopisteellä yhteensä " + palvelupisteet[4].getKaynteja().size() + " kertaa.");;
 
-        System.out.println("\nKasinolle saapui yhteensä " + asiakasLkm + " asiakasta.");
+		Trace.out(Trace.Level.INFO, "\nKasinolle saapui yhteensä " + asiakasLkm + " asiakasta.");
         
-        System.out.println("Palvelutiskin suoritusteho oli " + (palvelupisteet[0].getSuoritusteho(getSimulointiaika()) * 100) + " prosenttia.");
-        System.out.println("Palvelutiskin käyttöaste oli " + (palvelupisteet[0].getKayttoaste(getSimulointiaika()) * 100) + " prosenttia.");
-        System.out.println("Palvelutiskin keskimääräinen palveluaika oli " + String.format("%.02f", palvelupisteet[0].getKeskimaarainenPalveluaika()) + ".");
-        System.out.println("Palvelutiskin kokonaisoleskeluaika oli " + String.format("%.02f", palvelupisteet[0].getKokonaisoleskeluaika()) + ".");
-        System.out.println("Palvelutiskin keskimääräinen läpimenoaika oli " + String.format("%.02f", palvelupisteet[0].getKeskimaarainenLapimenoaika()) + ".");
-        System.out.println("Palvelutiskin keskimääräinen jononpituus oli " + String.format("%.02f", palvelupisteet[0].getKeskimaarainenJononpituus(getSimulointiaika())) + " asiakasta.");
+        Trace.out(Trace.Level.INFO, "Palvelutiskin suoritusteho oli " + (palvelupisteet[0].getSuoritusteho(getSimulointiaika()) * 100) + " prosenttia.");
+        Trace.out(Trace.Level.INFO, "Palvelutiskin käyttöaste oli " + (palvelupisteet[0].getKayttoaste(getSimulointiaika()) * 100) + " prosenttia.");
+        Trace.out(Trace.Level.INFO, "Palvelutiskin keskimääräinen palveluaika oli " + String.format("%.02f", palvelupisteet[0].getKeskimaarainenPalveluaika()) + ".");
+        Trace.out(Trace.Level.INFO, "Palvelutiskin kokonaisoleskeluaika oli " + String.format("%.02f", palvelupisteet[0].getKokonaisoleskeluaika()) + ".");
+        Trace.out(Trace.Level.INFO, "Palvelutiskin keskimääräinen läpimenoaika oli " + String.format("%.02f", palvelupisteet[0].getKeskimaarainenLapimenoaika()) + ".");
+        Trace.out(Trace.Level.INFO, "Palvelutiskin keskimääräinen jononpituus oli " + String.format("%.02f", palvelupisteet[0].getKeskimaarainenJononpituus(getSimulointiaika())) + " asiakasta.");
 	}
 	
 }

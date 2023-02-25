@@ -21,18 +21,18 @@ public class Palvelupiste {
 	private ContinuousGenerator generator;
 	private Tapahtumalista tapahtumalista;
 	private TapahtumanTyyppi skeduloitavanTapahtumanTyyppi;
-	private String nimi;
-	
 	private static int talonVoittoEuroina;
+	
+	private String nimi;
 	private int palvellutAsiakkaat;
+	private double keskimaarainenPalveluaika;
+	private double keskimaarainenJononpituus;
+	private double lapimenoaika;
+	private double keskimaarainenLapimenoaika;
 	private double suoritusteho;
 	private double aktiiviaika;
 	private double kayttoaste;
-	private double keskimaarainenPalveluaika;
-	private double lapimenoaika;
 	private double kokonaisoleskeluaika;
-	private double keskimaarainenLapimenoaika;
-	private double keskimaarainenJononpituus;
 	
 	//JonoStrategia strategia; //optio: asiakkaiden j채rjestys
 	private boolean varattu = false;
@@ -128,15 +128,15 @@ public class Palvelupiste {
 		jono.add(asiakas);
 		
 		if (nimi.equals("Palvelutiski")) {
-			System.out.println("Asiakas " + asiakas.getId() + " saapuu palvelutiskin jonoon.");
+			Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " saapuu palvelutiskin jonoon.");
 		} else if (nimi.equals("Ruletti")) {
-			System.out.println("Asiakas " + asiakas.getId() + " saapuu ruletin jonoon.");
+			Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " saapuu ruletin jonoon.");
 		} else if (nimi.equals("Blackjack")) {
-			System.out.println("Asiakas " + asiakas.getId() + " saapuu Blackjackin jonoon.");
+			Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " saapuu Blackjackin jonoon.");
 		} else if (nimi.equals("Kraps")) {
-			System.out.println("Asiakas " + asiakas.getId() + " saapuu Krapsin jonoon.");
+			Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " saapuu Krapsin jonoon.");
 		} else if (nimi.equals("Voittojen nostopiste")) {
-			System.out.println("Asiakas " + asiakas.getId() + " saapuu voittojen nostopisteen jonoon.");
+			Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " saapuu voittojen nostopisteen jonoon.");
 		}
 	}
 
@@ -152,35 +152,35 @@ public class Palvelupiste {
 		kaynteja.add(asiakas);
 		
 		if (nimi.equals("Palvelutiski")) {
-			System.out.println("Asiakas " + asiakas.getId() + " poistuu palvelutiskin jonosta.");
-			System.out.println("Asiakkaalla " + asiakas.getId() + " poletteja yhteensä " + asiakas.getNykyinenPolettimaara() + ".");
-			System.out.println(nimi + " palvellut " + palvellutAsiakkaat + " asiakasta.");
+			Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " poistuu palvelutiskin jonosta.");
+			Trace.out(Trace.Level.INFO, "Asiakkaalla " + asiakas.getId() + " poletteja yhteensä " + asiakas.getNykyinenPolettimaara() + ".");
+			Trace.out(Trace.Level.INFO, nimi + " palvellut yhteensä " + palvellutAsiakkaat + " asiakasta.");
 		} else if (nimi.equals("Ruletti")) {
-			System.out.println("Asiakas " + asiakas.getId() + " poistuu ruletin jonosta.");
-			System.out.println(nimi + " palvellut " + palvellutAsiakkaat + " asiakasta.");
+			Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " poistuu ruletin jonosta.");
+			Trace.out(Trace.Level.INFO, nimi + " palvellut yhteensä " + palvellutAsiakkaat + " asiakasta.");
 		} else if (nimi.equals("Blackjack")) {
-			System.out.println("Asiakas " + asiakas.getId() + " poistuu Blackjackin jonosta.");
-			System.out.println(nimi + " palvellut " + palvellutAsiakkaat + " asiakasta.");
+			Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " poistuu Blackjackin jonosta.");
+			Trace.out(Trace.Level.INFO, nimi + " palvellut yhteensä " + palvellutAsiakkaat + " asiakasta.");
 		} else if (nimi.equals("Kraps")) {
-			System.out.println("Asiakas " + asiakas.getId() + " poistuu Krapsin jonosta.");
-			System.out.println(nimi + " palvellut " + palvellutAsiakkaat + " asiakasta.");
+			Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " poistuu Krapsin jonosta.");
+			Trace.out(Trace.Level.INFO, nimi + " palvellut yhteensä " + palvellutAsiakkaat + " asiakasta.");
 		} else if (nimi.equals("Voittojen nostopiste")) {
-			System.out.println("Asiakas " + asiakas.getId() + " poistuu voittojen nostopisteen jonosta.");
-			System.out.println(nimi + " palvellut " + palvellutAsiakkaat + " asiakasta.");
+			Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " poistuu voittojen nostopisteen jonosta.");
+			Trace.out(Trace.Level.INFO, nimi + " palvellut yhteensä " + palvellutAsiakkaat + " asiakasta.");
 			if (asiakas.getNykyinenPolettimaara() > asiakas.getAlkuperainenPolettimaara()) {
-				System.out.println("Asiakas " + asiakas.getId() + " voitti poletteja kasinolla yhteensä " + (asiakas.getNykyinenPolettimaara() - asiakas.getAlkuperainenPolettimaara()) + ".");
+				Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " voitti poletteja kasinolla yhteensä " + (asiakas.getNykyinenPolettimaara() - asiakas.getAlkuperainenPolettimaara()) + ".");
 				talonVoittoEuroina -= (asiakas.getNykyinenPolettimaara() - asiakas.getAlkuperainenPolettimaara());
 			} else if (asiakas.getNykyinenPolettimaara() < asiakas.getAlkuperainenPolettimaara()) {
-				System.out.println("Asiakas " + asiakas.getId() + " hävisi poletteja kasinolla yhteensä " + (asiakas.getAlkuperainenPolettimaara() - asiakas.getNykyinenPolettimaara()) + ".");
+				Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " hävisi poletteja kasinolla yhteensä " + (asiakas.getAlkuperainenPolettimaara() - asiakas.getNykyinenPolettimaara()) + ".");
 				talonVoittoEuroina += (asiakas.getAlkuperainenPolettimaara() - asiakas.getNykyinenPolettimaara());
 			} else {
-				System.out.println("Asiakas " + asiakas.getId() + " ei voittanut tai hävinnyt poletteja kasinolla.");
+				Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " ei voittanut tai hävinnyt poletteja kasinolla.");
 			}
 			// Tulostetaan kasinon voitot
 			if (talonVoittoEuroina > 0) {
-				System.out.println("Kasino on tehnyt voittoa tähän mennessä yhteensä " + talonVoittoEuroina + " euroa.");
+				Trace.out(Trace.Level.INFO, "Kasino on tehnyt voittoa tähän mennessä yhteensä " + talonVoittoEuroina + " euroa.");
 			} else {
-				System.out.println("Kasino on tehnyt liiketappiota tähän mennessä yhteensä " + (talonVoittoEuroina * -1) + " euroa.");
+				Trace.out(Trace.Level.INFO, "Kasino on tehnyt liiketappiota tähän mennessä yhteensä " + (talonVoittoEuroina * -1) + " euroa.");
 			}
 		}
 		varattu = false;
@@ -210,6 +210,10 @@ public class Palvelupiste {
 		return jono.getFirst();
 	}
 	
+	public int getTalonVoittoEuroina() {
+		return talonVoittoEuroina;
+	}
+	
 	public boolean voittikoAsiakas(Asiakas asiakas) {
 		
 		// Tässä jotain todennäköisyyksiä ja voittosummia peleihin, näitä voi vapaasti muutella - Valdo
@@ -224,15 +228,15 @@ public class Palvelupiste {
 				if (todennakoisyysVoittoon == 1) {
 					// Voittosumma on 10-50 polettia.
 					polettimaara = (int) Math.floor(Math.random() * (5 - 1 + 1) + 1) * 10;
-					System.out.println("Asiakas " + asiakas.getId() + " voitti ruletissa " + polettimaara + " polettia!");
+					Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " voitti ruletissa " + polettimaara + " polettia!");
 					asiakas.lisaaPoletteja(polettimaara);
-					System.out.println("Asiakkaalla " + asiakas.getId() + " poletteja yhteensä " + asiakas.getNykyinenPolettimaara() + ".");
+					Trace.out(Trace.Level.INFO, "Asiakkaalla " + asiakas.getId() + " poletteja yhteensä " + asiakas.getNykyinenPolettimaara() + ".");
 					return true;
 				} else {
-					System.out.println("Asiakas " + asiakas.getId() + " hävisi pelin.");
+					Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " hävisi pelin.");
 					// Asiakas häviää 10 polettia.
 					asiakas.vahennaPoletteja(10);
-					System.out.println("Asiakkaalla " + asiakas.getId() + " poletteja yhteensä " + asiakas.getNykyinenPolettimaara() + ".");
+					Trace.out(Trace.Level.INFO, "Asiakkaalla " + asiakas.getId() + " poletteja yhteensä " + asiakas.getNykyinenPolettimaara() + ".");
 					return false;
 				}
 				
@@ -242,15 +246,15 @@ public class Palvelupiste {
 				if (todennakoisyysVoittoon == 1) {
 					// Voittosumma on 10-50 polettia.
 					polettimaara = (int) Math.floor(Math.random() * (5 - 1 + 1) + 1) * 10;
-					System.out.println("Asiakas " + asiakas.getId() + " voitti Blackjackissä " + polettimaara + " polettia!");
+					Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " voitti Blackjackissä " + polettimaara + " polettia!");
 					asiakas.lisaaPoletteja(polettimaara);
-					System.out.println("Asiakkaalla " + asiakas.getId() + " poletteja yhteensä " + asiakas.getNykyinenPolettimaara() + ".");
+					Trace.out(Trace.Level.INFO, "Asiakkaalla " + asiakas.getId() + " poletteja yhteensä " + asiakas.getNykyinenPolettimaara() + ".");
 					return true;
 				} else {
-					System.out.println("Asiakas " + asiakas.getId() + " hävisi pelin.");
+					Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " hävisi pelin.");
 					// Asiakas häviää 10 polettia.
 					asiakas.vahennaPoletteja(10);
-					System.out.println("Asiakkaalla " + asiakas.getId() + " poletteja yhteensä " + asiakas.getNykyinenPolettimaara() + ".");
+					Trace.out(Trace.Level.INFO, "Asiakkaalla " + asiakas.getId() + " poletteja yhteensä " + asiakas.getNykyinenPolettimaara() + ".");
 					return false;
 				}
 				
@@ -260,24 +264,23 @@ public class Palvelupiste {
 				if (todennakoisyysVoittoon == 1) {
 					// Voittosumma on 10-50 polettia.
 					polettimaara = (int) Math.floor(Math.random() * (5 - 1 + 1) + 1) * 10;
-					System.out.println("Asiakas " + asiakas.getId() + " voitti Krapsissä " + polettimaara + " polettia!");
+					Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " voitti Krapsissä " + polettimaara + " polettia!");
 					asiakas.lisaaPoletteja(polettimaara);
-					System.out.println("Asiakkaalla " + asiakas.getId() + " poletteja yhteensä " + asiakas.getNykyinenPolettimaara() + ".");
+					Trace.out(Trace.Level.INFO, "Asiakkaalla " + asiakas.getId() + " poletteja yhteensä " + asiakas.getNykyinenPolettimaara() + ".");
 					return true;
 				} else {
-					System.out.println("Asiakas " + asiakas.getId() + " hävisi pelin.");
+					Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " hävisi pelin.");
 					// Asiakas häviää 10 polettia.
 					asiakas.vahennaPoletteja(10);
-					System.out.println("Asiakkaalla " + asiakas.getId() + " poletteja yhteensä " + asiakas.getNykyinenPolettimaara() + ".");
+					Trace.out(Trace.Level.INFO, "Asiakkaalla " + asiakas.getId() + " poletteja yhteensä " + asiakas.getNykyinenPolettimaara() + ".");
 					return false;
 				}
 		}
-		
 		return false;
 	}
 	
 	public void jatkaPelaamista(Asiakas asiakas) {
-		System.out.println("Asiakas " + asiakas.getId() + " jatkaa pelaamista.");
+		Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " jatkaa pelaamista.");
 		varattu = false;
 	}
 
@@ -303,10 +306,6 @@ public class Palvelupiste {
 		}
 
 		return asiakkaat + Arrays.toString(asiakkaatJonossa).replace("[", "").replace("]", "") + ".";
-	}
-	
-	public int getTalonVoittoEuroina() {
-		return talonVoittoEuroina;
 	}
 	
 }
