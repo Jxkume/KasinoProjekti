@@ -1,3 +1,19 @@
 .background {
     -fx-background-color: #BD693F;
 }
+
+.button {
+    -fx-background-radius: 10px;
+}
+
+#otsikko1 {
+	-fx-font-family: "Rockwell", Helvetica, Arial, sans-serif;
+	-fx-font-weight: bold;
+    -fx-font-size: 45pt;
+}
+
+#otsikko2 {
+	-fx-font-family: "Rockwell", Helvetica, Arial, sans-serif;
+	-fx-font-weight: bold;
+    -fx-font-size: 28pt;
+}

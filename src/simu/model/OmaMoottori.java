@@ -255,6 +255,10 @@ public class OmaMoottori extends Moottori {
 		// System.out.println("Tulokset ... puuttuvat vielä");
 		// UUTTA graafisa
 		kontrolleri.naytaLoppuaika(Kello.getInstance().getAika());
+		kontrolleri.naytaAsiakasLkm(asiakasLkm);
+		kontrolleri.naytaKasinonTekemaVoitto(palvelupisteet[0].getTalonVoittoEuroina());
+		kontrolleri.naytaGridPane();
+		
 		Trace.out(Trace.Level.INFO, "\n**SIMULOINTI PÄÄTTYY**");
 		if (palvelupisteet[4].getTalonVoittoEuroina() > 0) {
 			Trace.out(Trace.Level.INFO, "\nKasino teki voittoa ajassa " + String.format("%.02f", Kello.getInstance().getAika()) + " yhteensä " + palvelupisteet[4].getTalonVoittoEuroina() + " euroa.");

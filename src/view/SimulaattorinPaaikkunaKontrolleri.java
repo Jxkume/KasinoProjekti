@@ -6,6 +6,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.scene.control.Alert.AlertType;
 import main.SimulaattoriMain;
 import simu.framework.IMoottori;
@@ -16,6 +17,7 @@ public class SimulaattorinPaaikkunaKontrolleri {
 
 	private SimulaattoriMain simulaattoriMain;
     private IMoottori moottori;
+    private OmaMoottori omaMoottori;
     
     @FXML
     private TextField aika;
@@ -30,11 +32,17 @@ public class SimulaattorinPaaikkunaKontrolleri {
     @FXML
 	private Label kokonaisaikatulosLabel;
     @FXML
+	private Label asiakasLkmLabel;
+    @FXML
+	private Label voittoLabel;
+    @FXML
 	private Button kaynnistaButton;
     @FXML
 	private Button hidastaButton;
     @FXML
 	private Button nopeutaButton;
+    @FXML
+    private GridPane tulokset;
 
     /**
      * The constructor.
@@ -71,13 +79,14 @@ public class SimulaattorinPaaikkunaKontrolleri {
 		        alert.showAndWait();
 			} else {
 				// Simulaatio voidaan käynnistää
-				moottori = new OmaMoottori(this);
+				moottori = new OmaMoottori(this); // säie
 				moottori.setSimulointiaika(getAika());
 				moottori.setViive(getViive());
 				//ui.getVisualisointi().tyhjennaNaytto();
 				((Thread)moottori).start();
 				// Nappia voi painaa vain kerran
 				kaynnistaButton.setDisable(true);
+				
 			}
 		}
 	}
@@ -99,6 +108,18 @@ public class SimulaattorinPaaikkunaKontrolleri {
 	
 	public void naytaLoppuaika(double aika) {
 		Platform.runLater(()-> kokonaisaikatulosLabel.setText(String.format("%.02f", aika))); 
+	}
+	
+	public void naytaAsiakasLkm(int asiakasLkm) {
+		Platform.runLater(()-> asiakasLkmLabel.setText(Integer.toString(asiakasLkm) + " asiakasta"));
+	}
+	
+	public void naytaKasinonTekemaVoitto(int voitto) {
+		Platform.runLater(()-> voittoLabel.setText(voitto + " €"));
+	}
+	
+	public void naytaGridPane() {
+		Platform.runLater(()-> tulokset.setVisible(true));
 	}
 
     /**
