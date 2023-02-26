@@ -223,8 +223,8 @@ public class Palvelupiste {
 		switch (nimi) {
 			
 			case "Ruletti":
-				// Ruletissa 50% mahdollisuus voittoon
-				todennakoisyysVoittoon = (int) Math.floor(Math.random() * (2 - 1 + 1) + 1);
+				// Ruletissa 25% mahdollisuus voittoon
+				todennakoisyysVoittoon = (int) Math.floor(Math.random() * (4 - 1 + 1) + 1);
 				if (todennakoisyysVoittoon == 1) {
 					// Voittosumma on 10-50 polettia.
 					polettimaara = (int) Math.floor(Math.random() * (5 - 1 + 1) + 1) * 10;
