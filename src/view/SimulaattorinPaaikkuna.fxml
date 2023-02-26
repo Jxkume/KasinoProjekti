@@ -20,16 +20,16 @@
         <items>
           <AnchorPane maxWidth="358.0" minHeight="578.0" minWidth="358.0" prefHeight="578.0" prefWidth="358.0">
                <children>
-                  <Label fx:id="aikaLabel" layoutX="36.0" layoutY="185.0" text="Simulointiaika:" />
-                  <Label fx:id="viiveLabel" layoutX="36.0" layoutY="230.0" text="Viive:" />
-                  <TextField fx:id="aika" layoutX="157.0" layoutY="181.0" AnchorPane.leftAnchor="157.0" AnchorPane.rightAnchor="33.0" />
-                  <TextField fx:id="viive" layoutX="157.0" layoutY="226.0" AnchorPane.leftAnchor="157.0" AnchorPane.rightAnchor="33.0" />
+                  <Label id="syotteet" fx:id="aikaLabel" layoutX="36.0" layoutY="185.0" text="Simulointiaika:" />
+                  <Label id="syotteet" fx:id="viiveLabel" layoutX="36.0" layoutY="230.0" text="Viive:" />
+                  <TextField fx:id="aika" layoutX="185.0" layoutY="184.0" prefHeight="25.0" prefWidth="140.0" AnchorPane.leftAnchor="185.0" AnchorPane.rightAnchor="33.0" />
+                  <TextField fx:id="viive" layoutX="185.0" layoutY="229.0" prefHeight="25.0" prefWidth="140.0" AnchorPane.leftAnchor="185.0" AnchorPane.rightAnchor="33.0" />
                   <Label id="otsikko1" layoutX="68.0" layoutY="32.0" prefHeight="57.0" prefWidth="236.0" text="Kasino-" />
                   <Button fx:id="kaynnistaButton" alignment="CENTER" contentDisplay="RIGHT" layoutX="33.0" layoutY="289.0" mnemonicParsing="false" onAction="#kaynnistaSimulointi" prefHeight="25.0" prefWidth="70.0" text="Käynnistä" textOverrun="CLIP" AnchorPane.leftAnchor="33.0" AnchorPane.rightAnchor="255.0" />
                   <Button fx:id="nopeutaButton" alignment="CENTER" contentDisplay="CENTER" layoutX="145.0" layoutY="289.0" mnemonicParsing="false" onAction="#nopeuta" prefHeight="25.0" prefWidth="70.0" text="Nopeuta" />
                   <Button fx:id="hidastaButton" alignment="TOP_CENTER" contentDisplay="RIGHT" layoutX="255.0" layoutY="289.0" mnemonicParsing="false" onAction="#hidasta" prefHeight="25.0" prefWidth="70.0" text="Hidasta" AnchorPane.leftAnchor="255.0" AnchorPane.rightAnchor="33.0" />
                   <Label id="otsikko2" layoutX="68.0" layoutY="93.0" prefHeight="49.0" prefWidth="248.0" text="Simulaattori" />
-                  <GridPane id="tulokset" fx:id="tulokset" layoutX="29.0" layoutY="347.0" prefHeight="155.0" prefWidth="301.0">
+                  <GridPane id="tulokset" fx:id="tulokset" layoutX="29.0" layoutY="347.0" prefHeight="182.0" prefWidth="297.0" visible="false">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="251.0" minWidth="10.0" prefWidth="124.0" />
                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="177.0" minWidth="10.0" prefWidth="177.0" />

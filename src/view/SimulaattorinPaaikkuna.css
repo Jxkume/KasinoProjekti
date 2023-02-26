@@ -1,7 +1,3 @@
-.background {
-    -fx-background-color: #BD693F;
-}
-
 .button {
     -fx-background-radius: 10px;
     -fx-font-family: "Rockwell", Helvetica, Arial, sans-serif;
@@ -20,6 +16,11 @@
 }
 
 #tulokset {
+	-fx-font-family: "Rockwell", Helvetica, Arial, sans-serif;
+	-fx-font-size: 14pt;
+}
+
+#syotteet {
 	-fx-font-family: "Rockwell", Helvetica, Arial, sans-serif;
 	-fx-font-size: 14pt;
 }
