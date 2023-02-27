@@ -233,7 +233,7 @@ public class Palvelupiste {
 					asiakas.lisaaPoletteja(polettimaara);
 					Trace.out(Trace.Level.INFO, "Asiakkaalla " + asiakas.getId() + " poletteja yhteensä " + asiakas.getNykyinenPolettimaara() + ".");
 					return true;
-				} else {
+				} else { //lol
 					Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " hävisi pelin.");
 					// Asiakas häviää 50-100 polettia.
 					asiakas.vahennaPoletteja(polettimaara);
