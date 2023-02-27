@@ -21,7 +21,7 @@ public class Palvelupiste {
 	private ContinuousGenerator generator;
 	private Tapahtumalista tapahtumalista;
 	private TapahtumanTyyppi skeduloitavanTapahtumanTyyppi;
-	private static int talonVoittoEuroina;
+	private static int talonVoittoEuroina = 0;
 	
 	private String nimi;
 	private int palvellutAsiakkaat;

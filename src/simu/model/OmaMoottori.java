@@ -245,7 +245,8 @@ public class OmaMoottori extends Moottori {
 	        	Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " kävi Blackjackissä " + kaynnit[2] + " kertaa.");
 	        	Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " kävi Krapsissä " + kaynnit[3] + " kertaa.");
 	        	break;
-		}	
+		}
+		kontrolleri.paivitaTulos(palvelupisteet[0].getTalonVoittoEuroina());
 	}
 
 	@Override

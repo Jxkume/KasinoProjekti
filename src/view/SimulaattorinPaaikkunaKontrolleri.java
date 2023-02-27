@@ -42,6 +42,8 @@ public class SimulaattorinPaaikkunaKontrolleri {
     @FXML
 	private Button nopeutaButton;
     @FXML
+    private Label kasinonTulos;
+    @FXML
     private GridPane tulokset;
 
     /**
@@ -130,6 +132,10 @@ public class SimulaattorinPaaikkunaKontrolleri {
 	public void naytaGridPane() {
 		Platform.runLater(()-> tulokset.setVisible(true));
 	}
+	
+	public void paivitaTulos(int tulos) {
+		Platform.runLater(()-> kasinonTulos.setText(tulos + " €"));
+	}
 
     /**
      * Is called by the main application to give a reference back to itself.
@@ -147,5 +153,6 @@ public class SimulaattorinPaaikkunaKontrolleri {
 	public long getViive(){
 		return Long.parseLong(viive.getText());
 	}
+	
 	
 }

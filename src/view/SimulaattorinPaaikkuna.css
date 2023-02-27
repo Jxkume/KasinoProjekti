@@ -49,3 +49,8 @@
 	-fx-font-weight: bold;
     -fx-font-size: 20pt;
 }
+
+#kasinonTulos {
+	-fx-font-family: "Rockwell", Helvetica, Arial, sans-serif;
+	-fx-font-size: 14pt;
+}
