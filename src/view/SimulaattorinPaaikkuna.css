@@ -1,6 +1,16 @@
+#background {
+	-fx-color: #942B2B;
+}
+
 .button {
-    -fx-background-radius: 10px;
+    -fx-background-radius: 30px;
+    -fx-font-size: 9pt;
     -fx-font-family: "Rockwell", Helvetica, Arial, sans-serif;
+    -fx-color: gold;
+}
+
+.button:hover {
+	-fx-background-color: goldenrod;
 }
 
 #otsikko1 {
@@ -13,6 +23,7 @@
 	-fx-font-family: "Rockwell", Helvetica, Arial, sans-serif;
 	-fx-font-weight: bold;
     -fx-font-size: 28pt;
+    -fx-text-fill: gold;
 }
 
 #tulokset {
@@ -23,4 +34,18 @@
 #syotteet {
 	-fx-font-family: "Rockwell", Helvetica, Arial, sans-serif;
 	-fx-font-size: 14pt;
+}
+
+#syotteetBackground {
+	-fx-background-color: #F5F6F2;
+}
+
+#animointiBackground {
+	-fx-background-color: #F5F6F2;
+}
+
+#palvelupisteTeksti {
+	-fx-font-family: "Rockwell", Helvetica, Arial, sans-serif;
+	-fx-font-weight: bold;
+    -fx-font-size: 20pt;
 }

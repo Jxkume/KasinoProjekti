@@ -5,9 +5,9 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="1200.0" prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="1200.0" prefHeight="600.0" prefWidth="1200.0" stylesheets="@SimulaattorinPaaikkunaPohja.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <top>
-      <MenuBar BorderPane.alignment="CENTER">
+      <MenuBar id="background" maxHeight="25.0" BorderPane.alignment="CENTER">
         <menus>
           <Menu mnemonicParsing="false" text="Edit">
             <items>

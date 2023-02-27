@@ -1,0 +1,12 @@
+#background {
+	-fx-background-color: #942B2B;
+}
+
+#background2 {
+	-fx-background-color: #F5F6F2;
+}
+
+#tulosteet {
+	-fx-font-family: "Rockwell", Helvetica, Arial, sans-serif;
+	-fx-font-size: 14pt;
+}

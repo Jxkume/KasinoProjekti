@@ -52,6 +52,13 @@ public class SimulaattorinPaaikkunaKontrolleri {
     	
     }
     
+    @FXML
+    private void initialize() {
+    	// Asetetaan hidasta- ja nopeuta-napit käyttökelvottomaksi ennen kuin simulaatio ajetaan
+    	hidastaButton.setDisable(true);
+    	nopeutaButton.setDisable(true);
+    }
+    
 	public void kaynnistaSimulointi() {
 		Alert alert = new Alert(AlertType.ERROR);
 		// Tarkistetaan, että käyttäjä on syöttänyt simulointiajan ja viiveen
@@ -86,7 +93,9 @@ public class SimulaattorinPaaikkunaKontrolleri {
 				((Thread)moottori).start();
 				// Nappia voi painaa vain kerran
 				kaynnistaButton.setDisable(true);
-				
+				// Käyttäjä voi nyt hidastaa tai nopeuttaa simulaatiota
+		    	hidastaButton.setDisable(false);
+		    	nopeutaButton.setDisable(false);
 			}
 		}
 	}
