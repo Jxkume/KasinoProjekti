@@ -3,6 +3,7 @@ package simu.model;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.Random;
 
 import eduni.distributions.ContinuousGenerator;
 import simu.framework.Kello;
@@ -223,55 +224,55 @@ public class Palvelupiste {
 		switch (nimi) {
 			
 			case "Ruletti":
-				// Ruletissa 25% mahdollisuus voittoon
-				todennakoisyysVoittoon = (int) Math.floor(Math.random() * (4 - 1 + 1) + 1);
-				if (todennakoisyysVoittoon == 1) {
-					// Voittosumma on 10-50 polettia.
-					polettimaara = (int) Math.floor(Math.random() * (5 - 1 + 1) + 1) * 10;
+				// Ruletissa 50% mahdollisuus voittoon ja 50% häviöön
+				todennakoisyysVoittoon = new Random().nextInt(10);
+				polettimaara = (int) Math.floor(Math.random() * (10 - 5 + 1) + 5) * 10;
+				if (todennakoisyysVoittoon < 5) {
+					// Voittosumma on 50-100 polettia.
 					Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " voitti ruletissa " + polettimaara + " polettia!");
 					asiakas.lisaaPoletteja(polettimaara);
 					Trace.out(Trace.Level.INFO, "Asiakkaalla " + asiakas.getId() + " poletteja yhteensä " + asiakas.getNykyinenPolettimaara() + ".");
 					return true;
-				} else {
+				} else { //lol
 					Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " hävisi pelin.");
-					// Asiakas häviää 10 polettia.
-					asiakas.vahennaPoletteja(10);
+					// Asiakas häviää 50-100 polettia.
+					asiakas.vahennaPoletteja(polettimaara);
 					Trace.out(Trace.Level.INFO, "Asiakkaalla " + asiakas.getId() + " poletteja yhteensä " + asiakas.getNykyinenPolettimaara() + ".");
 					return false;
 				}
 				
 			case "Blackjack":
-				// Blackjackissa 20% mahdollisuus voittoon
-				todennakoisyysVoittoon = (int) Math.floor(Math.random() * (5 - 1 + 1) + 1);
-				if (todennakoisyysVoittoon == 1) {
-					// Voittosumma on 10-50 polettia.
-					polettimaara = (int) Math.floor(Math.random() * (5 - 1 + 1) + 1) * 10;
+				// Blackjackissa 40% mahdollisuus voittoon ja 60% häviöön
+				todennakoisyysVoittoon = new Random().nextInt(10);
+				polettimaara = (int) Math.floor(Math.random() * (10 - 5 + 1) + 5) * 10;
+				if (todennakoisyysVoittoon < 4) {
+					// Voittosumma on 50-100 polettia.
 					Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " voitti Blackjackissä " + polettimaara + " polettia!");
 					asiakas.lisaaPoletteja(polettimaara);
 					Trace.out(Trace.Level.INFO, "Asiakkaalla " + asiakas.getId() + " poletteja yhteensä " + asiakas.getNykyinenPolettimaara() + ".");
 					return true;
 				} else {
 					Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " hävisi pelin.");
-					// Asiakas häviää 10 polettia.
-					asiakas.vahennaPoletteja(10);
+					// Asiakas häviää 50-100 polettia.
+					asiakas.vahennaPoletteja(polettimaara);
 					Trace.out(Trace.Level.INFO, "Asiakkaalla " + asiakas.getId() + " poletteja yhteensä " + asiakas.getNykyinenPolettimaara() + ".");
 					return false;
 				}
 				
 			case "Kraps":
-				// Krapsissä 10% mahdollisuus voittoon
-				todennakoisyysVoittoon = (int) Math.floor(Math.random() * (10 - 1 + 1) + 1);
-				if (todennakoisyysVoittoon == 1) {
-					// Voittosumma on 10-50 polettia.
-					polettimaara = (int) Math.floor(Math.random() * (5 - 1 + 1) + 1) * 10;
+				// Krapsissa on 50% mahdollisuus voittoon ja 50% häviöön (pyöreästi)
+				Kraps.kahdenNopanSumma();
+				polettimaara = (int) Math.floor(Math.random() * (10 - 5 + 1) + 5) * 10;
+				if (Kraps.voittaako() == true) {
+					// Voittosumma on 50-100 polettia.
 					Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " voitti Krapsissä " + polettimaara + " polettia!");
 					asiakas.lisaaPoletteja(polettimaara);
 					Trace.out(Trace.Level.INFO, "Asiakkaalla " + asiakas.getId() + " poletteja yhteensä " + asiakas.getNykyinenPolettimaara() + ".");
 					return true;
 				} else {
 					Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " hävisi pelin.");
-					// Asiakas häviää 10 polettia.
-					asiakas.vahennaPoletteja(10);
+					// Asiakas häviää 50-100 polettia.
+					asiakas.vahennaPoletteja(polettimaara);
 					Trace.out(Trace.Level.INFO, "Asiakkaalla " + asiakas.getId() + " poletteja yhteensä " + asiakas.getNykyinenPolettimaara() + ".");
 					return false;
 				}
