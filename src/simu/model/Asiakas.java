@@ -14,7 +14,9 @@ public class Asiakas {
 	private double poistumisaikaJonosta;
 	private int id;
 	private static int saapuneetAsiakkaat = 1;
-	private static long sum = 0;
+	private static int lahteneetAsiakkaat = 0;
+	private static double vietettyAika = 0;
+	private double keskimaarainenVietettyAika;
 	private int alkuperainenPolettimaara = 0;
 	private int nykyinenPolettimaara = 0;
 	
@@ -68,9 +70,13 @@ public class Asiakas {
 		Trace.out(Trace.Level.INFO, "Asiakas " + id + " saapui: " + String.format("%.02f", saapumisaika));
 		Trace.out(Trace.Level.INFO, "Asiakas " + id + " poistui: " + String.format("%.02f", poistumisaika));
 		Trace.out(Trace.Level.INFO, "Asiakas " + id + " viipyi: " + String.format("%.02f", (poistumisaika-saapumisaika)));
-		sum += (poistumisaika-saapumisaika);
-		double keskiarvo = sum / id;
-		Trace.out(Trace.Level.INFO, "Asiakkaiden läpimenoaikojen keskiarvo tähän mennessä: " + keskiarvo);
+		lahteneetAsiakkaat++;
+		vietettyAika += (poistumisaika-saapumisaika);
+	}
+	
+	public double getKeskimaarainenVietettyAika() {
+		keskimaarainenVietettyAika = vietettyAika / lahteneetAsiakkaat;
+		return keskimaarainenVietettyAika;
 	}
 	
 	public void annaPolettejaPalvelutiskilla() {

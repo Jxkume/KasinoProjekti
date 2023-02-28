@@ -7,17 +7,17 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.shape.Polygon;
 import javafx.scene.control.Alert.AlertType;
 import main.SimulaattoriMain;
 import simu.framework.IMoottori;
-import simu.framework.Kello;
 import simu.model.OmaMoottori;
+import simu.model.Palvelupiste;
 
-public class SimulaattorinPaaikkunaKontrolleri {
+public class SimulaattorinPaaikkunaKontrolleri extends SimulaattoriMain {
 
 	private SimulaattoriMain simulaattoriMain;
     private IMoottori moottori;
-    private OmaMoottori omaMoottori;
     
     @FXML
     private TextField aika;
@@ -34,7 +34,7 @@ public class SimulaattorinPaaikkunaKontrolleri {
     @FXML
 	private Label asiakasLkmLabel;
     @FXML
-	private Label voittoLabel;
+	private Label keskimaarainenVietettyAikaLabel;
     @FXML
 	private Button kaynnistaButton;
     @FXML
@@ -42,10 +42,36 @@ public class SimulaattorinPaaikkunaKontrolleri {
     @FXML
 	private Button nopeutaButton;
     @FXML
+    private Button naytaTiedotButton1;
+    @FXML
+    private Button naytaTiedotButton2;
+    @FXML
+    private Button naytaTiedotButton3;
+    @FXML
+    private Button naytaTiedotButton4;
+    @FXML
+    private Button naytaTiedotButton5;
+    @FXML
     private Label kasinonTulos;
     @FXML
     private GridPane tulokset;
-
+    @FXML
+    private Polygon PTJ1;
+    @FXML
+    private Label PTJID1;
+    @FXML
+    private Polygon PTJ2;
+    @FXML
+    private Label PTJID2;
+    @FXML
+    private Polygon PTJ3;
+    @FXML
+    private Label PTJID3;
+    @FXML
+    private Polygon PTJ4;
+    @FXML
+    private Label PTJID4;
+    
     /**
      * The constructor.
      * The constructor is called before the initialize() method.
@@ -125,8 +151,8 @@ public class SimulaattorinPaaikkunaKontrolleri {
 		Platform.runLater(()-> asiakasLkmLabel.setText(Integer.toString(asiakasLkm) + " asiakasta"));
 	}
 	
-	public void naytaKasinonTekemaVoitto(int voitto) {
-		Platform.runLater(()-> voittoLabel.setText(voitto + " €"));
+	public void naytaKeskimaarainenVietettyAika(double aika) {
+		Platform.runLater(()-> keskimaarainenVietettyAikaLabel.setText((String.format("%.02f", aika))));
 	}
 	
 	public void naytaGridPane() {
@@ -136,13 +162,60 @@ public class SimulaattorinPaaikkunaKontrolleri {
 	public void paivitaTulos(int tulos) {
 		Platform.runLater(()-> kasinonTulos.setText(tulos + " €"));
 	}
+	
+	// Asetetaan näytäTiedot-napit käytettäväksi
+	public void naytaTiedot() {
+		Platform.runLater(()-> naytaTiedotButton1.setDisable(false));
+		Platform.runLater(()-> naytaTiedotButton2.setDisable(false));
+		Platform.runLater(()-> naytaTiedotButton3.setDisable(false));
+		Platform.runLater(()-> naytaTiedotButton4.setDisable(false));
+		Platform.runLater(()-> naytaTiedotButton5.setDisable(false));
+	}
+	
+	public synchronized void visualisoiJono(Palvelupiste palvelupiste) {
+		if (palvelupiste.getJono().size() >= 1) {
+			Platform.runLater(()->PTJ1.setOpacity(1));
+			Platform.runLater(()->PTJID1.setText(Integer.toString(palvelupiste.getJono().get(0).getId())));
+		} else {
+			Platform.runLater(()->PTJ1.setOpacity(0.25));
+			Platform.runLater(()->PTJID1.setText(null));
+		}
+		
+		if (palvelupiste.getJono().size() >= 2) {
+			Platform.runLater(()->PTJ2.setOpacity(1));
+			Platform.runLater(()->PTJID2.setText(Integer.toString(palvelupiste.getJono().get(1).getId())));
+		} else {
+			Platform.runLater(()->PTJ2.setOpacity(0.25));
+			Platform.runLater(()->PTJID2.setText(null));
+		}
+		
+		if (palvelupiste.getJono().size() >= 3) {
+			Platform.runLater(()->PTJ3.setOpacity(1));
+			Platform.runLater(()->PTJID3.setText(Integer.toString(palvelupiste.getJono().get(2).getId())));
+		} else {
+			Platform.runLater(()->PTJ3.setOpacity(0.25));
+			Platform.runLater(()->PTJID3.setText(null));
+		}
+		
+		if (palvelupiste.getJono().size() >= 4) {
+			Platform.runLater(()->PTJ4.setOpacity(1));
+			Platform.runLater(()->PTJID4.setText(Integer.toString(palvelupiste.getJono().get(3).getId())));
+		} else {
+			Platform.runLater(()->PTJ4.setOpacity(0.25));
+			Platform.runLater(()->PTJID4.setText(null));
+		}
+	}
+	
+	public void naytaPopUp() {
+		naytaPalvelupisteenPopUp();
+	}
 
     /**
      * Is called by the main application to give a reference back to itself.
      * 
      * @param mainApp
      */
-    public void setSimulatorMain(SimulaattoriMain simulaattoriMain) {
+    public void setSimulaattoriMain(SimulaattoriMain simulaattoriMain) {
         this.simulaattoriMain = simulaattoriMain;
     }
     
@@ -153,6 +226,5 @@ public class SimulaattorinPaaikkunaKontrolleri {
 	public long getViive(){
 		return Long.parseLong(viive.getText());
 	}
-	
 	
 }

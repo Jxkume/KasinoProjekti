@@ -16,19 +16,19 @@ public class Kraps {
 	
 	public static boolean voittaako() {
 		int ekaHeitto = kahdenNopanSumma();
-		if(ekaHeitto == 7 || ekaHeitto == 11) {
+		if (ekaHeitto == 7 || ekaHeitto == 11) {
 			return true;
 		}
-		if(ekaHeitto == 2 || ekaHeitto == 3 || ekaHeitto == 12) {
+		if (ekaHeitto == 2 || ekaHeitto == 3 || ekaHeitto == 12) {
 			return false;
 		}
 		
-		while(true) {
+		while (true) {
 			int seuraavatHeitot = kahdenNopanSumma();
 			if (seuraavatHeitot == 7) {
 				return false;
 			} 
-			if(seuraavatHeitot == ekaHeitto) {
+			if (seuraavatHeitot == ekaHeitto) {
 				return true;
 			}
 		}

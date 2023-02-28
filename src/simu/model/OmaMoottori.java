@@ -15,6 +15,7 @@ public class OmaMoottori extends Moottori {
 	
 	private Saapumisprosessi saapumisprosessi;
 	private static int asiakasLkm = 0;
+	private double keskimaarainenVietettyAika;
 	
 	//public OmaMoottori(IKontrolleri kontrolleri) { // UUSI
 	public OmaMoottori(SimulaattorinPaaikkunaKontrolleri kontrolleri) {
@@ -240,6 +241,8 @@ public class OmaMoottori extends Moottori {
 					}
 				}
 	        	asiakas.raportti();
+	        	// Tallennetaan keskimääräinen vietetty aika kasinolla
+	        	keskimaarainenVietettyAika = asiakas.getKeskimaarainenVietettyAika();
 	        	Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " kävi palvelutiskillä " + kaynnit[0] + " kertaa.");
 	        	Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " kävi ruletissa " + kaynnit[1] + " kertaa.");
 	        	Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " kävi Blackjackissä " + kaynnit[2] + " kertaa.");
@@ -247,6 +250,7 @@ public class OmaMoottori extends Moottori {
 	        	break;
 		}
 		kontrolleri.paivitaTulos(palvelupisteet[0].getTalonVoittoEuroina());
+		kontrolleri.visualisoiJono(palvelupisteet[0]);
 	}
 
 	@Override
@@ -257,8 +261,9 @@ public class OmaMoottori extends Moottori {
 		// UUTTA graafisa
 		kontrolleri.naytaLoppuaika(Kello.getInstance().getAika());
 		kontrolleri.naytaAsiakasLkm(asiakasLkm);
-		kontrolleri.naytaKasinonTekemaVoitto(palvelupisteet[0].getTalonVoittoEuroina());
+		kontrolleri.naytaKeskimaarainenVietettyAika(keskimaarainenVietettyAika);
 		kontrolleri.naytaGridPane();
+		kontrolleri.naytaTiedot();
 		
 		Trace.out(Trace.Level.INFO, "\n**SIMULOINTI PÄÄTTYY**");
 		if (palvelupisteet[4].getTalonVoittoEuroina() > 0) {

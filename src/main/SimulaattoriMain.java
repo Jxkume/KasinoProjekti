@@ -28,12 +28,10 @@ public class SimulaattoriMain extends Application {
      */
     public void alustaSimulaattorinPaaikkunanPohja() {
         try {
-            // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(SimulaattoriMain.class.getResource("/view/SimulaattorinPaaikkunaPohja.fxml"));
             rootLayout = (BorderPane) loader.load();
             
-            // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
             primaryStage.show();
@@ -48,18 +46,27 @@ public class SimulaattoriMain extends Application {
      */
     public void naytaSimulaattorinPaaikkuna() {
     try {
-        // Load person overview.
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(SimulaattoriMain.class.getResource("/view/SimulaattorinPaaikkuna.fxml"));
         AnchorPane SimulaattorinPaaikkuna = (AnchorPane) loader.load();
-        
-        // Set person overview into the center of root layout.
         rootLayout.setCenter(SimulaattorinPaaikkuna);
-
-        // Give the controller access to the main app.
-        //SimulatorOverviewController controller = loader.getController();
-        //controller.setSimulatorMain(this);
-
+    	} catch (IOException e) {
+    		e.printStackTrace();
+    	}
+    }
+    
+    /**
+     * Näytetään palvelupisteen pop-up käyttäjälle.
+     */
+    public void naytaPalvelupisteenPopUp() {
+    try {
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("/view/PalvelupistePopUp.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        Stage stage = new Stage();
+        stage.setTitle("Palvelupiste");
+        stage.setScene(scene);
+        stage.show();
     	} catch (IOException e) {
     		e.printStackTrace();
     	}
