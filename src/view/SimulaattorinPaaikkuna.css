@@ -54,3 +54,12 @@
 	-fx-font-family: "Rockwell", Helvetica, Arial, sans-serif;
 	-fx-font-size: 18pt;
 }
+
+#syoteTextField {
+	-fx-font-family: "Rockwell", Helvetica, Arial, sans-serif;
+	-fx-font-weight: bold;
+}
+
+#jakaumatChoiceBox {
+	-fx-font-family: "Rockwell", Helvetica, Arial, sans-serif;
+}
