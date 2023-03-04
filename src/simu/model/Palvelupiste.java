@@ -6,36 +6,62 @@ import java.util.LinkedList;
 import java.util.Random;
 
 import eduni.distributions.ContinuousGenerator;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import simu.framework.Kello;
-import simu.framework.Moottori;
 import simu.framework.Tapahtuma;
 import simu.framework.Tapahtumalista;
 import simu.framework.Trace;
 
 // TODO:
 // Palvelupistekohtaiset toiminnallisuudet, laskutoimitukset (+ tarvittavat muuttujat) ja raportointi koodattava
-public class Palvelupiste {
 
+@Entity
+@Table(name="palvelupiste")
+public class Palvelupiste {
+	
+	@Transient
 	private LinkedList<Asiakas> jono = new LinkedList<Asiakas>(); // Tietorakennetoteutus
+	@Transient
 	private ArrayList<Asiakas> kaynteja = new ArrayList<>();
+	@Transient
 	private Kello kello = Kello.getInstance();
+	@Transient
 	private ContinuousGenerator generator;
+	@Transient
 	private Tapahtumalista tapahtumalista;
+	@Transient
 	private TapahtumanTyyppi skeduloitavanTapahtumanTyyppi;
+	@Transient
 	private static int talonVoittoEuroina = 0;
 	
+	@Id
+    @Column(name="nimi")
 	private String nimi;
+	@Transient
 	private int palvellutAsiakkaat;
+	@Transient
 	private double keskimaarainenPalveluaika;
+	@Transient
 	private double keskimaarainenJononpituus;
+	@Transient
 	private double lapimenoaika;
+	@Transient
 	private double keskimaarainenLapimenoaika;
+	@Transient
 	private double suoritusteho;
+	@Transient
 	private double aktiiviaika;
+	@Transient
 	private double kayttoaste;
+	@Transient
 	private double kokonaisoleskeluaika;
 	
 	//JonoStrategia strategia; //optio: asiakkaiden j채rjestys
+	@Transient
 	private boolean varattu = false;
 
 	public Palvelupiste(ContinuousGenerator generator, Tapahtumalista tapahtumalista, TapahtumanTyyppi tyyppi, String nimi) {
@@ -43,6 +69,9 @@ public class Palvelupiste {
 		this.generator = generator;
 		this.skeduloitavanTapahtumanTyyppi = tyyppi;
 		this.nimi = nimi;
+	}
+	public Palvelupiste() {
+		
 	}
 
 	public ArrayList<Asiakas> getKaynteja() {
@@ -52,6 +81,9 @@ public class Palvelupiste {
 	public double getSuoritusteho(double simulointiaika) {
 		suoritusteho = palvellutAsiakkaat / simulointiaika;
 		return suoritusteho;
+	}
+	public void setSuoritusteho(double suoritusteho) {
+		this.suoritusteho = suoritusteho;
 	}
 	
 	public double getKayttoaste(double simulointiaika) {

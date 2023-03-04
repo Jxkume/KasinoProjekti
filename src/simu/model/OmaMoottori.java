@@ -1,6 +1,6 @@
 package simu.model;
 
-import controller.IKontrolleri;
+
 import eduni.distributions.Negexp;
 import eduni.distributions.Normal;
 import simu.framework.Kello;
@@ -67,6 +67,7 @@ public class OmaMoottori extends Moottori {
 	// TO-DO: Loppuraportti - Tapio
 	// TO-DO: Asiakaskohtainen raportti - Valdo
 	// TO-DO: Pitää miettiä peleille järkevät voittotodennäköisyydet ja voittosummat (voittikoAsiakas-metodi Palvelupiste-luokassa) - Valdo
+	        
 	@Override
 	protected void suoritaTapahtuma(Tapahtuma t){  // B-vaiheen tapahtumat
 
@@ -285,6 +286,8 @@ public class OmaMoottori extends Moottori {
 		kontrolleri.naytaKeskimaarainenVietettyAika(keskimaarainenVietettyAika);
 		kontrolleri.naytaGridPane();
 		kontrolleri.naytaTiedot();
+		//PalvelupisteDao palvDao = new PalvelupisteDao();
+		//palvDao.poistaTiski(palvelupisteet[0].getNimi());
 		
 		Trace.out(Trace.Level.INFO, "\n**SIMULOINTI PÄÄTTYY**");
 		if (palvelupisteet[4].getTalonVoittoEuroina() > 0) {
