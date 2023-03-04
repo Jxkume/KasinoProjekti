@@ -1,8 +1,8 @@
 package simu.model;
 
-
 import eduni.distributions.Negexp;
 import eduni.distributions.Normal;
+import eduni.distributions.Uniform;
 import simu.framework.Kello;
 import simu.framework.Moottori;
 import simu.framework.Saapumisprosessi;
@@ -31,6 +31,7 @@ public class OmaMoottori extends Moottori {
 		palvelupisteet[2] = new Palvelupiste(new Normal(7,3), tapahtumalista, TapahtumanTyyppi.DEP3, "Blackjack");
 		palvelupisteet[3] = new Palvelupiste(new Normal(4,3), tapahtumalista, TapahtumanTyyppi.DEP4, "Kraps");
 		palvelupisteet[4] = new Palvelupiste(new Normal(5,3), tapahtumalista, TapahtumanTyyppi.DEP5, "Voittojen nostopiste");
+		
 	}
 
 	// Kasinon palvelutiskin getteri
@@ -71,6 +72,27 @@ public class OmaMoottori extends Moottori {
 	@Override
 	protected void suoritaTapahtuma(Tapahtuma t){  // B-vaiheen tapahtumat
 
+		// Tarkistetaan minkä jakauman käyttäjä on valinnut käyttöliittymässä
+		if (kontrolleri.getJakauma().equals("Normaali jakauma")) {
+			getPalvelutiski().setGenerator(new Normal(5,3));
+			getRuletti().setGenerator(new Normal(5,3));
+			getBlackjack().setGenerator(new Normal(5,3));
+			getKraps().setGenerator(new Normal(5,3));
+			getVoittojenNostopiste().setGenerator(new Normal(5,3));
+		} else if (kontrolleri.getJakauma().equals("Eksponenttijakauma")) {
+			getPalvelutiski().setGenerator(new Negexp(5,3));
+			getRuletti().setGenerator(new Negexp(5,3));
+			getBlackjack().setGenerator(new Negexp(5,3));
+			getKraps().setGenerator(new Negexp(5,3));
+			getVoittojenNostopiste().setGenerator(new Negexp(5,3));
+		} else if (kontrolleri.getJakauma().equals("Tasainen jakauma")) {
+			getPalvelutiski().setGenerator(new Uniform(5,10));
+			getRuletti().setGenerator(new Uniform(5,10));
+			getBlackjack().setGenerator(new Uniform(5,10));
+			getKraps().setGenerator(new Uniform(5,10));
+			getVoittojenNostopiste().setGenerator(new Uniform(5,10));
+		}
+		
 		Asiakas asiakas;
 		// Arvotaan luku väliltä 1-4
 		int todennakoisyys = (int) Math.floor(Math.random() * (4 - 1 + 1) + 1);

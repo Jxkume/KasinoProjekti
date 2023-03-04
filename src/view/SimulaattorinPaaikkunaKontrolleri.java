@@ -1,5 +1,6 @@
 package view;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -9,7 +10,9 @@ import eduni.distributions.Uniform;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -17,16 +20,16 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Polygon;
+import javafx.stage.Stage;
 import javafx.scene.control.Alert.AlertType;
 import main.SimulaattoriMain;
 import simu.framework.IMoottori;
 import simu.model.OmaMoottori;
 import simu.model.Palvelupiste;
 
-public class SimulaattorinPaaikkunaKontrolleri extends SimulaattoriMain {
+public class SimulaattorinPaaikkunaKontrolleri {
 
 	private SimulaattoriMain simulaattoriMain;
-	private OmaMoottori omaMoottori = new OmaMoottori(null);
     private IMoottori moottori;
     
     @FXML
@@ -48,9 +51,9 @@ public class SimulaattorinPaaikkunaKontrolleri extends SimulaattoriMain {
     @FXML
 	private Button kaynnistaButton;
     @FXML
-	private Button hidastaButton = new Button();
+	private Button hidastaButton;
     @FXML
-	private Button nopeutaButton = new Button();
+	private Button nopeutaButton;
     @FXML
     private Label kasinonTulos;
     @FXML
@@ -74,52 +77,38 @@ public class SimulaattorinPaaikkunaKontrolleri extends SimulaattoriMain {
     
     // Nämä liittyvät palvelupisteen pop-up-ikkunaan - Valdo
     @FXML
-    private Button palvelutiskiButton;
+    protected Button palvelutiskiButton;
     @FXML
-    private Button rulettiButton;
+    protected Button rulettiButton;
     @FXML
-    private Button blackjackButton;
+    protected Button blackjackButton;
     @FXML
-    private Button krapsButton;
+    protected Button krapsButton;
     @FXML
-    private Button voittojenNostopisteButton;
+    protected Button voittojenNostopisteButton;
     @FXML
-    private Label palvellutAsiakkaat;
-    @FXML
-    private Label keskimaarainenPalveluaika;
-    @FXML
-    private Label keskimaarainenJononpituus;
-    @FXML
-    private Label keskimaarainenLapimenoaika;
-    @FXML
-    private Label suoritusteho;
-    @FXML
-    private Label aktiiviaika;
-    @FXML
-    private Label kayttoaste;
-    @FXML
-    private Label asiakkaidenKokonaisoleskeluaika;
+    private ChoiceBox<String> jakaumatChoiceBox;
     
-    @FXML
-    private ChoiceBox<String> jakaumatChoiceBox = new ChoiceBox<String>();
-    private String[] jakaumat = {"Normaali jakauma", "Eksponenttijakauma", "Tasainen jakauma"};
+    public String getJakauma() {
+    	return jakaumatChoiceBox.getValue();
+    }
     
+    public SimulaattorinPaaikkunaKontrolleri() {
+    	// Alustetaan tarvittavat JavaFX-komponentit ja muut muuttujat
+    	hidastaButton = new Button();
+    	nopeutaButton = new Button();
+    	jakaumatChoiceBox = new ChoiceBox<String>();
+    }
+    
+    // Tätä metodia kutsutaan konstruktorin jälkeen
 	public void initialize() {
-    	hidastaButton.setDisable(true);
-    	nopeutaButton.setDisable(true);
+		String[] jakaumat = {"Normaali jakauma", "Eksponenttijakauma", "Tasainen jakauma"};
 		jakaumatChoiceBox.getItems().addAll(jakaumat);
 		jakaumatChoiceBox.setValue("Normaali jakauma");
 	}
     
-    /**
-     * The constructor.
-     * The constructor is called before the initialize() method.
-     */
-    public SimulaattorinPaaikkunaKontrolleri() {
-    	
-    }
-    
 	public void kaynnistaSimulointi() {
+		
 		Alert alert = new Alert(AlertType.ERROR);
 		// Tarkistetaan, että käyttäjä on syöttänyt simulointiajan ja viiveen
 		if (aika.getText().isEmpty() && viive.getText().isEmpty()) {
@@ -145,27 +134,6 @@ public class SimulaattorinPaaikkunaKontrolleri extends SimulaattoriMain {
 		        alert.setHeaderText("Viive ei voi olla negatiivinen.");
 		        alert.showAndWait();
 			} else {
-				// Asetetaan jakauma kaikille palvelupisteille
-				String jakauma = jakaumatChoiceBox.getValue();
-				if (jakauma.equals("Normaali jakauma")) {
-					omaMoottori.getPalvelutiski().setGenerator(new Normal(5,3));
-					omaMoottori.getRuletti().setGenerator(new Normal(5,3));
-					omaMoottori.getBlackjack().setGenerator(new Normal(5,3));
-					omaMoottori.getKraps().setGenerator(new Normal(5,3));
-					omaMoottori.getVoittojenNostopiste().setGenerator(new Normal(5,3));
-				} else if (jakauma.equals("Eksponenttijakauma")) {
-					omaMoottori.getPalvelutiski().setGenerator(new Negexp(5,3));
-					omaMoottori.getRuletti().setGenerator(new Negexp(5,3));
-					omaMoottori.getBlackjack().setGenerator(new Negexp(5,3));
-					omaMoottori.getKraps().setGenerator(new Negexp(5,3));
-					omaMoottori.getVoittojenNostopiste().setGenerator(new Negexp(5,3));
-				} else if (jakauma.equals("Tasainen jakauma")) {
-					omaMoottori.getPalvelutiski().setGenerator(new Uniform(5,10));
-					omaMoottori.getRuletti().setGenerator(new Uniform(5,10));
-					omaMoottori.getBlackjack().setGenerator(new Uniform(5,10));
-					omaMoottori.getKraps().setGenerator(new Uniform(5,10));
-					omaMoottori.getVoittojenNostopiste().setGenerator(new Uniform(5,10));
-				}
 				// Simulaatio voidaan käynnistää
 				moottori = new OmaMoottori(this); // säie
 				moottori.setSimulointiaika(getAika());
@@ -262,8 +230,19 @@ public class SimulaattorinPaaikkunaKontrolleri extends SimulaattoriMain {
 		}
 	}
 	
-	public void naytaPopUp() {
-		naytaPalvelupisteenPopUp();
+	public void naytaPalvelutiskiPopUp(ActionEvent event) {
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader();
+			fxmlLoader.setLocation(getClass().getResource("/view/PalvelutiskiPopUp.fxml"));
+			Scene scene = new Scene(fxmlLoader.load());
+			Stage stage = new Stage();
+			stage.setTitle("Palvelupiste");
+			stage.setScene(scene);
+			stage.setResizable(false);
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
     /**

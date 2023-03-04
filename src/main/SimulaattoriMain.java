@@ -56,24 +56,6 @@ public class SimulaattoriMain extends Application {
     	}
     }
     
-    /**
-     * Näytetään palvelupisteen pop-up käyttäjälle.
-     */
-    public void naytaPalvelupisteenPopUp() {
-    try {
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("/view/PalvelupistePopUp.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        Stage stage = new Stage();
-        stage.setTitle("Palvelupiste");
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.show();
-    	} catch (IOException e) {
-    		e.printStackTrace();
-    	}
-    }
-    
 	/**
 	 * Returns the main stage.
 	 * @return

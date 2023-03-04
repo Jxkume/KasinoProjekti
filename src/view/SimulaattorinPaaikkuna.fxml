@@ -23,8 +23,8 @@
                <children>
                   <Label id="otsikko1" layoutX="68.0" layoutY="32.0" prefHeight="57.0" prefWidth="236.0" text="Kasino-" />
                   <Button fx:id="kaynnistaButton" alignment="CENTER" contentDisplay="CENTER" layoutX="32.0" layoutY="338.0" mnemonicParsing="false" onAction="#kaynnistaSimulointi" prefHeight="31.0" prefWidth="76.0" text="Käynnistä" textOverrun="CLIP" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="250.0" />
-                  <Button fx:id="nopeutaButton" alignment="CENTER" contentDisplay="CENTER" layoutX="139.0" layoutY="338.0" mnemonicParsing="false" onAction="#nopeuta" prefHeight="31.0" prefWidth="76.0" text="Nopeuta" />
-                  <Button fx:id="hidastaButton" alignment="CENTER" contentDisplay="CENTER" layoutX="248.0" layoutY="338.0" mnemonicParsing="false" onAction="#hidasta" prefHeight="31.0" prefWidth="76.0" text="Hidasta" AnchorPane.leftAnchor="248.0" AnchorPane.rightAnchor="34.0" />
+                  <Button fx:id="nopeutaButton" alignment="CENTER" contentDisplay="CENTER" disable="true" layoutX="139.0" layoutY="338.0" mnemonicParsing="false" onAction="#nopeuta" prefHeight="31.0" prefWidth="76.0" text="Nopeuta" />
+                  <Button fx:id="hidastaButton" alignment="CENTER" contentDisplay="CENTER" disable="true" layoutX="248.0" layoutY="338.0" mnemonicParsing="false" onAction="#hidasta" prefHeight="31.0" prefWidth="76.0" text="Hidasta" AnchorPane.leftAnchor="248.0" AnchorPane.rightAnchor="34.0" />
                   <Label id="otsikko2" layoutX="68.0" layoutY="93.0" prefHeight="49.0" prefWidth="248.0" text="simulaattori" />
                   <GridPane id="tulokset" fx:id="tulokset" layoutX="30.0" layoutY="404.0" prefHeight="146.0" prefWidth="295.0" visible="false">
                     <columnConstraints>
@@ -96,7 +96,7 @@
                         <Polygon fill="#901313" layoutX="131.0" layoutY="200.0" points="-20.0, 40.0, 20.0, 40.0, 0.0, 0.0" stroke="BLACK" strokeType="INSIDE" />
                         <Polygon fill="#901313" layoutX="131.0" layoutY="309.0" points="-20.0, 40.0, 20.0, 40.0, 0.0, 0.0" stroke="BLACK" strokeType="INSIDE" />
                         <Polygon fill="#901313" layoutX="131.0" layoutY="416.0" points="-20.0, 40.0, 20.0, 40.0, 0.0, 0.0" stroke="BLACK" strokeType="INSIDE" />
-                        <Button fx:id="palvelutiskiButton" alignment="CENTER" contentDisplay="CENTER" disable="true" layoutX="659.0" layoutY="98.0" mnemonicParsing="false" onAction="#naytaPopUp" prefHeight="31.0" prefWidth="85.0" text="Näytä tiedot" textOverrun="CLIP" />
+                        <Button fx:id="palvelutiskiButton" alignment="CENTER" contentDisplay="CENTER" disable="true" layoutX="659.0" layoutY="98.0" mnemonicParsing="false" onAction="#naytaPalvelutiskiPopUp" prefHeight="31.0" prefWidth="85.0" text="Näytä tiedot" textOverrun="CLIP" />
                         <GridPane layoutX="488.0" layoutY="35.0" prefHeight="30.0" prefWidth="305.0">
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="203.0" minWidth="10.0" prefWidth="163.0" />
@@ -110,10 +110,10 @@
                               <Label id="kasinonTulos" fx:id="kasinonTulos" prefHeight="30.0" prefWidth="201.0" GridPane.columnIndex="1" />
                            </children>
                         </GridPane>
-                        <Button fx:id="rulettiButton" alignment="CENTER" contentDisplay="CENTER" disable="true" layoutX="659.0" layoutY="205.0" mnemonicParsing="false" onAction="#naytaPopUp" prefHeight="31.0" prefWidth="85.0" text="Näytä tiedot" textOverrun="CLIP" />
-                        <Button fx:id="blackjackButton" alignment="CENTER" contentDisplay="CENTER" disable="true" layoutX="659.0" layoutY="314.0" mnemonicParsing="false" onAction="#naytaPopUp" prefHeight="31.0" prefWidth="85.0" text="Näytä tiedot" textOverrun="CLIP" />
-                        <Button fx:id="krapsButton" alignment="CENTER" contentDisplay="CENTER" disable="true" layoutX="659.0" layoutY="421.0" mnemonicParsing="false" onAction="#naytaPopUp" prefHeight="31.0" prefWidth="85.0" text="Näytä tiedot" textOverrun="CLIP" />
-                        <Button fx:id="voittojenNostopisteButton" alignment="CENTER" contentDisplay="CENTER" disable="true" layoutX="659.0" layoutY="527.0" mnemonicParsing="false" onAction="#naytaPopUp" prefHeight="31.0" prefWidth="85.0" text="Näytä tiedot" textOverrun="CLIP" />
+                        <Button fx:id="rulettiButton" alignment="CENTER" contentDisplay="CENTER" disable="true" layoutX="659.0" layoutY="205.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="85.0" text="Näytä tiedot" textOverrun="CLIP" />
+                        <Button fx:id="blackjackButton" alignment="CENTER" contentDisplay="CENTER" disable="true" layoutX="659.0" layoutY="314.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="85.0" text="Näytä tiedot" textOverrun="CLIP" />
+                        <Button fx:id="krapsButton" alignment="CENTER" contentDisplay="CENTER" disable="true" layoutX="659.0" layoutY="421.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="85.0" text="Näytä tiedot" textOverrun="CLIP" />
+                        <Button fx:id="voittojenNostopisteButton" alignment="CENTER" contentDisplay="CENTER" disable="true" layoutX="659.0" layoutY="527.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="85.0" text="Näytä tiedot" textOverrun="CLIP" />
                         <Polygon fill="#901313" layoutX="131.0" layoutY="522.0" points="-20.0, 40.0, 20.0, 40.0, 0.0, 0.0" stroke="BLACK" strokeType="INSIDE" />
                         <Polygon fx:id="PTJ2" fill="#901313" layoutX="171.0" layoutY="93.0" points="-20.0, 40.0, 20.0, 40.0, 0.0, 0.0" stroke="BLACK" strokeType="INSIDE" />
                         <Polygon fx:id="PTJ3" fill="#901313" layoutX="211.0" layoutY="93.0" points="-20.0, 40.0, 20.0, 40.0, 0.0, 0.0" stroke="BLACK" strokeType="INSIDE" />
