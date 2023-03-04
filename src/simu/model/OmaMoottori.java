@@ -255,10 +255,7 @@ public class OmaMoottori extends Moottori {
 
 	@Override
 	protected void tulokset() {
-		// VANHAA tekstipohjaista
-		// System.out.println("Simulointi päättyi kello " + Kello.getInstance().getAika());
-		// System.out.println("Tulokset ... puuttuvat vielä");
-		// UUTTA graafisa
+		
 		kontrolleri.naytaLoppuaika(Kello.getInstance().getAika());
 		kontrolleri.naytaAsiakasLkm(asiakasLkm);
 		kontrolleri.naytaKeskimaarainenVietettyAika(keskimaarainenVietettyAika);

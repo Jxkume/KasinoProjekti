@@ -42,16 +42,6 @@ public class SimulaattorinPaaikkunaKontrolleri extends SimulaattoriMain {
     @FXML
 	private Button nopeutaButton;
     @FXML
-    private Button naytaTiedotButton1;
-    @FXML
-    private Button naytaTiedotButton2;
-    @FXML
-    private Button naytaTiedotButton3;
-    @FXML
-    private Button naytaTiedotButton4;
-    @FXML
-    private Button naytaTiedotButton5;
-    @FXML
     private Label kasinonTulos;
     @FXML
     private GridPane tulokset;
@@ -72,19 +62,40 @@ public class SimulaattorinPaaikkunaKontrolleri extends SimulaattoriMain {
     @FXML
     private Label PTJID4;
     
+    // Nämä liittyvät palvelupisteen pop-up-ikkunaan - Valdo
+    @FXML
+    private Button palvelutiskiButton;
+    @FXML
+    private Button rulettiButton;
+    @FXML
+    private Button blackjackButton;
+    @FXML
+    private Button krapsButton;
+    @FXML
+    private Button voittojenNostopisteButton;
+    @FXML
+    private Label palvellutAsiakkaat;
+    @FXML
+    private Label keskimaarainenPalveluaika;
+    @FXML
+    private Label keskimaarainenJononpituus;
+    @FXML
+    private Label keskimaarainenLapimenoaika;
+    @FXML
+    private Label suoritusteho;
+    @FXML
+    private Label aktiiviaika;
+    @FXML
+    private Label kayttoaste;
+    @FXML
+    private Label asiakkaidenKokonaisoleskeluaika;
+    
     /**
      * The constructor.
      * The constructor is called before the initialize() method.
      */
     public SimulaattorinPaaikkunaKontrolleri() {
     	
-    }
-    
-    @FXML
-    private void initialize() {
-    	// Asetetaan hidasta- ja nopeuta-napit käyttökelvottomaksi ennen kuin simulaatio ajetaan
-    	hidastaButton.setDisable(true);
-    	nopeutaButton.setDisable(true);
     }
     
 	public void kaynnistaSimulointi() {
@@ -163,13 +174,16 @@ public class SimulaattorinPaaikkunaKontrolleri extends SimulaattoriMain {
 		Platform.runLater(()-> kasinonTulos.setText(tulos + " €"));
 	}
 	
-	// Asetetaan näytäTiedot-napit käytettäväksi
 	public void naytaTiedot() {
-		Platform.runLater(()-> naytaTiedotButton1.setDisable(false));
-		Platform.runLater(()-> naytaTiedotButton2.setDisable(false));
-		Platform.runLater(()-> naytaTiedotButton3.setDisable(false));
-		Platform.runLater(()-> naytaTiedotButton4.setDisable(false));
-		Platform.runLater(()-> naytaTiedotButton5.setDisable(false));
+		// Asetetaan hidasta- ja nopeuta-napit käyttökelvottomaksi, kun saadaan simulaation tulokset
+		Platform.runLater(()-> hidastaButton.setDisable(true));
+		Platform.runLater(()-> nopeutaButton.setDisable(true));
+		// Asetetaan jokaisen palvelupisteen nappi käytettäväksi
+		Platform.runLater(()-> palvelutiskiButton.setDisable(false));
+		Platform.runLater(()-> rulettiButton.setDisable(false));
+		Platform.runLater(()-> blackjackButton.setDisable(false));
+		Platform.runLater(()-> krapsButton.setDisable(false));
+		Platform.runLater(()-> voittojenNostopisteButton.setDisable(false));
 	}
 	
 	public synchronized void visualisoiJono(Palvelupiste palvelupiste) {
