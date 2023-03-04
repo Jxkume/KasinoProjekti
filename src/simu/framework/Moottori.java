@@ -1,6 +1,5 @@
 package simu.framework;
 
-import controller.IKontrolleri;
 import simu.model.Palvelupiste;
 import view.SimulaattorinPaaikkunaKontrolleri;
 

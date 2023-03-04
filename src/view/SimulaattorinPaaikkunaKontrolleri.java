@@ -1,9 +1,18 @@
 package view;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import eduni.distributions.Negexp;
+import eduni.distributions.Normal;
+import eduni.distributions.Uniform;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -17,6 +26,7 @@ import simu.model.Palvelupiste;
 public class SimulaattorinPaaikkunaKontrolleri extends SimulaattoriMain {
 
 	private SimulaattoriMain simulaattoriMain;
+	private OmaMoottori omaMoottori = new OmaMoottori(null);
     private IMoottori moottori;
     
     @FXML
@@ -38,9 +48,9 @@ public class SimulaattorinPaaikkunaKontrolleri extends SimulaattoriMain {
     @FXML
 	private Button kaynnistaButton;
     @FXML
-	private Button hidastaButton;
+	private Button hidastaButton = new Button();
     @FXML
-	private Button nopeutaButton;
+	private Button nopeutaButton = new Button();
     @FXML
     private Label kasinonTulos;
     @FXML
@@ -90,6 +100,17 @@ public class SimulaattorinPaaikkunaKontrolleri extends SimulaattoriMain {
     @FXML
     private Label asiakkaidenKokonaisoleskeluaika;
     
+    @FXML
+    private ChoiceBox<String> jakaumatChoiceBox = new ChoiceBox<String>();
+    private String[] jakaumat = {"Normaali jakauma", "Eksponenttijakauma", "Tasainen jakauma"};
+    
+	public void initialize() {
+    	hidastaButton.setDisable(true);
+    	nopeutaButton.setDisable(true);
+		jakaumatChoiceBox.getItems().addAll(jakaumat);
+		jakaumatChoiceBox.setValue("Normaali jakauma");
+	}
+    
     /**
      * The constructor.
      * The constructor is called before the initialize() method.
@@ -124,6 +145,27 @@ public class SimulaattorinPaaikkunaKontrolleri extends SimulaattoriMain {
 		        alert.setHeaderText("Viive ei voi olla negatiivinen.");
 		        alert.showAndWait();
 			} else {
+				// Asetetaan jakauma kaikille palvelupisteille
+				String jakauma = jakaumatChoiceBox.getValue();
+				if (jakauma.equals("Normaali jakauma")) {
+					omaMoottori.getPalvelutiski().setGenerator(new Normal(5,3));
+					omaMoottori.getRuletti().setGenerator(new Normal(5,3));
+					omaMoottori.getBlackjack().setGenerator(new Normal(5,3));
+					omaMoottori.getKraps().setGenerator(new Normal(5,3));
+					omaMoottori.getVoittojenNostopiste().setGenerator(new Normal(5,3));
+				} else if (jakauma.equals("Eksponenttijakauma")) {
+					omaMoottori.getPalvelutiski().setGenerator(new Negexp(5,3));
+					omaMoottori.getRuletti().setGenerator(new Negexp(5,3));
+					omaMoottori.getBlackjack().setGenerator(new Negexp(5,3));
+					omaMoottori.getKraps().setGenerator(new Negexp(5,3));
+					omaMoottori.getVoittojenNostopiste().setGenerator(new Negexp(5,3));
+				} else if (jakauma.equals("Tasainen jakauma")) {
+					omaMoottori.getPalvelutiski().setGenerator(new Uniform(5,10));
+					omaMoottori.getRuletti().setGenerator(new Uniform(5,10));
+					omaMoottori.getBlackjack().setGenerator(new Uniform(5,10));
+					omaMoottori.getKraps().setGenerator(new Uniform(5,10));
+					omaMoottori.getVoittojenNostopiste().setGenerator(new Uniform(5,10));
+				}
 				// Simulaatio voidaan käynnistää
 				moottori = new OmaMoottori(this); // säie
 				moottori.setSimulointiaika(getAika());

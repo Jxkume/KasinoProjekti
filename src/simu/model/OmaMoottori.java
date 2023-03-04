@@ -25,13 +25,37 @@ public class OmaMoottori extends Moottori {
 		// TO-DO: muutetaan jakaumat oikeiksi, kun ollaan päätetty ne. - Valdo
 		saapumisprosessi = new Saapumisprosessi(new Negexp(15,5), tapahtumalista, TapahtumanTyyppi.ARR1);
 	
-		// MUISTUTUS: Jakaumat on pakko olla samat palvelupisteille, ettei jonot kasaannu!!!!!
 		palvelupisteet = new Palvelupiste[5];
 		palvelupisteet[0] = new Palvelupiste(new Normal(5,3), tapahtumalista, TapahtumanTyyppi.DEP1, "Palvelutiski");
 		palvelupisteet[1] = new Palvelupiste(new Normal(6,3), tapahtumalista, TapahtumanTyyppi.DEP2, "Ruletti");
 		palvelupisteet[2] = new Palvelupiste(new Normal(7,3), tapahtumalista, TapahtumanTyyppi.DEP3, "Blackjack");
 		palvelupisteet[3] = new Palvelupiste(new Normal(4,3), tapahtumalista, TapahtumanTyyppi.DEP4, "Kraps");
 		palvelupisteet[4] = new Palvelupiste(new Normal(5,3), tapahtumalista, TapahtumanTyyppi.DEP5, "Voittojen nostopiste");
+	}
+
+	// Kasinon palvelutiskin getteri
+	public Palvelupiste getPalvelutiski() {
+		return palvelupisteet[0];
+	}
+	
+	// Kasinon ruletin getteri
+	public Palvelupiste getRuletti() {
+		return palvelupisteet[1];
+	}
+	
+	// Kasinon Blackjackin getteri
+	public Palvelupiste getBlackjack() {
+		return palvelupisteet[2];
+	}
+	
+	// Kasinon Krapsin getteri
+	public Palvelupiste getKraps() {
+		return palvelupisteet[3];
+	}
+	
+	// Kasinon voittojen nostopisteen getteri
+	public Palvelupiste getVoittojenNostopiste() {
+		return palvelupisteet[4];
 	}
 
 	@Override
@@ -250,7 +274,7 @@ public class OmaMoottori extends Moottori {
 	        	break;
 		}
 		kontrolleri.paivitaTulos(palvelupisteet[0].getTalonVoittoEuroina());
-		kontrolleri.visualisoiJono(palvelupisteet[0]);
+		//kontrolleri.visualisoiJono(palvelupisteet[0]);
 	}
 
 	@Override

@@ -79,6 +79,10 @@ public class Palvelupiste {
 	public ContinuousGenerator getGenerator() {
 		return generator;
 	}
+	
+	public void setGenerator(ContinuousGenerator generator) {
+		this.generator = generator;
+	}
 
 	public Tapahtumalista getTapahtumalista() {
 		return tapahtumalista;
