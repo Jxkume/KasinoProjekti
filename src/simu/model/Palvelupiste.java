@@ -38,6 +38,7 @@ public class Palvelupiste {
 	@Transient
 	private static int talonVoittoEuroina = 0;
 	
+	
 	@Id
     @Column(name="nimi")
 	private String nimi;
@@ -51,15 +52,18 @@ public class Palvelupiste {
 	private double lapimenoaika;
 	@Transient
 	private double keskimaarainenLapimenoaika;
-	@Transient
+	
 	private double suoritusteho;
+	
 	@Transient
 	private double aktiiviaika;
-	@Transient
+	
 	private double kayttoaste;
-	@Transient
+	
 	private double kokonaisoleskeluaika;
 	
+	@Transient
+	private double simulointiAika;
 	//JonoStrategia strategia; //optio: asiakkaiden j채rjestys
 	@Transient
 	private boolean varattu = false;
@@ -73,9 +77,18 @@ public class Palvelupiste {
 	public Palvelupiste() {
 		
 	}
-
+	
 	public ArrayList<Asiakas> getKaynteja() {
 		return kaynteja;
+	}
+	
+	public void setKayttoaste(double kayttoaste) {
+		this.kayttoaste = kayttoaste;
+	}
+	
+	public double getKayttoaste(double simulointiaika) {
+		kayttoaste = aktiiviaika / simulointiaika;
+		return kayttoaste;
 	}
 	
 	public double getSuoritusteho(double simulointiaika) {
@@ -85,12 +98,7 @@ public class Palvelupiste {
 	public void setSuoritusteho(double suoritusteho) {
 		this.suoritusteho = suoritusteho;
 	}
-	
-	public double getKayttoaste(double simulointiaika) {
-		kayttoaste = aktiiviaika / simulointiaika;
-		return kayttoaste;
-	}
-	
+		
 	public double getKeskimaarainenPalveluaika() {
 		keskimaarainenPalveluaika = aktiiviaika / palvellutAsiakkaat;
 		return keskimaarainenPalveluaika;
@@ -103,7 +111,17 @@ public class Palvelupiste {
 	public double getKokonaisoleskeluaika() {
 		return kokonaisoleskeluaika;
 	}
-
+	
+	public void setSimulointiaika(double simulointiAika) {
+		this.simulointiAika = simulointiAika;
+	}
+	
+	public double getSimulointiaika() {
+		return simulointiAika;
+	}
+	public void setKokonaisoleskeluaika(double kokonaisoleskeluaika) {
+		this.kokonaisoleskeluaika = kokonaisoleskeluaika;
+	}
 	public void setKaynteja(ArrayList<Asiakas> kaynteja) {
 		this.kaynteja = kaynteja;
 	}
@@ -344,5 +362,6 @@ public class Palvelupiste {
 
 		return asiakkaat + Arrays.toString(asiakkaatJonossa).replace("[", "").replace("]", "") + ".";
 	}
+	
 	
 }

@@ -2,6 +2,7 @@ package simu.model;
 
 import java.util.HashMap;
 
+import dao.PalvelupisteDao;
 import eduni.distributions.Negexp;
 import eduni.distributions.Normal;
 import eduni.distributions.Uniform;
@@ -18,6 +19,7 @@ public class OmaMoottori extends Moottori {
 	private Saapumisprosessi saapumisprosessi;
 	private static int asiakasLkm = 0;
 	private double keskimaarainenVietettyAika;
+	PalvelupisteDao palvDao = new PalvelupisteDao();
 	
 	//public OmaMoottori(IKontrolleri kontrolleri) { // UUSI
 	public OmaMoottori(SimulaattorinPaaikkunaKontrolleri kontrolleri) {
@@ -60,7 +62,11 @@ public class OmaMoottori extends Moottori {
 	protected Palvelupiste getVoittojenNostopiste() {
 		return palvelupisteet[4];
 	}
-
+	
+	protected double simulointiAika() {
+		double tulos = getPalvelutiski().getKokonaisoleskeluaika() + getRuletti().getKokonaisoleskeluaika() + getBlackjack().getKokonaisoleskeluaika() + getKraps().getKokonaisoleskeluaika() + getVoittojenNostopiste().getKokonaisoleskeluaika();
+		return tulos;
+	}
 	@Override
 	protected void alustukset() {
 		// Generoidaan ensimmäinen asiakas järjestelmään
@@ -301,7 +307,35 @@ public class OmaMoottori extends Moottori {
 		kontrolleri.paivitaTulos(palvelupisteet[0].getTalonVoittoEuroina());
 		//kontrolleri.visualisoiJono(palvelupisteet[0]);
 	}
-
+	
+	protected void tallennaSimulointiajatPalvelupisteihin() {
+		getPalvelutiski().setSimulointiaika(getSimulointiaika());
+		getRuletti().setSimulointiaika(getSimulointiaika());
+		getBlackjack().setSimulointiaika(getSimulointiaika());
+		getKraps().setSimulointiaika(getSimulointiaika());
+		getVoittojenNostopiste().setSimulointiaika(getSimulointiaika());
+	}
+	protected void updateKokonaisoleskeluajat() {
+		palvDao.updateKokonaisoleskeluaika(getPalvelutiski());
+		palvDao.updateKokonaisoleskeluaika(getRuletti());
+		palvDao.updateKokonaisoleskeluaika(getBlackjack());
+		palvDao.updateKokonaisoleskeluaika(getKraps());
+		palvDao.updateKokonaisoleskeluaika(getVoittojenNostopiste());
+	}
+	protected void updateSuoritustehot() {
+		palvDao.updateSuoritusteho(getPalvelutiski());
+		palvDao.updateSuoritusteho(getRuletti());
+		palvDao.updateSuoritusteho(getBlackjack());
+		palvDao.updateSuoritusteho(getKraps());
+		palvDao.updateSuoritusteho(getVoittojenNostopiste());
+	}
+	protected void updateKayttoasteet() {
+		palvDao.updateKayttoaste(getPalvelutiski());
+		palvDao.updateKayttoaste(getRuletti());
+		palvDao.updateKayttoaste(getBlackjack());
+		palvDao.updateKayttoaste(getKraps());
+		palvDao.updateKayttoaste(getVoittojenNostopiste());
+	}
 	@Override
 	protected void tulokset() {
 		
@@ -311,8 +345,15 @@ public class OmaMoottori extends Moottori {
 		kontrolleri.naytaGridPane();
 		kontrolleri.naytaTiedot();
 		kontrolleri.setPalvelutiskinTulosteet(getPalvelutiskinTulosteet());
-		//PalvelupisteDao palvDao = new PalvelupisteDao();
-		//palvDao.poistaTiski(palvelupisteet[0].getNimi());
+		
+		// Tallennetaan simulointiajat palvelupisteihin että saadan ne haettua PalvelupisteDao luokassa
+		tallennaSimulointiajatPalvelupisteihin();
+		// Päivitetään tietokannassa olevia kokonaisoleskeluaikoja
+		updateKokonaisoleskeluajat();
+		// Päivitetään tietokannassa olevia suoritustehoja
+		updateSuoritustehot();
+		// Päivitetään tietokannassa olevia kayttoasteita
+		updateKayttoasteet();
 		
 		Trace.out(Trace.Level.INFO, "\n**SIMULOINTI PÄÄTTYY**");
 		if (palvelupisteet[4].getTalonVoittoEuroina() > 0) {

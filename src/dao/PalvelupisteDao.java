@@ -3,18 +3,51 @@ package dao;
 import datasource.MariaDBJPAConnector;
 import jakarta.persistence.EntityManager;
 import simu.model.Palvelupiste;
+import view.SimulaattorinPaaikkunaKontrolleri;
 
-public class PalvelupisteDao {
+
+public class PalvelupisteDao extends SimulaattorinPaaikkunaKontrolleri {
 	
-	  public void poistaTiski(String nimi) {
-		  EntityManager em = MariaDBJPAConnector.getInstance();
-	      em.getTransaction().begin();
-	      Palvelupiste palvelupiste = (Palvelupiste)em.find(Palvelupiste.class, (Object)nimi);
-	      if (palvelupiste != null) {
-	           em.remove((Object)palvelupiste);
-	           em.getTransaction().commit();
-	           
-	        }
-	        
-	    }
+	public boolean updateKokonaisoleskeluaika(Palvelupiste palvelupiste) {
+    	EntityManager em = MariaDBJPAConnector.getInstance();
+    	em.getTransaction().begin();
+    	Palvelupiste palvelupistee = (Palvelupiste)em.find(Palvelupiste.class, (Object)palvelupiste.getNimi());
+    	palvelupistee.setKokonaisoleskeluaika(palvelupiste.getKokonaisoleskeluaika());
+    	try {
+            em.getTransaction().commit();
+            return true;
+        }
+        catch (IllegalStateException e) {
+            return false;
+        }
+    }
+    
+    public boolean updateSuoritusteho(Palvelupiste palvelupiste) {
+    	EntityManager em = MariaDBJPAConnector.getInstance();
+    	em.getTransaction().begin();
+    	Palvelupiste palvelupistee = (Palvelupiste)em.find(Palvelupiste.class, (Object)palvelupiste.getNimi());
+    	palvelupistee.setSuoritusteho(palvelupiste.getSuoritusteho(palvelupiste.getSimulointiaika()));
+    	try {
+            em.getTransaction().commit();
+            return true;
+        }
+        catch (IllegalStateException e) {
+            return false;
+        }
+    }
+    
+    public boolean updateKayttoaste(Palvelupiste palvelupiste) {
+    	EntityManager em = MariaDBJPAConnector.getInstance();
+    	em.getTransaction().begin();
+    	Palvelupiste palvelupistee = (Palvelupiste)em.find(Palvelupiste.class, (Object)palvelupiste.getNimi());
+    	palvelupistee.setKayttoaste(palvelupiste.getKayttoaste(palvelupiste.getSimulointiaika()));
+    	try {
+            em.getTransaction().commit();
+            return true;
+        }
+        catch (IllegalStateException e) {
+            return false;
+        }
+    }
+	  
 }
