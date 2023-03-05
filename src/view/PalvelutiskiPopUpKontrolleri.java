@@ -5,9 +5,10 @@ import java.util.HashMap;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import simu.model.Palvelupiste;
 
-public class PalvelutiskiPopUpKontrolleri extends SimulaattorinPaaikkunaKontrolleri {
+public class PalvelutiskiPopUpKontrolleri {
+	
+	private static HashMap<String, String> palvelutiskinTulosteet;
 	
 	@FXML
     private Label palvelupisteNimi;
@@ -26,26 +27,38 @@ public class PalvelutiskiPopUpKontrolleri extends SimulaattorinPaaikkunaKontroll
     @FXML
     private Label kayttoaste;
     @FXML
-    private Label asiakkaidenKokonaisoleskeluaika;
-    
-    private HashMap<String, String> palvelutiskinTulosteet;
+    private Label kokonaisoleskeluaika;
     
     public PalvelutiskiPopUpKontrolleri() {
+    	palvelupisteNimi = new Label();
     	palvellutAsiakkaat = new Label();
+    	keskimaarainenPalveluaika = new Label();
+    	keskimaarainenJononpituus = new Label();
+    	keskimaarainenLapimenoaika = new Label();
+    	suoritusteho = new Label();
+    	aktiiviaika = new Label();
+    	kayttoaste = new Label();
+    	kokonaisoleskeluaika = new Label();
     }
     
-    public void initialize() {
-    	setPalvelutiskinTulosteet();
-    	naytaPalveltujaAsiakkaitaYhteensa();
-    }
+	public void initialize() {
+		Platform.runLater(()-> naytaTulosteet());
+	}
     
-    public void setPalvelutiskinTulosteet() {
-    	this.palvelutiskinTulosteet = getPalvelutiskinTulosteet();
-    }
+	public void setPalvelutiskinTulosteet(HashMap<String, String> tulosteet) {
+		palvelutiskinTulosteet = tulosteet;
+	}
+	
+	public void naytaTulosteet() {
+		palvelupisteNimi.setText("Yhteenveto palvelutiskistä");
+		palvellutAsiakkaat.setText(palvelutiskinTulosteet.get("Palveltuja asiakkaita yhteensä") + " asiakasta");
+		keskimaarainenPalveluaika.setText(palvelutiskinTulosteet.get("Asiakkaiden keskimääräinen palveluaika"));
+		keskimaarainenJononpituus.setText(palvelutiskinTulosteet.get("Keskimääräinen jononpituus") + " asiakasta");
+		keskimaarainenLapimenoaika.setText(palvelutiskinTulosteet.get("Asiakkaiden keskimääräinen läpimenoaika"));
+		suoritusteho.setText(palvelutiskinTulosteet.get("Suoritusteho"));
+		aktiiviaika.setText(palvelutiskinTulosteet.get("Aktiiviaika"));
+		kayttoaste.setText(palvelutiskinTulosteet.get("Käyttöaste"));
+		kokonaisoleskeluaika.setText(palvelutiskinTulosteet.get("Asiakkaiden kokonaisoleskeluaika"));
+	}
 
-    public void naytaPalveltujaAsiakkaitaYhteensa() {
-    	String tuloste = palvelutiskinTulosteet.get("Palveltuja asiakkaita yhteensä");
-    	palvellutAsiakkaat.setText(tuloste);
-    }
-    
 }

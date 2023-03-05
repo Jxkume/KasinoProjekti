@@ -36,13 +36,13 @@
                   <Label prefHeight="40.0" prefWidth="426.0" text="Aktiiviaika:" GridPane.rowIndex="5" />
                   <Label prefHeight="40.0" prefWidth="426.0" text="Käyttöaste:" GridPane.rowIndex="6" />
                   <Label prefHeight="40.0" prefWidth="426.0" text="Asiakkaiden kokonaisoleskeluaika:" GridPane.rowIndex="7" />
-                  <Label alignment="CENTER_RIGHT" prefHeight="80.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Label alignment="CENTER_RIGHT" prefHeight="80.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Label alignment="CENTER_RIGHT" prefHeight="80.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <Label alignment="CENTER_RIGHT" prefHeight="80.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <Label alignment="CENTER_RIGHT" prefHeight="80.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                  <Label alignment="CENTER_RIGHT" prefHeight="80.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                  <Label alignment="CENTER_RIGHT" prefHeight="80.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                  <Label fx:id="keskimaarainenPalveluaika" alignment="CENTER_RIGHT" prefHeight="80.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label fx:id="keskimaarainenJononpituus" alignment="CENTER_RIGHT" prefHeight="80.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Label fx:id="keskimaarainenLapimenoaika" alignment="CENTER_RIGHT" prefHeight="80.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Label fx:id="suoritusteho" alignment="CENTER_RIGHT" prefHeight="80.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <Label fx:id="aktiiviaika" alignment="CENTER_RIGHT" prefHeight="80.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <Label fx:id="kayttoaste" alignment="CENTER_RIGHT" prefHeight="80.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <Label fx:id="kokonaisoleskeluaika" alignment="CENTER_RIGHT" prefHeight="80.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                </children>
             </GridPane>
          </children>

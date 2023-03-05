@@ -92,10 +92,6 @@
                         <Label id="palvelupisteTeksti" alignment="TOP_LEFT" layoutX="111.0" layoutY="269.0" prefHeight="40.0" prefWidth="258.0" text="Blackjackin jono:" />
                         <Label id="palvelupisteTeksti" alignment="TOP_LEFT" layoutX="111.0" layoutY="376.0" prefHeight="40.0" prefWidth="274.0" text="Krapsin jono:" />
                         <Label id="palvelupisteTeksti" alignment="TOP_LEFT" layoutX="111.0" layoutY="482.0" prefHeight="40.0" prefWidth="378.0" text="Voittojen nostopisteen jono:" />
-                        <Polygon fx:id="PTJ1" fill="#901313" layoutX="131.0" layoutY="93.0" points="-20.0, 40.0, 20.0, 40.0, 0.0, 0.0" stroke="BLACK" strokeType="INSIDE" />
-                        <Polygon fill="#901313" layoutX="131.0" layoutY="200.0" points="-20.0, 40.0, 20.0, 40.0, 0.0, 0.0" stroke="BLACK" strokeType="INSIDE" />
-                        <Polygon fill="#901313" layoutX="131.0" layoutY="309.0" points="-20.0, 40.0, 20.0, 40.0, 0.0, 0.0" stroke="BLACK" strokeType="INSIDE" />
-                        <Polygon fill="#901313" layoutX="131.0" layoutY="416.0" points="-20.0, 40.0, 20.0, 40.0, 0.0, 0.0" stroke="BLACK" strokeType="INSIDE" />
                         <Button fx:id="palvelutiskiButton" alignment="CENTER" contentDisplay="CENTER" disable="true" layoutX="659.0" layoutY="98.0" mnemonicParsing="false" onAction="#naytaPalvelutiskiPopUp" prefHeight="31.0" prefWidth="85.0" text="Näytä tiedot" textOverrun="CLIP" />
                         <GridPane layoutX="488.0" layoutY="35.0" prefHeight="30.0" prefWidth="305.0">
                           <columnConstraints>
@@ -114,14 +110,46 @@
                         <Button fx:id="blackjackButton" alignment="CENTER" contentDisplay="CENTER" disable="true" layoutX="659.0" layoutY="314.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="85.0" text="Näytä tiedot" textOverrun="CLIP" />
                         <Button fx:id="krapsButton" alignment="CENTER" contentDisplay="CENTER" disable="true" layoutX="659.0" layoutY="421.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="85.0" text="Näytä tiedot" textOverrun="CLIP" />
                         <Button fx:id="voittojenNostopisteButton" alignment="CENTER" contentDisplay="CENTER" disable="true" layoutX="659.0" layoutY="527.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="85.0" text="Näytä tiedot" textOverrun="CLIP" />
-                        <Polygon fill="#901313" layoutX="131.0" layoutY="522.0" points="-20.0, 40.0, 20.0, 40.0, 0.0, 0.0" stroke="BLACK" strokeType="INSIDE" />
-                        <Polygon fx:id="PTJ2" fill="#901313" layoutX="171.0" layoutY="93.0" points="-20.0, 40.0, 20.0, 40.0, 0.0, 0.0" stroke="BLACK" strokeType="INSIDE" />
-                        <Polygon fx:id="PTJ3" fill="#901313" layoutX="211.0" layoutY="93.0" points="-20.0, 40.0, 20.0, 40.0, 0.0, 0.0" stroke="BLACK" strokeType="INSIDE" />
-                        <Label fx:id="PTJID1" layoutX="130.0" layoutY="106.0" textFill="WHITE" />
-                        <Polygon fx:id="PTJ4" fill="#901313" layoutX="248.0" layoutY="93.0" points="-20.0, 40.0, 20.0, 40.0, 0.0, 0.0" stroke="BLACK" strokeType="INSIDE" />
-                        <Label fx:id="PTJID2" layoutX="170.0" layoutY="106.0" textFill="WHITE" />
-                        <Label fx:id="PTJID3" layoutX="247.0" layoutY="106.0" textFill="WHITE" />
-                        <Label fx:id="PTJID4" layoutX="234.0" layoutY="106.0" textFill="WHITE" />
+                        <Polygon fx:id="RJ1" fill="#901313" layoutX="131.0" layoutY="200.0" points="-20.0, 40.0, 20.0, 40.0, 0.0, 0.0" stroke="BLACK" strokeType="INSIDE" />
+                        <Polygon fx:id="BJ1" fill="#901313" layoutX="131.0" layoutY="309.0" points="-20.0, 40.0, 20.0, 40.0, 0.0, 0.0" stroke="BLACK" strokeType="INSIDE" />
+                        <Polygon fx:id="KJ1" fill="#901313" layoutX="131.0" layoutY="416.0" points="-20.0, 40.0, 20.0, 40.0, 0.0, 0.0" stroke="BLACK" strokeType="INSIDE" />
+                        <Polygon fx:id="VNPJ1" fill="#901313" layoutX="131.0" layoutY="522.0" points="-20.0, 40.0, 20.0, 40.0, 0.0, 0.0" stroke="BLACK" strokeType="INSIDE" />
+                        <Label fx:id="PTID1" layoutX="130.0" layoutY="106.0" textFill="WHITE" />
+                        <Label fx:id="PTID2" layoutX="170.0" layoutY="106.0" textFill="WHITE" />
+                        <Label fx:id="PTID3" layoutX="247.0" layoutY="106.0" textFill="WHITE" />
+                        <Label fx:id="PTID4" layoutX="234.0" layoutY="106.0" textFill="WHITE" />
+                        <Polygon fx:id="RJ2" fill="#901313" layoutX="170.0" layoutY="200.0" points="-20.0, 40.0, 20.0, 40.0, 0.0, 0.0" stroke="BLACK" strokeType="INSIDE" />
+                        <Polygon fx:id="RJ3" fill="#901313" layoutX="211.0" layoutY="200.0" points="-20.0, 40.0, 20.0, 40.0, 0.0, 0.0" stroke="BLACK" strokeType="INSIDE" />
+                        <Polygon fx:id="RJ4" fill="#901313" layoutX="248.0" layoutY="200.0" points="-20.0, 40.0, 20.0, 40.0, 0.0, 0.0" stroke="BLACK" strokeType="INSIDE" />
+                        <Polygon fx:id="BJ2" fill="#901313" layoutX="171.0" layoutY="310.0" points="-20.0, 40.0, 20.0, 40.0, 0.0, 0.0" stroke="BLACK" strokeType="INSIDE" />
+                        <Polygon fx:id="BJ3" fill="#901313" layoutX="209.0" layoutY="310.0" points="-20.0, 40.0, 20.0, 40.0, 0.0, 0.0" stroke="BLACK" strokeType="INSIDE" />
+                        <Polygon fx:id="BJ4" fill="#901313" layoutX="248.0" layoutY="310.0" points="-20.0, 40.0, 20.0, 40.0, 0.0, 0.0" stroke="BLACK" strokeType="INSIDE" />
+                        <Polygon fx:id="KJ2" fill="#901313" layoutX="171.0" layoutY="416.0" points="-20.0, 40.0, 20.0, 40.0, 0.0, 0.0" stroke="BLACK" strokeType="INSIDE" />
+                        <Polygon fx:id="KJ3" fill="#901313" layoutX="211.0" layoutY="416.0" points="-20.0, 40.0, 20.0, 40.0, 0.0, 0.0" stroke="BLACK" strokeType="INSIDE" />
+                        <Polygon fx:id="KJ4" fill="#901313" layoutX="248.0" layoutY="416.0" points="-20.0, 40.0, 20.0, 40.0, 0.0, 0.0" stroke="BLACK" strokeType="INSIDE" />
+                        <Polygon fx:id="VNPJ2" fill="#901313" layoutX="171.0" layoutY="523.0" points="-20.0, 40.0, 20.0, 40.0, 0.0, 0.0" stroke="BLACK" strokeType="INSIDE" />
+                        <Polygon fx:id="VNPJ3" fill="#901313" layoutX="211.0" layoutY="523.0" points="-20.0, 40.0, 20.0, 40.0, 0.0, 0.0" stroke="BLACK" strokeType="INSIDE" />
+                        <Polygon fx:id="VNPJ4" fill="#901313" layoutX="248.0" layoutY="523.0" points="-20.0, 40.0, 20.0, 40.0, 0.0, 0.0" stroke="BLACK" strokeType="INSIDE" />
+                        <ImageView fx:id="PTJ1" fitHeight="91.0" fitWidth="95.0" layoutX="106.0" layoutY="78.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/chip.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="PTJ2" fitHeight="91.0" fitWidth="95.0" layoutX="202.0" layoutY="78.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/chip.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="PTJ3" fitHeight="91.0" fitWidth="95.0" layoutX="293.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/chip.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="PTJ4" fitHeight="91.0" fitWidth="95.0" layoutX="385.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/chip.png" />
+                           </image>
+                        </ImageView>
                      </children>
                   </Pane>
                </children>

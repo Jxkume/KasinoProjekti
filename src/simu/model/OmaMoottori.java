@@ -11,6 +11,7 @@ import simu.framework.Moottori;
 import simu.framework.Saapumisprosessi;
 import simu.framework.Tapahtuma;
 import simu.framework.Trace;
+import view.PalvelutiskiPopUpKontrolleri;
 import view.SimulaattorinPaaikkunaKontrolleri;
 
 
@@ -19,7 +20,8 @@ public class OmaMoottori extends Moottori {
 	private Saapumisprosessi saapumisprosessi;
 	private static int asiakasLkm = 0;
 	private double keskimaarainenVietettyAika;
-	PalvelupisteDao palvDao = new PalvelupisteDao();
+	private PalvelupisteDao palvDao = new PalvelupisteDao();
+	private PalvelutiskiPopUpKontrolleri palvelupistePopUpKontrolleri = new PalvelutiskiPopUpKontrolleri();
 	
 	//public OmaMoottori(IKontrolleri kontrolleri) { // UUSI
 	public OmaMoottori(SimulaattorinPaaikkunaKontrolleri kontrolleri) {
@@ -304,8 +306,13 @@ public class OmaMoottori extends Moottori {
 	        	Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " kävi Krapsissä " + kaynnit[3] + " kertaa.");
 	        	break;
 		}
-		kontrolleri.paivitaTulos(palvelupisteet[0].getTalonVoittoEuroina());
-		//kontrolleri.visualisoiJono(palvelupisteet[0]);
+		kontrolleri.paivitaTulos(getPalvelutiski().getTalonVoittoEuroina());
+		// Visualisoidaan jonot käyttöliittymään
+		kontrolleri.visualisoiJono(getPalvelutiski());
+		kontrolleri.visualisoiJono(getRuletti());
+		kontrolleri.visualisoiJono(getBlackjack());
+		kontrolleri.visualisoiJono(getKraps());
+		kontrolleri.visualisoiJono(getVoittojenNostopiste());
 	}
 	
 	protected void tallennaSimulointiajatPalvelupisteihin() {
@@ -344,16 +351,17 @@ public class OmaMoottori extends Moottori {
 		kontrolleri.naytaKeskimaarainenVietettyAika(keskimaarainenVietettyAika);
 		kontrolleri.naytaGridPane();
 		kontrolleri.naytaTiedot();
-		kontrolleri.setPalvelutiskinTulosteet(getPalvelutiskinTulosteet());
+		
+		palvelupistePopUpKontrolleri.setPalvelutiskinTulosteet(getPalvelutiskinTulosteet());
 		
 		// Tallennetaan simulointiajat palvelupisteihin että saadan ne haettua PalvelupisteDao luokassa
-		tallennaSimulointiajatPalvelupisteihin();
+		//tallennaSimulointiajatPalvelupisteihin();
 		// Päivitetään tietokannassa olevia kokonaisoleskeluaikoja
-		updateKokonaisoleskeluajat();
+		//updateKokonaisoleskeluajat();
 		// Päivitetään tietokannassa olevia suoritustehoja
-		updateSuoritustehot();
+		//updateSuoritustehot();
 		// Päivitetään tietokannassa olevia kayttoasteita
-		updateKayttoasteet();
+		//updateKayttoasteet();
 		
 		Trace.out(Trace.Level.INFO, "\n**SIMULOINTI PÄÄTTYY**");
 		if (palvelupisteet[4].getTalonVoittoEuroina() > 0) {
@@ -377,6 +385,7 @@ public class OmaMoottori extends Moottori {
         Trace.out(Trace.Level.INFO, "Palvelutiskin keskimääräinen jononpituus oli " + String.format("%.02f", getPalvelutiski().getKeskimaarainenJononpituus(getSimulointiaika())) + " asiakasta.");
 	}
 	
+	// Palvelutiskin tulosteet
 	public HashMap<String, String> getPalvelutiskinTulosteet() {
 		HashMap<String, String> palvelutiskinTulosteet = new HashMap<>();
 		palvelutiskinTulosteet.put("Palveltuja asiakkaita yhteensä", Integer.toString(getPalvelutiski().getPalvellutAsiakkaat()));
@@ -389,5 +398,20 @@ public class OmaMoottori extends Moottori {
 		palvelutiskinTulosteet.put("Asiakkaiden kokonaisoleskeluaika", Double.toString(getPalvelutiski().getKokonaisoleskeluaika()));
 		return palvelutiskinTulosteet;
 	}
+	
+	// Ruletin tulosteet
+	public HashMap<String, String> getRuletinTulosteet() {
+		HashMap<String, String> ruletinTulosteet = new HashMap<>();
+		ruletinTulosteet.put("Palveltuja asiakkaita yhteensä", Integer.toString(getRuletti().getPalvellutAsiakkaat()));
+		ruletinTulosteet.put("Asiakkaiden keskimääräinen palveluaika", Double.toString(getRuletti().getKeskimaarainenPalveluaika()));
+		ruletinTulosteet.put("Keskimääräinen jononpituus", Double.toString(getRuletti().getKeskimaarainenJononpituus(getSimulointiaika())));
+		ruletinTulosteet.put("Asiakkaiden keskimääräinen läpimenoaika", Double.toString(getRuletti().getKeskimaarainenLapimenoaika()));
+		ruletinTulosteet.put("Suoritusteho", Double.toString(getRuletti().getSuoritusteho(getSimulointiaika())));
+		return ruletinTulosteet;
+	}
+	
+	HashMap<String, String> blackjackintiskinTulosteet = new HashMap<>();
+	HashMap<String, String> krapsinTulosteet = new HashMap<>();
+	HashMap<String, String> voittojenNostopisteenTulosteet = new HashMap<>();
 	
 }
