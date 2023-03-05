@@ -2,6 +2,7 @@ package view;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 import eduni.distributions.Negexp;
@@ -88,6 +89,8 @@ public class SimulaattorinPaaikkunaKontrolleri {
     protected Button voittojenNostopisteButton;
     @FXML
     private ChoiceBox<String> jakaumatChoiceBox;
+    
+    private HashMap<String, String> palvelutiskinTulosteet;
     
     public String getJakauma() {
     	return jakaumatChoiceBox.getValue();
@@ -243,6 +246,10 @@ public class SimulaattorinPaaikkunaKontrolleri {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void setPalvelutiskinTulosteet(HashMap<String, String> palvelutiskinTulosteet) {
+		this.palvelutiskinTulosteet = palvelutiskinTulosteet;
 	}
 
     /**
