@@ -310,6 +310,7 @@ public class OmaMoottori extends Moottori {
 		kontrolleri.naytaKeskimaarainenVietettyAika(keskimaarainenVietettyAika);
 		kontrolleri.naytaGridPane();
 		kontrolleri.naytaTiedot();
+		kontrolleri.setPalvelutiskinTulosteet(getPalvelutiskinTulosteet());
 		//PalvelupisteDao palvDao = new PalvelupisteDao();
 		//palvDao.poistaTiski(palvelupisteet[0].getNimi());
 		
@@ -335,7 +336,7 @@ public class OmaMoottori extends Moottori {
         Trace.out(Trace.Level.INFO, "Palvelutiskin keskimääräinen jononpituus oli " + String.format("%.02f", getPalvelutiski().getKeskimaarainenJononpituus(getSimulointiaika())) + " asiakasta.");
 	}
 	
-	public HashMap<String, String> palvelutiskinTulosteet() {
+	public HashMap<String, String> getPalvelutiskinTulosteet() {
 		HashMap<String, String> palvelutiskinTulosteet = new HashMap<>();
 		palvelutiskinTulosteet.put("Palveltuja asiakkaita yhteensä", Integer.toString(getPalvelutiski().getPalvellutAsiakkaat()));
 		palvelutiskinTulosteet.put("Asiakkaiden keskimääräinen palveluaika", Double.toString(getPalvelutiski().getKeskimaarainenPalveluaika()));

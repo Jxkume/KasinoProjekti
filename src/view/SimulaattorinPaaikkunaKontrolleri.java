@@ -251,6 +251,10 @@ public class SimulaattorinPaaikkunaKontrolleri {
 	public void setPalvelutiskinTulosteet(HashMap<String, String> palvelutiskinTulosteet) {
 		this.palvelutiskinTulosteet = palvelutiskinTulosteet;
 	}
+	
+	public HashMap<String, String> getPalvelutiskinTulosteet() {
+		return palvelutiskinTulosteet;
+	}
 
     /**
      * Is called by the main application to give a reference back to itself.

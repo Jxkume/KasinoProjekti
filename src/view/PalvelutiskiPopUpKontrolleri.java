@@ -1,11 +1,13 @@
 package view;
 
+import java.util.HashMap;
+
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import simu.model.Palvelupiste;
 
-public class PalvelutiskiPopUpKontrolleri {
+public class PalvelutiskiPopUpKontrolleri extends SimulaattorinPaaikkunaKontrolleri {
 	
 	@FXML
     private Label palvelupisteNimi;
@@ -26,14 +28,24 @@ public class PalvelutiskiPopUpKontrolleri {
     @FXML
     private Label asiakkaidenKokonaisoleskeluaika;
     
+    private HashMap<String, String> palvelutiskinTulosteet;
+    
     public PalvelutiskiPopUpKontrolleri() {
+    	palvellutAsiakkaat = new Label();
     }
     
-	public void initialize() {
-		palvelupisteNimi.setText("Palvelutiski");
-	}
+    public void initialize() {
+    	setPalvelutiskinTulosteet();
+    	naytaPalveltujaAsiakkaitaYhteensa();
+    }
+    
+    public void setPalvelutiskinTulosteet() {
+    	this.palvelutiskinTulosteet = getPalvelutiskinTulosteet();
+    }
 
-	public void setPalvellutAsiakkaat(int asiakkaat) {
-		Platform.runLater(()-> palvellutAsiakkaat.setText(asiakkaat + " hello"));
-	}
+    public void naytaPalveltujaAsiakkaitaYhteensa() {
+    	String tuloste = palvelutiskinTulosteet.get("Palveltuja asiakkaita yhteensä");
+    	palvellutAsiakkaat.setText(tuloste);
+    }
+    
 }
