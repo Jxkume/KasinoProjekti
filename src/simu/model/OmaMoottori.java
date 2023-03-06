@@ -148,7 +148,7 @@ public class OmaMoottori extends Moottori {
 			case DEP2: // Asiakas lähtee kasinon ruletista
 				asiakas = getRuletti().getJononEnsimmainen();
 				// Asiakkaalla pitää olla vähintään 10 polettia pelatakseen
-				if (asiakas.getNykyinenPolettimaara() >= 10) {
+				if (asiakas.getNykyinenPolettimaara() >= 100) {
 					// Asiakas pelaa ja tarkistetaan voittiko vai hävisikö asiakas
 					if (getRuletti().voittikoAsiakas(asiakas)) {
 						// Lisätään lukuun 1
@@ -196,7 +196,7 @@ public class OmaMoottori extends Moottori {
 			case DEP3: // Asiakas lähtee kasinon Blackjackistä
 				asiakas = getBlackjack().getJononEnsimmainen();
 				// Asiakkaalla pitää olla vähintään 10 polettia pelatakseen
-				if (asiakas.getNykyinenPolettimaara() >= 10) {
+				if (asiakas.getNykyinenPolettimaara() >= 100) {
 					// Asiakas pelaa ja tarkistetaan voittiko vai hävisikö asiakas
 					if (getBlackjack().voittikoAsiakas(asiakas)) {
 						// Lisätään lukuun 1
@@ -244,7 +244,7 @@ public class OmaMoottori extends Moottori {
 			case DEP4: // Asiakas lähtee kasinon Krapsistä
 				asiakas = getKraps().getJononEnsimmainen();
 				// Asiakkaalla pitää olla vähintään 10 polettia pelatakseen
-				if (asiakas.getNykyinenPolettimaara() >= 10) {
+				if (asiakas.getNykyinenPolettimaara() >= 100) {
 					// Asiakas pelaa ja tarkistetaan voittiko vai hävisikö asiakas
 					if (getKraps().voittikoAsiakas(asiakas)) {
 						// Lisätään lukuun 1

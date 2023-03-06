@@ -287,25 +287,34 @@ public class Palvelupiste {
 		return talonVoittoEuroina;
 	}
 	
+	public int arvotaanPelimaksu(Asiakas asiakas) {
+		int MAX;
+		if(asiakas.getNykyinenPolettimaara() < 100) {
+			MAX = asiakas.getNykyinenPolettimaara() / 10;
+		} else {
+			MAX = 10;
+		}
+		int poletteja = (int) Math.floor(Math.random() * (MAX - 5 + 1) + 5) * 10;
+		return poletteja;
+	}
 	public boolean voittikoAsiakas(Asiakas asiakas) {
 		
 		// Tässä jotain todennäköisyyksiä ja voittosummia peleihin, näitä voi vapaasti muutella - Valdo
 		int todennakoisyysVoittoon;
-		int polettimaara;
+		int polettimaara = arvotaanPelimaksu(asiakas);
 		
 		switch (nimi) {
 			
 			case "Ruletti":
 				// Ruletissa 50% mahdollisuus voittoon ja 50% häviöön
 				todennakoisyysVoittoon = new Random().nextInt(10);
-				polettimaara = (int) Math.floor(Math.random() * (10 - 5 + 1) + 5) * 10;
 				if (todennakoisyysVoittoon < 5) {
 					// Voittosumma on 50-100 polettia.
 					Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " voitti ruletissa " + polettimaara + " polettia!");
 					asiakas.lisaaPoletteja(polettimaara);
 					Trace.out(Trace.Level.INFO, "Asiakkaalla " + asiakas.getId() + " poletteja yhteensä " + asiakas.getNykyinenPolettimaara() + ".");
 					return true;
-				} else { //lol
+				} else { 
 					Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " hävisi pelin.");
 					// Asiakas häviää 50-100 polettia.
 					asiakas.vahennaPoletteja(polettimaara);
@@ -314,10 +323,9 @@ public class Palvelupiste {
 				}
 				
 			case "Blackjack":
-				// Blackjackissa 40% mahdollisuus voittoon ja 60% häviöön
-				todennakoisyysVoittoon = new Random().nextInt(10);
-				polettimaara = (int) Math.floor(Math.random() * (10 - 5 + 1) + 5) * 10;
-				if (todennakoisyysVoittoon < 4) {
+				// Blackjackissa 42.4% mahdollisuus voittoon ja 57.8% häviöön
+				todennakoisyysVoittoon = new Random().nextInt(1000) + 1;
+				if (todennakoisyysVoittoon <= 424) {
 					// Voittosumma on 50-100 polettia.
 					Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " voitti Blackjackissä " + polettimaara + " polettia!");
 					asiakas.lisaaPoletteja(polettimaara);
@@ -334,7 +342,6 @@ public class Palvelupiste {
 			case "Kraps":
 				// Krapsissa on 50% mahdollisuus voittoon ja 50% häviöön (pyöreästi)
 				Kraps.kahdenNopanSumma();
-				polettimaara = (int) Math.floor(Math.random() * (10 - 5 + 1) + 5) * 10;
 				if (Kraps.voittaako() == true) {
 					// Voittosumma on 50-100 polettia.
 					Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " voitti Krapsissä " + polettimaara + " polettia!");

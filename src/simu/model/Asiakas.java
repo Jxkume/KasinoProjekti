@@ -80,8 +80,9 @@ public class Asiakas {
 	}
 	
 	public void annaPolettejaPalvelutiskilla() {
+		// Asiakkalle annetaan poletteja 100-1000
 		int polettimaara;
-		polettimaara = (int) Math.floor(Math.random() * (10 - 1 + 1) + 1) * 10;
+		polettimaara = (int) Math.floor(Math.random() * (10 - 1 + 1) + 1) * 100;
 		nykyinenPolettimaara += polettimaara;
 		alkuperainenPolettimaara += polettimaara;
 	}
