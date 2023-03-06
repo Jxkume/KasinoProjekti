@@ -13,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Polygon;
@@ -27,88 +28,58 @@ public class SimulaattorinPaaikkunaKontrolleri {
 
 	private SimulaattoriMain simulaattoriMain;
     private IMoottori moottori;
-    
-    // Palvelutiskin jonon kuvat
-    @FXML
-    private ImageView PJ1, PJ2, PJ3, PJ4, PJ5, PJ6, PJ7, PJ8, PJ9, PJ10;
-    // Ruletin jonon kuvat
-    @FXML
-    private ImageView RJ1, RJ2, RJ3, RJ4, RJ5, RJ6, RJ7, RJ8, RJ9, RJ10;
-    // Blackjackin jonon kuvat
-    @FXML
-    private ImageView BJ1, BJ2, BJ3, BJ4, BJ5, BJ6, BJ7, BJ8, BJ9, BJ10;
-    // Krapsin jonon kuvat
-    @FXML
-    private ImageView KJ1, KJ2, KJ3, KJ4, KJ5, KJ6, KJ7, KJ8, KJ9, KJ10;
-    // Voittojen nostopisteen jonon kuvat
-    @FXML
-    private ImageView VNJ1, VNJ2, VNJ3, VNJ4, VNJ5, VNJ6, VNJ7, VNJ8, VNJ9, VNJ10;
-    
-    private ArrayList<ImageView> palvelutiskiJono = new ArrayList<>();
-    private ArrayList<ImageView> rulettiJono = new ArrayList<>();
-    private ArrayList<ImageView> blackjackJono = new ArrayList<>();
-    private ArrayList<ImageView> krapsJono = new ArrayList<>();
-    private ArrayList<ImageView> voittojenNostoPisteJono = new ArrayList<>();
+    private ArrayList<ImageView> palvelutiskiJono, rulettiJono, blackjackJono, krapsJono, voittojenNostoPisteJono;
     
     @FXML
-    private TextField aika;
+    private ImageView PJ1, PJ2, PJ3, PJ4, PJ5, PJ6, PJ7, PJ8, PJ9, PJ10;			// Palvelutiskin jonon kuvat
     @FXML
-	private TextField viive;
+    private ImageView RJ1, RJ2, RJ3, RJ4, RJ5, RJ6, RJ7, RJ8, RJ9, RJ10;			// Ruletin jonon kuvat
     @FXML
-	private Label kokonaisaika;
+    private ImageView BJ1, BJ2, BJ3, BJ4, BJ5, BJ6, BJ7, BJ8, BJ9, BJ10;			// Blackjackin jonon kuvat
     @FXML
-	private Label aikaLabel;
+    private ImageView KJ1, KJ2, KJ3, KJ4, KJ5, KJ6, KJ7, KJ8, KJ9, KJ10; 			// Krapsin jonon kuvat
     @FXML
-	private Label viiveLabel;
+    private ImageView VNJ1, VNJ2, VNJ3, VNJ4, VNJ5, VNJ6, VNJ7, VNJ8, VNJ9, VNJ10; 	// Voittojen nostopisteen jonon kuvat
     @FXML
-	private Label kokonaisaikatulosLabel;
+	private Button kaynnistaButton, hidastaButton, nopeutaButton;
     @FXML
-	private Label asiakasLkmLabel;
+    private Button palvelutiskiButton, rulettiButton, blackjackButton, krapsButton, voittojenNostopisteButton;
     @FXML
-	private Label keskimaarainenVietettyAikaLabel;
+    private TextField aikaTextField, viiveTextField;
     @FXML
-	private Button kaynnistaButton;
-    @FXML
-	private Button hidastaButton;
-    @FXML
-	private Button nopeutaButton;
-    @FXML
-    private Label kasinonTulos;
-    @FXML
-    private GridPane tekijat;
-    @FXML
-    private GridPane tulokset;
-    @FXML
-    private Button palvelutiskiButton;
-    @FXML
-    private Button rulettiButton;
-    @FXML
-    private Button blackjackButton;
-    @FXML
-    private Button krapsButton;
-    @FXML
-    private Button voittojenNostopisteButton;
-    
+    private GridPane tulokset, tekijat;
     @FXML
     private ChoiceBox<String> jakaumatChoiceBox;
+    @FXML
+	private Label kokonaisaikatulosLabel, asiakasLkmLabel, keskimaarainenVietettyAikaLabel, kasinonTulosLabel;
     
-    public String getJakauma() {
-    	return jakaumatChoiceBox.getValue();
-    }
-    
+    // Konstruktori
     public SimulaattorinPaaikkunaKontrolleri() {
-    	// Alustetaan tarvittavat JavaFX-komponentit ja muut muuttujat
+    	
+    	// Alustetaan tarvittavat JavaFX-komponentit ja muuttujat
     	hidastaButton = new Button();
     	nopeutaButton = new Button();
     	jakaumatChoiceBox = new ChoiceBox<String>();
+    	palvelutiskiJono = new ArrayList<>();
+    	rulettiJono = new ArrayList<>();
+    	blackjackJono = new ArrayList<>();
+    	krapsJono = new ArrayList<>();
+    	voittojenNostoPisteJono = new ArrayList<>();
     }
     
     // Tätä metodia kutsutaan konstruktorin jälkeen
 	public void initialize() {
+		
 		// Asetetaan jakaumat ChoiceBoxiin
 		String[] jakaumat = {"Normaali jakauma", "Eksponenttijakauma", "Tasainen jakauma"};
 		jakaumatChoiceBox.getItems().addAll(jakaumat);
 		jakaumatChoiceBox.setValue("Normaali jakauma");
+		
+		// Alustetaan napit
+		kaynnistaButton.setDisable(false);
+		hidastaButton.setDisable(true);
+    	nopeutaButton.setDisable(true);
+		
 		// Asetetaan palvelutiskin jonon kuvat ArrayListiin
 		palvelutiskiJono.add(PJ1);
 		palvelutiskiJono.add(PJ2);
@@ -120,6 +91,7 @@ public class SimulaattorinPaaikkunaKontrolleri {
 		palvelutiskiJono.add(PJ8);
 		palvelutiskiJono.add(PJ9);
 		palvelutiskiJono.add(PJ10);
+		
 		// Asetetaan ruletin jonon kuvat ArrayListiin
 		rulettiJono.add(RJ1);
 		rulettiJono.add(RJ2);
@@ -131,6 +103,7 @@ public class SimulaattorinPaaikkunaKontrolleri {
 		rulettiJono.add(RJ8);
 		rulettiJono.add(RJ9);
 		rulettiJono.add(RJ10);
+		
 		// Asetetaan Blackjackin jonon kuvat ArrayListiin
 		blackjackJono.add(BJ1);
 		blackjackJono.add(BJ2);
@@ -142,6 +115,7 @@ public class SimulaattorinPaaikkunaKontrolleri {
 		blackjackJono.add(BJ8);
 		blackjackJono.add(BJ9);
 		blackjackJono.add(BJ10);
+		
 		// Asetetaan Krapsin jonon kuvat ArrayListiin
 		krapsJono.add(KJ1);
 		krapsJono.add(KJ2);
@@ -153,6 +127,7 @@ public class SimulaattorinPaaikkunaKontrolleri {
 		krapsJono.add(KJ8);
 		krapsJono.add(KJ9);
 		krapsJono.add(KJ10);
+		
 		// Asetetaan voittojen nostopisteen jonon kuvat ArrayListiin
 		voittojenNostoPisteJono.add(VNJ1);
 		voittojenNostoPisteJono.add(VNJ2);
@@ -164,8 +139,73 @@ public class SimulaattorinPaaikkunaKontrolleri {
 		voittojenNostoPisteJono.add(VNJ8);
 		voittojenNostoPisteJono.add(VNJ9);
 		voittojenNostoPisteJono.add(VNJ10);
+		
+		for (int i = 0; i < rulettiJono.size(); i++) {
+			rulettiJono.get(i).setOpacity(0.25);
+		}
+		
+		for (int i = 0; i < blackjackJono.size(); i++) {
+			blackjackJono.get(i).setOpacity(0.25);
+		}
+		
+		for (int i = 0; i < palvelutiskiJono.size(); i++) {
+			palvelutiskiJono.get(i).setOpacity(0.25);
+		}
+		
+		for (int i = 0; i < krapsJono.size(); i++) {
+			krapsJono.get(i).setOpacity(0.25);
+		}
+		
+		for (int i = 0; i < voittojenNostoPisteJono.size(); i++) {
+			voittojenNostoPisteJono.get(i).setOpacity(0.25);
+		}
+		
 	}
-	
+    
+	public void kaynnistaSimulointi() {
+		
+		Alert alert = new Alert(AlertType.ERROR);
+		// Tarkistetaan, että käyttäjä on syöttänyt simulointiajan ja viiveen
+		if (aikaTextField.getText().isEmpty() && viiveTextField.getText().isEmpty()) {
+			alert.setTitle("Simulointiaika ja viive puuttuvat!");
+	        alert.setHeaderText("Ole hyvä ja aseta simulointiaika ja viive käynnistääksesi simulaattorin.");
+	        alert.showAndWait();
+		} else if (aikaTextField.getText().isEmpty()) {
+	        alert.setTitle("Simulointiaika puuttuu!");
+	        alert.setHeaderText("Ole hyvä ja aseta simulointiaika käynnistääksesi simulaattorin.");
+	        alert.showAndWait();
+		} else if (viiveTextField.getText().isEmpty()) {
+	        alert.setTitle("Viive puuttuu!");
+	        alert.setHeaderText("Ole hyvä ja aseta viive käynnistääksesi simulaattorin.");
+	        alert.showAndWait();
+		} else {
+			// Tarkistetaan, että arvot eivät ole negatiivisia
+			if (Integer.parseInt(aikaTextField.getText()) < 0) {
+		        alert.setTitle("Negatiivinen simulointiaika!");
+		        alert.setHeaderText("Simulointiaika ei voi olla negatiivinen.");
+		        alert.showAndWait();
+			} else if (Integer.parseInt(viiveTextField.getText()) < 0) {
+		        alert.setTitle("Negatiivinen viive!");
+		        alert.setHeaderText("Viive ei voi olla negatiivinen.");
+		        alert.showAndWait();
+			} else {
+				// Simulaatio voidaan käynnistää
+				moottori = new OmaMoottori(this); // säie
+				moottori.setSimulointiaika(getAika());
+				moottori.setViive(getViive());
+				((Thread)moottori).start();
+				// Nappia voi painaa vain kerran
+				kaynnistaButton.setDisable(true);
+				// Käyttäjä voi nyt hidastaa tai nopeuttaa simulaatiota
+		    	hidastaButton.setDisable(false);
+		    	nopeutaButton.setDisable(false);
+		    	// Tulokset-GridPane asetetaan pois näkyvistä
+		    	tulokset.setVisible(false);
+			}
+		}
+		
+	}
+
 	public void visualisoiJono(Palvelupiste palvelupiste) {
 		
 		int max;
@@ -224,63 +264,32 @@ public class SimulaattorinPaaikkunaKontrolleri {
 				}
 			}
 		}
-	}
-	
-	public void kaynnistaSimulointi() {
 		
-		Alert alert = new Alert(AlertType.ERROR);
-		// Tarkistetaan, että käyttäjä on syöttänyt simulointiajan ja viiveen
-		if (aika.getText().isEmpty() && viive.getText().isEmpty()) {
-			alert.setTitle("Simulointiaika ja viive puuttuvat!");
-	        alert.setHeaderText("Ole hyvä ja aseta simulointiaika ja viive käynnistääksesi simulaattorin.");
-	        alert.showAndWait();
-		} else if (aika.getText().isEmpty()) {
-	        alert.setTitle("Simulointiaika puuttuu!");
-	        alert.setHeaderText("Ole hyvä ja aseta simulointiaika käynnistääksesi simulaattorin.");
-	        alert.showAndWait();
-		} else if (viive.getText().isEmpty()) {
-	        alert.setTitle("Viive puuttuu!");
-	        alert.setHeaderText("Ole hyvä ja aseta viive käynnistääksesi simulaattorin.");
-	        alert.showAndWait();
-		} else {
-			// Tarkistetaan, että arvot eivät ole negatiivisia
-			if (Integer.parseInt(aika.getText()) < 0) {
-		        alert.setTitle("Negatiivinen simulointiaika!");
-		        alert.setHeaderText("Simulointiaika ei voi olla negatiivinen.");
-		        alert.showAndWait();
-			} else if (Integer.parseInt(viive.getText()) < 0) {
-		        alert.setTitle("Negatiivinen viive!");
-		        alert.setHeaderText("Viive ei voi olla negatiivinen.");
-		        alert.showAndWait();
-			} else {
-				// Simulaatio voidaan käynnistää
-				moottori = new OmaMoottori(this); // säie
-				moottori.setSimulointiaika(getAika());
-				moottori.setViive(getViive());
-				//ui.getVisualisointi().tyhjennaNaytto();
-				((Thread)moottori).start();
-				// Nappia voi painaa vain kerran
-				kaynnistaButton.setDisable(true);
-				// Käyttäjä voi nyt hidastaa tai nopeuttaa simulaatiota
-		    	hidastaButton.setDisable(false);
-		    	nopeutaButton.setDisable(false);
-			}
-		}
 	}
 	
-	public void hidasta() { // hidastetaan moottorisäiettä
+	// Hidastetaan moottorisäiettä
+	public void hidasta() {
 		// Lisätään viiveeseen 10
 		moottori.setViive((long)(moottori.getViive() + 10));
+		viiveTextField.setText(Long.toString(moottori.getViive()));
 	}
 	
-	public void nopeuta() { // nopeutetaan moottorisäiettä
+	// nopeutetaan moottorisäiettä
+	public void nopeuta() {
 		// Varmistetaan ettei viive voi mennä negatiiviseksi
 		if (moottori.getViive() < 10) {
-			moottori.setViive(0);
+			moottori.setViive(1);
+			viiveTextField.setText("1");
 		} else {
 			// Vähennetään viiveestä 10
 			moottori.setViive((long)(moottori.getViive() - 10));
+			viiveTextField.setText(Long.toString(moottori.getViive()));
 		}
+	}
+	
+	public void naytaGridPane() {
+		Platform.runLater(()-> tekijat.setVisible(false));
+		Platform.runLater(()-> tulokset.setVisible(true));
 	}
 	
 	public void naytaLoppuaika(double aika) {
@@ -295,13 +304,8 @@ public class SimulaattorinPaaikkunaKontrolleri {
 		Platform.runLater(()-> keskimaarainenVietettyAikaLabel.setText((String.format("%.02f", aika))));
 	}
 	
-	public void naytaGridPane() {
-		Platform.runLater(()-> tekijat.setVisible(false));
-		Platform.runLater(()-> tulokset.setVisible(true));
-	}
-	
 	public void paivitaTulos(int tulos) {
-		Platform.runLater(()-> kasinonTulos.setText(tulos + " €"));
+		Platform.runLater(()-> kasinonTulosLabel.setText(tulos + " €"));
 	}
 	
 	public void naytaTiedot() {
@@ -322,7 +326,8 @@ public class SimulaattorinPaaikkunaKontrolleri {
 			fxmlLoader.setLocation(getClass().getResource("/view/PalvelutiskiPopUp.fxml"));
 			Parent scene = fxmlLoader.load();
 			Stage stage = new Stage();
-			stage.setTitle("Palvelupiste");
+			stage.getIcons().add(new Image("/images/Palvelutiski.png"));
+			stage.setTitle("Palvelutiski");
 			stage.setScene(new Scene(scene));
 			stage.setResizable(false);
 			stage.show();
@@ -337,7 +342,8 @@ public class SimulaattorinPaaikkunaKontrolleri {
 			fxmlLoader.setLocation(getClass().getResource("/view/RulettiPopUp.fxml"));
 			Parent scene = fxmlLoader.load();
 			Stage stage = new Stage();
-			stage.setTitle("Palvelupiste");
+			stage.getIcons().add(new Image("/images/RulettiPoyta.png"));
+			stage.setTitle("Ruletti");
 			stage.setScene(new Scene(scene));
 			stage.setResizable(false);
 			stage.show();
@@ -352,7 +358,8 @@ public class SimulaattorinPaaikkunaKontrolleri {
 			fxmlLoader.setLocation(getClass().getResource("/view/BlackjackPopUp.fxml"));
 			Parent scene = fxmlLoader.load();
 			Stage stage = new Stage();
-			stage.setTitle("Palvelupiste");
+			stage.getIcons().add(new Image("/images/Blackjack.png"));
+			stage.setTitle("Blackjack");
 			stage.setScene(new Scene(scene));
 			stage.setResizable(false);
 			stage.show();
@@ -367,7 +374,8 @@ public class SimulaattorinPaaikkunaKontrolleri {
 			fxmlLoader.setLocation(getClass().getResource("/view/KrapsPopUp.fxml"));
 			Parent scene = fxmlLoader.load();
 			Stage stage = new Stage();
-			stage.setTitle("Palvelupiste");
+			stage.getIcons().add(new Image("/images/KrapsPoyta.png"));
+			stage.setTitle("Kraps");
 			stage.setScene(new Scene(scene));
 			stage.setResizable(false);
 			stage.show();
@@ -382,7 +390,8 @@ public class SimulaattorinPaaikkunaKontrolleri {
 			fxmlLoader.setLocation(getClass().getResource("/view/VoittojenNostopistePopUp.fxml"));
 			Parent scene = fxmlLoader.load();
 			Stage stage = new Stage();
-			stage.setTitle("Palvelupiste");
+			stage.getIcons().add(new Image("/images/Voittotiski.png"));
+			stage.setTitle("Voittojen nostopiste");
 			stage.setScene(new Scene(scene));
 			stage.setResizable(false);
 			stage.show();
@@ -394,18 +403,22 @@ public class SimulaattorinPaaikkunaKontrolleri {
     /**
      * Is called by the main application to give a reference back to itself.
      * 
-     * @param mainApp
+     * @param simulaattoriMain
      */
     public void setSimulaattoriMain(SimulaattoriMain simulaattoriMain) {
         this.simulaattoriMain = simulaattoriMain;
     }
     
 	public double getAika(){
-		return Double.parseDouble(aika.getText());
+		return Double.parseDouble(aikaTextField.getText());
 	}
 	
 	public long getViive(){
-		return Long.parseLong(viive.getText());
+		return Long.parseLong(viiveTextField.getText());
 	}
+	
+    public String getJakauma() {
+    	return jakaumatChoiceBox.getValue();
+    }
 	
 }
