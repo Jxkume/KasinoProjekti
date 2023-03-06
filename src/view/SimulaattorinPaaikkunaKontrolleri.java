@@ -27,19 +27,28 @@ public class SimulaattorinPaaikkunaKontrolleri {
 
 	private SimulaattoriMain simulaattoriMain;
     private IMoottori moottori;
-    protected PalvelutiskiPopUpKontrolleri kontrolleri = new PalvelutiskiPopUpKontrolleri();
     
-  //Jonojen visualisointiin liittyviä asioita
+    // Palvelutiskin jonon kuvat
     @FXML
-    private Polygon RJ1, RJ2, RJ3, RJ4, BJ1, BJ2, BJ3, BJ4, KJ1, KJ2, KJ3, KJ4, VNPJ1, VNPJ2, VNPJ3, VNPJ4;
+    private ImageView PJ1, PJ2, PJ3, PJ4, PJ5, PJ6, PJ7, PJ8, PJ9, PJ10;
+    // Ruletin jonon kuvat
     @FXML
-    private ImageView PTJ1, PTJ2, PTJ3, PTJ4;
+    private ImageView RJ1, RJ2, RJ3, RJ4, RJ5, RJ6, RJ7, RJ8, RJ9, RJ10;
+    // Blackjackin jonon kuvat
+    @FXML
+    private ImageView BJ1, BJ2, BJ3, BJ4, BJ5, BJ6, BJ7, BJ8, BJ9, BJ10;
+    // Krapsin jonon kuvat
+    @FXML
+    private ImageView KJ1, KJ2, KJ3, KJ4, KJ5, KJ6, KJ7, KJ8, KJ9, KJ10;
+    // Voittojen nostopisteen jonon kuvat
+    @FXML
+    private ImageView VNJ1, VNJ2, VNJ3, VNJ4, VNJ5, VNJ6, VNJ7, VNJ8, VNJ9, VNJ10;
     
     private ArrayList<ImageView> palvelutiskiJono = new ArrayList<>();
-    private ArrayList<Polygon> rulettiJono = new ArrayList<>();
-    private ArrayList<Polygon> blackjackJono = new ArrayList<>();
-    private ArrayList<Polygon> krapsJono = new ArrayList<>();
-    private ArrayList<Polygon> voittojenNostoPisteJono = new ArrayList<>();
+    private ArrayList<ImageView> rulettiJono = new ArrayList<>();
+    private ArrayList<ImageView> blackjackJono = new ArrayList<>();
+    private ArrayList<ImageView> krapsJono = new ArrayList<>();
+    private ArrayList<ImageView> voittojenNostoPisteJono = new ArrayList<>();
     
     @FXML
     private TextField aika;
@@ -65,6 +74,8 @@ public class SimulaattorinPaaikkunaKontrolleri {
 	private Button nopeutaButton;
     @FXML
     private Label kasinonTulos;
+    @FXML
+    private GridPane tekijat;
     @FXML
     private GridPane tulokset;
     @FXML
@@ -94,91 +105,121 @@ public class SimulaattorinPaaikkunaKontrolleri {
     
     // Tätä metodia kutsutaan konstruktorin jälkeen
 	public void initialize() {
+		// Asetetaan jakaumat ChoiceBoxiin
 		String[] jakaumat = {"Normaali jakauma", "Eksponenttijakauma", "Tasainen jakauma"};
 		jakaumatChoiceBox.getItems().addAll(jakaumat);
 		jakaumatChoiceBox.setValue("Normaali jakauma");
-		
-		// Jonojen visualisoinnin komponentteja
-		palvelutiskiJono.add(PTJ1);
-		palvelutiskiJono.add(PTJ2);
-		palvelutiskiJono.add(PTJ3);
-		palvelutiskiJono.add(PTJ4);
-		
+		// Asetetaan palvelutiskin jonon kuvat ArrayListiin
+		palvelutiskiJono.add(PJ1);
+		palvelutiskiJono.add(PJ2);
+		palvelutiskiJono.add(PJ3);
+		palvelutiskiJono.add(PJ4);
+		palvelutiskiJono.add(PJ5);
+		palvelutiskiJono.add(PJ6);
+		palvelutiskiJono.add(PJ7);
+		palvelutiskiJono.add(PJ8);
+		palvelutiskiJono.add(PJ9);
+		palvelutiskiJono.add(PJ10);
+		// Asetetaan ruletin jonon kuvat ArrayListiin
 		rulettiJono.add(RJ1);
 		rulettiJono.add(RJ2);
 		rulettiJono.add(RJ3);
 		rulettiJono.add(RJ4);
-		
+		rulettiJono.add(RJ5);
+		rulettiJono.add(RJ6);
+		rulettiJono.add(RJ7);
+		rulettiJono.add(RJ8);
+		rulettiJono.add(RJ9);
+		rulettiJono.add(RJ10);
+		// Asetetaan Blackjackin jonon kuvat ArrayListiin
 		blackjackJono.add(BJ1);
 		blackjackJono.add(BJ2);
 		blackjackJono.add(BJ3);
 		blackjackJono.add(BJ4);
-		
+		blackjackJono.add(BJ5);
+		blackjackJono.add(BJ6);
+		blackjackJono.add(BJ7);
+		blackjackJono.add(BJ8);
+		blackjackJono.add(BJ9);
+		blackjackJono.add(BJ10);
+		// Asetetaan Krapsin jonon kuvat ArrayListiin
 		krapsJono.add(KJ1);
 		krapsJono.add(KJ2);
 		krapsJono.add(KJ3);
 		krapsJono.add(KJ4);
-		
-		voittojenNostoPisteJono.add(VNPJ1);
-		voittojenNostoPisteJono.add(VNPJ2);
-		voittojenNostoPisteJono.add(VNPJ3);
-		voittojenNostoPisteJono.add(VNPJ4);
+		krapsJono.add(KJ5);
+		krapsJono.add(KJ6);
+		krapsJono.add(KJ7);
+		krapsJono.add(KJ8);
+		krapsJono.add(KJ9);
+		krapsJono.add(KJ10);
+		// Asetetaan voittojen nostopisteen jonon kuvat ArrayListiin
+		voittojenNostoPisteJono.add(VNJ1);
+		voittojenNostoPisteJono.add(VNJ2);
+		voittojenNostoPisteJono.add(VNJ3);
+		voittojenNostoPisteJono.add(VNJ4);
+		voittojenNostoPisteJono.add(VNJ5);
+		voittojenNostoPisteJono.add(VNJ6);
+		voittojenNostoPisteJono.add(VNJ7);
+		voittojenNostoPisteJono.add(VNJ8);
+		voittojenNostoPisteJono.add(VNJ9);
+		voittojenNostoPisteJono.add(VNJ10);
 	}
 	
 	public void visualisoiJono(Palvelupiste palvelupiste) {
 		
 		int max;
 		int loput;
-		if (palvelupiste.getJono().size() > 4) {
-			max = 4;
+		if (palvelupiste.getJono().size() > 10) {
+			max = 10;
 			loput = max;
 		} else {
 			max = palvelupiste.getJono().size();
-			loput = 4 - max;
+			loput = 10 - max;
 		}
 		
-		if(palvelupiste.getNimi().equals("Palvelutiski")) {
-			for(int i = 0; i < max; i++) {
+		if (palvelupiste.getNimi().equals("Palvelutiski")) {
+			for (int i = 0; i < max; i++) {
 				palvelutiskiJono.get(i).setOpacity(1);
 			}
-			if(max < 4) {
-				for(int i = max; i < (max + loput); i++) {
+			if (max < 10) {
+				for (int i = max; i < (max + loput); i++) {
 					palvelutiskiJono.get(i).setOpacity(0.25);
 				}
 			}
-		} else if(palvelupiste.getNimi().equals("Ruletti")) {
-			for(int i = 0; i < max; i++) {
+		} else if (palvelupiste.getNimi().equals("Ruletti")) {
+			for (int i = 0; i < max; i++) {
 				rulettiJono.get(i).setOpacity(1);
 			}
-			if(max < 4) {
-				for(int i = max; i < (max + loput); i++) {
+			if (max < 10) {
+				for (int i = max; i < (max + loput); i++) {
 					rulettiJono.get(i).setOpacity(0.25);
 				}
 			}
-		} else if(palvelupiste.getNimi().equals("Blackjack")) {
-				for(int i = 0; i < max; i++) {
+		} else if (palvelupiste.getNimi().equals("Blackjack")) {
+				for (int i = 0; i < max; i++) {
 					blackjackJono.get(i).setOpacity(1);
 				}
-				if(max < 4) {
+				if (max < 10) {
 					for(int i = max; i < (max + loput); i++) {
 						blackjackJono.get(i).setOpacity(0.25);
 				}
 			}
-		} else if(palvelupiste.getNimi().equals("Kraps")) {
-			for(int i = 0; i < max; i++) {
+		} else if (palvelupiste.getNimi().equals("Kraps")) {
+			for (int i = 0; i < max; i++) {
 				krapsJono.get(i).setOpacity(1);
 			}
-			if(max < 4) {
+			if (max < 10) {
 				for(int i = max; i < (max + loput); i++) {
 					krapsJono.get(i).setOpacity(0.25);
 				}
 			}
-		} else if(palvelupiste.getNimi().equals("Voittojen nostopiste")) {
-			for(int i = 0; i < max; i++) {
+		} else if (palvelupiste.getNimi().equals("Voittojen nostopiste")) {
+			for (int i = 0; i < max; i++) {
 				voittojenNostoPisteJono.get(i).setOpacity(1);
 			}
-			if(max < 4) {
-				for(int i = max; i < (max + loput); i++) {
+			if (max < 10) {
+				for (int i = max; i < (max + loput); i++) {
 					voittojenNostoPisteJono.get(i).setOpacity(0.25);
 				}
 			}
@@ -255,6 +296,7 @@ public class SimulaattorinPaaikkunaKontrolleri {
 	}
 	
 	public void naytaGridPane() {
+		Platform.runLater(()-> tekijat.setVisible(false));
 		Platform.runLater(()-> tulokset.setVisible(true));
 	}
 	
@@ -278,6 +320,66 @@ public class SimulaattorinPaaikkunaKontrolleri {
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader();
 			fxmlLoader.setLocation(getClass().getResource("/view/PalvelutiskiPopUp.fxml"));
+			Parent scene = fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("Palvelupiste");
+			stage.setScene(new Scene(scene));
+			stage.setResizable(false);
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void naytaRulettiPopUp(ActionEvent event) {
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader();
+			fxmlLoader.setLocation(getClass().getResource("/view/RulettiPopUp.fxml"));
+			Parent scene = fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("Palvelupiste");
+			stage.setScene(new Scene(scene));
+			stage.setResizable(false);
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void naytaBlackjackPopUp(ActionEvent event) {
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader();
+			fxmlLoader.setLocation(getClass().getResource("/view/BlackjackPopUp.fxml"));
+			Parent scene = fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("Palvelupiste");
+			stage.setScene(new Scene(scene));
+			stage.setResizable(false);
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void naytaKrapsPopUp(ActionEvent event) {
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader();
+			fxmlLoader.setLocation(getClass().getResource("/view/KrapsPopUp.fxml"));
+			Parent scene = fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("Palvelupiste");
+			stage.setScene(new Scene(scene));
+			stage.setResizable(false);
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void naytaVoittojenNostopistePopUp(ActionEvent event) {
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader();
+			fxmlLoader.setLocation(getClass().getResource("/view/VoittojenNostopistePopUp.fxml"));
 			Parent scene = fxmlLoader.load();
 			Stage stage = new Stage();
 			stage.setTitle("Palvelupiste");

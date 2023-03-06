@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane id="background" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="646.0" stylesheets="@PalvelupistePopUp.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.PalvelutiskiPopUpKontrolleri">
+<AnchorPane id="background" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="646.0" stylesheets="@PalvelupistePopUp.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.VoittojenNostopistePopUpKontrolleri">
    <children>
       <AnchorPane id="background2" layoutX="10.0" layoutY="8.0" prefHeight="483.0" prefWidth="626.0">
          <children>

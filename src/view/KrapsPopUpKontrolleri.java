@@ -6,9 +6,9 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
-public class PalvelutiskiPopUpKontrolleri {
+public class KrapsPopUpKontrolleri {
 	
-	private static HashMap<String, String> palvelutiskinTulosteet;
+	private static HashMap<String, String> krapsinTulosteet;
 	
 	@FXML
     private Label palvelupisteNimi;
@@ -29,7 +29,7 @@ public class PalvelutiskiPopUpKontrolleri {
     @FXML
     private Label kokonaisoleskeluaika;
     
-    public PalvelutiskiPopUpKontrolleri() {
+    public KrapsPopUpKontrolleri() {
     	palvelupisteNimi = new Label();
     	palvellutAsiakkaat = new Label();
     	keskimaarainenPalveluaika = new Label();
@@ -45,20 +45,20 @@ public class PalvelutiskiPopUpKontrolleri {
 		Platform.runLater(()-> naytaTulosteet());
 	}
     
-	public void setPalvelutiskinTulosteet(HashMap<String, String> tulosteet) {
-		palvelutiskinTulosteet = tulosteet;
+	public void setKrapsinTulosteet(HashMap<String, String> tulosteet) {
+		krapsinTulosteet = tulosteet;
 	}
 	
 	public void naytaTulosteet() {
-		palvelupisteNimi.setText("Yhteenveto palvelutiskistä");
-		palvellutAsiakkaat.setText(palvelutiskinTulosteet.get("Palveltuja asiakkaita yhteensä"));
-		keskimaarainenPalveluaika.setText(palvelutiskinTulosteet.get("Asiakkaiden keskimääräinen palveluaika"));
-		keskimaarainenJononpituus.setText(palvelutiskinTulosteet.get("Keskimääräinen jononpituus"));
-		keskimaarainenLapimenoaika.setText(palvelutiskinTulosteet.get("Asiakkaiden keskimääräinen läpimenoaika"));
-		suoritusteho.setText(palvelutiskinTulosteet.get("Suoritusteho"));
-		aktiiviaika.setText(palvelutiskinTulosteet.get("Aktiiviaika"));
-		kayttoaste.setText(palvelutiskinTulosteet.get("Käyttöaste"));
-		kokonaisoleskeluaika.setText(palvelutiskinTulosteet.get("Asiakkaiden kokonaisoleskeluaika"));
+		palvelupisteNimi.setText("Yhteenveto Krapsistä");
+		palvellutAsiakkaat.setText(krapsinTulosteet.get("Palveltuja asiakkaita yhteensä"));
+		keskimaarainenPalveluaika.setText(krapsinTulosteet.get("Asiakkaiden keskimääräinen palveluaika"));
+		keskimaarainenJononpituus.setText(krapsinTulosteet.get("Keskimääräinen jononpituus"));
+		keskimaarainenLapimenoaika.setText(krapsinTulosteet.get("Asiakkaiden keskimääräinen läpimenoaika"));
+		suoritusteho.setText(krapsinTulosteet.get("Suoritusteho"));
+		aktiiviaika.setText(krapsinTulosteet.get("Aktiiviaika"));
+		kayttoaste.setText(krapsinTulosteet.get("Käyttöaste"));
+		kokonaisoleskeluaika.setText(krapsinTulosteet.get("Asiakkaiden kokonaisoleskeluaika"));
 	}
 
 }

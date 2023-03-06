@@ -6,9 +6,9 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
-public class PalvelutiskiPopUpKontrolleri {
+public class BlackjackPopUpKontrolleri {
 	
-	private static HashMap<String, String> palvelutiskinTulosteet;
+	private static HashMap<String, String> blackjackinTulosteet;
 	
 	@FXML
     private Label palvelupisteNimi;
@@ -29,7 +29,7 @@ public class PalvelutiskiPopUpKontrolleri {
     @FXML
     private Label kokonaisoleskeluaika;
     
-    public PalvelutiskiPopUpKontrolleri() {
+    public BlackjackPopUpKontrolleri() {
     	palvelupisteNimi = new Label();
     	palvellutAsiakkaat = new Label();
     	keskimaarainenPalveluaika = new Label();
@@ -45,20 +45,20 @@ public class PalvelutiskiPopUpKontrolleri {
 		Platform.runLater(()-> naytaTulosteet());
 	}
     
-	public void setPalvelutiskinTulosteet(HashMap<String, String> tulosteet) {
-		palvelutiskinTulosteet = tulosteet;
+	public void setBlackjackinTulosteet(HashMap<String, String> tulosteet) {
+		blackjackinTulosteet = tulosteet;
 	}
 	
 	public void naytaTulosteet() {
-		palvelupisteNimi.setText("Yhteenveto palvelutiskistä");
-		palvellutAsiakkaat.setText(palvelutiskinTulosteet.get("Palveltuja asiakkaita yhteensä"));
-		keskimaarainenPalveluaika.setText(palvelutiskinTulosteet.get("Asiakkaiden keskimääräinen palveluaika"));
-		keskimaarainenJononpituus.setText(palvelutiskinTulosteet.get("Keskimääräinen jononpituus"));
-		keskimaarainenLapimenoaika.setText(palvelutiskinTulosteet.get("Asiakkaiden keskimääräinen läpimenoaika"));
-		suoritusteho.setText(palvelutiskinTulosteet.get("Suoritusteho"));
-		aktiiviaika.setText(palvelutiskinTulosteet.get("Aktiiviaika"));
-		kayttoaste.setText(palvelutiskinTulosteet.get("Käyttöaste"));
-		kokonaisoleskeluaika.setText(palvelutiskinTulosteet.get("Asiakkaiden kokonaisoleskeluaika"));
+		palvelupisteNimi.setText("Yhteenveto Blackjackistä");
+		palvellutAsiakkaat.setText(blackjackinTulosteet.get("Palveltuja asiakkaita yhteensä"));
+		keskimaarainenPalveluaika.setText(blackjackinTulosteet.get("Asiakkaiden keskimääräinen palveluaika"));
+		keskimaarainenJononpituus.setText(blackjackinTulosteet.get("Keskimääräinen jononpituus"));
+		keskimaarainenLapimenoaika.setText(blackjackinTulosteet.get("Asiakkaiden keskimääräinen läpimenoaika"));
+		suoritusteho.setText(blackjackinTulosteet.get("Suoritusteho"));
+		aktiiviaika.setText(blackjackinTulosteet.get("Aktiiviaika"));
+		kayttoaste.setText(blackjackinTulosteet.get("Käyttöaste"));
+		kokonaisoleskeluaika.setText(blackjackinTulosteet.get("Asiakkaiden kokonaisoleskeluaika"));
 	}
 
 }

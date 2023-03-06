@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Glow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -12,21 +13,26 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.shape.Polygon?>
 <?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane id="background" minHeight="600.0" minWidth="1200.0" prefHeight="600.0" prefWidth="1200.0" stylesheets="@SimulaattorinPaaikkuna.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.SimulaattorinPaaikkunaKontrolleri">
+<AnchorPane id="background" minHeight="624.0" minWidth="1200.0" prefHeight="624.0" prefWidth="1200.0" stylesheets="@SimulaattorinPaaikkuna.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.SimulaattorinPaaikkunaKontrolleri">
    <children>
-      <SplitPane dividerPositions="0.5" layoutX="284.0" layoutY="209.0" prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane dividerPositions="0.5" layoutX="284.0" layoutY="209.0" prefHeight="624.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
-          <AnchorPane id="syotteetBackground" maxWidth="358.0" minHeight="578.0" minWidth="358.0" prefHeight="659.0" prefWidth="460.0">
+          <AnchorPane id="syotteetBackground" maxWidth="358.0" minHeight="624.0" minWidth="358.0" prefHeight="624.0" prefWidth="358.0">
                <children>
-                  <Label id="otsikko1" layoutX="68.0" layoutY="32.0" prefHeight="57.0" prefWidth="236.0" text="Kasino-" />
+                  <Label id="otsikko1" layoutX="68.0" layoutY="32.0" prefHeight="57.0" prefWidth="236.0" text="Kasino-">
+                     <effect>
+                        <Glow />
+                     </effect></Label>
                   <Button fx:id="kaynnistaButton" alignment="CENTER" contentDisplay="CENTER" layoutX="32.0" layoutY="338.0" mnemonicParsing="false" onAction="#kaynnistaSimulointi" prefHeight="31.0" prefWidth="76.0" text="Käynnistä" textOverrun="CLIP" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="250.0" />
                   <Button fx:id="nopeutaButton" alignment="CENTER" contentDisplay="CENTER" disable="true" layoutX="139.0" layoutY="338.0" mnemonicParsing="false" onAction="#nopeuta" prefHeight="31.0" prefWidth="76.0" text="Nopeuta" />
                   <Button fx:id="hidastaButton" alignment="CENTER" contentDisplay="CENTER" disable="true" layoutX="248.0" layoutY="338.0" mnemonicParsing="false" onAction="#hidasta" prefHeight="31.0" prefWidth="76.0" text="Hidasta" AnchorPane.leftAnchor="248.0" AnchorPane.rightAnchor="34.0" />
-                  <Label id="otsikko2" layoutX="68.0" layoutY="93.0" prefHeight="49.0" prefWidth="248.0" text="simulaattori" />
-                  <GridPane id="tulokset" fx:id="tulokset" layoutX="30.0" layoutY="404.0" prefHeight="146.0" prefWidth="295.0" visible="false">
+                  <Label id="otsikko2" layoutX="68.0" layoutY="93.0" prefHeight="49.0" prefWidth="248.0" text="simulaattori">
+                     <effect>
+                        <Glow />
+                     </effect></Label>
+                  <GridPane id="tulokset" fx:id="tulokset" layoutX="30.0" layoutY="422.0" prefHeight="146.0" prefWidth="295.0" visible="false">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="274.0" minWidth="10.0" prefWidth="123.0" />
                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="177.0" minWidth="0.0" prefWidth="151.0" />
@@ -64,92 +70,345 @@
                         <ChoiceBox id="jakaumatChoiceBox" fx:id="jakaumatChoiceBox" prefHeight="25.0" prefWidth="182.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
+                  <GridPane id="tekijat" fx:id="tekijat" layoutX="20.0" layoutY="414.0" opacity="0.32" prefHeight="161.0" prefWidth="315.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints maxHeight="78.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label alignment="CENTER" prefHeight="202.0" prefWidth="610.0" text="❂ Tapio Humaljoki ❂" />
+                        <Label alignment="CENTER" prefHeight="148.0" prefWidth="431.0" text="❂ Valtteri Kuitula ❂" GridPane.rowIndex="1" />
+                        <Label alignment="CENTER" prefHeight="74.0" prefWidth="393.0" text="❂ Jhon Rastrojo ❂" GridPane.rowIndex="2" />
+                     </children>
+                     <effect>
+                        <Glow />
+                     </effect>
+                  </GridPane>
                </children>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="598.0" prefWidth="300.0">
+          <AnchorPane minHeight="624.0" minWidth="0.0" prefHeight="624.0" prefWidth="834.0">
                <children>
-                  <Pane id="animointiBackground" layoutX="-2.0" layoutY="-3.0" minHeight="578.0" minWidth="841.0" prefHeight="606.0" prefWidth="841.0">
+                  <Pane id="animointiBackground" layoutX="-2.0" layoutY="-3.0" minHeight="624.0" minWidth="842.0" prefHeight="624.0" prefWidth="842.0">
                      <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#4d3b29" height="31.0" layoutX="41.0" layoutY="54.0" stroke="BLACK" strokeType="INSIDE" width="57.0" />
-                        <ImageView fitHeight="31.0" fitWidth="57.0" layoutX="41.0" layoutY="164.0">
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#4d3b29" height="31.0" layoutX="40.0" layoutY="69.0" stroke="BLACK" strokeType="INSIDE" width="57.0" />
+                        <ImageView fitHeight="31.0" fitWidth="57.0" layoutX="40.0" layoutY="179.0">
                            <image>
                               <Image url="@../images/RulettiPoyta.png" />
                            </image>
                         </ImageView>
-                        <ImageView blendMode="SRC_ATOP" depthTest="DISABLE" fitHeight="57.0" fitWidth="31.0" layoutX="54.0" layoutY="260.0" rotate="90.0">
+                        <ImageView blendMode="SRC_ATOP" depthTest="DISABLE" fitHeight="57.0" fitWidth="31.0" layoutX="53.0" layoutY="275.0" rotate="90.0">
                            <image>
                               <Image url="@../images/Blackjack.png" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="31.0" fitWidth="57.0" layoutX="41.0" layoutY="380.0">
+                        <ImageView fitHeight="31.0" fitWidth="57.0" layoutX="40.0" layoutY="395.0">
                            <image>
                               <Image url="@../images/KrapsPoyta.png" />
                            </image>
                         </ImageView>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#4d3b29" height="31.0" layoutX="41.0" layoutY="486.0" stroke="BLACK" strokeType="INSIDE" width="57.0" />
-                        <Label id="palvelupisteTeksti" alignment="TOP_LEFT" layoutX="111.0" layoutY="50.0" prefHeight="40.0" prefWidth="295.0" text="Palvelutiskin jono:" />
-                        <Label id="palvelupisteTeksti" alignment="TOP_LEFT" layoutX="111.0" layoutY="160.0" prefHeight="40.0" prefWidth="195.0" text="Ruletin jono:" />
-                        <Label id="palvelupisteTeksti" alignment="TOP_LEFT" layoutX="111.0" layoutY="269.0" prefHeight="40.0" prefWidth="258.0" text="Blackjackin jono:" />
-                        <Label id="palvelupisteTeksti" alignment="TOP_LEFT" layoutX="111.0" layoutY="376.0" prefHeight="40.0" prefWidth="274.0" text="Krapsin jono:" />
-                        <Label id="palvelupisteTeksti" alignment="TOP_LEFT" layoutX="111.0" layoutY="482.0" prefHeight="40.0" prefWidth="378.0" text="Voittojen nostopisteen jono:" />
-                        <Button fx:id="palvelutiskiButton" alignment="CENTER" contentDisplay="CENTER" disable="true" layoutX="659.0" layoutY="98.0" mnemonicParsing="false" onAction="#naytaPalvelutiskiPopUp" prefHeight="31.0" prefWidth="85.0" text="Näytä tiedot" textOverrun="CLIP" />
-                        <GridPane layoutX="488.0" layoutY="35.0" prefHeight="30.0" prefWidth="305.0">
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#4d3b29" height="31.0" layoutX="40.0" layoutY="501.0" stroke="BLACK" strokeType="INSIDE" width="57.0" />
+                        <Label id="palvelupisteTeksti" alignment="TOP_LEFT" layoutX="117.0" layoutY="65.0" prefHeight="40.0" prefWidth="295.0" text="Palvelutiskin jono:">
+                           <effect>
+                              <Glow />
+                           </effect></Label>
+                        <Label id="palvelupisteTeksti" alignment="TOP_LEFT" layoutX="117.0" layoutY="175.0" prefHeight="40.0" prefWidth="195.0" text="Ruletin jono:">
+                           <effect>
+                              <Glow />
+                           </effect></Label>
+                        <Label id="palvelupisteTeksti" alignment="TOP_LEFT" layoutX="117.0" layoutY="284.0" prefHeight="40.0" prefWidth="258.0" text="Blackjackin jono:">
+                           <effect>
+                              <Glow />
+                           </effect></Label>
+                        <Label id="palvelupisteTeksti" alignment="TOP_LEFT" layoutX="117.0" layoutY="391.0" prefHeight="40.0" prefWidth="274.0" text="Krapsin jono:">
+                           <effect>
+                              <Glow />
+                           </effect></Label>
+                        <Label id="palvelupisteTeksti" alignment="TOP_LEFT" layoutX="117.0" layoutY="497.0" prefHeight="40.0" prefWidth="378.0" text="Voittojen nostopisteen jono:">
+                           <effect>
+                              <Glow />
+                           </effect></Label>
+                        <GridPane layoutX="477.0" layoutY="22.0" prefHeight="63.0" prefWidth="344.0">
                           <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="203.0" minWidth="10.0" prefWidth="163.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="157.0" minWidth="10.0" prefWidth="142.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="203.0" minWidth="10.0" prefWidth="169.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="175.0" minWidth="10.0" prefWidth="175.0" />
                           </columnConstraints>
                           <rowConstraints>
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Label id="kasinonTulos" prefHeight="30.0" prefWidth="154.0" text="Kasinon tulos:" />
-                              <Label id="kasinonTulos" fx:id="kasinonTulos" prefHeight="30.0" prefWidth="201.0" GridPane.columnIndex="1" />
+                              <Label id="kasinonTulos" prefHeight="112.0" prefWidth="169.0" text="Kasinon tulos:">
+                                 <effect>
+                                    <Glow />
+                                 </effect></Label>
+                              <Label id="kasinonTulos" fx:id="kasinonTulos" prefHeight="92.0" prefWidth="175.0" GridPane.columnIndex="1">
+                                 <effect>
+                                    <Glow />
+                                 </effect></Label>
                            </children>
                         </GridPane>
-                        <Button fx:id="rulettiButton" alignment="CENTER" contentDisplay="CENTER" disable="true" layoutX="659.0" layoutY="205.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="85.0" text="Näytä tiedot" textOverrun="CLIP" />
-                        <Button fx:id="blackjackButton" alignment="CENTER" contentDisplay="CENTER" disable="true" layoutX="659.0" layoutY="314.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="85.0" text="Näytä tiedot" textOverrun="CLIP" />
-                        <Button fx:id="krapsButton" alignment="CENTER" contentDisplay="CENTER" disable="true" layoutX="659.0" layoutY="421.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="85.0" text="Näytä tiedot" textOverrun="CLIP" />
-                        <Button fx:id="voittojenNostopisteButton" alignment="CENTER" contentDisplay="CENTER" disable="true" layoutX="659.0" layoutY="527.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="85.0" text="Näytä tiedot" textOverrun="CLIP" />
-                        <Polygon fx:id="RJ1" fill="#901313" layoutX="131.0" layoutY="200.0" points="-20.0, 40.0, 20.0, 40.0, 0.0, 0.0" stroke="BLACK" strokeType="INSIDE" />
-                        <Polygon fx:id="BJ1" fill="#901313" layoutX="131.0" layoutY="309.0" points="-20.0, 40.0, 20.0, 40.0, 0.0, 0.0" stroke="BLACK" strokeType="INSIDE" />
-                        <Polygon fx:id="KJ1" fill="#901313" layoutX="131.0" layoutY="416.0" points="-20.0, 40.0, 20.0, 40.0, 0.0, 0.0" stroke="BLACK" strokeType="INSIDE" />
-                        <Polygon fx:id="VNPJ1" fill="#901313" layoutX="131.0" layoutY="522.0" points="-20.0, 40.0, 20.0, 40.0, 0.0, 0.0" stroke="BLACK" strokeType="INSIDE" />
-                        <Label fx:id="PTID1" layoutX="130.0" layoutY="106.0" textFill="WHITE" />
-                        <Label fx:id="PTID2" layoutX="170.0" layoutY="106.0" textFill="WHITE" />
-                        <Label fx:id="PTID3" layoutX="247.0" layoutY="106.0" textFill="WHITE" />
-                        <Label fx:id="PTID4" layoutX="234.0" layoutY="106.0" textFill="WHITE" />
-                        <Polygon fx:id="RJ2" fill="#901313" layoutX="170.0" layoutY="200.0" points="-20.0, 40.0, 20.0, 40.0, 0.0, 0.0" stroke="BLACK" strokeType="INSIDE" />
-                        <Polygon fx:id="RJ3" fill="#901313" layoutX="211.0" layoutY="200.0" points="-20.0, 40.0, 20.0, 40.0, 0.0, 0.0" stroke="BLACK" strokeType="INSIDE" />
-                        <Polygon fx:id="RJ4" fill="#901313" layoutX="248.0" layoutY="200.0" points="-20.0, 40.0, 20.0, 40.0, 0.0, 0.0" stroke="BLACK" strokeType="INSIDE" />
-                        <Polygon fx:id="BJ2" fill="#901313" layoutX="171.0" layoutY="310.0" points="-20.0, 40.0, 20.0, 40.0, 0.0, 0.0" stroke="BLACK" strokeType="INSIDE" />
-                        <Polygon fx:id="BJ3" fill="#901313" layoutX="209.0" layoutY="310.0" points="-20.0, 40.0, 20.0, 40.0, 0.0, 0.0" stroke="BLACK" strokeType="INSIDE" />
-                        <Polygon fx:id="BJ4" fill="#901313" layoutX="248.0" layoutY="310.0" points="-20.0, 40.0, 20.0, 40.0, 0.0, 0.0" stroke="BLACK" strokeType="INSIDE" />
-                        <Polygon fx:id="KJ2" fill="#901313" layoutX="171.0" layoutY="416.0" points="-20.0, 40.0, 20.0, 40.0, 0.0, 0.0" stroke="BLACK" strokeType="INSIDE" />
-                        <Polygon fx:id="KJ3" fill="#901313" layoutX="211.0" layoutY="416.0" points="-20.0, 40.0, 20.0, 40.0, 0.0, 0.0" stroke="BLACK" strokeType="INSIDE" />
-                        <Polygon fx:id="KJ4" fill="#901313" layoutX="248.0" layoutY="416.0" points="-20.0, 40.0, 20.0, 40.0, 0.0, 0.0" stroke="BLACK" strokeType="INSIDE" />
-                        <Polygon fx:id="VNPJ2" fill="#901313" layoutX="171.0" layoutY="523.0" points="-20.0, 40.0, 20.0, 40.0, 0.0, 0.0" stroke="BLACK" strokeType="INSIDE" />
-                        <Polygon fx:id="VNPJ3" fill="#901313" layoutX="211.0" layoutY="523.0" points="-20.0, 40.0, 20.0, 40.0, 0.0, 0.0" stroke="BLACK" strokeType="INSIDE" />
-                        <Polygon fx:id="VNPJ4" fill="#901313" layoutX="248.0" layoutY="523.0" points="-20.0, 40.0, 20.0, 40.0, 0.0, 0.0" stroke="BLACK" strokeType="INSIDE" />
-                        <ImageView fx:id="PTJ1" fitHeight="91.0" fitWidth="95.0" layoutX="106.0" layoutY="78.0" pickOnBounds="true" preserveRatio="true">
+                        <Label fx:id="PTID1" layoutX="129.0" layoutY="121.0" textFill="WHITE" />
+                        <Label fx:id="PTID2" layoutX="169.0" layoutY="121.0" textFill="WHITE" />
+                        <Label fx:id="PTID3" layoutX="246.0" layoutY="121.0" textFill="WHITE" />
+                        <Label fx:id="PTID4" layoutX="233.0" layoutY="121.0" textFill="WHITE" />
+                        <Button fx:id="palvelutiskiButton" alignment="CENTER" contentDisplay="CENTER" disable="true" layoutX="675.0" layoutY="123.0" mnemonicParsing="false" onAction="#naytaPalvelutiskiPopUp" prefHeight="31.0" prefWidth="91.0" text="Yhteenveto" textOverrun="CLIP" />
+                        <Button fx:id="rulettiButton" alignment="CENTER" contentDisplay="CENTER" disable="true" layoutX="675.0" layoutY="231.0" mnemonicParsing="false" onAction="#naytaRulettiPopUp" prefHeight="31.0" prefWidth="91.0" text="Yhteenveto" textOverrun="CLIP" />
+                        <Button fx:id="blackjackButton" alignment="CENTER" contentDisplay="CENTER" disable="true" layoutX="675.0" layoutY="339.0" mnemonicParsing="false" onAction="#naytaBlackjackPopUp" prefHeight="31.0" prefWidth="91.0" text="Yhteenveto" textOverrun="CLIP" />
+                        <Button fx:id="krapsButton" alignment="CENTER" contentDisplay="CENTER" disable="true" layoutX="675.0" layoutY="447.0" mnemonicParsing="false" onAction="#naytaKrapsPopUp" prefHeight="31.0" prefWidth="91.0" text="Yhteenveto" textOverrun="CLIP" />
+                        <ImageView fx:id="PJ1" fitHeight="50.0" fitWidth="50.0" layoutX="117.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/chip.png" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="PTJ2" fitHeight="91.0" fitWidth="95.0" layoutX="202.0" layoutY="78.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="PJ2" fitHeight="50.0" fitWidth="50.0" layoutX="169.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/chip.png" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="PTJ3" fitHeight="91.0" fitWidth="95.0" layoutX="293.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="PJ3" fitHeight="50.0" fitWidth="50.0" layoutX="221.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/chip.png" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="PTJ4" fitHeight="91.0" fitWidth="95.0" layoutX="385.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="PJ4" fitHeight="50.0" fitWidth="50.0" layoutX="273.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/chip.png" />
                            </image>
                         </ImageView>
+                        <ImageView fx:id="PJ5" fitHeight="50.0" fitWidth="50.0" layoutX="325.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/chip.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="PJ6" fitHeight="50.0" fitWidth="50.0" layoutX="377.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/chip.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="PJ7" fitHeight="50.0" fitWidth="50.0" layoutX="429.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/chip.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="PJ8" fitHeight="50.0" fitWidth="50.0" layoutX="481.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/chip.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="PJ9" fitHeight="50.0" fitWidth="50.0" layoutX="533.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/chip.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="PJ10" fitHeight="50.0" fitWidth="50.0" layoutX="585.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/chip.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="RJ1" fitHeight="50.0" fitWidth="50.0" layoutX="117.0" layoutY="221.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/chip.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="RJ2" fitHeight="50.0" fitWidth="50.0" layoutX="169.0" layoutY="221.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/chip.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="RJ3" fitHeight="50.0" fitWidth="50.0" layoutX="221.0" layoutY="221.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/chip.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="RJ4" fitHeight="50.0" fitWidth="50.0" layoutX="273.0" layoutY="221.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/chip.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="RJ5" fitHeight="50.0" fitWidth="50.0" layoutX="325.0" layoutY="221.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/chip.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="RJ6" fitHeight="50.0" fitWidth="50.0" layoutX="377.0" layoutY="221.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/chip.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="RJ7" fitHeight="50.0" fitWidth="50.0" layoutX="429.0" layoutY="221.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/chip.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="RJ8" fitHeight="50.0" fitWidth="50.0" layoutX="481.0" layoutY="221.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/chip.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="RJ9" fitHeight="50.0" fitWidth="50.0" layoutX="533.0" layoutY="221.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/chip.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="RJ10" fitHeight="50.0" fitWidth="50.0" layoutX="585.0" layoutY="221.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/chip.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="BJ1" fitHeight="50.0" fitWidth="50.0" layoutX="117.0" layoutY="329.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/chip.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="BJ2" fitHeight="50.0" fitWidth="50.0" layoutX="169.0" layoutY="329.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/chip.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="BJ3" fitHeight="50.0" fitWidth="50.0" layoutX="221.0" layoutY="329.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/chip.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="BJ4" fitHeight="50.0" fitWidth="50.0" layoutX="273.0" layoutY="329.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/chip.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="BJ5" fitHeight="50.0" fitWidth="50.0" layoutX="325.0" layoutY="329.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/chip.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="BJ6" fitHeight="50.0" fitWidth="50.0" layoutX="377.0" layoutY="329.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/chip.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="BJ7" fitHeight="50.0" fitWidth="50.0" layoutX="429.0" layoutY="329.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/chip.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="BJ8" fitHeight="50.0" fitWidth="50.0" layoutX="481.0" layoutY="329.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/chip.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="BJ9" fitHeight="50.0" fitWidth="50.0" layoutX="533.0" layoutY="329.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/chip.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="BJ10" fitHeight="50.0" fitWidth="50.0" layoutX="585.0" layoutY="329.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/chip.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="KJ1" fitHeight="50.0" fitWidth="50.0" layoutX="117.0" layoutY="437.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/chip.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="KJ2" fitHeight="50.0" fitWidth="50.0" layoutX="169.0" layoutY="437.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/chip.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="KJ3" fitHeight="50.0" fitWidth="50.0" layoutX="221.0" layoutY="437.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/chip.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="KJ4" fitHeight="50.0" fitWidth="50.0" layoutX="273.0" layoutY="437.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/chip.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="KJ5" fitHeight="50.0" fitWidth="50.0" layoutX="325.0" layoutY="437.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/chip.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="KJ6" fitHeight="50.0" fitWidth="50.0" layoutX="377.0" layoutY="437.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/chip.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="KJ7" fitHeight="50.0" fitWidth="50.0" layoutX="429.0" layoutY="437.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/chip.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="KJ8" fitHeight="50.0" fitWidth="50.0" layoutX="481.0" layoutY="437.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/chip.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="KJ9" fitHeight="50.0" fitWidth="50.0" layoutX="533.0" layoutY="437.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/chip.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="KJ10" fitHeight="50.0" fitWidth="50.0" layoutX="585.0" layoutY="437.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/chip.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="VNJ1" fitHeight="50.0" fitWidth="50.0" layoutX="117.0" layoutY="545.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/chip.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="VNJ2" fitHeight="50.0" fitWidth="50.0" layoutX="169.0" layoutY="545.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/chip.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="VNJ3" fitHeight="50.0" fitWidth="50.0" layoutX="221.0" layoutY="545.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/chip.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="VNJ4" fitHeight="50.0" fitWidth="50.0" layoutX="273.0" layoutY="545.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/chip.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="VNJ5" fitHeight="50.0" fitWidth="50.0" layoutX="325.0" layoutY="545.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/chip.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="VNJ6" fitHeight="50.0" fitWidth="50.0" layoutX="377.0" layoutY="545.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/chip.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="VNJ7" fitHeight="50.0" fitWidth="50.0" layoutX="429.0" layoutY="545.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/chip.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="VNJ8" fitHeight="50.0" fitWidth="50.0" layoutX="481.0" layoutY="545.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/chip.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="VNJ9" fitHeight="50.0" fitWidth="50.0" layoutX="533.0" layoutY="545.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/chip.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="VNJ10" fitHeight="50.0" fitWidth="50.0" layoutX="585.0" layoutY="545.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/chip.png" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="voittojenNostopisteButton" alignment="CENTER" contentDisplay="CENTER" disable="true" layoutX="675.0" layoutY="555.0" mnemonicParsing="false" onAction="#naytaVoittojenNostopistePopUp" prefHeight="31.0" prefWidth="91.0" text="Yhteenveto" textOverrun="CLIP" />
                      </children>
                   </Pane>
                </children>

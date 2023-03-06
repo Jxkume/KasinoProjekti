@@ -58,8 +58,16 @@
 #syoteTextField {
 	-fx-font-family: "Rockwell", Helvetica, Arial, sans-serif;
 	-fx-font-weight: bold;
+	-fx-font-weight: bold;
 }
 
 #jakaumatChoiceBox {
 	-fx-font-family: "Rockwell", Helvetica, Arial, sans-serif;
+}
+
+#tekijat {
+	-fx-font-family: "Rockwell", Helvetica, Arial, sans-serif;
+	-fx-font-weight: bold;
+	-fx-font-size: 16pt;
+	-fx-mid-text-color: #942B2B;
 }

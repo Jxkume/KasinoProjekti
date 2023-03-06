@@ -10,3 +10,9 @@
 	-fx-font-family: "Rockwell", Helvetica, Arial, sans-serif;
 	-fx-font-size: 14pt;
 }
+
+#nimiLabel {
+	-fx-font-family: "Rockwell", Helvetica, Arial, sans-serif;
+	-fx-font-size: 21pt;
+	-fx-font-weight: bold;
+}
