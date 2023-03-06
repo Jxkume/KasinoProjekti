@@ -288,15 +288,17 @@ public class Palvelupiste {
 	}
 	
 	public int arvotaanPelimaksu(Asiakas asiakas) {
-		int MAX;
-		if(asiakas.getNykyinenPolettimaara() < 100) {
-			MAX = asiakas.getNykyinenPolettimaara() / 10;
+		// Arvotaan pelin maksu 50-100 polettia ottaen huomioon asiakkaan polettimäärä
+		int maksimi;
+		if (asiakas.getNykyinenPolettimaara() < 100) {
+			maksimi = asiakas.getNykyinenPolettimaara() / 10;
 		} else {
-			MAX = 10;
+			maksimi = 10;
 		}
-		int poletteja = (int) Math.floor(Math.random() * (MAX - 5 + 1) + 5) * 10;
+		int poletteja = (int) Math.floor(Math.random() * (maksimi - 5 + 1) + 5) * 10;
 		return poletteja;
 	}
+	
 	public boolean voittikoAsiakas(Asiakas asiakas) {
 		
 		// Tässä jotain todennäköisyyksiä ja voittosummia peleihin, näitä voi vapaasti muutella - Valdo
@@ -306,9 +308,9 @@ public class Palvelupiste {
 		switch (nimi) {
 			
 			case "Ruletti":
-				// Ruletissa 50% mahdollisuus voittoon ja 50% häviöön
-				todennakoisyysVoittoon = new Random().nextInt(10);
-				if (todennakoisyysVoittoon < 5) {
+				// Ruletissa 45% mahdollisuus voittoon ja 55% häviöön
+				todennakoisyysVoittoon = new Random().nextInt(100) + 1;
+				if (todennakoisyysVoittoon <= 45) {
 					// Voittosumma on 50-100 polettia.
 					Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " voitti ruletissa " + polettimaara + " polettia!");
 					asiakas.lisaaPoletteja(polettimaara);

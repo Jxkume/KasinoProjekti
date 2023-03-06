@@ -5,7 +5,6 @@ import java.util.HashMap;
 import dao.PalvelupisteDao;
 import eduni.distributions.Negexp;
 import eduni.distributions.Normal;
-import eduni.distributions.Uniform;
 import simu.framework.Kello;
 import simu.framework.Moottori;
 import simu.framework.Saapumisprosessi;
@@ -41,11 +40,11 @@ public class OmaMoottori extends Moottori {
 		saapumisprosessi = new Saapumisprosessi(new Negexp(15,5), tapahtumalista, TapahtumanTyyppi.ARR1);
 	
 		palvelupisteet = new Palvelupiste[5];
-		palvelupisteet[0] = new Palvelupiste(new Normal(5,3), tapahtumalista, TapahtumanTyyppi.DEP1, "Palvelutiski");
+		palvelupisteet[0] = new Palvelupiste(new Normal(4,1), tapahtumalista, TapahtumanTyyppi.DEP1, "Palvelutiski");
 		palvelupisteet[1] = new Palvelupiste(new Normal(6,3), tapahtumalista, TapahtumanTyyppi.DEP2, "Ruletti");
 		palvelupisteet[2] = new Palvelupiste(new Normal(7,3), tapahtumalista, TapahtumanTyyppi.DEP3, "Blackjack");
 		palvelupisteet[3] = new Palvelupiste(new Normal(4,3), tapahtumalista, TapahtumanTyyppi.DEP4, "Kraps");
-		palvelupisteet[4] = new Palvelupiste(new Normal(5,3), tapahtumalista, TapahtumanTyyppi.DEP5, "Voittojen nostopiste");
+		palvelupisteet[4] = new Palvelupiste(new Normal(4,1), tapahtumalista, TapahtumanTyyppi.DEP5, "Voittojen nostopiste");
 		
 	}
 
@@ -78,25 +77,22 @@ public class OmaMoottori extends Moottori {
 	protected void alustukset() {
 		// Generoidaan ensimmäinen asiakas järjestelmään
 		saapumisprosessi.generoiSeuraava();
-		// Asetetaan käyttäjän käyttöliittymässä valitsema jakauma palvelupisteille
-		if (kontrolleri.getJakauma().equals("Normaali jakauma")) {
-			getPalvelutiski().setGenerator(new Normal(5,3));
-			getRuletti().setGenerator(new Normal(5,3));
-			getBlackjack().setGenerator(new Normal(5,3));
-			getKraps().setGenerator(new Normal(5,3));
-			getVoittojenNostopiste().setGenerator(new Normal(5,3));
-		} else if (kontrolleri.getJakauma().equals("Eksponenttijakauma")) {
-			getPalvelutiski().setGenerator(new Negexp(5,3));
-			getRuletti().setGenerator(new Negexp(5,3));
-			getBlackjack().setGenerator(new Negexp(5,3));
-			getKraps().setGenerator(new Negexp(5,3));
-			getVoittojenNostopiste().setGenerator(new Negexp(5,3));
-		} else if (kontrolleri.getJakauma().equals("Tasainen jakauma")) {
-			getPalvelutiski().setGenerator(new Uniform(5,10));
-			getRuletti().setGenerator(new Uniform(5,10));
-			getBlackjack().setGenerator(new Uniform(5,10));
-			getKraps().setGenerator(new Uniform(5,10));
-			getVoittojenNostopiste().setGenerator(new Uniform(5,10));
+		// Asetetaan käyttäjän käyttöliittymässä valitsema pelien kesto kaikille peleille
+		if (kontrolleri.getPelienKesto().equals("Normaali")) {
+			// Pelit kestävät 3-5 aikayksikköä
+			getRuletti().setGenerator(new Normal(4,1));
+			getBlackjack().setGenerator(new Normal(4,1));
+			getKraps().setGenerator(new Normal(4,1));
+		} else if (kontrolleri.getPelienKesto().equals("Nopea")) {
+			// Pelit kestävät 1-2 aikayksikköä
+			getRuletti().setGenerator(new Normal(1.5,0.5));
+			getBlackjack().setGenerator(new Normal(1.5,0.5));
+			getKraps().setGenerator(new Normal(1.5,0.5));
+		} else if (kontrolleri.getPelienKesto().equals("Hidas")) {
+			// Pelit kestävät 6-8 aikayksikköä
+			getRuletti().setGenerator(new Normal(7,1));
+			getBlackjack().setGenerator(new Normal(7,1));
+			getKraps().setGenerator(new Normal(7,1));
 		}
 	}
 	
@@ -147,8 +143,8 @@ public class OmaMoottori extends Moottori {
 				
 			case DEP2: // Asiakas lähtee kasinon ruletista
 				asiakas = getRuletti().getJononEnsimmainen();
-				// Asiakkaalla pitää olla vähintään 10 polettia pelatakseen
-				if (asiakas.getNykyinenPolettimaara() >= 100) {
+				// Asiakkaalla pitää olla vähintään 50 polettia pelatakseen
+				if (asiakas.getNykyinenPolettimaara() >= 50) {
 					// Asiakas pelaa ja tarkistetaan voittiko vai hävisikö asiakas
 					if (getRuletti().voittikoAsiakas(asiakas)) {
 						// Lisätään lukuun 1
@@ -195,8 +191,8 @@ public class OmaMoottori extends Moottori {
 		   	   
 			case DEP3: // Asiakas lähtee kasinon Blackjackistä
 				asiakas = getBlackjack().getJononEnsimmainen();
-				// Asiakkaalla pitää olla vähintään 10 polettia pelatakseen
-				if (asiakas.getNykyinenPolettimaara() >= 100) {
+				// Asiakkaalla pitää olla vähintään 50 polettia pelatakseen
+				if (asiakas.getNykyinenPolettimaara() >= 50) {
 					// Asiakas pelaa ja tarkistetaan voittiko vai hävisikö asiakas
 					if (getBlackjack().voittikoAsiakas(asiakas)) {
 						// Lisätään lukuun 1
@@ -243,8 +239,8 @@ public class OmaMoottori extends Moottori {
 		   	   	
 			case DEP4: // Asiakas lähtee kasinon Krapsistä
 				asiakas = getKraps().getJononEnsimmainen();
-				// Asiakkaalla pitää olla vähintään 10 polettia pelatakseen
-				if (asiakas.getNykyinenPolettimaara() >= 100) {
+				// Asiakkaalla pitää olla vähintään 50 polettia pelatakseen
+				if (asiakas.getNykyinenPolettimaara() >= 50) {
 					// Asiakas pelaa ja tarkistetaan voittiko vai hävisikö asiakas
 					if (getKraps().voittikoAsiakas(asiakas)) {
 						// Lisätään lukuun 1

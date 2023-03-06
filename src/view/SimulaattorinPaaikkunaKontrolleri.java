@@ -17,6 +17,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Polygon;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.control.Alert.AlertType;
 import main.SimulaattoriMain;
@@ -49,7 +50,7 @@ public class SimulaattorinPaaikkunaKontrolleri {
     @FXML
     private GridPane tulokset, tekijat;
     @FXML
-    private ChoiceBox<String> jakaumatChoiceBox;
+    private ChoiceBox<String> pelienKestoChoiceBox;
     @FXML
 	private Label kokonaisaikatulosLabel, asiakasLkmLabel, keskimaarainenVietettyAikaLabel, kasinonTulosLabel;
     
@@ -59,7 +60,7 @@ public class SimulaattorinPaaikkunaKontrolleri {
     	// Alustetaan tarvittavat JavaFX-komponentit ja muuttujat
     	hidastaButton = new Button();
     	nopeutaButton = new Button();
-    	jakaumatChoiceBox = new ChoiceBox<String>();
+    	pelienKestoChoiceBox = new ChoiceBox<String>();
     	palvelutiskiJono = new ArrayList<>();
     	rulettiJono = new ArrayList<>();
     	blackjackJono = new ArrayList<>();
@@ -70,10 +71,10 @@ public class SimulaattorinPaaikkunaKontrolleri {
     // Tätä metodia kutsutaan konstruktorin jälkeen
 	public void initialize() {
 		
-		// Asetetaan jakaumat ChoiceBoxiin
-		String[] jakaumat = {"Normaali jakauma", "Eksponenttijakauma", "Tasainen jakauma"};
-		jakaumatChoiceBox.getItems().addAll(jakaumat);
-		jakaumatChoiceBox.setValue("Normaali jakauma");
+		// Asetetaan pelien kestot ChoiceBoxiin
+		String[] kestot = {"Normaali", "Nopea", "Hidas"};
+		pelienKestoChoiceBox.getItems().addAll(kestot);
+		pelienKestoChoiceBox.setValue("Normaali");
 		
 		// Alustetaan napit
 		kaynnistaButton.setDisable(false);
@@ -187,6 +188,10 @@ public class SimulaattorinPaaikkunaKontrolleri {
 			} else if (Integer.parseInt(viiveTextField.getText()) < 0) {
 		        alert.setTitle("Negatiivinen viive!");
 		        alert.setHeaderText("Viive ei voi olla negatiivinen.");
+		        alert.showAndWait();
+			} else if (Integer.parseInt(viiveTextField.getText()) == 0) {
+		        alert.setTitle("Ei-kelvollinen arvo!");
+		        alert.setHeaderText("Viive ei voi olla arvoltaan nolla.");
 		        alert.showAndWait();
 			} else {
 				// Simulaatio voidaan käynnistää
@@ -417,8 +422,8 @@ public class SimulaattorinPaaikkunaKontrolleri {
 		return Long.parseLong(viiveTextField.getText());
 	}
 	
-    public String getJakauma() {
-    	return jakaumatChoiceBox.getValue();
+    public String getPelienKesto() {
+    	return pelienKestoChoiceBox.getValue();
     }
 	
 }
