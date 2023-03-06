@@ -11,13 +11,12 @@ import simu.framework.Moottori;
 import simu.framework.Saapumisprosessi;
 import simu.framework.Tapahtuma;
 import simu.framework.Trace;
+import view.PalvelutiskiPopUpKontrolleri;
+import view.SimulaattorinPaaikkunaKontrolleri;
 import view.BlackjackPopUpKontrolleri;
 import view.KrapsPopUpKontrolleri;
-import view.PalvelutiskiPopUpKontrolleri;
 import view.RulettiPopUpKontrolleri;
-import view.SimulaattorinPaaikkunaKontrolleri;
 import view.VoittojenNostopistePopUpKontrolleri;
-
 
 public class OmaMoottori extends Moottori {
 	
@@ -33,6 +32,7 @@ public class OmaMoottori extends Moottori {
 	private KrapsPopUpKontrolleri krapsPopUpKontrolleri = new KrapsPopUpKontrolleri();
 	private VoittojenNostopistePopUpKontrolleri voittojenNostopistePopUpKontrolleri = new VoittojenNostopistePopUpKontrolleri();
 	
+	//public OmaMoottori(IKontrolleri kontrolleri) { // UUSI
 	public OmaMoottori(SimulaattorinPaaikkunaKontrolleri kontrolleri) {
 
 		super(kontrolleri); //UUSI
@@ -74,10 +74,6 @@ public class OmaMoottori extends Moottori {
 		return palvelupisteet[4];
 	}
 	
-	protected double simulointiAika() {
-		double tulos = getPalvelutiski().getKokonaisoleskeluaika() + getRuletti().getKokonaisoleskeluaika() + getBlackjack().getKokonaisoleskeluaika() + getKraps().getKokonaisoleskeluaika() + getVoittojenNostopiste().getKokonaisoleskeluaika();
-		return tulos;
-	}
 	@Override
 	protected void alustukset() {
 		// Generoidaan ensimmäinen asiakas järjestelmään
@@ -324,34 +320,73 @@ public class OmaMoottori extends Moottori {
 		kontrolleri.visualisoiJono(getVoittojenNostopiste());
 	}
 	
-	protected void tallennaSimulointiajatPalvelupisteihin() {
+	@Override
+	protected void paivitaTietokanta() {
+		
+		// Tallennetaan simulointiajat palvelupisteihin tietokantaa varten
 		getPalvelutiski().setSimulointiaika(getSimulointiaika());
 		getRuletti().setSimulointiaika(getSimulointiaika());
 		getBlackjack().setSimulointiaika(getSimulointiaika());
 		getKraps().setSimulointiaika(getSimulointiaika());
 		getVoittojenNostopiste().setSimulointiaika(getSimulointiaika());
-	}
-	protected void updateKokonaisoleskeluajat() {
+		
+		// Päivitetään tietokannassa olevia kokonaisoleskeluaikoja;
 		palvDao.updateKokonaisoleskeluaika(getPalvelutiski());
 		palvDao.updateKokonaisoleskeluaika(getRuletti());
 		palvDao.updateKokonaisoleskeluaika(getBlackjack());
 		palvDao.updateKokonaisoleskeluaika(getKraps());
 		palvDao.updateKokonaisoleskeluaika(getVoittojenNostopiste());
-	}
-	protected void updateSuoritustehot() {
+		
+		// Päivitetään tietokannassa olevia suoritustehoja
 		palvDao.updateSuoritusteho(getPalvelutiski());
 		palvDao.updateSuoritusteho(getRuletti());
 		palvDao.updateSuoritusteho(getBlackjack());
 		palvDao.updateSuoritusteho(getKraps());
 		palvDao.updateSuoritusteho(getVoittojenNostopiste());
-	}
-	protected void updateKayttoasteet() {
+		
+		// Päivitetään tietokannassa olevia kayttoasteita
 		palvDao.updateKayttoaste(getPalvelutiski());
 		palvDao.updateKayttoaste(getRuletti());
 		palvDao.updateKayttoaste(getBlackjack());
 		palvDao.updateKayttoaste(getKraps());
 		palvDao.updateKayttoaste(getVoittojenNostopiste());
+		
+		// Päivitetään tietokannassa olevia palvellutasiakkaiden määrä
+		palvDao.updatePalveltujaasiakkaita(getPalvelutiski());
+		palvDao.updatePalveltujaasiakkaita(getRuletti());
+		palvDao.updatePalveltujaasiakkaita(getBlackjack());
+		palvDao.updatePalveltujaasiakkaita(getKraps());
+		palvDao.updatePalveltujaasiakkaita(getVoittojenNostopiste());
+		
+		// Päivitetään tietokannassa olevia keskimääräisiä palveluaikoja
+		palvDao.updateKeskimaarainenPalveluaika(getPalvelutiski());
+		palvDao.updateKeskimaarainenPalveluaika(getRuletti());
+		palvDao.updateKeskimaarainenPalveluaika(getBlackjack());
+		palvDao.updateKeskimaarainenPalveluaika(getKraps());
+		palvDao.updateKeskimaarainenPalveluaika(getVoittojenNostopiste());
+		
+		// Päivitetään tietokannassa olevia keskimääräisiä jononpituuksia
+		palvDao.updateKeskimaarainenJononpituus(getPalvelutiski());
+		palvDao.updateKeskimaarainenJononpituus(getRuletti());
+		palvDao.updateKeskimaarainenJononpituus(getBlackjack());
+		palvDao.updateKeskimaarainenJononpituus(getKraps());
+		palvDao.updateKeskimaarainenJononpituus(getVoittojenNostopiste());
+		
+		// Päivitetään tietokannassa olevia keskimääräisiä läpimenoaikoja
+		palvDao.updateKeskimaarainenLapimenoaika(getPalvelutiski());
+		palvDao.updateKeskimaarainenLapimenoaika(getRuletti());
+		palvDao.updateKeskimaarainenLapimenoaika(getBlackjack());
+		palvDao.updateKeskimaarainenLapimenoaika(getKraps());
+		palvDao.updateKeskimaarainenLapimenoaika(getVoittojenNostopiste());
+		
+		// Päivitetään tietokannassa olevia aktiiviaikoja
+		palvDao.updateAktiiviajat(getPalvelutiski());
+		palvDao.updateAktiiviajat(getRuletti());
+		palvDao.updateAktiiviajat(getBlackjack());
+		palvDao.updateAktiiviajat(getKraps());
+		palvDao.updateAktiiviajat(getVoittojenNostopiste());
 	}
+	
 	@Override
 	protected void tulokset() {
 		
@@ -368,14 +403,6 @@ public class OmaMoottori extends Moottori {
 		krapsPopUpKontrolleri.setKrapsinTulosteet(getKrapsinTulosteet());
 		voittojenNostopistePopUpKontrolleri.setVoittojenNostopisteenTulosteet(getVoittojenNostopisteenTulosteet());
 		
-		// Tallennetaan simulointiajat palvelupisteihin että saadan ne haettua PalvelupisteDao luokassa
-		//tallennaSimulointiajatPalvelupisteihin();
-		// Päivitetään tietokannassa olevia kokonaisoleskeluaikoja
-		//updateKokonaisoleskeluajat();
-		// Päivitetään tietokannassa olevia suoritustehoja
-		//updateSuoritustehot();
-		// Päivitetään tietokannassa olevia kayttoasteita
-		//updateKayttoasteet();
 		
 		Trace.out(Trace.Level.INFO, "\n**SIMULOINTI PÄÄTTYY**");
 		if (palvelupisteet[4].getTalonVoittoEuroina() > 0) {
@@ -388,145 +415,137 @@ public class OmaMoottori extends Moottori {
 		Trace.out(Trace.Level.INFO, "Blackjackiä pelattiin yhteensä " + getBlackjack().getKaynteja().size() + " kertaa.");
 		Trace.out(Trace.Level.INFO, "Krapsiä pelattiin yhteensä " + getKraps().getKaynteja().size() + " kertaa.");
 		Trace.out(Trace.Level.INFO, "Asiakkaat nosti voittoja voittojen nostopisteellä yhteensä " + getVoittojenNostopiste().getKaynteja().size() + " kertaa.");;
-
 		Trace.out(Trace.Level.INFO, "\nKasinolle saapui yhteensä " + asiakasLkm + " asiakasta.");
         
-        Trace.out(Trace.Level.INFO, "Palvelutiskin suoritusteho oli " + (getPalvelutiski().getSuoritusteho(getSimulointiaika()) * 100) + " prosenttia.");
-        Trace.out(Trace.Level.INFO, "Palvelutiskin käyttöaste oli " + (getPalvelutiski().getKayttoaste(getSimulointiaika()) * 100) + " prosenttia.");
-        Trace.out(Trace.Level.INFO, "Palvelutiskin keskimääräinen palveluaika oli " + String.format("%.02f", getPalvelutiski().getKeskimaarainenPalveluaika()) + ".");
-        Trace.out(Trace.Level.INFO, "Palvelutiskin kokonaisoleskeluaika oli " + String.format("%.02f", getPalvelutiski().getKokonaisoleskeluaika()) + ".");
-        Trace.out(Trace.Level.INFO, "Palvelutiskin keskimääräinen läpimenoaika oli " + String.format("%.02f", getPalvelutiski().getKeskimaarainenLapimenoaika()) + ".");
-        Trace.out(Trace.Level.INFO, "Palvelutiskin keskimääräinen jononpituus oli " + String.format("%.02f", getPalvelutiski().getKeskimaarainenJononpituus(getSimulointiaika())) + " asiakasta.");
 	}
 	
 	// Palvelutiskin tulosteet käyttöliittymään
-	public HashMap<String, String> getPalvelutiskinTulosteet() {
-		
-		HashMap<String, String> palvelutiskinTulosteet = new HashMap<>();
-		palvelutiskinTulosteet.put("Palveltuja asiakkaita yhteensä", Integer.toString(getPalvelutiski().getPalvellutAsiakkaat()) + " asiakasta");
-		// Tarkistetaan onko keskimääräinen palveluaika kelvollinen
-		if (Double.isInfinite(getPalvelutiski().getKeskimaarainenPalveluaika())) {
-			palvelutiskinTulosteet.put("Asiakkaiden keskimääräinen palveluaika", "Ei tiedossa");
-		} else {
-			palvelutiskinTulosteet.put("Asiakkaiden keskimääräinen palveluaika", String.format("%.02f", getPalvelutiski().getKeskimaarainenPalveluaika()));
+		public HashMap<String, String> getPalvelutiskinTulosteet() {
+			
+			HashMap<String, String> palvelutiskinTulosteet = new HashMap<>();
+			palvelutiskinTulosteet.put("Palveltuja asiakkaita yhteensä", Integer.toString(getPalvelutiski().getPalvellutAsiakkaat()) + " asiakasta");
+			// Tarkistetaan onko keskimääräinen palveluaika kelvollinen
+			if (Double.isInfinite(getPalvelutiski().getKeskimaarainenPalveluaika())) {
+				palvelutiskinTulosteet.put("Asiakkaiden keskimääräinen palveluaika", "Ei tiedossa");
+			} else {
+				palvelutiskinTulosteet.put("Asiakkaiden keskimääräinen palveluaika", String.format("%.02f", getPalvelutiski().getKeskimaarainenPalveluaika()));
+			}
+			palvelutiskinTulosteet.put("Keskimääräinen jononpituus", String.format("%.02f", getPalvelutiski().getKeskimaarainenJononpituus(getSimulointiaika())) + " asiakasta");
+			// Tarkistetaan onko keskimääräinen läpimenoaika kelvollinen
+			if (Double.isNaN(getPalvelutiski().getKeskimaarainenLapimenoaika())) {
+				palvelutiskinTulosteet.put("Asiakkaiden keskimääräinen läpimenoaika", "Ei tiedossa");
+			} else {
+				palvelutiskinTulosteet.put("Asiakkaiden keskimääräinen läpimenoaika", String.format("%.02f", getPalvelutiski().getKeskimaarainenLapimenoaika()));
+			}
+			palvelutiskinTulosteet.put("Suoritusteho", String.format("%.02f", getPalvelutiski().getSuoritusteho(getSimulointiaika()) * 100) + " prosenttia");
+			palvelutiskinTulosteet.put("Aktiiviaika", String.format("%.02f", getPalvelutiski().getAktiiviaika()));
+			palvelutiskinTulosteet.put("Käyttöaste", String.format("%.02f", getPalvelutiski().getKayttoaste(getSimulointiaika()) * 100) + " prosenttia");
+			palvelutiskinTulosteet.put("Asiakkaiden kokonaisoleskeluaika", String.format("%.02f", getPalvelutiski().getKokonaisoleskeluaika()));
+			
+			return palvelutiskinTulosteet;
 		}
-		palvelutiskinTulosteet.put("Keskimääräinen jononpituus", String.format("%.02f", getPalvelutiski().getKeskimaarainenJononpituus(getSimulointiaika())) + " asiakasta");
-		// Tarkistetaan onko keskimääräinen läpimenoaika kelvollinen
-		if (Double.isNaN(getPalvelutiski().getKeskimaarainenLapimenoaika())) {
-			palvelutiskinTulosteet.put("Asiakkaiden keskimääräinen läpimenoaika", "Ei tiedossa");
-		} else {
-			palvelutiskinTulosteet.put("Asiakkaiden keskimääräinen läpimenoaika", String.format("%.02f", getPalvelutiski().getKeskimaarainenLapimenoaika()));
-		}
-		palvelutiskinTulosteet.put("Suoritusteho", String.format("%.02f", getPalvelutiski().getSuoritusteho(getSimulointiaika()) * 100) + " prosenttia");
-		palvelutiskinTulosteet.put("Aktiiviaika", String.format("%.02f", getPalvelutiski().getAktiiviaika()));
-		palvelutiskinTulosteet.put("Käyttöaste", String.format("%.02f", getPalvelutiski().getKayttoaste(getSimulointiaika()) * 100) + " prosenttia");
-		palvelutiskinTulosteet.put("Asiakkaiden kokonaisoleskeluaika", String.format("%.02f", getPalvelutiski().getKokonaisoleskeluaika()));
 		
-		return palvelutiskinTulosteet;
-	}
-	
-	// Ruletin tulosteet käyttöliittymään
-	public HashMap<String, String> getRuletinTulosteet() {
-		
-		HashMap<String, String> ruletinTulosteet = new HashMap<>();
-		ruletinTulosteet.put("Palveltuja asiakkaita yhteensä", Integer.toString(getRuletti().getPalvellutAsiakkaat()) + " asiakasta");
-		// Tarkistetaan onko keskimääräinen palveluaika kelvollinen
-		if (Double.isInfinite(getRuletti().getKeskimaarainenPalveluaika())) {
-			ruletinTulosteet.put("Asiakkaiden keskimääräinen palveluaika", "Ei tiedossa");
-		} else {
-			ruletinTulosteet.put("Asiakkaiden keskimääräinen palveluaika", String.format("%.02f", getRuletti().getKeskimaarainenPalveluaika()));
+		// Ruletin tulosteet käyttöliittymään
+		public HashMap<String, String> getRuletinTulosteet() {
+			
+			HashMap<String, String> ruletinTulosteet = new HashMap<>();
+			ruletinTulosteet.put("Palveltuja asiakkaita yhteensä", Integer.toString(getRuletti().getPalvellutAsiakkaat()) + " asiakasta");
+			// Tarkistetaan onko keskimääräinen palveluaika kelvollinen
+			if (Double.isInfinite(getRuletti().getKeskimaarainenPalveluaika())) {
+				ruletinTulosteet.put("Asiakkaiden keskimääräinen palveluaika", "Ei tiedossa");
+			} else {
+				ruletinTulosteet.put("Asiakkaiden keskimääräinen palveluaika", String.format("%.02f", getRuletti().getKeskimaarainenPalveluaika()));
+			}
+			ruletinTulosteet.put("Keskimääräinen jononpituus", String.format("%.02f", getRuletti().getKeskimaarainenJononpituus(getSimulointiaika())) + " asiakasta");
+			// Tarkistetaan onko keskimääräinen läpimenoaika kelvollinen
+			if (Double.isNaN(getRuletti().getKeskimaarainenLapimenoaika())) {
+				ruletinTulosteet.put("Asiakkaiden keskimääräinen läpimenoaika", "Ei tiedossa");
+			} else {
+				ruletinTulosteet.put("Asiakkaiden keskimääräinen läpimenoaika", String.format("%.02f", getRuletti().getKeskimaarainenLapimenoaika()));
+			}
+			ruletinTulosteet.put("Suoritusteho", String.format("%.02f", getRuletti().getSuoritusteho(getSimulointiaika()) * 100) + " prosenttia");
+			ruletinTulosteet.put("Aktiiviaika", String.format("%.02f", getRuletti().getAktiiviaika()));
+			ruletinTulosteet.put("Käyttöaste", String.format("%.02f", getRuletti().getKayttoaste(getSimulointiaika()) * 100) + " prosenttia");
+			ruletinTulosteet.put("Asiakkaiden kokonaisoleskeluaika", String.format("%.02f", getRuletti().getKokonaisoleskeluaika()));
+			
+			return ruletinTulosteet;
 		}
-		ruletinTulosteet.put("Keskimääräinen jononpituus", String.format("%.02f", getRuletti().getKeskimaarainenJononpituus(getSimulointiaika())) + " asiakasta");
-		// Tarkistetaan onko keskimääräinen läpimenoaika kelvollinen
-		if (Double.isNaN(getRuletti().getKeskimaarainenLapimenoaika())) {
-			ruletinTulosteet.put("Asiakkaiden keskimääräinen läpimenoaika", "Ei tiedossa");
-		} else {
-			ruletinTulosteet.put("Asiakkaiden keskimääräinen läpimenoaika", String.format("%.02f", getRuletti().getKeskimaarainenLapimenoaika()));
-		}
-		ruletinTulosteet.put("Suoritusteho", String.format("%.02f", getRuletti().getSuoritusteho(getSimulointiaika()) * 100) + " prosenttia");
-		ruletinTulosteet.put("Aktiiviaika", String.format("%.02f", getRuletti().getAktiiviaika()));
-		ruletinTulosteet.put("Käyttöaste", String.format("%.02f", getRuletti().getKayttoaste(getSimulointiaika()) * 100) + " prosenttia");
-		ruletinTulosteet.put("Asiakkaiden kokonaisoleskeluaika", String.format("%.02f", getRuletti().getKokonaisoleskeluaika()));
 		
-		return ruletinTulosteet;
-	}
-	
-	// Blackjackin tulosteet käyttöliittymään
-	public HashMap<String, String> getBlackjackinTulosteet() {
-		
-		HashMap<String, String> blackjackinTulosteet = new HashMap<>();
-		blackjackinTulosteet.put("Palveltuja asiakkaita yhteensä", Integer.toString(getBlackjack().getPalvellutAsiakkaat()) + " asiakasta");
-		// Tarkistetaan onko keskimääräinen palveluaika kelvollinen
-		if (Double.isInfinite(getBlackjack().getKeskimaarainenPalveluaika())) {
-			blackjackinTulosteet.put("Asiakkaiden keskimääräinen palveluaika", "Ei tiedossa");
-		} else {
-			blackjackinTulosteet.put("Asiakkaiden keskimääräinen palveluaika", String.format("%.02f", getBlackjack().getKeskimaarainenPalveluaika()));
+		// Blackjackin tulosteet käyttöliittymään
+		public HashMap<String, String> getBlackjackinTulosteet() {
+			
+			HashMap<String, String> blackjackinTulosteet = new HashMap<>();
+			blackjackinTulosteet.put("Palveltuja asiakkaita yhteensä", Integer.toString(getBlackjack().getPalvellutAsiakkaat()) + " asiakasta");
+			// Tarkistetaan onko keskimääräinen palveluaika kelvollinen
+			if (Double.isInfinite(getBlackjack().getKeskimaarainenPalveluaika())) {
+				blackjackinTulosteet.put("Asiakkaiden keskimääräinen palveluaika", "Ei tiedossa");
+			} else {
+				blackjackinTulosteet.put("Asiakkaiden keskimääräinen palveluaika", String.format("%.02f", getBlackjack().getKeskimaarainenPalveluaika()));
+			}
+			blackjackinTulosteet.put("Keskimääräinen jononpituus", String.format("%.02f", getBlackjack().getKeskimaarainenJononpituus(getSimulointiaika())) + " asiakasta");
+			// Tarkistetaan onko keskimääräinen läpimenoaika kelvollinen
+			if (Double.isNaN(getBlackjack().getKeskimaarainenLapimenoaika())) {
+				blackjackinTulosteet.put("Asiakkaiden keskimääräinen läpimenoaika", "Ei tiedossa");
+			} else {
+				blackjackinTulosteet.put("Asiakkaiden keskimääräinen läpimenoaika", String.format("%.02f", getBlackjack().getKeskimaarainenLapimenoaika()));
+			}
+			blackjackinTulosteet.put("Suoritusteho", String.format("%.02f", getBlackjack().getSuoritusteho(getSimulointiaika()) * 100) + " prosenttia");
+			blackjackinTulosteet.put("Aktiiviaika", String.format("%.02f", getBlackjack().getAktiiviaika()));
+			blackjackinTulosteet.put("Käyttöaste", String.format("%.02f", getBlackjack().getKayttoaste(getSimulointiaika()) * 100) + " prosenttia");
+			blackjackinTulosteet.put("Asiakkaiden kokonaisoleskeluaika", String.format("%.02f", getBlackjack().getKokonaisoleskeluaika()));
+			
+			return blackjackinTulosteet;
 		}
-		blackjackinTulosteet.put("Keskimääräinen jononpituus", String.format("%.02f", getBlackjack().getKeskimaarainenJononpituus(getSimulointiaika())) + " asiakasta");
-		// Tarkistetaan onko keskimääräinen läpimenoaika kelvollinen
-		if (Double.isNaN(getBlackjack().getKeskimaarainenLapimenoaika())) {
-			blackjackinTulosteet.put("Asiakkaiden keskimääräinen läpimenoaika", "Ei tiedossa");
-		} else {
-			blackjackinTulosteet.put("Asiakkaiden keskimääräinen läpimenoaika", String.format("%.02f", getBlackjack().getKeskimaarainenLapimenoaika()));
-		}
-		blackjackinTulosteet.put("Suoritusteho", String.format("%.02f", getBlackjack().getSuoritusteho(getSimulointiaika()) * 100) + " prosenttia");
-		blackjackinTulosteet.put("Aktiiviaika", String.format("%.02f", getBlackjack().getAktiiviaika()));
-		blackjackinTulosteet.put("Käyttöaste", String.format("%.02f", getBlackjack().getKayttoaste(getSimulointiaika()) * 100) + " prosenttia");
-		blackjackinTulosteet.put("Asiakkaiden kokonaisoleskeluaika", String.format("%.02f", getBlackjack().getKokonaisoleskeluaika()));
 		
-		return blackjackinTulosteet;
-	}
-	
-	// Krapsin tulosteet käyttöliittymään
-	public HashMap<String, String> getKrapsinTulosteet() {
-		
-		HashMap<String, String> krapsinTulosteet = new HashMap<>();
-		krapsinTulosteet.put("Palveltuja asiakkaita yhteensä", Integer.toString(getKraps().getPalvellutAsiakkaat()) + " asiakasta");
-		// Tarkistetaan onko keskimääräinen palveluaika kelvollinen
-		if (Double.isInfinite(getKraps().getKeskimaarainenPalveluaika())) {
-			krapsinTulosteet.put("Asiakkaiden keskimääräinen palveluaika", "Ei tiedossa");
-		} else {
-			krapsinTulosteet.put("Asiakkaiden keskimääräinen palveluaika", String.format("%.02f", getKraps().getKeskimaarainenPalveluaika()));
+		// Krapsin tulosteet käyttöliittymään
+		public HashMap<String, String> getKrapsinTulosteet() {
+			
+			HashMap<String, String> krapsinTulosteet = new HashMap<>();
+			krapsinTulosteet.put("Palveltuja asiakkaita yhteensä", Integer.toString(getKraps().getPalvellutAsiakkaat()) + " asiakasta");
+			// Tarkistetaan onko keskimääräinen palveluaika kelvollinen
+			if (Double.isInfinite(getKraps().getKeskimaarainenPalveluaika())) {
+				krapsinTulosteet.put("Asiakkaiden keskimääräinen palveluaika", "Ei tiedossa");
+			} else {
+				krapsinTulosteet.put("Asiakkaiden keskimääräinen palveluaika", String.format("%.02f", getKraps().getKeskimaarainenPalveluaika()));
+			}
+			krapsinTulosteet.put("Keskimääräinen jononpituus", String.format("%.02f", getKraps().getKeskimaarainenJononpituus(getSimulointiaika())) + " asiakasta");
+			// Tarkistetaan onko keskimääräinen läpimenoaika kelvollinen
+			if (Double.isNaN(getKraps().getKeskimaarainenLapimenoaika())) {
+				krapsinTulosteet.put("Asiakkaiden keskimääräinen läpimenoaika", "Ei tiedossa");
+			} else {
+				krapsinTulosteet.put("Asiakkaiden keskimääräinen läpimenoaika", String.format("%.02f", getKraps().getKeskimaarainenLapimenoaika()));
+			}
+			krapsinTulosteet.put("Suoritusteho", String.format("%.02f", getKraps().getSuoritusteho(getSimulointiaika()) * 100) + " prosenttia");
+			krapsinTulosteet.put("Aktiiviaika", String.format("%.02f", getKraps().getAktiiviaika()));
+			krapsinTulosteet.put("Käyttöaste", String.format("%.02f", getKraps().getKayttoaste(getSimulointiaika()) * 100) + " prosenttia");
+			krapsinTulosteet.put("Asiakkaiden kokonaisoleskeluaika", String.format("%.02f", getKraps().getKokonaisoleskeluaika()));
+			
+			return krapsinTulosteet;
 		}
-		krapsinTulosteet.put("Keskimääräinen jononpituus", String.format("%.02f", getKraps().getKeskimaarainenJononpituus(getSimulointiaika())) + " asiakasta");
-		// Tarkistetaan onko keskimääräinen läpimenoaika kelvollinen
-		if (Double.isNaN(getKraps().getKeskimaarainenLapimenoaika())) {
-			krapsinTulosteet.put("Asiakkaiden keskimääräinen läpimenoaika", "Ei tiedossa");
-		} else {
-			krapsinTulosteet.put("Asiakkaiden keskimääräinen läpimenoaika", String.format("%.02f", getKraps().getKeskimaarainenLapimenoaika()));
-		}
-		krapsinTulosteet.put("Suoritusteho", String.format("%.02f", getKraps().getSuoritusteho(getSimulointiaika()) * 100) + " prosenttia");
-		krapsinTulosteet.put("Aktiiviaika", String.format("%.02f", getKraps().getAktiiviaika()));
-		krapsinTulosteet.put("Käyttöaste", String.format("%.02f", getKraps().getKayttoaste(getSimulointiaika()) * 100) + " prosenttia");
-		krapsinTulosteet.put("Asiakkaiden kokonaisoleskeluaika", String.format("%.02f", getKraps().getKokonaisoleskeluaika()));
 		
-		return krapsinTulosteet;
-	}
-	
-	// Voittojen nostopisteen tulosteet käyttöliittymään
-	public HashMap<String, String> getVoittojenNostopisteenTulosteet() {
-		
-		HashMap<String, String> voittojenNostopisteenTulosteet = new HashMap<>();
-		voittojenNostopisteenTulosteet.put("Palveltuja asiakkaita yhteensä", Integer.toString(getVoittojenNostopiste().getPalvellutAsiakkaat()) + " asiakasta");
-		// Tarkistetaan onko keskimääräinen palveluaika kelvollinen
-		if (Double.isInfinite(getVoittojenNostopiste().getKeskimaarainenPalveluaika())) {
-			voittojenNostopisteenTulosteet.put("Asiakkaiden keskimääräinen palveluaika", "Ei tiedossa");
-		} else {
-			voittojenNostopisteenTulosteet.put("Asiakkaiden keskimääräinen palveluaika", String.format("%.02f", getVoittojenNostopiste().getKeskimaarainenPalveluaika()));
+		// Voittojen nostopisteen tulosteet käyttöliittymään
+		public HashMap<String, String> getVoittojenNostopisteenTulosteet() {
+			
+			HashMap<String, String> voittojenNostopisteenTulosteet = new HashMap<>();
+			voittojenNostopisteenTulosteet.put("Palveltuja asiakkaita yhteensä", Integer.toString(getVoittojenNostopiste().getPalvellutAsiakkaat()) + " asiakasta");
+			// Tarkistetaan onko keskimääräinen palveluaika kelvollinen
+			if (Double.isInfinite(getVoittojenNostopiste().getKeskimaarainenPalveluaika())) {
+				voittojenNostopisteenTulosteet.put("Asiakkaiden keskimääräinen palveluaika", "Ei tiedossa");
+			} else {
+				voittojenNostopisteenTulosteet.put("Asiakkaiden keskimääräinen palveluaika", String.format("%.02f", getVoittojenNostopiste().getKeskimaarainenPalveluaika()));
+			}
+			voittojenNostopisteenTulosteet.put("Keskimääräinen jononpituus", String.format("%.02f", getVoittojenNostopiste().getKeskimaarainenJononpituus(getSimulointiaika())) + " asiakasta");
+			// Tarkistetaan onko keskimääräinen läpimenoaika kelvollinen
+			if (Double.isNaN(getKraps().getKeskimaarainenLapimenoaika())) {
+				voittojenNostopisteenTulosteet.put("Asiakkaiden keskimääräinen läpimenoaika", "Ei tiedossa");
+			} else {
+				voittojenNostopisteenTulosteet.put("Asiakkaiden keskimääräinen läpimenoaika", String.format("%.02f", getVoittojenNostopiste().getKeskimaarainenLapimenoaika()));
+			}
+			voittojenNostopisteenTulosteet.put("Suoritusteho", String.format("%.02f", getVoittojenNostopiste().getSuoritusteho(getSimulointiaika()) * 100) + " prosenttia");
+			voittojenNostopisteenTulosteet.put("Aktiiviaika", String.format("%.02f", getVoittojenNostopiste().getAktiiviaika()));
+			voittojenNostopisteenTulosteet.put("Käyttöaste", String.format("%.02f", getVoittojenNostopiste().getKayttoaste(getSimulointiaika()) * 100) + " prosenttia");
+			voittojenNostopisteenTulosteet.put("Asiakkaiden kokonaisoleskeluaika", String.format("%.02f", getVoittojenNostopiste().getKokonaisoleskeluaika()));
+			
+			return voittojenNostopisteenTulosteet;
 		}
-		voittojenNostopisteenTulosteet.put("Keskimääräinen jononpituus", String.format("%.02f", getVoittojenNostopiste().getKeskimaarainenJononpituus(getSimulointiaika())) + " asiakasta");
-		// Tarkistetaan onko keskimääräinen läpimenoaika kelvollinen
-		if (Double.isNaN(getKraps().getKeskimaarainenLapimenoaika())) {
-			voittojenNostopisteenTulosteet.put("Asiakkaiden keskimääräinen läpimenoaika", "Ei tiedossa");
-		} else {
-			voittojenNostopisteenTulosteet.put("Asiakkaiden keskimääräinen läpimenoaika", String.format("%.02f", getVoittojenNostopiste().getKeskimaarainenLapimenoaika()));
-		}
-		voittojenNostopisteenTulosteet.put("Suoritusteho", String.format("%.02f", getVoittojenNostopiste().getSuoritusteho(getSimulointiaika()) * 100) + " prosenttia");
-		voittojenNostopisteenTulosteet.put("Aktiiviaika", String.format("%.02f", getVoittojenNostopiste().getAktiiviaika()));
-		voittojenNostopisteenTulosteet.put("Käyttöaste", String.format("%.02f", getVoittojenNostopiste().getKayttoaste(getSimulointiaika()) * 100) + " prosenttia");
-		voittojenNostopisteenTulosteet.put("Asiakkaiden kokonaisoleskeluaika", String.format("%.02f", getVoittojenNostopiste().getKokonaisoleskeluaika()));
-		
-		return voittojenNostopisteenTulosteet;
-	}
-	
 }

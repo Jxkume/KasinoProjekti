@@ -6,9 +6,13 @@ import java.util.LinkedList;
 import java.util.Random;
 
 import eduni.distributions.ContinuousGenerator;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.MapsId;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import simu.framework.Kello;
@@ -42,28 +46,28 @@ public class Palvelupiste {
 	@Id
     @Column(name="nimi")
 	private String nimi;
-	@Transient
-	private int palvellutAsiakkaat;
-	@Transient
-	private double keskimaarainenPalveluaika;
-	@Transient
+
 	private double keskimaarainenJononpituus;
 	@Transient
 	private double lapimenoaika;
-	@Transient
+	
 	private double keskimaarainenLapimenoaika;
 	
 	private double suoritusteho;
 	
-	@Transient
 	private double aktiiviaika;
 	
 	private double kayttoaste;
+	
+	private int palvellutAsiakkaat;
+	
+	private double keskimaarainenPalveluaika;
 	
 	private double kokonaisoleskeluaika;
 	
 	@Transient
 	private double simulointiAika;
+	
 	//JonoStrategia strategia; //optio: asiakkaiden j채rjestys
 	@Transient
 	private boolean varattu = false;
@@ -76,6 +80,14 @@ public class Palvelupiste {
 	}
 	public Palvelupiste() {
 		
+	}
+	
+	public int getPalvellutAsiakkaat() {
+		return palvellutAsiakkaat;
+	}
+	
+	public void setPalvellutAsiakkaat(int palvellutAsiakkaat) {
+		this.palvellutAsiakkaat = palvellutAsiakkaat;
 	}
 	
 	public ArrayList<Asiakas> getKaynteja() {
@@ -98,12 +110,13 @@ public class Palvelupiste {
 	public void setSuoritusteho(double suoritusteho) {
 		this.suoritusteho = suoritusteho;
 	}
-		
+	public void setKeskimaarainenPalveluaika(double keskimaarainenPalveluaika) {
+		this.keskimaarainenPalveluaika = keskimaarainenPalveluaika;
+	}
 	public double getKeskimaarainenPalveluaika() {
 		keskimaarainenPalveluaika = aktiiviaika / palvellutAsiakkaat;
 		return keskimaarainenPalveluaika;
 	}
-	
 	public void laskeKokonaisoleskeluaika() {
 		kokonaisoleskeluaika += lapimenoaika;
 	}
@@ -146,10 +159,6 @@ public class Palvelupiste {
 		return nimi;
 	}
 
-	public int getPalvellutAsiakkaat() {
-		return palvellutAsiakkaat;
-	}
-
 	public boolean isVarattu() {
 		return varattu;
 	}
@@ -158,6 +167,9 @@ public class Palvelupiste {
 		return aktiiviaika;
 	}
 	
+	public void setAktiiviaika(double aktiiviaika) {
+		this.aktiiviaika = aktiiviaika;
+	}
 	public void laskeLapimenoaika(Asiakas asiakas) {
 		lapimenoaika = asiakas.getPoistumisaikaJonosta() - asiakas.getSaapumisaikaJonoon();
 	}
@@ -170,10 +182,16 @@ public class Palvelupiste {
 		keskimaarainenLapimenoaika = kokonaisoleskeluaika / palvellutAsiakkaat;
 		return keskimaarainenLapimenoaika;
 	}
+	public void setKeskimaarainenLapimenoaika(double keskimaarainenLapimenoaika) {
+		this.keskimaarainenLapimenoaika = keskimaarainenLapimenoaika;
+	}
 	
 	public double getKeskimaarainenJononpituus(double simulointiaika) {
 		keskimaarainenJononpituus = kokonaisoleskeluaika / simulointiaika;
 		return keskimaarainenJononpituus;
+	}
+	public void setKeskimaarainenJononpituus(double keskimaarainenJononpituus) {
+		this.keskimaarainenJononpituus = keskimaarainenJononpituus;
 	}
 
 	public void lisaaJonoon(Asiakas asiakas) {   // Jonon 1. asiakas aina palvelussa
