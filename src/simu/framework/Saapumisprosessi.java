@@ -17,5 +17,9 @@ public class Saapumisprosessi {
 		Tapahtuma t = new Tapahtuma(tyyppi, Kello.getInstance().getAika() + generaattori.sample());
 		tapahtumalista.lisaa(t);
 	}
+	
+	public void setGenerator(ContinuousGenerator generaattori) {
+		this.generaattori = generaattori;
+	}
 
 }

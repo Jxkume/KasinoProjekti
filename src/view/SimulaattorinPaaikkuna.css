@@ -47,13 +47,13 @@
 #palvelupisteTeksti {
 	-fx-font-family: "Rockwell", Helvetica, Arial, sans-serif;
 	-fx-font-weight: bold;
-    -fx-font-size: 20pt;
+    -fx-font-size: 25pt;
 }
 
 #kasinonTulos {
 	-fx-font-family: "Rockwell", Helvetica, Arial, sans-serif;
 	-fx-font-weight: bold;
-	-fx-font-size: 18pt;
+	-fx-font-size: 20pt;
 }
 
 #kasinonTulosEuroina {
@@ -69,23 +69,31 @@
 
 .choice-box {
 	-fx-font-family: "Rockwell", Helvetica, Arial, sans-serif;
-	-fx-background-color: gold;
+	-fx-background-color: #942B2B;
 }
 
 .choice-box:hover {
-	-fx-background-color: goldenrod;
+	-fx-background-color: #570f0f;
 }
 
 .choice-box .context-menu {
-	-fx-background-color: gold;
+	-fx-background-color: #942B2B;
 }
 
 .choice-box .menu-item:focused {
-	-fx-background-color: goldenrod;
+	-fx-background-color: #570f0f;
 }
 
 .choice-box .label {
-	-fx-text-fill: black;
+	-fx-text-fill: white;
+}
+
+.slider .thumb {
+	-fx-background-color: #942B2B;
+}
+
+.slider .thumb:hover {
+	-fx-background-color: #570f0f;
 }
 
 #tekijat {

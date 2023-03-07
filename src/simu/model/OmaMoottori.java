@@ -2,7 +2,6 @@ package simu.model;
 
 import java.util.HashMap;
 
-import dao.KasinoDao;
 import dao.PalvelupisteDao;
 import eduni.distributions.Negexp;
 import eduni.distributions.Normal;
@@ -24,9 +23,6 @@ public class OmaMoottori extends Moottori {
 	private static int asiakasLkm = 0;
 	private double keskimaarainenVietettyAika;
 	private PalvelupisteDao palvDao = new PalvelupisteDao();
-	private Kasino kasino = new Kasino();
-	KasinoDao kasinoDao = new KasinoDao();
-	
 	
 	// Käyttöliittymän pop-up-ikkunoiden kontrollerit
 	private PalvelutiskiPopUpKontrolleri palvelupistePopUpKontrolleri = new PalvelutiskiPopUpKontrolleri();
@@ -40,43 +36,42 @@ public class OmaMoottori extends Moottori {
 
 		super(kontrolleri); //UUSI
 		
-		// TO-DO: muutetaan jakaumat oikeiksi, kun ollaan päätetty ne. - Valdo
 		saapumisprosessi = new Saapumisprosessi(new Negexp(15,5), tapahtumalista, TapahtumanTyyppi.ARR1);
 	
 		palvelupisteet = new Palvelupiste[5];
 		palvelupisteet[0] = new Palvelupiste(new Normal(4,1), tapahtumalista, TapahtumanTyyppi.DEP1, "Palvelutiski");
-		palvelupisteet[1] = new Palvelupiste(new Normal(6,3), tapahtumalista, TapahtumanTyyppi.DEP2, "Ruletti");
-		palvelupisteet[2] = new Palvelupiste(new Normal(7,3), tapahtumalista, TapahtumanTyyppi.DEP3, "Blackjack");
-		palvelupisteet[3] = new Palvelupiste(new Normal(4,3), tapahtumalista, TapahtumanTyyppi.DEP4, "Kraps");
+		palvelupisteet[1] = new Palvelupiste(new Normal(4,1), tapahtumalista, TapahtumanTyyppi.DEP2, "Ruletti");
+		palvelupisteet[2] = new Palvelupiste(new Normal(4,1), tapahtumalista, TapahtumanTyyppi.DEP3, "Blackjack");
+		palvelupisteet[3] = new Palvelupiste(new Normal(4,1), tapahtumalista, TapahtumanTyyppi.DEP4, "Kraps");
 		palvelupisteet[4] = new Palvelupiste(new Normal(4,1), tapahtumalista, TapahtumanTyyppi.DEP5, "Voittojen nostopiste");
 		
 	}
 
 	// Kasinon palvelutiskin getteri
-	public Palvelupiste getPalvelutiski() {
+	protected Palvelupiste getPalvelutiski() {
 		return palvelupisteet[0];
 	}
 	
 	// Kasinon ruletin getteri
-	public Palvelupiste getRuletti() {
+	protected Palvelupiste getRuletti() {
 		return palvelupisteet[1];
 	}
 	
 	// Kasinon Blackjackin getteri
-	public Palvelupiste getBlackjack() {
+	protected Palvelupiste getBlackjack() {
 		return palvelupisteet[2];
 	}
 	
 	// Kasinon Krapsin getteri
-	public Palvelupiste getKraps() {
+	protected Palvelupiste getKraps() {
 		return palvelupisteet[3];
 	}
 	
 	// Kasinon voittojen nostopisteen getteri
-	public Palvelupiste getVoittojenNostopiste() {
+	protected Palvelupiste getVoittojenNostopiste() {
 		return palvelupisteet[4];
 	}
-
+	
 	@Override
 	protected void alustukset() {
 		
@@ -330,7 +325,6 @@ public class OmaMoottori extends Moottori {
 		kontrolleri.visualisoiJono(getBlackjack());
 		kontrolleri.visualisoiJono(getKraps());
 		kontrolleri.visualisoiJono(getVoittojenNostopiste());
-		
 	}
 	
 	@Override
@@ -398,20 +392,6 @@ public class OmaMoottori extends Moottori {
 		palvDao.updateAktiiviajat(getBlackjack());
 		palvDao.updateAktiiviajat(getKraps());
 		palvDao.updateAktiiviajat(getVoittojenNostopiste());
-		
-		// Päivitetään tietokannassa olevan kasinon tulos
-		kasinoDao.updatetalonVoittoEuroina(kasino);
-		
-		// Päivitetään tietokannassa olevan asiakkaiden lukumäärän tuloksen
-		kasino.setAsiakasLKM(asiakasLkm);
-		kasinoDao.updateAsiakasLKM(kasino);
-		
-		// Päivitetään tietokannassa olevan simulaatioajan (Kello)
-		kasinoDao.updateKello(kasino);
-
-		// Päivitetään tietokannassa olevan keskimääräinenVietettyAika
-		kasino.setkeskimaarainenVietettyAika(keskimaarainenVietettyAika);
-		kasinoDao.updatekeskimaarainenVietettyAika(kasino);
 	}
 	
 	@Override
@@ -429,6 +409,7 @@ public class OmaMoottori extends Moottori {
 		blackjackPopUpKontrolleri.setBlackjackinTulosteet(getBlackjackinTulosteet());
 		krapsPopUpKontrolleri.setKrapsinTulosteet(getKrapsinTulosteet());
 		voittojenNostopistePopUpKontrolleri.setVoittojenNostopisteenTulosteet(getVoittojenNostopisteenTulosteet());
+		
 		
 		Trace.out(Trace.Level.INFO, "\n**SIMULOINTI PÄÄTTYY**");
 		if (palvelupisteet[4].getTalonVoittoEuroina() > 0) {

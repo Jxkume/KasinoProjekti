@@ -12,12 +12,11 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.scene.shape.Polygon;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.control.Alert.AlertType;
 import main.SimulaattoriMain;
@@ -30,6 +29,8 @@ public class SimulaattorinPaaikkunaKontrolleri {
 	private SimulaattoriMain simulaattoriMain;
     private IMoottori moottori;
     private ArrayList<ImageView> palvelutiskiJono, rulettiJono, blackjackJono, krapsJono, voittojenNostoPisteJono;
+    private static int ruletinVoittotodennakoisyys = 45;
+    private static int blackjackinVoittotodennakoisyys = 45;
     
     @FXML
     private ImageView PJ1, PJ2, PJ3, PJ4, PJ5, PJ6, PJ7, PJ8, PJ9, PJ10;			// Palvelutiskin jonon kuvat
@@ -50,9 +51,13 @@ public class SimulaattorinPaaikkunaKontrolleri {
     @FXML
     private GridPane tulokset, tekijat;
     @FXML
-    private ChoiceBox<String> pelienKestoChoiceBox;
+    private ChoiceBox<String> saapumisnopeusChoiceBox, pelienKestoChoiceBox;
     @FXML
 	private Label kokonaisaikatulosLabel, asiakasLkmLabel, keskimaarainenVietettyAikaLabel, kasinonTulosLabel;
+    @FXML
+    private Label ruletinSliderLabel, blackjackinSliderLabel;
+    @FXML
+    private Slider ruletinSlider, blackjackinSlider;
     
     // Konstruktori
     public SimulaattorinPaaikkunaKontrolleri() {
@@ -71,10 +76,31 @@ public class SimulaattorinPaaikkunaKontrolleri {
     // Tätä metodia kutsutaan konstruktorin jälkeen
 	public void initialize() {
 		
+		// Asetetaan asiakkaiden saapumisnopeudet ChoiceBoxiin
+		String[] saapumisnopeudet = {"Normaali", "Nopea", "Hidas"};
+		saapumisnopeusChoiceBox.getItems().addAll(saapumisnopeudet);
+		saapumisnopeusChoiceBox.setValue("Normaali");
+		
 		// Asetetaan pelien kestot ChoiceBoxiin
 		String[] kestot = {"Normaali", "Nopea", "Hidas"};
 		pelienKestoChoiceBox.getItems().addAll(kestot);
 		pelienKestoChoiceBox.setValue("Normaali");
+		
+		// Asetetaan pelien voittotodennäköisyydet
+		
+		ruletinSliderLabel.setText(ruletinVoittotodennakoisyys + "%");
+		ruletinSlider.valueProperty().addListener((obs, oldval, newVal) -> {
+			ruletinVoittotodennakoisyys = newVal.intValue();
+			ruletinSlider.setValue(ruletinVoittotodennakoisyys);
+			ruletinSliderLabel.setText(Integer.toString(ruletinVoittotodennakoisyys) + "%");
+		});
+		
+		blackjackinSliderLabel.setText(blackjackinVoittotodennakoisyys + "%");
+		blackjackinSlider.valueProperty().addListener((obs, oldval, newVal) -> {
+			blackjackinVoittotodennakoisyys = newVal.intValue();
+			blackjackinSlider.setValue(blackjackinVoittotodennakoisyys);
+			blackjackinSliderLabel.setText(Integer.toString(blackjackinVoittotodennakoisyys) + "%");
+		});
 		
 		// Alustetaan napit
 		kaynnistaButton.setDisable(false);
@@ -426,4 +452,16 @@ public class SimulaattorinPaaikkunaKontrolleri {
     	return pelienKestoChoiceBox.getValue();
     }
 	
+    public String getSaapumisenKesto() {
+    	return saapumisnopeusChoiceBox.getValue();
+    }
+    
+    public int getRuletinVoittotodennakoisyys() {
+    	return ruletinVoittotodennakoisyys;
+    }
+    
+    public int getBlackjackinVoittotodennakoisyys() {
+    	return blackjackinVoittotodennakoisyys;
+    }
+    
 }
