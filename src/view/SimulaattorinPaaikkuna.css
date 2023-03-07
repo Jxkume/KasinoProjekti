@@ -7,6 +7,7 @@
     -fx-font-size: 9pt;
     -fx-font-family: "Rockwell", Helvetica, Arial, sans-serif;
     -fx-color: gold;
+    -fx-cursor: hand;
 }
 
 .button:hover {
@@ -70,6 +71,7 @@
 .choice-box {
 	-fx-font-family: "Rockwell", Helvetica, Arial, sans-serif;
 	-fx-background-color: #942B2B;
+	-fx-cursor: hand;
 }
 
 .choice-box:hover {
@@ -82,6 +84,7 @@
 
 .choice-box .menu-item:focused {
 	-fx-background-color: #570f0f;
+	-fx-cursor: hand;
 }
 
 .choice-box .label {
@@ -90,6 +93,7 @@
 
 .slider .thumb {
 	-fx-background-color: #942B2B;
+	-fx-cursor: hand;
 }
 
 .slider .thumb:hover {

@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
@@ -167,6 +168,7 @@ public class SimulaattorinPaaikkunaKontrolleri {
 		voittojenNostoPisteJono.add(VNJ9);
 		voittojenNostoPisteJono.add(VNJ10);
 		
+		// Alustetaan kuvat
 		for (int i = 0; i < rulettiJono.size(); i++) {
 			rulettiJono.get(i).setOpacity(0.25);
 		}
@@ -190,51 +192,57 @@ public class SimulaattorinPaaikkunaKontrolleri {
 	}
     
 	public void kaynnistaSimulointi() {
-		
-		Alert alert = new Alert(AlertType.ERROR);
-		// Tarkistetaan, että käyttäjä on syöttänyt simulointiajan ja viiveen
-		if (aikaTextField.getText().isEmpty() && viiveTextField.getText().isEmpty()) {
-			alert.setTitle("Simulointiaika ja viive puuttuvat!");
-	        alert.setHeaderText("Ole hyvä ja aseta simulointiaika ja viive käynnistääksesi simulaattorin.");
-	        alert.showAndWait();
-		} else if (aikaTextField.getText().isEmpty()) {
-	        alert.setTitle("Simulointiaika puuttuu!");
-	        alert.setHeaderText("Ole hyvä ja aseta simulointiaika käynnistääksesi simulaattorin.");
-	        alert.showAndWait();
-		} else if (viiveTextField.getText().isEmpty()) {
-	        alert.setTitle("Viive puuttuu!");
-	        alert.setHeaderText("Ole hyvä ja aseta viive käynnistääksesi simulaattorin.");
-	        alert.showAndWait();
-		} else {
-			// Tarkistetaan, että arvot eivät ole negatiivisia
-			if (Integer.parseInt(aikaTextField.getText()) < 0) {
-		        alert.setTitle("Negatiivinen simulointiaika!");
-		        alert.setHeaderText("Simulointiaika ei voi olla negatiivinen.");
-		        alert.showAndWait();
-			} else if (Integer.parseInt(viiveTextField.getText()) < 0) {
-		        alert.setTitle("Negatiivinen viive!");
-		        alert.setHeaderText("Viive ei voi olla negatiivinen.");
-		        alert.showAndWait();
-			} else if (Integer.parseInt(viiveTextField.getText()) == 0) {
-		        alert.setTitle("Ei-kelvollinen arvo!");
-		        alert.setHeaderText("Viive ei voi olla arvoltaan nolla.");
-		        alert.showAndWait();
+
+		try {
+			// Luodaan alert
+			Alert alert = new Alert(AlertType.ERROR);
+			
+			// Tarkistetaan, että käyttäjä on syöttänyt simulointiajan ja viiveen
+			if (aikaTextField.getText().isEmpty() && viiveTextField.getText().isEmpty()) {
+				alert.setTitle("Simulointiaika ja viive puuttuvat!");
+				alert.setHeaderText("Ole hyvä ja aseta simulointiaika ja viive käynnistääksesi simulaattorin.");
+				alert.showAndWait();
+			} else if (aikaTextField.getText().isEmpty()) {
+				alert.setTitle("Simulointiaika puuttuu!");
+				alert.setHeaderText("Ole hyvä ja aseta simulointiaika käynnistääksesi simulaattorin.");
+				alert.showAndWait();
+			} else if (viiveTextField.getText().isEmpty()) {
+				alert.setTitle("Viive puuttuu!");
+				alert.setHeaderText("Ole hyvä ja aseta viive käynnistääksesi simulaattorin.");
+				alert.showAndWait();
 			} else {
-				// Simulaatio voidaan käynnistää
-				moottori = new OmaMoottori(this); // säie
-				moottori.setSimulointiaika(getAika());
-				moottori.setViive(getViive());
-				((Thread)moottori).start();
-				// Nappia voi painaa vain kerran
-				kaynnistaButton.setDisable(true);
-				// Käyttäjä voi nyt hidastaa tai nopeuttaa simulaatiota
-		    	hidastaButton.setDisable(false);
-		    	nopeutaButton.setDisable(false);
-		    	// Tulokset-GridPane asetetaan pois näkyvistä
-		    	tulokset.setVisible(false);
+				// Tarkistetaan, että arvot eivät ole negatiivisia
+				if (Integer.parseInt(aikaTextField.getText()) < 0) {
+					alert.setTitle("Negatiivinen simulointiaika!");
+					alert.setHeaderText("Simulointiaika ei voi olla negatiivinen.");
+					alert.showAndWait();
+				} else if (Integer.parseInt(viiveTextField.getText()) < 0) {
+					alert.setTitle("Negatiivinen viive!");
+					alert.setHeaderText("Viive ei voi olla negatiivinen.");
+					alert.showAndWait();
+				} else if (Integer.parseInt(viiveTextField.getText()) == 0) {
+					alert.setTitle("Ei-kelvollinen arvo!");
+					alert.setHeaderText("Viive ei voi olla arvoltaan nolla.");
+					alert.showAndWait();
+				} else {
+					// Simulaatio voidaan käynnistää
+					moottori = new OmaMoottori(this); // säie
+					moottori.setSimulointiaika(getAika());
+					moottori.setViive(getViive());
+					((Thread)moottori).start();
+					// Nappia voi painaa vain kerran
+					kaynnistaButton.setDisable(true);
+					// Käyttäjä voi nyt hidastaa tai nopeuttaa simulaatiota
+					hidastaButton.setDisable(false);
+					nopeutaButton.setDisable(false);
+					// Tulokset-GridPane asetetaan pois näkyvistä
+					tulokset.setVisible(false);
+				}
 			}
+		} catch (NumberFormatException e) {
+			System.out.println("Syöttämäsi arvot eivät ole kelvollisia. Vain Integer-tyyppiset numerot sallittu!");
 		}
-		
+
 	}
 
 	public void visualisoiJono(Palvelupiste palvelupiste) {
