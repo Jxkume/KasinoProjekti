@@ -2,6 +2,7 @@ package simu.model;
 
 import java.util.HashMap;
 
+import dao.KasinoDao;
 import dao.PalvelupisteDao;
 import eduni.distributions.Negexp;
 import eduni.distributions.Normal;
@@ -23,6 +24,9 @@ public class OmaMoottori extends Moottori {
 	private static int asiakasLkm = 0;
 	private double keskimaarainenVietettyAika;
 	private PalvelupisteDao palvDao = new PalvelupisteDao();
+	private Kasino kasino = new Kasino();
+	KasinoDao kasinoDao = new KasinoDao();
+	
 	
 	// Käyttöliittymän pop-up-ikkunoiden kontrollerit
 	private PalvelutiskiPopUpKontrolleri palvelupistePopUpKontrolleri = new PalvelutiskiPopUpKontrolleri();
@@ -49,34 +53,42 @@ public class OmaMoottori extends Moottori {
 	}
 
 	// Kasinon palvelutiskin getteri
-	protected Palvelupiste getPalvelutiski() {
+	public Palvelupiste getPalvelutiski() {
 		return palvelupisteet[0];
 	}
 	
 	// Kasinon ruletin getteri
-	protected Palvelupiste getRuletti() {
+	public Palvelupiste getRuletti() {
 		return palvelupisteet[1];
 	}
 	
 	// Kasinon Blackjackin getteri
-	protected Palvelupiste getBlackjack() {
+	public Palvelupiste getBlackjack() {
 		return palvelupisteet[2];
 	}
 	
 	// Kasinon Krapsin getteri
-	protected Palvelupiste getKraps() {
+	public Palvelupiste getKraps() {
 		return palvelupisteet[3];
 	}
 	
 	// Kasinon voittojen nostopisteen getteri
-	protected Palvelupiste getVoittojenNostopiste() {
+	public Palvelupiste getVoittojenNostopiste() {
 		return palvelupisteet[4];
 	}
-	
+
 	@Override
 	protected void alustukset() {
-		// Generoidaan ensimmäinen asiakas järjestelmään
-		saapumisprosessi.generoiSeuraava();
+		
+		// Asetetaan käyttäjän käyttöliittymässä valitsema saapumisnopeus asiakkaille
+		if (kontrolleri.getSaapumisenKesto().equals("Normaali")) {
+			saapumisprosessi.setGenerator(new Negexp(15,5));
+		} else if (kontrolleri.getSaapumisenKesto().equals("Nopea")) {
+			saapumisprosessi.setGenerator(new Negexp(10,5));
+		} else if (kontrolleri.getSaapumisenKesto().equals("Hidas")) {
+			saapumisprosessi.setGenerator(new Negexp(20,5));
+		}
+		
 		// Asetetaan käyttäjän käyttöliittymässä valitsema pelien kesto kaikille peleille
 		if (kontrolleri.getPelienKesto().equals("Normaali")) {
 			// Pelit kestävät 3-5 aikayksikköä
@@ -94,6 +106,10 @@ public class OmaMoottori extends Moottori {
 			getBlackjack().setGenerator(new Normal(7,1));
 			getKraps().setGenerator(new Normal(7,1));
 		}
+		
+		// Generoidaan ensimmäinen asiakas järjestelmään
+		saapumisprosessi.generoiSeuraava();
+		
 	}
 	
 	// Simulaation logiikka miten asiakkaat liikkuvat palvelupisteillä
@@ -314,6 +330,7 @@ public class OmaMoottori extends Moottori {
 		kontrolleri.visualisoiJono(getBlackjack());
 		kontrolleri.visualisoiJono(getKraps());
 		kontrolleri.visualisoiJono(getVoittojenNostopiste());
+		
 	}
 	
 	@Override
@@ -381,6 +398,20 @@ public class OmaMoottori extends Moottori {
 		palvDao.updateAktiiviajat(getBlackjack());
 		palvDao.updateAktiiviajat(getKraps());
 		palvDao.updateAktiiviajat(getVoittojenNostopiste());
+		
+		// Päivitetään tietokannassa olevan kasinon tulos
+		kasinoDao.updatetalonVoittoEuroina(kasino);
+		
+		// Päivitetään tietokannassa olevan asiakkaiden lukumäärän tuloksen
+		kasino.setAsiakasLKM(asiakasLkm);
+		kasinoDao.updateAsiakasLKM(kasino);
+		
+		// Päivitetään tietokannassa olevan simulaatioajan (Kello)
+		kasinoDao.updateKello(kasino);
+
+		// Päivitetään tietokannassa olevan keskimääräinenVietettyAika
+		kasino.setkeskimaarainenVietettyAika(keskimaarainenVietettyAika);
+		kasinoDao.updatekeskimaarainenVietettyAika(kasino);
 	}
 	
 	@Override
@@ -398,7 +429,6 @@ public class OmaMoottori extends Moottori {
 		blackjackPopUpKontrolleri.setBlackjackinTulosteet(getBlackjackinTulosteet());
 		krapsPopUpKontrolleri.setKrapsinTulosteet(getKrapsinTulosteet());
 		voittojenNostopistePopUpKontrolleri.setVoittojenNostopisteenTulosteet(getVoittojenNostopisteenTulosteet());
-		
 		
 		Trace.out(Trace.Level.INFO, "\n**SIMULOINTI PÄÄTTYY**");
 		if (palvelupisteet[4].getTalonVoittoEuroina() > 0) {

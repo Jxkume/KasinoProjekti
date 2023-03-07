@@ -19,6 +19,7 @@ import simu.framework.Kello;
 import simu.framework.Tapahtuma;
 import simu.framework.Tapahtumalista;
 import simu.framework.Trace;
+import view.SimulaattorinPaaikkunaKontrolleri;
 
 // TODO:
 // Palvelupistekohtaiset toiminnallisuudet, laskutoimitukset (+ tarvittavat muuttujat) ja raportointi koodattava
@@ -39,9 +40,11 @@ public class Palvelupiste {
 	private Tapahtumalista tapahtumalista;
 	@Transient
 	private TapahtumanTyyppi skeduloitavanTapahtumanTyyppi;
-	@Transient
+
 	private static int talonVoittoEuroina = 0;
 	
+	@Transient
+    SimulaattorinPaaikkunaKontrolleri kontrolleri = new SimulaattorinPaaikkunaKontrolleri();
 	
 	@Id
     @Column(name="nimi")
@@ -282,11 +285,11 @@ public class Palvelupiste {
 	public Asiakas getJononEnsimmainen() {
 		return jono.getFirst();
 	}
-	
+
 	public int getTalonVoittoEuroina() {
 		return talonVoittoEuroina;
 	}
-	
+
 	public int arvotaanPelimaksu(Asiakas asiakas) {
 		// Arvotaan pelin maksu 50-100 polettia ottaen huomioon asiakkaan polettimäärä
 		int maksimi;
@@ -299,7 +302,7 @@ public class Palvelupiste {
 		return poletteja;
 	}
 	
-	public boolean voittikoAsiakas(Asiakas asiakas) {
+public boolean voittikoAsiakas(Asiakas asiakas) {
 		
 		// Tässä jotain todennäköisyyksiä ja voittosummia peleihin, näitä voi vapaasti muutella - Valdo
 		int todennakoisyysVoittoon;
@@ -308,9 +311,8 @@ public class Palvelupiste {
 		switch (nimi) {
 			
 			case "Ruletti":
-				// Ruletissa 45% mahdollisuus voittoon ja 55% häviöön
 				todennakoisyysVoittoon = new Random().nextInt(100) + 1;
-				if (todennakoisyysVoittoon <= 45) {
+				if (todennakoisyysVoittoon <= kontrolleri.getRuletinVoittotodennakoisyys()) {
 					// Voittosumma on 50-100 polettia.
 					Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " voitti ruletissa " + polettimaara + " polettia!");
 					asiakas.lisaaPoletteja(polettimaara);
@@ -325,9 +327,8 @@ public class Palvelupiste {
 				}
 				
 			case "Blackjack":
-				// Blackjackissa 42.4% mahdollisuus voittoon ja 57.8% häviöön
-				todennakoisyysVoittoon = new Random().nextInt(1000) + 1;
-				if (todennakoisyysVoittoon <= 424) {
+				todennakoisyysVoittoon = new Random().nextInt(100) + 1;
+				if (todennakoisyysVoittoon <= kontrolleri.getBlackjackinVoittotodennakoisyys()) {
 					// Voittosumma on 50-100 polettia.
 					Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " voitti Blackjackissä " + polettimaara + " polettia!");
 					asiakas.lisaaPoletteja(polettimaara);
@@ -342,9 +343,9 @@ public class Palvelupiste {
 				}
 				
 			case "Kraps":
-				// Krapsissa on 50% mahdollisuus voittoon ja 50% häviöön (pyöreästi)
+				// Krapsissa on noin 50% mahdollisuus voittoon ja noin 50% mahdollisuus häviöön (pyöreästi)
 				Kraps.kahdenNopanSumma();
-				if (Kraps.voittaako() == true) {
+				if (Kraps.voittaako()) {
 					// Voittosumma on 50-100 polettia.
 					Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " voitti Krapsissä " + polettimaara + " polettia!");
 					asiakas.lisaaPoletteja(polettimaara);
