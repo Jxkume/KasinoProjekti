@@ -2,6 +2,7 @@ package simu.model;
 
 import java.util.HashMap;
 
+import dao.KasinoDao;
 import dao.PalvelupisteDao;
 import eduni.distributions.Negexp;
 import eduni.distributions.Normal;
@@ -23,6 +24,8 @@ public class OmaMoottori extends Moottori {
 	private static int asiakasLkm = 0;
 	private double keskimaarainenVietettyAika;
 	private PalvelupisteDao palvDao = new PalvelupisteDao();
+	private Kasino kasino = new Kasino();
+	private KasinoDao kasinoDao = new KasinoDao();
 	
 	// Käyttöliittymän pop-up-ikkunoiden kontrollerit
 	private PalvelutiskiPopUpKontrolleri palvelupistePopUpKontrolleri = new PalvelutiskiPopUpKontrolleri();
@@ -48,27 +51,27 @@ public class OmaMoottori extends Moottori {
 	}
 
 	// Kasinon palvelutiskin getteri
-	protected Palvelupiste getPalvelutiski() {
+	public Palvelupiste getPalvelutiski() {
 		return palvelupisteet[0];
 	}
 	
 	// Kasinon ruletin getteri
-	protected Palvelupiste getRuletti() {
+	public Palvelupiste getRuletti() {
 		return palvelupisteet[1];
 	}
 	
 	// Kasinon Blackjackin getteri
-	protected Palvelupiste getBlackjack() {
+	public Palvelupiste getBlackjack() {
 		return palvelupisteet[2];
 	}
 	
 	// Kasinon Krapsin getteri
-	protected Palvelupiste getKraps() {
+	public Palvelupiste getKraps() {
 		return palvelupisteet[3];
 	}
 	
 	// Kasinon voittojen nostopisteen getteri
-	protected Palvelupiste getVoittojenNostopiste() {
+	public Palvelupiste getVoittojenNostopiste() {
 		return palvelupisteet[4];
 	}
 	
@@ -392,6 +395,20 @@ public class OmaMoottori extends Moottori {
 		palvDao.updateAktiiviajat(getBlackjack());
 		palvDao.updateAktiiviajat(getKraps());
 		palvDao.updateAktiiviajat(getVoittojenNostopiste());
+		
+		// Päivitetään tietokannassa olevan talon tuloja
+		kasinoDao.updatetalonVoittoEuroina(kasino);
+		
+		// Päivitetään tietokannassa olevia asiakas lukumääriä
+		kasino.setAsiakasLKM(asiakasLkm);
+		kasinoDao.updateAsiakasLKM(kasino);
+		
+		// Päivitetään tietokannassa olevan simulointi ajan (Kello)
+		kasinoDao.updateKello(kasino);
+		
+		// Päivitetään tietokannassa olevan keskimääräinen vietetty aika kasinossa
+		kasino.setkeskimaarainenVietettyAika(keskimaarainenVietettyAika);
+		kasinoDao.updatekeskimaarainenVietettyAika(kasino);
 	}
 	
 	@Override

@@ -15,8 +15,10 @@ public class Kasino {
 	
 	@Transient
 	Palvelupiste palvelupiste = new Palvelupiste();
+	
 	@Transient
 	private Kello kellor = Kello.getInstance();
+	
 	@SuppressWarnings("unused")
 	private int talonVoittoEuroina;
 	
