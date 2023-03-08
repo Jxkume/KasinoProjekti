@@ -1,3 +1,32 @@
 #background {
 	-fx-background-color: #942B2B;
 }
+
+.context-menu { 
+	-fx-padding: 0;
+}
+
+
+.menu .label {
+	-fx-font-family: "Rockwell", Helvetica, Arial, sans-serif;
+	-fx-text-fill: white;
+    -fx-font-size: 10pt;
+}
+
+.menu:hover {
+	-fx-background-color: #570f0f;
+	-fx-cursor: hand;
+}
+
+.menu:showing {
+	-fx-background-color: #570f0f;
+}
+
+.menu-item {
+	-fx-background-color: #942B2B;
+}
+
+.menu-item:hover {
+	-fx-background-color: #570f0f;
+	-fx-cursor: hand;
+}

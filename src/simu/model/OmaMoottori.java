@@ -461,9 +461,9 @@ public class OmaMoottori extends Moottori {
 			} else {
 				palvelutiskinTulosteet.put("Asiakkaiden keskimääräinen läpimenoaika", String.format("%.02f", getPalvelutiski().getKeskimaarainenLapimenoaika()));
 			}
-			palvelutiskinTulosteet.put("Suoritusteho", String.format("%.02f", getPalvelutiski().getSuoritusteho(getSimulointiaika()) * 100) + "%");
+			palvelutiskinTulosteet.put("Suoritusteho", String.format("%.02f", getPalvelutiski().getSuoritusteho(getSimulointiaika()) * 100) + " %");
 			palvelutiskinTulosteet.put("Aktiiviaika", String.format("%.02f", getPalvelutiski().getAktiiviaika()));
-			palvelutiskinTulosteet.put("Käyttöaste", String.format("%.02f", getPalvelutiski().getKayttoaste(getSimulointiaika()) * 100) + "%");
+			palvelutiskinTulosteet.put("Käyttöaste", String.format("%.02f", getPalvelutiski().getKayttoaste(getSimulointiaika()) * 100) + " %");
 			palvelutiskinTulosteet.put("Asiakkaiden kokonaisoleskeluaika", String.format("%.02f", getPalvelutiski().getKokonaisoleskeluaika()));
 			
 			return palvelutiskinTulosteet;
@@ -487,9 +487,9 @@ public class OmaMoottori extends Moottori {
 			} else {
 				ruletinTulosteet.put("Asiakkaiden keskimääräinen läpimenoaika", String.format("%.02f", getRuletti().getKeskimaarainenLapimenoaika()));
 			}
-			ruletinTulosteet.put("Suoritusteho", String.format("%.02f", getRuletti().getSuoritusteho(getSimulointiaika()) * 100) + "%");
+			ruletinTulosteet.put("Suoritusteho", String.format("%.02f", getRuletti().getSuoritusteho(getSimulointiaika()) * 100) + " %");
 			ruletinTulosteet.put("Aktiiviaika", String.format("%.02f", getRuletti().getAktiiviaika()));
-			ruletinTulosteet.put("Käyttöaste", String.format("%.02f", getRuletti().getKayttoaste(getSimulointiaika()) * 100) + "%");
+			ruletinTulosteet.put("Käyttöaste", String.format("%.02f", getRuletti().getKayttoaste(getSimulointiaika()) * 100) + " %");
 			ruletinTulosteet.put("Asiakkaiden kokonaisoleskeluaika", String.format("%.02f", getRuletti().getKokonaisoleskeluaika()));
 			
 			return ruletinTulosteet;
@@ -513,9 +513,9 @@ public class OmaMoottori extends Moottori {
 			} else {
 				blackjackinTulosteet.put("Asiakkaiden keskimääräinen läpimenoaika", String.format("%.02f", getBlackjack().getKeskimaarainenLapimenoaika()));
 			}
-			blackjackinTulosteet.put("Suoritusteho", String.format("%.02f", getBlackjack().getSuoritusteho(getSimulointiaika()) * 100) + "%");
+			blackjackinTulosteet.put("Suoritusteho", String.format("%.02f", getBlackjack().getSuoritusteho(getSimulointiaika()) * 100) + " %");
 			blackjackinTulosteet.put("Aktiiviaika", String.format("%.02f", getBlackjack().getAktiiviaika()));
-			blackjackinTulosteet.put("Käyttöaste", String.format("%.02f", getBlackjack().getKayttoaste(getSimulointiaika()) * 100) + "%");
+			blackjackinTulosteet.put("Käyttöaste", String.format("%.02f", getBlackjack().getKayttoaste(getSimulointiaika()) * 100) + " %");
 			blackjackinTulosteet.put("Asiakkaiden kokonaisoleskeluaika", String.format("%.02f", getBlackjack().getKokonaisoleskeluaika()));
 			
 			return blackjackinTulosteet;
@@ -532,16 +532,16 @@ public class OmaMoottori extends Moottori {
 			} else {
 				krapsinTulosteet.put("Asiakkaiden keskimääräinen palveluaika", String.format("%.02f", getKraps().getKeskimaarainenPalveluaika()));
 			}
-			krapsinTulosteet.put("Keskimääräinen jononpituus", String.format("%.02f", getKraps().getKeskimaarainenJononpituus(getSimulointiaika())) + "%");
+			krapsinTulosteet.put("Keskimääräinen jononpituus", String.format("%.02f", getKraps().getKeskimaarainenJononpituus(getSimulointiaika())) + " %");
 			// Tarkistetaan onko keskimääräinen läpimenoaika kelvollinen
 			if (Double.isNaN(getKraps().getKeskimaarainenLapimenoaika())) {
 				krapsinTulosteet.put("Asiakkaiden keskimääräinen läpimenoaika", "Ei tiedossa");
 			} else {
 				krapsinTulosteet.put("Asiakkaiden keskimääräinen läpimenoaika", String.format("%.02f", getKraps().getKeskimaarainenLapimenoaika()));
 			}
-			krapsinTulosteet.put("Suoritusteho", String.format("%.02f", getKraps().getSuoritusteho(getSimulointiaika()) * 100) + "%");
+			krapsinTulosteet.put("Suoritusteho", String.format("%.02f", getKraps().getSuoritusteho(getSimulointiaika()) * 100) + " %");
 			krapsinTulosteet.put("Aktiiviaika", String.format("%.02f", getKraps().getAktiiviaika()));
-			krapsinTulosteet.put("Käyttöaste", String.format("%.02f", getKraps().getKayttoaste(getSimulointiaika()) * 100) + "%");
+			krapsinTulosteet.put("Käyttöaste", String.format("%.02f", getKraps().getKayttoaste(getSimulointiaika()) * 100) + " %");
 			krapsinTulosteet.put("Asiakkaiden kokonaisoleskeluaika", String.format("%.02f", getKraps().getKokonaisoleskeluaika()));
 			
 			return krapsinTulosteet;
@@ -565,9 +565,9 @@ public class OmaMoottori extends Moottori {
 			} else {
 				voittojenNostopisteenTulosteet.put("Asiakkaiden keskimääräinen läpimenoaika", String.format("%.02f", getVoittojenNostopiste().getKeskimaarainenLapimenoaika()));
 			}
-			voittojenNostopisteenTulosteet.put("Suoritusteho", String.format("%.02f", getVoittojenNostopiste().getSuoritusteho(getSimulointiaika()) * 100) + "%");
+			voittojenNostopisteenTulosteet.put("Suoritusteho", String.format("%.02f", getVoittojenNostopiste().getSuoritusteho(getSimulointiaika()) * 100) + " %");
 			voittojenNostopisteenTulosteet.put("Aktiiviaika", String.format("%.02f", getVoittojenNostopiste().getAktiiviaika()));
-			voittojenNostopisteenTulosteet.put("Käyttöaste", String.format("%.02f", getVoittojenNostopiste().getKayttoaste(getSimulointiaika()) * 100) + "%");
+			voittojenNostopisteenTulosteet.put("Käyttöaste", String.format("%.02f", getVoittojenNostopiste().getKayttoaste(getSimulointiaika()) * 100) + " %");
 			voittojenNostopisteenTulosteet.put("Asiakkaiden kokonaisoleskeluaika", String.format("%.02f", getVoittojenNostopiste().getKokonaisoleskeluaika()));
 			
 			return voittojenNostopisteenTulosteet;

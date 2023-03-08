@@ -2,13 +2,18 @@
 
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="806.0" minWidth="1384.0" prefHeight="806.0" prefWidth="1384.0" stylesheets="@SimulaattorinPaaikkunaPohja.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="806.0" minWidth="1384.0" prefHeight="806.0" prefWidth="1384.0" stylesheets="@SimulaattorinPaaikkunaPohja.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.SimulaattorinPaaikkunaPohjaKontrolleri">
    <top>
-      <MenuBar id="background" maxHeight="25.0" BorderPane.alignment="CENTER">
+      <MenuBar id="background" BorderPane.alignment="CENTER">
         <menus>
-          <Menu mnemonicParsing="false" />
+          <Menu mnemonicParsing="false" text="Info">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#naytaProsessikaavio" text="Prosessikaavio" />
+            </items>
+          </Menu>
         </menus>
       </MenuBar>
    </top>
