@@ -81,6 +81,7 @@ public class Palvelupiste {
 		this.skeduloitavanTapahtumanTyyppi = tyyppi;
 		this.nimi = nimi;
 	}
+	
 	public Palvelupiste() {
 		
 	}
@@ -173,6 +174,7 @@ public class Palvelupiste {
 	public void setAktiiviaika(double aktiiviaika) {
 		this.aktiiviaika = aktiiviaika;
 	}
+	
 	public void laskeLapimenoaika(Asiakas asiakas) {
 		lapimenoaika = asiakas.getPoistumisaikaJonosta() - asiakas.getSaapumisaikaJonoon();
 	}
@@ -390,6 +392,5 @@ public boolean voittikoAsiakas(Asiakas asiakas) {
 
 		return asiakkaat + Arrays.toString(asiakkaatJonossa).replace("[", "").replace("]", "") + ".";
 	}
-	
 	
 }

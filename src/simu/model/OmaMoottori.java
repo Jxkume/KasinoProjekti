@@ -49,31 +49,6 @@ public class OmaMoottori extends Moottori {
 		palvelupisteet[4] = new Palvelupiste(new Normal(4,1), tapahtumalista, TapahtumanTyyppi.DEP5, "Voittojen nostopiste");
 		
 	}
-
-	// Kasinon palvelutiskin getteri
-	public Palvelupiste getPalvelutiski() {
-		return palvelupisteet[0];
-	}
-	
-	// Kasinon ruletin getteri
-	public Palvelupiste getRuletti() {
-		return palvelupisteet[1];
-	}
-	
-	// Kasinon Blackjackin getteri
-	public Palvelupiste getBlackjack() {
-		return palvelupisteet[2];
-	}
-	
-	// Kasinon Krapsin getteri
-	public Palvelupiste getKraps() {
-		return palvelupisteet[3];
-	}
-	
-	// Kasinon voittojen nostopisteen getteri
-	public Palvelupiste getVoittojenNostopiste() {
-		return palvelupisteet[4];
-	}
 	
 	@Override
 	protected void alustukset() {
@@ -174,7 +149,7 @@ public class OmaMoottori extends Moottori {
 					break;
 				}
 				// Jos todennäköisyys on 2 tai alle, asiakas poistuu uuteen peliin tai voittojen nostopisteelle
-				if (todennakoisyys <= 2 && asiakas.getNykyinenPolettimaara() >= 10) {
+				if (todennakoisyys <= 2 && asiakas.getNykyinenPolettimaara() >= 50) {
 					if (randomPalvelupiste == 1) {
 						getRuletti().otaJonosta(asiakas);
 						getBlackjack().lisaaJonoon(asiakas);
@@ -188,7 +163,7 @@ public class OmaMoottori extends Moottori {
 						getVoittojenNostopiste().lisaaJonoon(asiakas);
 						Trace.out(Trace.Level.INFO, getVoittojenNostopiste().toString());
 					}
-				} else if (todennakoisyys >= 3 && asiakas.getNykyinenPolettimaara() >= 10) { // Asiakas voi jatkaa pelaamista vain, jos hänellä on vähintään 10 polettia
+				} else if (todennakoisyys >= 3 && asiakas.getNykyinenPolettimaara() >= 50) { // Asiakas voi jatkaa pelaamista vain, jos hänellä on vähintään 50 polettia
 					getRuletti().jatkaPelaamista(asiakas);
 				} else { // Asiakas hakee lisää poletteja tai menee voittojen nostopisteelle
 					if (lisaaPolettejaTaiVoitot == 1) {
@@ -222,7 +197,7 @@ public class OmaMoottori extends Moottori {
 					break;
 				}
 				// Jos todennäköisyys on 2 tai alle, asiakas poistuu uuteen peliin, hakemaan lisää poletteja tai voittojen nostopisteelle
-				if (todennakoisyys <= 2 && asiakas.getNykyinenPolettimaara() >= 10) {
+				if (todennakoisyys <= 2 && asiakas.getNykyinenPolettimaara() >= 50) {
 					if (randomPalvelupiste == 1) {
 						getBlackjack().otaJonosta(asiakas);
 						getRuletti().lisaaJonoon(asiakas);
@@ -236,7 +211,7 @@ public class OmaMoottori extends Moottori {
 						getVoittojenNostopiste().lisaaJonoon(asiakas);
 						Trace.out(Trace.Level.INFO, getVoittojenNostopiste().toString());
 					}
-				} else if (todennakoisyys >= 3 && asiakas.getNykyinenPolettimaara() >= 10) { // Asiakas voi jatkaa pelaamista vain, jos hänellä on vähintään 10 polettia
+				} else if (todennakoisyys >= 3 && asiakas.getNykyinenPolettimaara() >= 50) { // Asiakas voi jatkaa pelaamista vain, jos hänellä on vähintään 50 polettia
 					getBlackjack().jatkaPelaamista(asiakas);
 				} else { // Asiakas hakee lisää poletteja tai menee voittojen nostopisteelle
 					if (lisaaPolettejaTaiVoitot == 1) {
@@ -270,7 +245,7 @@ public class OmaMoottori extends Moottori {
 					break;
 				}
 				// Jos todennäköisyys on 2 tai alle, asiakas poistuu uuteen peliin, hakemaan lisää poletteja tai voittojen nostopisteelle
-				if (todennakoisyys <= 2 && asiakas.getNykyinenPolettimaara() >= 10) {
+				if (todennakoisyys <= 2 && asiakas.getNykyinenPolettimaara() >= 50) {
 					if (randomPalvelupiste == 1) {
 						getKraps().otaJonosta(asiakas);
 						getRuletti().lisaaJonoon(asiakas);
@@ -284,7 +259,7 @@ public class OmaMoottori extends Moottori {
 						getVoittojenNostopiste().lisaaJonoon(asiakas);
 						Trace.out(Trace.Level.INFO, getVoittojenNostopiste().toString());
 					}
-				} else if (todennakoisyys >= 3 && asiakas.getNykyinenPolettimaara() >= 10) { // Asiakas voi jatkaa pelaamista vain, jos hänellä on vähintään 10 polettia
+				} else if (todennakoisyys >= 3 && asiakas.getNykyinenPolettimaara() >= 50) { // Asiakas voi jatkaa pelaamista vain, jos hänellä on vähintään 50 polettia
 					getKraps().jatkaPelaamista(asiakas);
 				} else { // Asiakas hakee lisää poletteja tai menee voittojen nostopisteelle
 					if (lisaaPolettejaTaiVoitot == 1) {
@@ -572,4 +547,30 @@ public class OmaMoottori extends Moottori {
 			
 			return voittojenNostopisteenTulosteet;
 		}
+		
+		// Kasinon palvelutiskin getteri
+		public Palvelupiste getPalvelutiski() {
+			return palvelupisteet[0];
+		}
+		
+		// Kasinon ruletin getteri
+		public Palvelupiste getRuletti() {
+			return palvelupisteet[1];
+		}
+		
+		// Kasinon Blackjackin getteri
+		public Palvelupiste getBlackjack() {
+			return palvelupisteet[2];
+		}
+		
+		// Kasinon Krapsin getteri
+		public Palvelupiste getKraps() {
+			return palvelupisteet[3];
+		}
+		
+		// Kasinon voittojen nostopisteen getteri
+		public Palvelupiste getVoittojenNostopiste() {
+			return palvelupisteet[4];
+		}
+		
 }

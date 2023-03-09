@@ -11,7 +11,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
@@ -67,15 +66,16 @@ public class SimulaattorinPaaikkunaKontrolleri {
     	hidastaButton = new Button();
     	nopeutaButton = new Button();
     	pelienKestoChoiceBox = new ChoiceBox<String>();
+    }
+    
+    // Tätä metodia kutsutaan konstruktorin jälkeen
+	public void initialize() {
+    	
     	palvelutiskiJono = new ArrayList<>();
     	rulettiJono = new ArrayList<>();
     	blackjackJono = new ArrayList<>();
     	krapsJono = new ArrayList<>();
     	voittojenNostoPisteJono = new ArrayList<>();
-    }
-    
-    // Tätä metodia kutsutaan konstruktorin jälkeen
-	public void initialize() {
 		
 		// Asetetaan asiakkaiden saapumisnopeudet ChoiceBoxiin
 		String[] saapumisnopeudet = {"Normaali", "Nopea", "Hidas"};
@@ -470,6 +470,16 @@ public class SimulaattorinPaaikkunaKontrolleri {
     
     public int getBlackjackinVoittotodennakoisyys() {
     	return blackjackinVoittotodennakoisyys;
+    }
+    
+    // Setteri ruletin voittotodennäköisyydelle, tarvitaan JUnit-testeissä
+    public void setRuletinVoittotodennakoisyys(int todennakoisyys) {
+    	ruletinVoittotodennakoisyys = todennakoisyys;
+    }
+    
+    // Setteri Blackjackin voittotodennäköisyydelle, tarvitaan JUnit-testeissä
+    public void setBlackjackinVoittotodennakoisyys(int todennakoisyys) {
+    	blackjackinVoittotodennakoisyys = todennakoisyys;
     }
     
 }
