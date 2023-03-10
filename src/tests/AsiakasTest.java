@@ -13,10 +13,19 @@ import simu.framework.Trace;
 import simu.framework.Trace.Level;
 import simu.model.Asiakas;
 
+
+/**
+ * Asiakkaita-luokan metodeita testaava luokka
+ */
 public class AsiakasTest {
 
+	/** Simulaation kello */
 	private Kello kello = Kello.getInstance();
 	
+	/**
+	 * Antaa asiakkaalle poletteja
+	 * @result Asiakas saa vähintaan 100, ja enintään 1000 polettia
+	 */
 	@Test
 	@DisplayName("annaPolettejaPalvelutiskilla(): Testaa onko asiakkaan saama polettimäärä vähintään 100 ja enintään 1000.")
 	public void testArvotaanPelimaksu() {
@@ -28,6 +37,11 @@ public class AsiakasTest {
 		Assert.assertTrue(poletit >= 100 && poletit <= 1000);
 	}
 	
+	/**
+	 * Lisää asiakkaalle poletteja
+	 * @result Asiakkaan polettimäärä on 100
+	 *
+	 */
 	@Test
 	@DisplayName("lisaaPoletteja(): Testaa lisätäänkö asiakkaalle oikea määrä poletteja.")
 	public void testLisaaPoletteja() {
@@ -37,6 +51,10 @@ public class AsiakasTest {
 		assertEquals(100, asiakas.getNykyinenPolettimaara(), "Asiakkaalle lisättiin väärä määrä poletteja");
 	}
 	
+	/**
+	 * Asiakkaalle asetetaan saapumisaika
+	 * @result Asiakkaan saapumisaika on 10.4
+	 */
 	@Test
 	@DisplayName("getSaapumisaika(): Testaa asetetaanko asiakkaalle oikea saapumisaika.")
 	public void testGetSaapumisaika() {
@@ -46,6 +64,10 @@ public class AsiakasTest {
 		assertEquals(10.4, asiakas.getSaapumisaika(), "Asiakas saapui väärään aikaan.");
 	}
 	
+	/**
+	 * Luodaan lista asiakkaita ja verrataan asiakkaiden id:tä toisiinsa
+	 * @result Kaikilla asiakkailla on eri id
+	 */
 	@Test
 	@DisplayName("getId(): Testaa onko kaikilla asiakkailla oma id.")
 	public void testGetId() {
@@ -76,6 +98,11 @@ public class AsiakasTest {
 		assertEquals(false, samaId, "Asiakkaille ei aseteta omaa id:tä.");
 	}
 	
+	/**
+	 * Luodaan kaksi asiakasta
+	 * Lasketaan näiden asiakkaiden kasinolla keskimäärin viettämä aika
+	 * @result tuloksesi saadaan 15.0
+	 */
 	@Test
 	@DisplayName("getKeskimaarainenVietettyAika(): Testaa lasketaanko asiakkaiden keskimäärin vietetty aika oikein.")
 	public void testGetKeskimaarainenVietettyAika() {

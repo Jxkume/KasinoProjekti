@@ -24,42 +24,70 @@ import simu.framework.IMoottori;
 import simu.model.OmaMoottori;
 import simu.model.Palvelupiste;
 
+//
+/**
+ * Luokka SimulaattorinPaaikkunaKontrolleri.
+ */
 public class SimulaattorinPaaikkunaKontrolleri {
 
+	/** The simulaattori main. */
 	private SimulaattoriMain simulaattoriMain;
+    
+    /** The moottori. */
     private IMoottori moottori;
+    
+    /** The voittojen nosto piste jono. */
     private ArrayList<ImageView> palvelutiskiJono, rulettiJono, blackjackJono, krapsJono, voittojenNostoPisteJono;
+    
+    /** The ruletin voittotodennakoisyys. */
     private static int ruletinVoittotodennakoisyys = 45;
+    
+    /** The blackjackin voittotodennakoisyys. */
     private static int blackjackinVoittotodennakoisyys = 45;
     
+    // JavaFX-komponentteja
     @FXML
     private ImageView PJ1, PJ2, PJ3, PJ4, PJ5, PJ6, PJ7, PJ8, PJ9, PJ10;			// Palvelutiskin jonon kuvat
+   
     @FXML
     private ImageView RJ1, RJ2, RJ3, RJ4, RJ5, RJ6, RJ7, RJ8, RJ9, RJ10;			// Ruletin jonon kuvat
+    
     @FXML
     private ImageView BJ1, BJ2, BJ3, BJ4, BJ5, BJ6, BJ7, BJ8, BJ9, BJ10;			// Blackjackin jonon kuvat
+    
     @FXML
     private ImageView KJ1, KJ2, KJ3, KJ4, KJ5, KJ6, KJ7, KJ8, KJ9, KJ10; 			// Krapsin jonon kuvat
+    
     @FXML
     private ImageView VNJ1, VNJ2, VNJ3, VNJ4, VNJ5, VNJ6, VNJ7, VNJ8, VNJ9, VNJ10; 	// Voittojen nostopisteen jonon kuvat
+    
     @FXML
 	private Button kaynnistaButton, hidastaButton, nopeutaButton;
+    
     @FXML
     private Button palvelutiskiButton, rulettiButton, blackjackButton, krapsButton, voittojenNostopisteButton;
+    
     @FXML
     private TextField aikaTextField, viiveTextField;
+
     @FXML
     private GridPane tulokset, tekijat;
+
     @FXML
     private ChoiceBox<String> saapumisnopeusChoiceBox, pelienKestoChoiceBox;
+ 
     @FXML
 	private Label kokonaisaikatulosLabel, asiakasLkmLabel, keskimaarainenVietettyAikaLabel, kasinonTulosLabel;
+
     @FXML
     private Label ruletinSliderLabel, blackjackinSliderLabel;
+
     @FXML
     private Slider ruletinSlider, blackjackinSlider;
     
-    // Konstruktori
+    /**
+     * Pääikkunan kontrollerin konstruktori
+     */
     public SimulaattorinPaaikkunaKontrolleri() {
     	
     	// Alustetaan tarvittavat JavaFX-komponentit ja muuttujat
@@ -68,6 +96,9 @@ public class SimulaattorinPaaikkunaKontrolleri {
     	pelienKestoChoiceBox = new ChoiceBox<String>();
     }
     
+    /**
+     * Alustaa pääikkunan elementtejä
+     */
     // Tätä metodia kutsutaan konstruktorin jälkeen
 	public void initialize() {
     	
@@ -191,6 +222,9 @@ public class SimulaattorinPaaikkunaKontrolleri {
 		
 	}
     
+	/**
+	 * Käynnistää simulaation.
+	 */
 	public void kaynnistaSimulointi() {
 
 		try {
@@ -245,6 +279,11 @@ public class SimulaattorinPaaikkunaKontrolleri {
 
 	}
 
+	/**
+	 * Visualisoi jonon.
+	 *
+	 * @param palvelupiste jonka jonoa visualisoidaan
+	 */
 	public void visualisoiJono(Palvelupiste palvelupiste) {
 		
 		int max;
@@ -306,14 +345,20 @@ public class SimulaattorinPaaikkunaKontrolleri {
 		
 	}
 	
-	// Hidastetaan moottorisäiettä
+	/**
+	 * Hidastaa moottorisäiettä
+	 */
+	
 	public void hidasta() {
 		// Lisätään viiveeseen 10
 		moottori.setViive((long)(moottori.getViive() + 10));
 		viiveTextField.setText(Long.toString(moottori.getViive()));
 	}
 	
-	// nopeutetaan moottorisäiettä
+	/**
+	 * Nopeuttaa moottorisäiettä
+	 */
+	
 	public void nopeuta() {
 		// Varmistetaan ettei viive voi mennä negatiiviseksi
 		if (moottori.getViive() < 10) {
@@ -326,27 +371,54 @@ public class SimulaattorinPaaikkunaKontrolleri {
 		}
 	}
 	
+	/**
+	 * Piilottaa simulaation tekijöiden nimet ja esittää niiden tilalla tulokset
+	 */
 	public void naytaGridPane() {
 		Platform.runLater(()-> tekijat.setVisible(false));
 		Platform.runLater(()-> tulokset.setVisible(true));
 	}
 	
+	/**
+	 * Näyttää simulaation loppumisajan käyttöliittymässä
+	 *
+	 * @param simulaation aika
+	 */
 	public void naytaLoppuaika(double aika) {
 		Platform.runLater(()-> kokonaisaikatulosLabel.setText(String.format("%.02f", aika))); 
 	}
 	
+	/**
+	 * Asettaa kasinoon saapuneiden asiakkaiden määrän JavaFX-komponenttiin
+	 *
+	 * @param Saapuneiden asiakkaiden lukumäärä
+	 */
 	public void naytaAsiakasLkm(int asiakasLkm) {
 		Platform.runLater(()-> asiakasLkmLabel.setText(Integer.toString(asiakasLkm) + " asiakasta"));
 	}
 	
+	/**
+	 * Asettaa asiakkaiden kasinolla keskimäärin viettämän ajan JavaFX-komponenttiin
+	 *
+	 * @param aika the aika
+	 */
 	public void naytaKeskimaarainenVietettyAika(double aika) {
 		Platform.runLater(()-> keskimaarainenVietettyAikaLabel.setText((String.format("%.02f", aika))));
 	}
 	
+	/**
+	 * Päivittää JavaFX-komponenttiin kasinon tuottot 
+	 *
+	 * @param Kasinon tuotot
+	 */
 	public void paivitaTulos(int tulos) {
 		Platform.runLater(()-> kasinonTulosLabel.setText(tulos + " €"));
 	}
 	
+	/**
+	 * Piilottaa hidasta- ja nopeuta-napit
+	 * Näyttää palvelupisteiden napit
+	 */
 	public void naytaTiedot() {
 		// Asetetaan hidasta- ja nopeuta-napit käyttökelvottomaksi, kun saadaan simulaation tulokset
 		Platform.runLater(()-> hidastaButton.setDisable(true));
@@ -359,6 +431,11 @@ public class SimulaattorinPaaikkunaKontrolleri {
 		Platform.runLater(()-> voittojenNostopisteButton.setDisable(false));
 	}
 	
+	/**
+	 * Avaa palvelutiskin pop-up ikkunan
+	 *
+	 * @param ActionEvent-olio
+	 */
 	public void naytaPalvelutiskiPopUp(ActionEvent event) {
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader();
@@ -375,6 +452,11 @@ public class SimulaattorinPaaikkunaKontrolleri {
 		}
 	}
 	
+	/**
+	* Avaa ruletin pop-up ikkunan
+	 *
+	 * @param ActionEvent-olio
+	 */
 	public void naytaRulettiPopUp(ActionEvent event) {
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader();
@@ -391,6 +473,11 @@ public class SimulaattorinPaaikkunaKontrolleri {
 		}
 	}
 	
+	/**
+	 * Avaa Blackjackin pop-up ikkunan
+	 *
+	 * @param ActionEvent-olio
+	 */
 	public void naytaBlackjackPopUp(ActionEvent event) {
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader();
@@ -407,6 +494,11 @@ public class SimulaattorinPaaikkunaKontrolleri {
 		}
 	}
 	
+	/**
+	 * Avaa krapsin pop-up ikkunan
+	 *
+	 * @param ActionEvent-olio
+	 */
 	public void naytaKrapsPopUp(ActionEvent event) {
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader();
@@ -423,6 +515,11 @@ public class SimulaattorinPaaikkunaKontrolleri {
 		}
 	}
 	
+	/**
+	 * Avaa voittojen nostopisteen pop-up ikkunan
+	 *
+	 * @param ActionEvent-olio
+	 */
 	public void naytaVoittojenNostopistePopUp(ActionEvent event) {
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader();
@@ -441,42 +538,82 @@ public class SimulaattorinPaaikkunaKontrolleri {
 	
     /**
      * Is called by the main application to give a reference back to itself.
-     * 
-     * @param simulaattoriMain
+     *
+     * @param simulaattoriMain the new simulaattori main
      */
     public void setSimulaattoriMain(SimulaattoriMain simulaattoriMain) {
         this.simulaattoriMain = simulaattoriMain;
     }
     
+	/**
+	 * Palauttaa käyttäjän syöttämän simulointiajan
+	 *
+	 * @return syötetty simulaatioaika
+	 */
 	public double getAika(){
 		return Double.parseDouble(aikaTextField.getText());
 	}
 	
+	/**
+	 * Palauttaa käyttäjän syöttämän simulointiviiveen
+	 *
+	 * @return syötetty simulaatioviive
+	 */
 	public long getViive(){
 		return Long.parseLong(viiveTextField.getText());
 	}
 	
+    /**
+     * Palauttaa käyttäjän asettaman keston peleille
+     *
+     * @return pelien kesto
+     */
     public String getPelienKesto() {
     	return pelienKestoChoiceBox.getValue();
     }
 	
+    /**
+     * Palauttaa käyttäjän asettaman asiakkaiden saapumisnopeuden 
+     *
+     * @return asiakkaiden saapumisnopeus
+     */
     public String getSaapumisenKesto() {
     	return saapumisnopeusChoiceBox.getValue();
     }
     
+    /**
+     * Palauttaa käyttäjän ruletille asettaman voittotodennäköisyyden
+     *
+     * @return ruletin voittotodennäköisyys
+     */
     public int getRuletinVoittotodennakoisyys() {
     	return ruletinVoittotodennakoisyys;
     }
     
+    /**
+     * Palauttaa käyttäjän blackjackille asettaman voittotodennäköisyyden
+     *
+     * @return blackjackin voittotodennakoisyys
+     */
     public int getBlackjackinVoittotodennakoisyys() {
     	return blackjackinVoittotodennakoisyys;
     }
     
+    /**
+     * Määrittää ruletille voittotodennäköisyyden
+     *
+     * @param voittotodennäköisyys
+     */
     // Setteri ruletin voittotodennäköisyydelle, tarvitaan JUnit-testeissä
     public void setRuletinVoittotodennakoisyys(int todennakoisyys) {
     	ruletinVoittotodennakoisyys = todennakoisyys;
     }
     
+    /**
+     * Määrittää blackjackille voittotodennäköisyyden
+     *
+     * @param voittotodennakoisyys
+     */
     // Setteri Blackjackin voittotodennäköisyydelle, tarvitaan JUnit-testeissä
     public void setBlackjackinVoittotodennakoisyys(int todennakoisyys) {
     	blackjackinVoittotodennakoisyys = todennakoisyys;

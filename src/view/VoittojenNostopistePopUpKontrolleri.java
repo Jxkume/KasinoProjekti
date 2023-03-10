@@ -6,10 +6,15 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
+/**
+ * Luokka VoittojenNostopistePopUp.fxml-tiedoston kontrollerille
+ */
 public class VoittojenNostopistePopUpKontrolleri {
 	
+	/** HashMap-lista Voittojen nostopiste-palvelupisteen tulosteista */
 	private static HashMap<String, String> voittojenNostopisteenTulosteet;
 	
+	// Pop-up-ikkunan JavaFX-komponentit
 	@FXML
     private Label palvelupisteNimi;
     @FXML
@@ -29,6 +34,9 @@ public class VoittojenNostopistePopUpKontrolleri {
     @FXML
     private Label kokonaisoleskeluaika;
     
+    /**
+     * Kontrollerin konstruktori
+     */
     public VoittojenNostopistePopUpKontrolleri() {
     	palvelupisteNimi = new Label();
     	palvellutAsiakkaat = new Label();
@@ -41,14 +49,25 @@ public class VoittojenNostopistePopUpKontrolleri {
     	kokonaisoleskeluaika = new Label();
     }
     
+	/**
+	 * Alustaa pop-up-ikkunan
+	 */
 	public void initialize() {
 		Platform.runLater(()-> naytaTulosteet());
 	}
     
+	/**
+	 * Asettaa pop-up-ikkunan tulosteet
+	 *
+	 * @param HashMap-lista, jossa on Voittojen nostpiste-palvelupisteen tulosteet
+	 */
 	public void setVoittojenNostopisteenTulosteet(HashMap<String, String> tulosteet) {
 		voittojenNostopisteenTulosteet = tulosteet;
 	}
 	
+	/**
+	 * Asettaa kaikki tulosteet pop-up-ikkunan JavaFX-komponentteihin
+	 */
 	public void naytaTulosteet() {
 		palvelupisteNimi.setText("Yhteenveto voittojen nostopisteestä");
 		palvellutAsiakkaat.setText(voittojenNostopisteenTulosteet.get("Palveltuja asiakkaita yhteensä"));
@@ -61,4 +80,4 @@ public class VoittojenNostopistePopUpKontrolleri {
 		kokonaisoleskeluaika.setText(voittojenNostopisteenTulosteet.get("Asiakkaiden kokonaisoleskeluaika"));
 	}
 
-}
+} 

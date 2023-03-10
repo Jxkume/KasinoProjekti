@@ -18,22 +18,51 @@ import view.KrapsPopUpKontrolleri;
 import view.RulettiPopUpKontrolleri;
 import view.VoittojenNostopistePopUpKontrolleri;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class OmaMoottori.
+ */
 public class OmaMoottori extends Moottori {
 	
+	/** The saapumisprosessi. */
 	private Saapumisprosessi saapumisprosessi;
+	
+	/** The asiakas lkm. */
 	private static int asiakasLkm = 0;
+	
+	/** The keskimaarainen vietetty aika. */
 	private double keskimaarainenVietettyAika;
+	
+	/** The palv dao. */
 	private PalvelupisteDao palvDao = new PalvelupisteDao();
+	
+	/** The kasino. */
 	private Kasino kasino = new Kasino();
+	
+	/** The kasino dao. */
 	private KasinoDao kasinoDao = new KasinoDao();
 	
+	/** The palvelupiste pop up kontrolleri. */
 	// Käyttöliittymän pop-up-ikkunoiden kontrollerit
 	private PalvelutiskiPopUpKontrolleri palvelupistePopUpKontrolleri = new PalvelutiskiPopUpKontrolleri();
+	
+	/** The ruletti pop up kontrolleri. */
 	private RulettiPopUpKontrolleri rulettiPopUpKontrolleri = new RulettiPopUpKontrolleri();
+	
+	/** The blackjack pop up kontrolleri. */
 	private BlackjackPopUpKontrolleri blackjackPopUpKontrolleri = new BlackjackPopUpKontrolleri();
+	
+	/** The kraps pop up kontrolleri. */
 	private KrapsPopUpKontrolleri krapsPopUpKontrolleri = new KrapsPopUpKontrolleri();
+	
+	/** The voittojen nostopiste pop up kontrolleri. */
 	private VoittojenNostopistePopUpKontrolleri voittojenNostopistePopUpKontrolleri = new VoittojenNostopistePopUpKontrolleri();
 	
+	/**
+	 * Instantiates a new oma moottori.
+	 *
+	 * @param kontrolleri the kontrolleri
+	 */
 	//public OmaMoottori(IKontrolleri kontrolleri) { // UUSI
 	public OmaMoottori(SimulaattorinPaaikkunaKontrolleri kontrolleri) {
 
@@ -50,6 +79,9 @@ public class OmaMoottori extends Moottori {
 		
 	}
 	
+	/**
+	 * Alustukset.
+	 */
 	@Override
 	protected void alustukset() {
 		
@@ -90,6 +122,11 @@ public class OmaMoottori extends Moottori {
 	// TO-DO: Asiakaskohtainen raportti - Valdo
 	// TO-DO: Pitää miettiä peleille järkevät voittotodennäköisyydet ja voittosummat (voittikoAsiakas-metodi Palvelupiste-luokassa) - Valdo
 	        
+	/**
+	 * Suorita tapahtuma.
+	 *
+	 * @param t the t
+	 */
 	@Override
 	protected void suoritaTapahtuma(Tapahtuma t){  // B-vaiheen tapahtumat
 		
@@ -305,6 +342,9 @@ public class OmaMoottori extends Moottori {
 		kontrolleri.visualisoiJono(getVoittojenNostopiste());
 	}
 	
+	/**
+	 * Paivita tietokanta.
+	 */
 	@Override
 	protected void paivitaTietokanta() {
 		
@@ -386,6 +426,9 @@ public class OmaMoottori extends Moottori {
 		kasinoDao.updatekeskimaarainenVietettyAika(kasino);
 	}
 	
+	/**
+	 * Tulokset.
+	 */
 	@Override
 	protected void tulokset() {
 		
@@ -418,6 +461,11 @@ public class OmaMoottori extends Moottori {
         
 	}
 	
+	/**
+	 * Gets the palvelutiskin tulosteet.
+	 *
+	 * @return the palvelutiskin tulosteet
+	 */
 	// Palvelutiskin tulosteet käyttöliittymään
 		public HashMap<String, String> getPalvelutiskinTulosteet() {
 			
@@ -444,6 +492,11 @@ public class OmaMoottori extends Moottori {
 			return palvelutiskinTulosteet;
 		}
 		
+		/**
+		 * Gets the ruletin tulosteet.
+		 *
+		 * @return the ruletin tulosteet
+		 */
 		// Ruletin tulosteet käyttöliittymään
 		public HashMap<String, String> getRuletinTulosteet() {
 			
@@ -470,6 +523,11 @@ public class OmaMoottori extends Moottori {
 			return ruletinTulosteet;
 		}
 		
+		/**
+		 * Gets the blackjackin tulosteet.
+		 *
+		 * @return the blackjackin tulosteet
+		 */
 		// Blackjackin tulosteet käyttöliittymään
 		public HashMap<String, String> getBlackjackinTulosteet() {
 			
@@ -496,6 +554,11 @@ public class OmaMoottori extends Moottori {
 			return blackjackinTulosteet;
 		}
 		
+		/**
+		 * Gets the krapsin tulosteet.
+		 *
+		 * @return the krapsin tulosteet
+		 */
 		// Krapsin tulosteet käyttöliittymään
 		public HashMap<String, String> getKrapsinTulosteet() {
 			
@@ -522,6 +585,11 @@ public class OmaMoottori extends Moottori {
 			return krapsinTulosteet;
 		}
 		
+		/**
+		 * Gets the voittojen nostopisteen tulosteet.
+		 *
+		 * @return the voittojen nostopisteen tulosteet
+		 */
 		// Voittojen nostopisteen tulosteet käyttöliittymään
 		public HashMap<String, String> getVoittojenNostopisteenTulosteet() {
 			
@@ -548,26 +616,51 @@ public class OmaMoottori extends Moottori {
 			return voittojenNostopisteenTulosteet;
 		}
 		
+		/**
+		 * Gets the palvelutiski.
+		 *
+		 * @return the palvelutiski
+		 */
 		// Kasinon palvelutiskin getteri
 		public Palvelupiste getPalvelutiski() {
 			return palvelupisteet[0];
 		}
 		
+		/**
+		 * Gets the ruletti.
+		 *
+		 * @return the ruletti
+		 */
 		// Kasinon ruletin getteri
 		public Palvelupiste getRuletti() {
 			return palvelupisteet[1];
 		}
 		
+		/**
+		 * Gets the blackjack.
+		 *
+		 * @return the blackjack
+		 */
 		// Kasinon Blackjackin getteri
 		public Palvelupiste getBlackjack() {
 			return palvelupisteet[2];
 		}
 		
+		/**
+		 * Gets the kraps.
+		 *
+		 * @return the kraps
+		 */
 		// Kasinon Krapsin getteri
 		public Palvelupiste getKraps() {
 			return palvelupisteet[3];
 		}
 		
+		/**
+		 * Gets the voittojen nostopiste.
+		 *
+		 * @return the voittojen nostopiste
+		 */
 		// Kasinon voittojen nostopisteen getteri
 		public Palvelupiste getVoittojenNostopiste() {
 			return palvelupisteet[4];

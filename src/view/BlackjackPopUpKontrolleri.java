@@ -6,10 +6,15 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
+/**
+ * Luokka BlackjackPopUp.fxml-tiedoston kontrollerille
+ */
 public class BlackjackPopUpKontrolleri {
 	
+	/** HashMap-lista Blackjack-palvelupisteen tulosteista */
 	private static HashMap<String, String> blackjackinTulosteet;
 	
+	// Pop-up-ikkunan JavaFX-komponentit
 	@FXML
     private Label palvelupisteNimi;
     @FXML
@@ -29,6 +34,9 @@ public class BlackjackPopUpKontrolleri {
     @FXML
     private Label kokonaisoleskeluaika;
     
+    /**
+     * Kontrollerin konstruktori
+     */
     public BlackjackPopUpKontrolleri() {
     	palvelupisteNimi = new Label();
     	palvellutAsiakkaat = new Label();
@@ -41,14 +49,25 @@ public class BlackjackPopUpKontrolleri {
     	kokonaisoleskeluaika = new Label();
     }
     
+	/**
+	 * Alustaa pop-up-ikkunan
+	 */
 	public void initialize() {
 		Platform.runLater(()-> naytaTulosteet());
 	}
     
+	/**
+	 * Asettaa pop-up-ikkunan tulosteet
+	 *
+	 * @param HashMap-lista, jossa on Blackjack-palvelupisteen tulosteet
+	 */
 	public void setBlackjackinTulosteet(HashMap<String, String> tulosteet) {
 		blackjackinTulosteet = tulosteet;
 	}
 	
+	/**
+	 * Asettaa kaikki tulosteet pop-up-ikkunan JavaFX-komponentteihin
+	 */
 	public void naytaTulosteet() {
 		palvelupisteNimi.setText("Yhteenveto Blackjackistä");
 		palvellutAsiakkaat.setText(blackjackinTulosteet.get("Palveltuja asiakkaita yhteensä"));

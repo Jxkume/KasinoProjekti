@@ -11,11 +11,25 @@ import javafx.stage.Stage;
 import simu.framework.Trace;
 import simu.framework.Trace.Level;
 
+//
+/**
+ * Luokka SimulaattoriMain käynnistää käyttöliittymän
+ * 
+ * @author Tapio Humaljoki, Valtteri Kuitula, Jhon Rastrojo
+ */
 public class SimulaattoriMain extends Application {
 
+    /** Käyttöliittymän pääikkuna */
     private Stage primaryStage;
+    
+    /** Käyttöliittymän pohjan */
     private BorderPane rootLayout;
 
+    /**
+     * Luo käyttöliittymä säikeen
+     *
+     * @param Stage, primaryStage eli käyttöliittymän pääikkunan
+     */
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -25,7 +39,7 @@ public class SimulaattoriMain extends Application {
     }
     
     /**
-     * Alustetaan simulaattorin pääikkunan pohja.
+     * Alustaa simulaattorin pääikkunan pohja
      */
     public void alustaSimulaattorinPaaikkunanPohja() {
         try {
@@ -45,8 +59,10 @@ public class SimulaattoriMain extends Application {
 
 
     /**
-     * Näytetään simulaattorin pääikkuna käyttäjälle.
+     * Metodi jolla saadaan käyttöliittymän pääikkunan näkyville
+     * 
      */
+    
     public void naytaSimulaattorinPaaikkuna() {
     try {
         FXMLLoader loader = new FXMLLoader();
@@ -59,13 +75,19 @@ public class SimulaattoriMain extends Application {
     }
     
 	/**
-	 * Returns the main stage.
-	 * @return
+	 * Palauttaa käyttöliittymän pääikkunan
+	 *
+	 * @return primaryStage eli käyttöliittymän pääikkunan
 	 */
 	public Stage getPrimaryStage() {
 		return primaryStage;
 	}
 
+    /**
+     * Käynnistää simulaattori
+     *
+     * @param String[] args, eli komentorivin argumentteja
+     */
     public static void main(String[] args) {
     	// Asetetaan Trace-level
     	Trace.setTraceLevel(Level.INFO);

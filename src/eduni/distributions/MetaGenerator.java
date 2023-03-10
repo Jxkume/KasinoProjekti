@@ -5,21 +5,23 @@ import java.io.FileWriter;
 import java.util.Calendar;
 import javax.swing.JOptionPane;
 
-/** A class which allows for automatically parsing a distribution implementation and generate
- * a class inheriting from Generator accordingly. Use the return type to implements either
- * DiscreteGenerator or ContinuousGenerator. Prompt the user to specify constraints on the parameters.
- * @date 4/10/2002
- * @author F.Mallet
- */
+
 public class MetaGenerator {
+    
     String [] params;
+    
     String methodName, className;
-    int nbC; // number of constraints
+    
+    int nbC; 
+    
+    
     public MetaGenerator(String name, int nb) { 
 	methodName = name;
 	className = name.substring(0,1).toUpperCase()+name.substring(1);
 	nbC = nb;
     }
+    
+   
     public void generate() {	
 	try {
 	    String fileName = "eduni/distributions/"+className+".java";
@@ -40,6 +42,8 @@ public class MetaGenerator {
 	    System.err.println(ioe);
 	}
     }
+    
+    
     public boolean generate(PrintWriter pw, java.lang.reflect.Method m) {
 	pw.println("package eduni.distributions;\n");
 	pw.print("/** A random number generator based on the ");
@@ -103,6 +107,7 @@ public class MetaGenerator {
 	return true;
     }
 
+   
     static public void main(String args[]) {
 	if (args.length==0) {
 	    System.err.println("Usage: java MetaGenerator <distrib_name> [#<nb_constraints>]");

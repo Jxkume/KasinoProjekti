@@ -2,6 +2,7 @@ package simu.framework;
 
 import java.util.PriorityQueue;
 
+
 public class Tapahtumalista {
 	
 	private PriorityQueue<Tapahtuma> lista = new PriorityQueue<Tapahtuma>();
@@ -18,6 +19,7 @@ public class Tapahtumalista {
 		lista.add(t);
 	}
 	
+
 	public double getSeuraavanAika() {
 		return lista.peek().getAika();
 	}

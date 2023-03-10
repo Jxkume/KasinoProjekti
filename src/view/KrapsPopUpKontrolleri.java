@@ -6,10 +6,15 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
+/**
+ * Luokka KrapsPopUp.fxml-tiedoston kontrollerille
+ */
 public class KrapsPopUpKontrolleri {
 	
+	/** HashMap-lista Kraps-palvelupisteen tulosteista */
 	private static HashMap<String, String> krapsinTulosteet;
 	
+	// Pop-up-ikkunan JavaFX-komponentit
 	@FXML
     private Label palvelupisteNimi;
     @FXML
@@ -29,6 +34,9 @@ public class KrapsPopUpKontrolleri {
     @FXML
     private Label kokonaisoleskeluaika;
     
+    /**
+     * Kontrollerin konstruktori
+     */
     public KrapsPopUpKontrolleri() {
     	palvelupisteNimi = new Label();
     	palvellutAsiakkaat = new Label();
@@ -41,14 +49,25 @@ public class KrapsPopUpKontrolleri {
     	kokonaisoleskeluaika = new Label();
     }
     
+	/**
+	 * Alustaa pop-up-ikkunan
+	 */
 	public void initialize() {
 		Platform.runLater(()-> naytaTulosteet());
 	}
     
+	/**
+	 * Asettaa pop-up-ikkunan tulosteet
+	 *
+	 * @param HashMap-lista, jossa on Kraps-palvelupisteen tulosteet
+	 */
 	public void setKrapsinTulosteet(HashMap<String, String> tulosteet) {
 		krapsinTulosteet = tulosteet;
 	}
 	
+	/**
+	 * Asettaa kaikki tulosteet pop-up-ikkunan JavaFX-komponentteihin
+	 */
 	public void naytaTulosteet() {
 		palvelupisteNimi.setText("Yhteenveto Krapsistä");
 		palvellutAsiakkaat.setText(krapsinTulosteet.get("Palveltuja asiakkaita yhteensä"));

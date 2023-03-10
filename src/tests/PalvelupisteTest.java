@@ -18,14 +18,28 @@ import simu.model.Palvelupiste;
 import simu.model.TapahtumanTyyppi;
 import view.SimulaattorinPaaikkunaKontrolleri;
 
+/**
+ * Palvelupiste-luokan metodeita testaava luokka
+ */
 @RunWith(JfxRunner.class)
 public class PalvelupisteTest {
 
+	/** Simulaation tapahtumalista */
 	private Tapahtumalista tapahtumalista;
+	
+	/** Testattava palvelupiste */
 	private Palvelupiste palvelupiste = new Palvelupiste(new Normal(5,3), tapahtumalista, TapahtumanTyyppi.DEP2, "Ruletti");
+	
+	/** Simulaation kello */
 	private Kello kello = Kello.getInstance();
+	
+	/** Käyttöliittymän pääikkunan kontrolleri */
 	private SimulaattorinPaaikkunaKontrolleri kontrolleri = new SimulaattorinPaaikkunaKontrolleri();
 	
+	/**
+	 * Asiakas jatkaa pelaamista
+	 * @result Palvelupiste on varattuna
+	 */
 	@Test
 	@DisplayName("isVarattu(): Testaa onko palvelupiste varattu, jos asiakas jatkaa pelaamista.")
 	public void testIsVarattu() {
@@ -35,6 +49,12 @@ public class PalvelupisteTest {
 		assertEquals(false, palvelupiste.isVarattu(), "Asiakas ei jatkanut pelaamista ruletissa.");
 	}
 	
+	/**
+	 * Asetetaan palvelupisteen palveltuja asiakkaita
+	 * Haetaan palvelupisteen suoritusteho ajassa
+	 * Lasketaan suoritusteho
+	 * @result Saaatu suoritusteho on 0.4
+	 */
 	@Test
 	@DisplayName("getSuoritusteho(): Testaa lasketaanko palvelupisteen suoritusteho oikein.")
 	public void testGetSuoritusteho() {
@@ -43,6 +63,10 @@ public class PalvelupisteTest {
 		assertEquals(0.4, suoritusteho, "Palvelupisteen suoritusteho lasketaan väärin.");
 	}
 	
+	/**
+	 * Lasketaan yksittäisen asiakkaan läpimenoaika palvelupisteellä
+	 * @result Läpimenoaika on 8.2
+	 */
 	@Test
 	@DisplayName("getLapimenoaika(): Testaa lasketaanko asiakkaan läpimenoaika oikein.")
 	public void testGetLapimenoaika() {
@@ -57,6 +81,11 @@ public class PalvelupisteTest {
 		assertEquals(8.2, palvelupiste.getLapimenoaika(asiakas), "Asiakkaan läpimenoaika lasketaan väärin.");
 	}
 
+	/**
+	 * Annetaan asiakkaalle poletteja
+	 * Arvotaan pelin hinta
+	 * @result Pelin hinta on alle 70
+	 */
 	@Test
 	@DisplayName("arvotaanPelimaksu(): Testaa, että peli voi maksaa enintään yhtä paljon kuin asiakkaan nykyinen polettimäärä")
 	public void testArvotaanPelimaksu() {
@@ -67,19 +96,12 @@ public class PalvelupisteTest {
 		int pelimaksu = palvelupiste.arvotaanPelimaksu(asiakas);
 		Assert.assertTrue(pelimaksu <= 70);
 	}
+
 	
-	public int arvotaanPelimaksu(Asiakas asiakas) {
-		// Arvotaan pelin maksu 50-100 polettia ottaen huomioon asiakkaan polettimäärä
-		int maksimi;
-		if (asiakas.getNykyinenPolettimaara() < 100) {
-			maksimi = asiakas.getNykyinenPolettimaara() / 10;
-		} else {
-			maksimi = 10;
-		}
-		int poletteja = (int) Math.floor(Math.random() * (maksimi - 5 + 1) + 5) * 10;
-		return poletteja;
-	}
-	
+	/**
+	 * Tulostetaan palvelupisteen jonossa olevat asiakkaat
+	 * @result Palvelupiste on oikein ja jonossa on oikea määrä asiakkaita
+	 */
 	@Test
 	@DisplayName("toString(): Testaa tulostetaanko asiakkaat oikealta palvelupisteeltä.")
 	public void testToString() {

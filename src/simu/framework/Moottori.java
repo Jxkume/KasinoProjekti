@@ -3,20 +3,22 @@ package simu.framework;
 import simu.model.Palvelupiste;
 import view.SimulaattorinPaaikkunaKontrolleri;
 
+
 public abstract class Moottori extends Thread implements IMoottori {  // UUDET MÄÄRITYKSET
 	
-	private double simulointiaika = 0;
+  private double simulointiaika = 0;
+	
 	private long viive = 0;
 	
 	private Kello kello;
 	
 	protected Tapahtumalista tapahtumalista;
+	
 	protected Palvelupiste[] palvelupisteet;
 	
 	//protected IKontrolleri kontrolleri; // UUSI
 	protected SimulaattorinPaaikkunaKontrolleri kontrolleri;
 	
-
 	//public Moottori(IKontrolleri kontrolleri) {  // UUSITTU
 	public Moottori(SimulaattorinPaaikkunaKontrolleri kontrolleri) {	
 		this.kontrolleri = kontrolleri;  //UUSI
@@ -29,6 +31,7 @@ public abstract class Moottori extends Thread implements IMoottori {  // UUDET M
 		
 		
 	}
+	
 	
 	@Override
 	public void setSimulointiaika(double aika) {
@@ -43,6 +46,7 @@ public abstract class Moottori extends Thread implements IMoottori {  // UUDET M
 	public void setViive(long viive) {
 		this.viive = viive;
 	}
+	
 	
 	@Override // UUSI 
 	public long getViive() {
@@ -63,12 +67,14 @@ public abstract class Moottori extends Thread implements IMoottori {  // UUDET M
 		paivitaTietokanta();
 	}
 	
+	
 	private void suoritaBTapahtumat() {
 		while (tapahtumalista.getSeuraavanAika() == kello.getAika()){
 			suoritaTapahtuma(tapahtumalista.poista());
 		}
 	}
 
+	
 	private void yritaCTapahtumat() {    // määrittele protectediksi, josa haluat ylikirjoittaa
 		for (Palvelupiste p: palvelupisteet){
 			if (!p.onVarattu() && p.onJonossa()){
@@ -77,14 +83,17 @@ public abstract class Moottori extends Thread implements IMoottori {  // UUDET M
 		}
 	}
 
+	
 	private double nykyaika() {
 		return tapahtumalista.getSeuraavanAika();
 	}
+	
 	
 	private boolean simuloidaan() {
 		return kello.getAika() < simulointiaika;
 	}
 		
+	
 	private void viive() { // UUSI
 		Trace.out(Trace.Level.INFO, "Viive " + viive);
 		try {
@@ -94,6 +103,7 @@ public abstract class Moottori extends Thread implements IMoottori {  // UUDET M
 		}
 	}
 
+	
 	protected abstract void alustukset(); // Määritellään simu.model-pakkauksessa Moottorin aliluokassa
 	
 	protected abstract void suoritaTapahtuma(Tapahtuma t);  // Määritellään simu.model-pakkauksessa Moottorin aliluokassa

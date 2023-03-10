@@ -9,21 +9,30 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+/**
+ * Luokka SimulaattorinPaaikkunaPohja.fxml-tiedoston kontrollerille
+ */
 public class SimulaattorinPaaikkunaPohjaKontrolleri {
 
-	public void naytaProsessikaavio(ActionEvent event) {
-		try {
-			FXMLLoader fxmlLoader = new FXMLLoader();
-			fxmlLoader.setLocation(getClass().getResource("/view/Prosessikaavio.fxml"));
-			Parent scene = fxmlLoader.load();
-			Stage stage = new Stage();
-			stage.getIcons().add(new Image("/images/Prosessikaavio.png"));
-			stage.setTitle("Prosessikaavio");
-			stage.setScene(new Scene(scene));
-			stage.setResizable(false);
-			stage.show();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+    /**
+     * Näyttää Prosessikaavio-pop-up-ikkunan käyttöliittymässä
+     *
+     * @param ActionEvent
+     */
+    public void naytaProsessikaavio(ActionEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("/view/Prosessikaavio.fxml"));
+            Parent scene = fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.getIcons().add(new Image("/images/Prosessikaavio.png"));
+            stage.setTitle("Prosessikaavio");
+            stage.setScene(new Scene(scene));
+            stage.setResizable(false);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
 }

@@ -6,10 +6,15 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
+/**
+ * Luokka RulettiPopUp.fxml-tiedoston kontrollerille
+ */
 public class RulettiPopUpKontrolleri {
 	
+	/** HashMap-lista Ruletti-palvelupisteen tulosteista */
 	private static HashMap<String, String> ruletinTulosteet;
 	
+	// Pop-up-ikkunan JavaFX-komponentit
 	@FXML
     private Label palvelupisteNimi;
     @FXML
@@ -29,6 +34,9 @@ public class RulettiPopUpKontrolleri {
     @FXML
     private Label kokonaisoleskeluaika;
     
+    /**
+     * Kontrollerin konstruktori
+     */
     public RulettiPopUpKontrolleri() {
     	palvelupisteNimi = new Label();
     	palvellutAsiakkaat = new Label();
@@ -41,14 +49,25 @@ public class RulettiPopUpKontrolleri {
     	kokonaisoleskeluaika = new Label();
     }
     
+	/**
+	 * Alustaa pop-up-ikkunan
+	 */
 	public void initialize() {
 		Platform.runLater(()-> naytaTulosteet());
 	}
     
+	/**
+	 * Asettaa pop-up-ikkunan tulosteet
+	 *
+	 * @param HashMap-lista, jossa on Ruletti-palvelupisteen tulosteet
+	 */
 	public void setRuletinTulosteet(HashMap<String, String> tulosteet) {
 		ruletinTulosteet = tulosteet;
 	}
 	
+	/**
+	 * Asettaa kaikki tulosteet pop-up-ikkunan JavaFX-komponentteihin
+	 */
 	public void naytaTulosteet() {
 		palvelupisteNimi.setText("Yhteenveto ruletista");
 		palvellutAsiakkaat.setText(ruletinTulosteet.get("Palveltuja asiakkaita yhteensä"));
