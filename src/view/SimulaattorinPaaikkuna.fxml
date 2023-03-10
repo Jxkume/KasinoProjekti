@@ -169,12 +169,12 @@
                               <Image url="@../images/chip.png" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="PJ2" fitHeight="70.0" fitWidth="70.0" layoutX="300.0" layoutY="115.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="PJ3" fitHeight="70.0" fitWidth="70.0" layoutX="300.0" layoutY="115.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/chip.png" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="PJ3" fitHeight="70.0" fitWidth="70.0" layoutX="230.0" layoutY="115.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="PJ2" fitHeight="70.0" fitWidth="70.0" layoutX="230.0" layoutY="115.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/chip.png" />
                            </image>
