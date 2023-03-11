@@ -8,6 +8,8 @@ import javafx.scene.control.Label;
 
 /**
  * Luokka PalvelutiskiPopUp.fxml-tiedoston kontrollerille
+ * 
+ * @author Tapio Humaljoki, Valtteri Kuitula, Jhon Rastrojo
  */
 public class PalvelutiskiPopUpKontrolleri {
 	

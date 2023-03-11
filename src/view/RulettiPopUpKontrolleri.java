@@ -8,6 +8,8 @@ import javafx.scene.control.Label;
 
 /**
  * Luokka RulettiPopUp.fxml-tiedoston kontrollerille
+ * 
+ * @author Tapio Humaljoki, Valtteri Kuitula, Jhon Rastrojo
  */
 public class RulettiPopUpKontrolleri {
 	

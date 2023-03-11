@@ -26,6 +26,8 @@ import simu.model.Palvelupiste;
 
 /**
  * Luokka käyttöliittymän pääikkunan kontrollerille
+ * 
+ * @author Tapio Humaljoki, Valtteri Kuitula, Jhon Rastrojo
  */
 public class SimulaattorinPaaikkunaKontrolleri {
 

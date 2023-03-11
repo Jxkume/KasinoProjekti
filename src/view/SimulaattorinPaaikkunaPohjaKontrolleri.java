@@ -11,6 +11,8 @@ import javafx.stage.Stage;
 
 /**
  * Luokka SimulaattorinPaaikkunaPohja.fxml-tiedoston kontrollerille
+ * 
+ * @author Tapio Humaljoki, Valtteri Kuitula, Jhon Rastrojo
  */
 public class SimulaattorinPaaikkunaPohjaKontrolleri {
 

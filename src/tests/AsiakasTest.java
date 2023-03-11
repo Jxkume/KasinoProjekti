@@ -16,6 +16,8 @@ import simu.model.Asiakas;
 
 /**
  * Luokka Asiakas-luokan metodien testaukseen
+ * 
+ * @author Tapio Humaljoki, Valtteri Kuitula, Jhon Rastrojo
  */
 public class AsiakasTest {
 

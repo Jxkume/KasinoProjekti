@@ -8,6 +8,8 @@ import javafx.scene.control.Label;
 
 /**
  * Luokka KrapsPopUp.fxml-tiedoston kontrollerille
+ * 
+ * @author Tapio Humaljoki, Valtteri Kuitula, Jhon Rastrojo
  */
 public class KrapsPopUpKontrolleri {
 	

@@ -20,6 +20,8 @@ import view.VoittojenNostopistePopUpKontrolleri;
 
 /**
  * Luokka OmaMoottorille
+ * 
+ * @author Tapio Humaljoki, Valtteri Kuitula, Jhon Rastrojo
  */
 public class OmaMoottori extends Moottori {
 	

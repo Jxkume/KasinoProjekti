@@ -20,6 +20,8 @@ import view.SimulaattorinPaaikkunaKontrolleri;
 
 /**
  * Luokka Palvelupiste-luokan metodien testaukseen
+ * 
+ * @author Tapio Humaljoki, Valtteri Kuitula, Jhon Rastrojo
  */
 @RunWith(JfxRunner.class)
 public class PalvelupisteTest {
