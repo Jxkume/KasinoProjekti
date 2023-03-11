@@ -71,14 +71,14 @@ public class BlackjackPopUpKontrolleri {
 	 * Asettaa kaikki tulosteet pop-up-ikkunan JavaFX-komponentteihin
 	 */
 	public void naytaTulosteet() {
-		palvelupisteNimi.setText("Yhteenveto Blackjackistä");
-		palvellutAsiakkaat.setText(blackjackinTulosteet.get("Palveltuja asiakkaita yhteensä"));
-		keskimaarainenPalveluaika.setText(blackjackinTulosteet.get("Asiakkaiden keskimääräinen palveluaika"));
-		keskimaarainenJononpituus.setText(blackjackinTulosteet.get("Keskimääräinen jononpituus"));
-		keskimaarainenLapimenoaika.setText(blackjackinTulosteet.get("Asiakkaiden keskimääräinen läpimenoaika"));
+		palvelupisteNimi.setText("Yhteenveto Blackjackista");
+		palvellutAsiakkaat.setText(blackjackinTulosteet.get("Palveltuja asiakkaita yhteensa"));
+		keskimaarainenPalveluaika.setText(blackjackinTulosteet.get("Asiakkaiden keskimaarainen palveluaika"));
+		keskimaarainenJononpituus.setText(blackjackinTulosteet.get("Keskimaarainen jononpituus"));
+		keskimaarainenLapimenoaika.setText(blackjackinTulosteet.get("Asiakkaiden keskimaarainen lapimenoaika"));
 		suoritusteho.setText(blackjackinTulosteet.get("Suoritusteho"));
 		aktiiviaika.setText(blackjackinTulosteet.get("Aktiiviaika"));
-		kayttoaste.setText(blackjackinTulosteet.get("Käyttöaste"));
+		kayttoaste.setText(blackjackinTulosteet.get("Kayttoaste"));
 		kokonaisoleskeluaika.setText(blackjackinTulosteet.get("Asiakkaiden kokonaisoleskeluaika"));
 	}
 

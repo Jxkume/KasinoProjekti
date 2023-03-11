@@ -5,7 +5,7 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
 /**
- * Luokka MariaDBJPAConnectorille, jossa yhdistetään projekti paikalliseen tietokantaan
+ * Luokka MariaDBJPAConnectorille, jossa yhdistetaan projekti paikalliseen tietokantaan
  * 
  * @author Tapio Humaljoki, Valtteri Kuitula, Jhon Rastrojo
  */

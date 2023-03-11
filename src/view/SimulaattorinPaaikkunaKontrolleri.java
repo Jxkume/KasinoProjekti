@@ -25,7 +25,7 @@ import simu.model.OmaMoottori;
 import simu.model.Palvelupiste;
 
 /**
- * Luokka käyttöliittymän pääikkunan kontrollerille
+ * Luokka kayttoliittyman paaikkunan kontrollerille
  * 
  * @author Tapio Humaljoki, Valtteri Kuitula, Jhon Rastrojo
  */
@@ -40,13 +40,13 @@ public class SimulaattorinPaaikkunaKontrolleri {
     /** ArrayList-lista palvelupisteen jonon kuville */
     private ArrayList<ImageView> palvelutiskiJono, rulettiJono, blackjackJono, krapsJono, voittojenNostoPisteJono;
     
-    /** Ruletin voittotodennäköisyys, oletuksena 45% */
+    /** Ruletin voittotodennakoisyys, oletuksena 45% */
     private static int ruletinVoittotodennakoisyys = 45;
     
-    /** Blackjackin voittotodennäköisyys, oletuksena 45% */
+    /** Blackjackin voittotodennakoisyys, oletuksena 45% */
     private static int blackjackinVoittotodennakoisyys = 45;
     
-    // Käyttöliittymän pääikkunan JavaFX-komponentit
+    // Kayttoliittyman paaikkunan JavaFX-komponentit
     @FXML
     private ImageView PJ1, PJ2, PJ3, PJ4, PJ5, PJ6, PJ7, PJ8, PJ9, PJ10;			// Palvelutiskin jonon kuvat
    
@@ -87,7 +87,7 @@ public class SimulaattorinPaaikkunaKontrolleri {
     private Slider ruletinSlider, blackjackinSlider;
     
     /**
-     * Pääikkunan kontrollerin konstruktori
+     * Paaikkunan kontrollerin konstruktori
      */
     public SimulaattorinPaaikkunaKontrolleri() {
     	// Alustetaan tarvittavat JavaFX-komponentit ja muuttujat
@@ -97,7 +97,7 @@ public class SimulaattorinPaaikkunaKontrolleri {
     }
     
     /**
-     * Alustaa tarvittavat käyttöliittymän pääikkunan elementit
+     * Alustaa tarvittavat kayttoliittyman paaikkunan elementit
      */
 	public void initialize() {
     	
@@ -117,7 +117,7 @@ public class SimulaattorinPaaikkunaKontrolleri {
 		pelienKestoChoiceBox.getItems().addAll(kestot);
 		pelienKestoChoiceBox.setValue("Normaali");
 		
-		// Asetetaan pelien voittotodennäköisyydet
+		// Asetetaan pelien voittotodennakoisyydet
 		
 		ruletinSliderLabel.setText(ruletinVoittotodennakoisyys + "%");
 		ruletinSlider.valueProperty().addListener((obs, oldval, newVal) -> {
@@ -222,7 +222,7 @@ public class SimulaattorinPaaikkunaKontrolleri {
 	}
     
 	/**
-	 * Käynnistää simulaation
+	 * Kaynnistaa simulaation
 	 */
 	public void kaynnistaSimulointi() {
 
@@ -230,21 +230,21 @@ public class SimulaattorinPaaikkunaKontrolleri {
 			// Luodaan alert
 			Alert alert = new Alert(AlertType.ERROR);
 			
-			// Tarkistetaan, että käyttäjä on syöttänyt simulointiajan ja viiveen
+			// Tarkistetaan, etta kayttaja on syottanyt simulointiajan ja viiveen
 			if (aikaTextField.getText().isEmpty() && viiveTextField.getText().isEmpty()) {
 				alert.setTitle("Simulointiaika ja viive puuttuvat!");
-				alert.setHeaderText("Ole hyvä ja aseta simulointiaika ja viive käynnistääksesi simulaattorin.");
+				alert.setHeaderText("Ole hyva ja aseta simulointiaika ja viive kaynnistaaksesi simulaattorin.");
 				alert.showAndWait();
 			} else if (aikaTextField.getText().isEmpty()) {
 				alert.setTitle("Simulointiaika puuttuu!");
-				alert.setHeaderText("Ole hyvä ja aseta simulointiaika käynnistääksesi simulaattorin.");
+				alert.setHeaderText("Ole hyva ja aseta simulointiaika kaynnistaaksesi simulaattorin.");
 				alert.showAndWait();
 			} else if (viiveTextField.getText().isEmpty()) {
 				alert.setTitle("Viive puuttuu!");
-				alert.setHeaderText("Ole hyvä ja aseta viive käynnistääksesi simulaattorin.");
+				alert.setHeaderText("Ole hyva ja aseta viive kaynnistaaksesi simulaattorin.");
 				alert.showAndWait();
 			} else {
-				// Tarkistetaan, että arvot eivät ole negatiivisia
+				// Tarkistetaan, etta arvot eivat ole negatiivisia
 				if (Integer.parseInt(aikaTextField.getText()) < 0) {
 					alert.setTitle("Negatiivinen simulointiaika!");
 					alert.setHeaderText("Simulointiaika ei voi olla negatiivinen.");
@@ -258,22 +258,22 @@ public class SimulaattorinPaaikkunaKontrolleri {
 					alert.setHeaderText("Viive ei voi olla arvoltaan nolla.");
 					alert.showAndWait();
 				} else {
-					// Simulaatio voidaan käynnistää
-					moottori = new OmaMoottori(this); // säie
+					// Simulaatio voidaan kaynnistaa
+					moottori = new OmaMoottori(this); // saie
 					moottori.setSimulointiaika(getAika());
 					moottori.setViive(getViive());
 					((Thread)moottori).start();
 					// Nappia voi painaa vain kerran
 					kaynnistaButton.setDisable(true);
-					// Käyttäjä voi nyt hidastaa tai nopeuttaa simulaatiota
+					// Kayttaja voi nyt hidastaa tai nopeuttaa simulaatiota
 					hidastaButton.setDisable(false);
 					nopeutaButton.setDisable(false);
-					// Tulokset-GridPane asetetaan pois näkyvistä
+					// Tulokset-GridPane asetetaan pois nakyvista
 					tulokset.setVisible(false);
 				}
 			}
 		} catch (NumberFormatException e) {
-			System.out.println("Syöttämäsi arvot eivät ole kelvollisia. Vain Integer-tyyppiset numerot sallittu!");
+			System.out.println("Syottamasi arvot eivat ole kelvollisia. Vain Integer-tyyppiset numerot sallittu!");
 		}
 
 	}
@@ -345,31 +345,31 @@ public class SimulaattorinPaaikkunaKontrolleri {
 	}
 	
 	/**
-	 * Hidastaa moottorisäiettä
+	 * Hidastaa moottorisaietta
 	 */
 	public void hidasta() {
-		// Lisätään viiveeseen 10 ja näytetään muutos käyttöliittymässä
+		// Lisataan viiveeseen 10 ja naytetaan muutos kayttoliittymassa
 		moottori.setViive((long)(moottori.getViive() + 10));
 		viiveTextField.setText(Long.toString(moottori.getViive()));
 	}
 	
 	/**
-	 * Nopeuttaa moottorisäiettä
+	 * Nopeuttaa moottorisaietta
 	 */
 	public void nopeuta() {
-		// Varmistetaan ettei viive voi mennä negatiiviseksi
+		// Varmistetaan ettei viive voi menna negatiiviseksi
 		if (moottori.getViive() < 10) {
 			moottori.setViive(1);
 			viiveTextField.setText("1");
 		} else {
-			// Vähennetään viiveestä 10 ja näytetään muutos käyttöliittymässä
+			// Vahennetaan viiveesta 10 ja naytetaan muutos kayttoliittymassa
 			moottori.setViive((long)(moottori.getViive() - 10));
 			viiveTextField.setText(Long.toString(moottori.getViive()));
 		}
 	}
 	
 	/**
-	 * Piilottaa käyttöliittymässä simulaation tekijöiden nimet ja esittää niiden tilalla tulokset
+	 * Piilottaa kayttoliittymassa simulaation tekijoiden nimet ja esittaa niiden tilalla tulokset
 	 */
 	public void naytaGridPane() {
 		Platform.runLater(()-> tekijat.setVisible(false));
@@ -377,7 +377,7 @@ public class SimulaattorinPaaikkunaKontrolleri {
 	}
 	
 	/**
-	 * Näyttää simulaation loppumisajan käyttöliittymässä
+	 * Nayttaa simulaation loppumisajan kayttoliittymassa
 	 *
 	 * @param simulaation aika
 	 */
@@ -386,25 +386,25 @@ public class SimulaattorinPaaikkunaKontrolleri {
 	}
 	
 	/**
-	 * Asettaa kasinoon saapuneiden asiakkaiden määrän JavaFX-komponenttiin
+	 * Asettaa kasinoon saapuneiden asiakkaiden maaran JavaFX-komponenttiin
 	 *
-	 * @param saapuneiden asiakkaiden lukumäärä
+	 * @param saapuneiden asiakkaiden lukumaara
 	 */
 	public void naytaAsiakasLkm(int asiakasLkm) {
 		Platform.runLater(()-> asiakasLkmLabel.setText(Integer.toString(asiakasLkm) + " asiakasta"));
 	}
 	
 	/**
-	 * Asettaa asiakkaiden kasinolla keskimäärin viettämän ajan JavaFX-komponenttiin
+	 * Asettaa asiakkaiden kasinolla keskimaarin viettaman ajan JavaFX-komponenttiin
 	 *
-	 * @param asiakkaiden keskimäärin viettämä aika kasinolla
+	 * @param asiakkaiden keskimaarin viettama aika kasinolla
 	 */
 	public void naytaKeskimaarainenVietettyAika(double aika) {
 		Platform.runLater(()-> keskimaarainenVietettyAikaLabel.setText((String.format("%.02f", aika))));
 	}
 	
 	/**
-	 * Päivittää JavaFX-komponenttiin kasinon tekemän tuloksen 
+	 * Paivittaa JavaFX-komponenttiin kasinon tekeman tuloksen 
 	 *
 	 * @param kasinon tulos
 	 */
@@ -414,13 +414,13 @@ public class SimulaattorinPaaikkunaKontrolleri {
 	
 	/**
 	 * Piilottaa hidasta- ja nopeuta-napit
-	 * Näyttää palvelupisteiden napit
+	 * Nayttaa palvelupisteiden napit
 	 */
 	public void naytaTiedot() {
-		// Asetetaan hidasta- ja nopeuta-napit käyttökelvottomaksi, kun saadaan simulaation tulokset
+		// Asetetaan hidasta- ja nopeuta-napit kayttokelvottomaksi, kun saadaan simulaation tulokset
 		Platform.runLater(()-> hidastaButton.setDisable(true));
 		Platform.runLater(()-> nopeutaButton.setDisable(true));
-		// Asetetaan jokaisen palvelupisteen nappi käytettäväksi
+		// Asetetaan jokaisen palvelupisteen nappi kaytettavaksi
 		Platform.runLater(()-> palvelutiskiButton.setDisable(false));
 		Platform.runLater(()-> rulettiButton.setDisable(false));
 		Platform.runLater(()-> blackjackButton.setDisable(false));
@@ -534,34 +534,34 @@ public class SimulaattorinPaaikkunaKontrolleri {
 	}
 	
     /**
-     * Pääsovellus viittaa itseensä
+     * Paasovellus viittaa itseensa
      *
-     * @param simulaation pääsovellus
+     * @param simulaation paasovellus
      */
     public void setSimulaattoriMain(SimulaattoriMain simulaattoriMain) {
         this.simulaattoriMain = simulaattoriMain;
     }
     
 	/**
-	 * Palauttaa käyttäjän syöttämän simulointiajan
+	 * Palauttaa kayttajan syottaman simulointiajan
 	 *
-	 * @return syötetty simulaatioaika
+	 * @return syotetty simulaatioaika
 	 */
 	public double getAika(){
 		return Double.parseDouble(aikaTextField.getText());
 	}
 	
 	/**
-	 * Palauttaa käyttäjän syöttämän simulointiviiveen
+	 * Palauttaa kayttajan syottaman simulointiviiveen
 	 *
-	 * @return syötetty simulaatioviive
+	 * @return syotetty simulaatioviive
 	 */
 	public long getViive(){
 		return Long.parseLong(viiveTextField.getText());
 	}
 	
     /**
-     * Palauttaa käyttäjän asettaman keston peleille
+     * Palauttaa kayttajan asettaman keston peleille
      *
      * @return pelien kesto
      */
@@ -570,7 +570,7 @@ public class SimulaattorinPaaikkunaKontrolleri {
     }
 	
     /**
-     * Palauttaa käyttäjän asettaman asiakkaiden saapumisnopeuden 
+     * Palauttaa kayttajan asettaman asiakkaiden saapumisnopeuden 
      *
      * @return asiakkaiden saapumisnopeus
      */
@@ -579,16 +579,16 @@ public class SimulaattorinPaaikkunaKontrolleri {
     }
     
     /**
-     * Palauttaa käyttäjän ruletille asettaman voittotodennäköisyyden
+     * Palauttaa kayttajan ruletille asettaman voittotodennakoisyyden
      *
-     * @return ruletin voittotodennäköisyys
+     * @return ruletin voittotodennakoisyys
      */
     public int getRuletinVoittotodennakoisyys() {
     	return ruletinVoittotodennakoisyys;
     }
     
     /**
-     * Palauttaa käyttäjän blackjackille asettaman voittotodennäköisyyden
+     * Palauttaa kayttajan blackjackille asettaman voittotodennakoisyyden
      *
      * @return blackjackin voittotodennakoisyys
      */
@@ -597,21 +597,21 @@ public class SimulaattorinPaaikkunaKontrolleri {
     }
     
     /**
-     * Määrittää ruletille voittotodennäköisyyden
+     * Maarittaa ruletille voittotodennakoisyyden
      *
-     * @param voittotodennäköisyys
+     * @param voittotodennakoisyys
      */
-    // Setteri ruletin voittotodennäköisyydelle, tarvitaan JUnit-testeissä
+    // Setteri ruletin voittotodennakoisyydelle, tarvitaan JUnit-testeissa
     public void setRuletinVoittotodennakoisyys(int todennakoisyys) {
     	ruletinVoittotodennakoisyys = todennakoisyys;
     }
     
     /**
-     * Määrittää blackjackille voittotodennäköisyyden
+     * Maarittaa blackjackille voittotodennakoisyyden
      *
      * @param voittotodennakoisyys
      */
-    // Setteri Blackjackin voittotodennäköisyydelle, tarvitaan JUnit-testeissä
+    // Setteri Blackjackin voittotodennakoisyydelle, tarvitaan JUnit-testeissa
     public void setBlackjackinVoittotodennakoisyys(int todennakoisyys) {
     	blackjackinVoittotodennakoisyys = todennakoisyys;
     }

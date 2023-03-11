@@ -10,7 +10,7 @@ public class Kraps {
 	/**
 	 * Arpoo satunnaisluvun
 	 *
-	 * @param Integer-luku, joka määrittää arvotun luvun maksimiarvon (-1)
+	 * @param Integer-luku, joka maarittaa arvotun luvun maksimiarvon (-1)
 	 * @return arvottu Integer-luku
 	 */
 	public static int randomLuku(int n) {
@@ -19,7 +19,7 @@ public class Kraps {
 	
 	/**
 	 * Palauttaa kahden arvotun luvun summan
-	 * Arpoo kaksi lukua väliltä 1-6
+	 * Arpoo kaksi lukua valilta 1-6
 	 *
 	 * @return arvottujen lukujen summa
 	 */
@@ -33,7 +33,7 @@ public class Kraps {
 	/**
 	 * Tarkistaa milloin asiakas voittaa
 	 *
-	 * @return true, jos asiakas määritetään voittajaksi
+	 * @return true, jos asiakas maaritetaan voittajaksi
 	 */
 	public static boolean voittaako() {
 		

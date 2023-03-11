@@ -28,10 +28,10 @@ public class OmaMoottori extends Moottori {
 	/** Saapumisprosessi-olio */
 	private Saapumisprosessi saapumisprosessi;
 	
-	/** Kasinoon saapuvien asiakkaiden lukumäärä */
+	/** Kasinoon saapuvien asiakkaiden lukumaara */
 	private static int asiakasLkm = 0;
 	
-	/** Kasinossa kaikkien asiakkaiden keskimäärin viettämä aika */
+	/** Kasinossa kaikkien asiakkaiden keskimaarin viettama aika */
 	private double keskimaarainenVietettyAika;
 	
 	/** PalvelupisteDao-olio */
@@ -59,9 +59,9 @@ public class OmaMoottori extends Moottori {
 	private VoittojenNostopistePopUpKontrolleri voittojenNostopistePopUpKontrolleri = new VoittojenNostopistePopUpKontrolleri();
 	
 	/**
-	 * OmaMoottorin konstruktori, jossa luodaan simulaation saapumisprosessi sekä 5 palvelupistettä
+	 * OmaMoottorin konstruktori, jossa luodaan simulaation saapumisprosessi seka 5 palvelupistetta
 	 *
-	 * @param Käyttöliittymän pääikkunan kontrolleri
+	 * @param Kayttoliittyman paaikkunan kontrolleri
 	 */
 	public OmaMoottori(SimulaattorinPaaikkunaKontrolleri kontrolleri) {
 
@@ -79,12 +79,12 @@ public class OmaMoottori extends Moottori {
 	}
 	
 	/**
-	 * Alustaa simulaation ennen käynnistystä
+	 * Alustaa simulaation ennen kaynnistysta
 	 */
 	@Override
 	protected void alustukset() {
 		
-		// Asetetaan käyttäjän käyttöliittymässä valitsema saapumisnopeus asiakkaille
+		// Asetetaan kayttajan kayttoliittymassa valitsema saapumisnopeus asiakkaille
 		if (kontrolleri.getSaapumisenKesto().equals("Normaali")) {
 			saapumisprosessi.setGenerator(new Negexp(15,5));
 		} else if (kontrolleri.getSaapumisenKesto().equals("Nopea")) {
@@ -93,25 +93,25 @@ public class OmaMoottori extends Moottori {
 			saapumisprosessi.setGenerator(new Negexp(20,5));
 		}
 		
-		// Asetetaan käyttäjän käyttöliittymässä valitsema pelien kesto kaikille peleille
+		// Asetetaan kayttajan kayttoliittymassa valitsema pelien kesto kaikille peleille
 		if (kontrolleri.getPelienKesto().equals("Normaali")) {
-			// Pelit kestävät 3-5 aikayksikköä
+			// Pelit kestavat 3-5 aikayksikkoa
 			getRuletti().setGenerator(new Normal(4,1));
 			getBlackjack().setGenerator(new Normal(4,1));
 			getKraps().setGenerator(new Normal(4,1));
 		} else if (kontrolleri.getPelienKesto().equals("Nopea")) {
-			// Pelit kestävät 1-2 aikayksikköä
+			// Pelit kestavat 1-2 aikayksikkoa
 			getRuletti().setGenerator(new Normal(1.5,0.5));
 			getBlackjack().setGenerator(new Normal(1.5,0.5));
 			getKraps().setGenerator(new Normal(1.5,0.5));
 		} else if (kontrolleri.getPelienKesto().equals("Hidas")) {
-			// Pelit kestävät 6-8 aikayksikköä
+			// Pelit kestavat 6-8 aikayksikkoa
 			getRuletti().setGenerator(new Normal(7,1));
 			getBlackjack().setGenerator(new Normal(7,1));
 			getKraps().setGenerator(new Normal(7,1));
 		}
 		
-		// Generoidaan ensimmäinen asiakas järjestelmään
+		// Generoidaan ensimmainen asiakas jarjestelmaan
 		saapumisprosessi.generoiSeuraava();
 		
 	}
@@ -125,25 +125,25 @@ public class OmaMoottori extends Moottori {
 	protected void suoritaTapahtuma(Tapahtuma t) {
 		
 		Asiakas asiakas;
-		// Arvotaan todennäköisyys jatkaako asiakas pelaamista pelissä
+		// Arvotaan todennakoisyys jatkaako asiakas pelaamista pelissa
 		int todennakoisyys = (int) Math.floor(Math.random() * (4 - 1 + 1) + 1);
-		// Arvotaan minne kolmesta palvelupisteestä asiakas siirtyy
+		// Arvotaan minne kolmesta palvelupisteesta asiakas siirtyy
 		int randomPalvelupiste = (int) Math.floor(Math.random() * (3 - 1 + 1) + 1);
-		// Arvotaan siirtyykö asiakas hakemaan lisää poletteja vai voittojen nostopisteelle
+		// Arvotaan siirtyyko asiakas hakemaan lisaa poletteja vai voittojen nostopisteelle
 		int lisaaPolettejaTaiVoitot = (int) Math.floor(Math.random() * (2 - 1 + 1) + 1);
 		
 		switch (t.getTyyppi()) {
 			
-			case ARR1: // Asiakas saapuu järjestelmään ja palvelutiskin jonoon
+			case ARR1: // Asiakas saapuu jarjestelmaan ja palvelutiskin jonoon
 				getPalvelutiski().lisaaJonoon(new Asiakas());
 				asiakasLkm++;
 				Trace.out(Trace.Level.INFO, getPalvelutiski().toString());
 		    	saapumisprosessi.generoiSeuraava();
 				break;
 				
-			case DEP1: // Asiakas lähtee kasinon palvelutiskiltä
+			case DEP1: // Asiakas lahtee kasinon palvelutiskilta
 				asiakas = getPalvelutiski().getJononEnsimmainen();
-				// Asiakkaalle annetaan poletteja palvelutiskillä
+				// Asiakkaalle annetaan poletteja palvelutiskilla
 				asiakas.annaPolettejaPalvelutiskilla();
 				if (randomPalvelupiste == 1) {
 					getPalvelutiski().otaJonosta(asiakas);
@@ -160,25 +160,25 @@ public class OmaMoottori extends Moottori {
 				}
 				break;
 				
-			case DEP2: // Asiakas lähtee kasinon ruletista
+			case DEP2: // Asiakas lahtee kasinon ruletista
 				asiakas = getRuletti().getJononEnsimmainen();
-				// Asiakkaalla pitää olla vähintään 50 polettia pelatakseen
+				// Asiakkaalla pitaa olla vahintaan 50 polettia pelatakseen
 				if (asiakas.getNykyinenPolettimaara() >= 50) {
-					// Asiakas pelaa ja tarkistetaan voittiko vai hävisikö asiakas
+					// Asiakas pelaa ja tarkistetaan voittiko vai havisiko asiakas
 					if (getRuletti().voittikoAsiakas(asiakas)) {
-						// Asiakkaan voittaessa todennäköisyys jatkaa pelaamista on suurempi
+						// Asiakkaan voittaessa todennakoisyys jatkaa pelaamista on suurempi
 						todennakoisyys += 1;
 					} else {
-						// Asiakkaan hävitessä todennäköisyys jatkaa pelaamista on pienempi
+						// Asiakkaan havitessa todennakoisyys jatkaa pelaamista on pienempi
 						todennakoisyys -= 1;
 					}
-				} else { // Asiakas hakee lisää poletteja
+				} else { // Asiakas hakee lisaa poletteja
 					getRuletti().otaJonosta(asiakas);
 					getPalvelutiski().lisaaJonoon(asiakas);
 					Trace.out(Trace.Level.INFO, getPalvelutiski().toString());
 					break;
 				}
-				// Jos todennäköisyys on 2 tai alle, asiakas poistuu uuteen peliin tai voittojen nostopisteelle
+				// Jos todennakoisyys on 2 tai alle, asiakas poistuu uuteen peliin tai voittojen nostopisteelle
 				if (todennakoisyys <= 2 && asiakas.getNykyinenPolettimaara() >= 50) {
 					if (randomPalvelupiste == 1) {
 						getRuletti().otaJonosta(asiakas);
@@ -193,9 +193,9 @@ public class OmaMoottori extends Moottori {
 						getVoittojenNostopiste().lisaaJonoon(asiakas);
 						Trace.out(Trace.Level.INFO, getVoittojenNostopiste().toString());
 					}
-				} else if (todennakoisyys >= 3 && asiakas.getNykyinenPolettimaara() >= 50) { // Asiakas voi jatkaa pelaamista vain, jos hänellä on vähintään 50 polettia
+				} else if (todennakoisyys >= 3 && asiakas.getNykyinenPolettimaara() >= 50) { // Asiakas voi jatkaa pelaamista vain, jos hanella on vahintaan 50 polettia
 					getRuletti().jatkaPelaamista(asiakas);
-				} else { // Asiakas hakee lisää poletteja tai menee voittojen nostopisteelle
+				} else { // Asiakas hakee lisaa poletteja tai menee voittojen nostopisteelle
 					if (lisaaPolettejaTaiVoitot == 1) {
 						getRuletti().otaJonosta(asiakas);
 						getPalvelutiski().lisaaJonoon(asiakas);
@@ -208,25 +208,25 @@ public class OmaMoottori extends Moottori {
 				}
 		   	   	break;
 		   	   
-			case DEP3: // Asiakas lähtee kasinon Blackjackistä
+			case DEP3: // Asiakas lahtee kasinon Blackjackista
 				asiakas = getBlackjack().getJononEnsimmainen();
-				// Asiakkaalla pitää olla vähintään 50 polettia pelatakseen
+				// Asiakkaalla pitaa olla vahintaan 50 polettia pelatakseen
 				if (asiakas.getNykyinenPolettimaara() >= 50) {
-					// Asiakas pelaa ja tarkistetaan voittiko vai hävisikö asiakas
+					// Asiakas pelaa ja tarkistetaan voittiko vai havisiko asiakas
 					if (getBlackjack().voittikoAsiakas(asiakas)) {
-						// Asiakkaan voittaessa todennäköisyys jatkaa pelaamista on suurempi
+						// Asiakkaan voittaessa todennakoisyys jatkaa pelaamista on suurempi
 						todennakoisyys += 1;
 					} else {
-						// Asiakkaan hävitessä todennäköisyys jatkaa pelaamista on pienempi
+						// Asiakkaan havitessa todennakoisyys jatkaa pelaamista on pienempi
 						todennakoisyys -= 1;
 					}
-				} else { // Asiakas hakee lisää poletteja
+				} else { // Asiakas hakee lisaa poletteja
 					getBlackjack().otaJonosta(asiakas);
 					getPalvelutiski().lisaaJonoon(asiakas);
 					Trace.out(Trace.Level.INFO, getPalvelutiski().toString());
 					break;
 				}
-				// Jos todennäköisyys on 2 tai alle, asiakas poistuu uuteen peliin, hakemaan lisää poletteja tai voittojen nostopisteelle
+				// Jos todennakoisyys on 2 tai alle, asiakas poistuu uuteen peliin, hakemaan lisaa poletteja tai voittojen nostopisteelle
 				if (todennakoisyys <= 2 && asiakas.getNykyinenPolettimaara() >= 50) {
 					if (randomPalvelupiste == 1) {
 						getBlackjack().otaJonosta(asiakas);
@@ -241,9 +241,9 @@ public class OmaMoottori extends Moottori {
 						getVoittojenNostopiste().lisaaJonoon(asiakas);
 						Trace.out(Trace.Level.INFO, getVoittojenNostopiste().toString());
 					}
-				} else if (todennakoisyys >= 3 && asiakas.getNykyinenPolettimaara() >= 50) { // Asiakas voi jatkaa pelaamista vain, jos hänellä on vähintään 50 polettia
+				} else if (todennakoisyys >= 3 && asiakas.getNykyinenPolettimaara() >= 50) { // Asiakas voi jatkaa pelaamista vain, jos hanella on vahintaan 50 polettia
 					getBlackjack().jatkaPelaamista(asiakas);
-				} else { // Asiakas hakee lisää poletteja tai menee voittojen nostopisteelle
+				} else { // Asiakas hakee lisaa poletteja tai menee voittojen nostopisteelle
 					if (lisaaPolettejaTaiVoitot == 1) {
 						getBlackjack().otaJonosta(asiakas);
 						getPalvelutiski().lisaaJonoon(asiakas);
@@ -256,25 +256,25 @@ public class OmaMoottori extends Moottori {
 				}
 		   	   	break;
 		   	   	
-			case DEP4: // Asiakas lähtee kasinon Krapsistä
+			case DEP4: // Asiakas lahtee kasinon Krapsista
 				asiakas = getKraps().getJononEnsimmainen();
-				// Asiakkaalla pitää olla vähintään 50 polettia pelatakseen
+				// Asiakkaalla pitaa olla vahintaan 50 polettia pelatakseen
 				if (asiakas.getNykyinenPolettimaara() >= 50) {
-					// Asiakas pelaa ja tarkistetaan voittiko vai hävisikö asiakas
+					// Asiakas pelaa ja tarkistetaan voittiko vai havisiko asiakas
 					if (getKraps().voittikoAsiakas(asiakas)) {
-						// Asiakkaan voittaessa todennäköisyys jatkaa pelaamista on suurempi
+						// Asiakkaan voittaessa todennakoisyys jatkaa pelaamista on suurempi
 						todennakoisyys += 1;
 					} else {
-						// Asiakkaan hävitessä todennäköisyys jatkaa pelaamista on pienempi
+						// Asiakkaan havitessa todennakoisyys jatkaa pelaamista on pienempi
 						todennakoisyys -= 1;
 					}
-				} else { // Asiakas hakee lisää poletteja
+				} else { // Asiakas hakee lisaa poletteja
 					getKraps().otaJonosta(asiakas);
 					getPalvelutiski().lisaaJonoon(asiakas);
 					Trace.out(Trace.Level.INFO, getPalvelutiski().toString());
 					break;
 				}
-				// Jos todennäköisyys on 2 tai alle, asiakas poistuu uuteen peliin, hakemaan lisää poletteja tai voittojen nostopisteelle
+				// Jos todennakoisyys on 2 tai alle, asiakas poistuu uuteen peliin, hakemaan lisaa poletteja tai voittojen nostopisteelle
 				if (todennakoisyys <= 2 && asiakas.getNykyinenPolettimaara() >= 50) {
 					if (randomPalvelupiste == 1) {
 						getKraps().otaJonosta(asiakas);
@@ -289,9 +289,9 @@ public class OmaMoottori extends Moottori {
 						getVoittojenNostopiste().lisaaJonoon(asiakas);
 						Trace.out(Trace.Level.INFO, getVoittojenNostopiste().toString());
 					}
-				} else if (todennakoisyys >= 3 && asiakas.getNykyinenPolettimaara() >= 50) { // Asiakas voi jatkaa pelaamista vain, jos hänellä on vähintään 50 polettia
+				} else if (todennakoisyys >= 3 && asiakas.getNykyinenPolettimaara() >= 50) { // Asiakas voi jatkaa pelaamista vain, jos hanella on vahintaan 50 polettia
 					getKraps().jatkaPelaamista(asiakas);
-				} else { // Asiakas hakee lisää poletteja tai menee voittojen nostopisteelle
+				} else { // Asiakas hakee lisaa poletteja tai menee voittojen nostopisteelle
 					if (lisaaPolettejaTaiVoitot == 1) {
 						getKraps().otaJonosta(asiakas);
 						getPalvelutiski().lisaaJonoon(asiakas);
@@ -304,7 +304,7 @@ public class OmaMoottori extends Moottori {
 				}
 		   	   	break;
 		   	   	
-			case DEP5: // Asiakas lähtee kasinon voittojen nostopisteeltä
+			case DEP5: // Asiakas lahtee kasinon voittojen nostopisteelta
 				asiakas = getVoittojenNostopiste().getJononEnsimmainen(); 
 				int kaynnit[] = new int[4];
 		    	palvelupisteet[4].otaJonosta(asiakas);
@@ -319,20 +319,20 @@ public class OmaMoottori extends Moottori {
 				}
 				// Tulostetaan asiakkaan raportti
 	        	asiakas.raportti();
-	        	// Tallennetaan keskimääräinen vietetty aika kasinolla
+	        	// Tallennetaan keskimaarainen vietetty aika kasinolla
 	        	keskimaarainenVietettyAika = asiakas.getKeskimaarainenVietettyAika();
-	        	// Tulostetaan asiakkaan käynnit jokaiselta palvelupisteeltä paitsi voittojen nostopisteeltä
-	        	Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " kävi palvelutiskillä " + kaynnit[0] + " kertaa.");
-	        	Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " kävi ruletissa " + kaynnit[1] + " kertaa.");
-	        	Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " kävi Blackjackissä " + kaynnit[2] + " kertaa.");
-	        	Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " kävi Krapsissä " + kaynnit[3] + " kertaa.");
+	        	// Tulostetaan asiakkaan kaynnit jokaiselta palvelupisteelta paitsi voittojen nostopisteelta
+	        	Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " kavi palvelutiskilla " + kaynnit[0] + " kertaa.");
+	        	Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " kavi ruletissa " + kaynnit[1] + " kertaa.");
+	        	Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " kavi Blackjackissa " + kaynnit[2] + " kertaa.");
+	        	Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " kavi Krapsissa " + kaynnit[3] + " kertaa.");
 	        	break;
 	        	
 		}
-		// Päivitetään kasinon tekemä tulos käyttöliittymään
+		// Paivitetaan kasinon tekema tulos kayttoliittymaan
 		kontrolleri.paivitaTulos(getPalvelutiski().getTalonVoittoEuroina());
 		
-		// Visualisoidaan jonot käyttöliittymään
+		// Visualisoidaan jonot kayttoliittymaan
 		kontrolleri.visualisoiJono(getPalvelutiski());
 		kontrolleri.visualisoiJono(getRuletti());
 		kontrolleri.visualisoiJono(getBlackjack());
@@ -342,7 +342,7 @@ public class OmaMoottori extends Moottori {
 	}
 	
 	/**
-	 * Päivittää simulaation tulosteet paikalliseen tietokantaan
+	 * Paivittaa simulaation tulosteet paikalliseen tietokantaan
 	 */
 	@Override
 	protected void paivitaTietokanta() {
@@ -354,111 +354,111 @@ public class OmaMoottori extends Moottori {
 		getKraps().setSimulointiaika(getSimulointiaika());
 		getVoittojenNostopiste().setSimulointiaika(getSimulointiaika());
 		
-		// Päivitetään tietokannassa olevia kokonaisoleskeluaikoja;
+		// Paivitetaan tietokannassa olevia kokonaisoleskeluaikoja;
 		palvDao.updateKokonaisoleskeluaika(getPalvelutiski());
 		palvDao.updateKokonaisoleskeluaika(getRuletti());
 		palvDao.updateKokonaisoleskeluaika(getBlackjack());
 		palvDao.updateKokonaisoleskeluaika(getKraps());
 		palvDao.updateKokonaisoleskeluaika(getVoittojenNostopiste());
 		
-		// Päivitetään tietokannassa olevia suoritustehoja
+		// Paivitetaan tietokannassa olevia suoritustehoja
 		palvDao.updateSuoritusteho(getPalvelutiski());
 		palvDao.updateSuoritusteho(getRuletti());
 		palvDao.updateSuoritusteho(getBlackjack());
 		palvDao.updateSuoritusteho(getKraps());
 		palvDao.updateSuoritusteho(getVoittojenNostopiste());
 		
-		// Päivitetään tietokannassa olevia käyttöasteita
+		// Paivitetaan tietokannassa olevia kayttoasteita
 		palvDao.updateKayttoaste(getPalvelutiski());
 		palvDao.updateKayttoaste(getRuletti());
 		palvDao.updateKayttoaste(getBlackjack());
 		palvDao.updateKayttoaste(getKraps());
 		palvDao.updateKayttoaste(getVoittojenNostopiste());
 		
-		// Päivitetään tietokannassa olevia palveltujen asiakkaiden määriä
+		// Paivitetaan tietokannassa olevia palveltujen asiakkaiden maaria
 		palvDao.updatePalveltujaasiakkaita(getPalvelutiski());
 		palvDao.updatePalveltujaasiakkaita(getRuletti());
 		palvDao.updatePalveltujaasiakkaita(getBlackjack());
 		palvDao.updatePalveltujaasiakkaita(getKraps());
 		palvDao.updatePalveltujaasiakkaita(getVoittojenNostopiste());
 		
-		// Päivitetään tietokannassa olevia keskimääräisiä palveluaikoja
+		// Paivitetaan tietokannassa olevia keskimaaraisia palveluaikoja
 		palvDao.updateKeskimaarainenPalveluaika(getPalvelutiski());
 		palvDao.updateKeskimaarainenPalveluaika(getRuletti());
 		palvDao.updateKeskimaarainenPalveluaika(getBlackjack());
 		palvDao.updateKeskimaarainenPalveluaika(getKraps());
 		palvDao.updateKeskimaarainenPalveluaika(getVoittojenNostopiste());
 		
-		// Päivitetään tietokannassa olevia keskimääräisiä jononpituuksia
+		// Paivitetaan tietokannassa olevia keskimaaraisia jononpituuksia
 		palvDao.updateKeskimaarainenJononpituus(getPalvelutiski());
 		palvDao.updateKeskimaarainenJononpituus(getRuletti());
 		palvDao.updateKeskimaarainenJononpituus(getBlackjack());
 		palvDao.updateKeskimaarainenJononpituus(getKraps());
 		palvDao.updateKeskimaarainenJononpituus(getVoittojenNostopiste());
 		
-		// Päivitetään tietokannassa olevia keskimääräisiä läpimenoaikoja
+		// Paivitetaan tietokannassa olevia keskimaaraisia lapimenoaikoja
 		palvDao.updateKeskimaarainenLapimenoaika(getPalvelutiski());
 		palvDao.updateKeskimaarainenLapimenoaika(getRuletti());
 		palvDao.updateKeskimaarainenLapimenoaika(getBlackjack());
 		palvDao.updateKeskimaarainenLapimenoaika(getKraps());
 		palvDao.updateKeskimaarainenLapimenoaika(getVoittojenNostopiste());
 		
-		// Päivitetään tietokannassa olevia aktiiviaikoja
+		// Paivitetaan tietokannassa olevia aktiiviaikoja
 		palvDao.updateAktiiviajat(getPalvelutiski());
 		palvDao.updateAktiiviajat(getRuletti());
 		palvDao.updateAktiiviajat(getBlackjack());
 		palvDao.updateAktiiviajat(getKraps());
 		palvDao.updateAktiiviajat(getVoittojenNostopiste());
 		
-		// Päivitetään tietokannassa oleva kasinon tekemä tulos
+		// Paivitetaan tietokannassa oleva kasinon tekema tulos
 		kasinoDao.updatetalonVoittoEuroina(kasino);
 		
-		// Päivitetään tietokannassa oleva kasinoon saapuvien asiakkaiden määrä
+		// Paivitetaan tietokannassa oleva kasinoon saapuvien asiakkaiden maara
 		kasino.setAsiakasLKM(asiakasLkm);
 		kasinoDao.updateAsiakasLKM(kasino);
 		
-		// Päivitetään tietokannassa oleva simulointiaika (löytyy tietokannasta nimellä kello)
+		// Paivitetaan tietokannassa oleva simulointiaika (loytyy tietokannasta nimella kello)
 		kasinoDao.updateKello(kasino);
 		
-		// Päivitetään tietokannassa oleva asiakkaiden keskimäärin vietetty aika kasinossa
+		// Paivitetaan tietokannassa oleva asiakkaiden keskimaarin vietetty aika kasinossa
 		kasino.setkeskimaarainenVietettyAika(keskimaarainenVietettyAika);
 		kasinoDao.updatekeskimaarainenVietettyAika(kasino);
 		
 	}
 	
 	/**
-	 * Päivittää simulaation tulosteet käyttöliittymään ja konsoliin
+	 * Paivittaa simulaation tulosteet kayttoliittymaan ja konsoliin
 	 */
 	@Override
 	protected void tulokset() {
 		
-		// Viedään kasinon tulosteet käyttöliittymän pääikkunaan
+		// Viedaan kasinon tulosteet kayttoliittyman paaikkunaan
 		kontrolleri.naytaLoppuaika(Kello.getInstance().getAika());
 		kontrolleri.naytaAsiakasLkm(asiakasLkm);
 		kontrolleri.naytaKeskimaarainenVietettyAika(keskimaarainenVietettyAika);
 		kontrolleri.naytaGridPane();
 		kontrolleri.naytaTiedot();
 		
-		// Viedään palvelupisteiden tulosteet omiin pop-up-ikkunoihin
+		// Viedaan palvelupisteiden tulosteet omiin pop-up-ikkunoihin
 		palvelupistePopUpKontrolleri.setPalvelutiskinTulosteet(getPalvelutiskinTulosteet());
 		rulettiPopUpKontrolleri.setRuletinTulosteet(getRuletinTulosteet());
 		blackjackPopUpKontrolleri.setBlackjackinTulosteet(getBlackjackinTulosteet());
 		krapsPopUpKontrolleri.setKrapsinTulosteet(getKrapsinTulosteet());
 		voittojenNostopistePopUpKontrolleri.setVoittojenNostopisteenTulosteet(getVoittojenNostopisteenTulosteet());
 		
-		Trace.out(Trace.Level.INFO, "\n**SIMULOINTI PÄÄTTYY**");
+		Trace.out(Trace.Level.INFO, "\n**SIMULOINTI PAATTYY**");
 		
 		if (palvelupisteet[4].getTalonVoittoEuroina() > 0) {
-			Trace.out(Trace.Level.INFO, "\nKasino teki voittoa ajassa " + String.format("%.02f", Kello.getInstance().getAika()) + " yhteensä " + getVoittojenNostopiste().getTalonVoittoEuroina() + " euroa.");
+			Trace.out(Trace.Level.INFO, "\nKasino teki voittoa ajassa " + String.format("%.02f", Kello.getInstance().getAika()) + " yhteensa " + getVoittojenNostopiste().getTalonVoittoEuroina() + " euroa.");
 		} else {
-			Trace.out(Trace.Level.INFO, "\nKasino teki liiketappiota ajassa " + String.format("%.02f", Kello.getInstance().getAika()) + " yhteensä " + (getVoittojenNostopiste().getTalonVoittoEuroina() * -1) + " euroa.");
+			Trace.out(Trace.Level.INFO, "\nKasino teki liiketappiota ajassa " + String.format("%.02f", Kello.getInstance().getAika()) + " yhteensa " + (getVoittojenNostopiste().getTalonVoittoEuroina() * -1) + " euroa.");
 		}
-		Trace.out(Trace.Level.INFO, "\nPalvelutiski palveli asiakkaita yhteensä " + getPalvelutiski().getKaynteja().size() + " kertaa.");
-		Trace.out(Trace.Level.INFO, "Rulettia pelattiin yhteensä " + getRuletti().getKaynteja().size() + " kertaa.");
-		Trace.out(Trace.Level.INFO, "Blackjackiä pelattiin yhteensä " + getBlackjack().getKaynteja().size() + " kertaa.");
-		Trace.out(Trace.Level.INFO, "Krapsiä pelattiin yhteensä " + getKraps().getKaynteja().size() + " kertaa.");
-		Trace.out(Trace.Level.INFO, "Asiakkaat nosti voittoja voittojen nostopisteellä yhteensä " + getVoittojenNostopiste().getKaynteja().size() + " kertaa.");;
-		Trace.out(Trace.Level.INFO, "\nKasinolle saapui yhteensä " + asiakasLkm + " asiakasta.");
+		Trace.out(Trace.Level.INFO, "\nPalvelutiski palveli asiakkaita yhteensa " + getPalvelutiski().getKaynteja().size() + " kertaa.");
+		Trace.out(Trace.Level.INFO, "Rulettia pelattiin yhteensa " + getRuletti().getKaynteja().size() + " kertaa.");
+		Trace.out(Trace.Level.INFO, "Blackjackia pelattiin yhteensa " + getBlackjack().getKaynteja().size() + " kertaa.");
+		Trace.out(Trace.Level.INFO, "Krapsia pelattiin yhteensa " + getKraps().getKaynteja().size() + " kertaa.");
+		Trace.out(Trace.Level.INFO, "Asiakkaat nosti voittoja voittojen nostopisteella yhteensa " + getVoittojenNostopiste().getKaynteja().size() + " kertaa.");;
+		Trace.out(Trace.Level.INFO, "\nKasinolle saapui yhteensa " + asiakasLkm + " asiakasta.");
         
 	}
 	
@@ -470,23 +470,23 @@ public class OmaMoottori extends Moottori {
 	public HashMap<String, String> getPalvelutiskinTulosteet() {
 
 		HashMap<String, String> palvelutiskinTulosteet = new HashMap<>();
-		palvelutiskinTulosteet.put("Palveltuja asiakkaita yhteensä", Integer.toString(getPalvelutiski().getPalvellutAsiakkaat()) + " asiakasta");
-		// Tarkistetaan onko keskimääräinen palveluaika kelvollinen
+		palvelutiskinTulosteet.put("Palveltuja asiakkaita yhteensa", Integer.toString(getPalvelutiski().getPalvellutAsiakkaat()) + " asiakasta");
+		// Tarkistetaan onko keskimaarainen palveluaika kelvollinen
 		if (Double.isInfinite(getPalvelutiski().getKeskimaarainenPalveluaika())) {
-			palvelutiskinTulosteet.put("Asiakkaiden keskimääräinen palveluaika", "Ei tiedossa");
+			palvelutiskinTulosteet.put("Asiakkaiden keskimaarainen palveluaika", "Ei tiedossa");
 		} else {
-			palvelutiskinTulosteet.put("Asiakkaiden keskimääräinen palveluaika", String.format("%.02f", getPalvelutiski().getKeskimaarainenPalveluaika()));
+			palvelutiskinTulosteet.put("Asiakkaiden keskimaarainen palveluaika", String.format("%.02f", getPalvelutiski().getKeskimaarainenPalveluaika()));
 		}
-		palvelutiskinTulosteet.put("Keskimääräinen jononpituus", String.format("%.02f", getPalvelutiski().getKeskimaarainenJononpituus(getSimulointiaika())) + " asiakasta");
-		// Tarkistetaan onko keskimääräinen läpimenoaika kelvollinen
+		palvelutiskinTulosteet.put("Keskimaarainen jononpituus", String.format("%.02f", getPalvelutiski().getKeskimaarainenJononpituus(getSimulointiaika())) + " asiakasta");
+		// Tarkistetaan onko keskimaarainen lapimenoaika kelvollinen
 		if (Double.isNaN(getPalvelutiski().getKeskimaarainenLapimenoaika())) {
-			palvelutiskinTulosteet.put("Asiakkaiden keskimääräinen läpimenoaika", "Ei tiedossa");
+			palvelutiskinTulosteet.put("Asiakkaiden keskimaarainen lapimenoaika", "Ei tiedossa");
 		} else {
-			palvelutiskinTulosteet.put("Asiakkaiden keskimääräinen läpimenoaika", String.format("%.02f", getPalvelutiski().getKeskimaarainenLapimenoaika()));
+			palvelutiskinTulosteet.put("Asiakkaiden keskimaarainen lapimenoaika", String.format("%.02f", getPalvelutiski().getKeskimaarainenLapimenoaika()));
 		}
 		palvelutiskinTulosteet.put("Suoritusteho", String.format("%.02f", getPalvelutiski().getSuoritusteho(getSimulointiaika()) * 100) + " %");
 		palvelutiskinTulosteet.put("Aktiiviaika", String.format("%.02f", getPalvelutiski().getAktiiviaika()));
-		palvelutiskinTulosteet.put("Käyttöaste", String.format("%.02f", getPalvelutiski().getKayttoaste(getSimulointiaika()) * 100) + " %");
+		palvelutiskinTulosteet.put("Kayttoaste", String.format("%.02f", getPalvelutiski().getKayttoaste(getSimulointiaika()) * 100) + " %");
 		palvelutiskinTulosteet.put("Asiakkaiden kokonaisoleskeluaika", String.format("%.02f", getPalvelutiski().getKokonaisoleskeluaika()));
 
 		return palvelutiskinTulosteet;
@@ -500,23 +500,23 @@ public class OmaMoottori extends Moottori {
 	public HashMap<String, String> getRuletinTulosteet() {
 
 		HashMap<String, String> ruletinTulosteet = new HashMap<>();
-		ruletinTulosteet.put("Palveltuja asiakkaita yhteensä", Integer.toString(getRuletti().getPalvellutAsiakkaat()) + " asiakasta");
-		// Tarkistetaan onko keskimääräinen palveluaika kelvollinen
+		ruletinTulosteet.put("Palveltuja asiakkaita yhteensa", Integer.toString(getRuletti().getPalvellutAsiakkaat()) + " asiakasta");
+		// Tarkistetaan onko keskimaarainen palveluaika kelvollinen
 		if (Double.isInfinite(getRuletti().getKeskimaarainenPalveluaika())) {
-			ruletinTulosteet.put("Asiakkaiden keskimääräinen palveluaika", "Ei tiedossa");
+			ruletinTulosteet.put("Asiakkaiden keskimaarainen palveluaika", "Ei tiedossa");
 		} else {
-			ruletinTulosteet.put("Asiakkaiden keskimääräinen palveluaika", String.format("%.02f", getRuletti().getKeskimaarainenPalveluaika()));
+			ruletinTulosteet.put("Asiakkaiden keskimaarainen palveluaika", String.format("%.02f", getRuletti().getKeskimaarainenPalveluaika()));
 		}
-		ruletinTulosteet.put("Keskimääräinen jononpituus", String.format("%.02f", getRuletti().getKeskimaarainenJononpituus(getSimulointiaika())) + " asiakasta");
-		// Tarkistetaan onko keskimääräinen läpimenoaika kelvollinen
+		ruletinTulosteet.put("Keskimaarainen jononpituus", String.format("%.02f", getRuletti().getKeskimaarainenJononpituus(getSimulointiaika())) + " asiakasta");
+		// Tarkistetaan onko keskimaarainen lapimenoaika kelvollinen
 		if (Double.isNaN(getRuletti().getKeskimaarainenLapimenoaika())) {
-			ruletinTulosteet.put("Asiakkaiden keskimääräinen läpimenoaika", "Ei tiedossa");
+			ruletinTulosteet.put("Asiakkaiden keskimaarainen lapimenoaika", "Ei tiedossa");
 		} else {
-			ruletinTulosteet.put("Asiakkaiden keskimääräinen läpimenoaika", String.format("%.02f", getRuletti().getKeskimaarainenLapimenoaika()));
+			ruletinTulosteet.put("Asiakkaiden keskimaarainen lapimenoaika", String.format("%.02f", getRuletti().getKeskimaarainenLapimenoaika()));
 		}
 		ruletinTulosteet.put("Suoritusteho", String.format("%.02f", getRuletti().getSuoritusteho(getSimulointiaika()) * 100) + " %");
 		ruletinTulosteet.put("Aktiiviaika", String.format("%.02f", getRuletti().getAktiiviaika()));
-		ruletinTulosteet.put("Käyttöaste", String.format("%.02f", getRuletti().getKayttoaste(getSimulointiaika()) * 100) + " %");
+		ruletinTulosteet.put("Kayttoaste", String.format("%.02f", getRuletti().getKayttoaste(getSimulointiaika()) * 100) + " %");
 		ruletinTulosteet.put("Asiakkaiden kokonaisoleskeluaika", String.format("%.02f", getRuletti().getKokonaisoleskeluaika()));
 
 		return ruletinTulosteet;
@@ -530,23 +530,23 @@ public class OmaMoottori extends Moottori {
 	public HashMap<String, String> getBlackjackinTulosteet() {
 
 		HashMap<String, String> blackjackinTulosteet = new HashMap<>();
-		blackjackinTulosteet.put("Palveltuja asiakkaita yhteensä", Integer.toString(getBlackjack().getPalvellutAsiakkaat()) + " asiakasta");
-		// Tarkistetaan onko keskimääräinen palveluaika kelvollinen
+		blackjackinTulosteet.put("Palveltuja asiakkaita yhteensa", Integer.toString(getBlackjack().getPalvellutAsiakkaat()) + " asiakasta");
+		// Tarkistetaan onko keskimaarainen palveluaika kelvollinen
 		if (Double.isInfinite(getBlackjack().getKeskimaarainenPalveluaika())) {
-			blackjackinTulosteet.put("Asiakkaiden keskimääräinen palveluaika", "Ei tiedossa");
+			blackjackinTulosteet.put("Asiakkaiden keskimaarainen palveluaika", "Ei tiedossa");
 		} else {
-			blackjackinTulosteet.put("Asiakkaiden keskimääräinen palveluaika", String.format("%.02f", getBlackjack().getKeskimaarainenPalveluaika()));
+			blackjackinTulosteet.put("Asiakkaiden keskimaarainen palveluaika", String.format("%.02f", getBlackjack().getKeskimaarainenPalveluaika()));
 		}
-		blackjackinTulosteet.put("Keskimääräinen jononpituus", String.format("%.02f", getBlackjack().getKeskimaarainenJononpituus(getSimulointiaika())) + " asiakasta");
-		// Tarkistetaan onko keskimääräinen läpimenoaika kelvollinen
+		blackjackinTulosteet.put("Keskimaarainen jononpituus", String.format("%.02f", getBlackjack().getKeskimaarainenJononpituus(getSimulointiaika())) + " asiakasta");
+		// Tarkistetaan onko keskimaarainen lapimenoaika kelvollinen
 		if (Double.isNaN(getBlackjack().getKeskimaarainenLapimenoaika())) {
-			blackjackinTulosteet.put("Asiakkaiden keskimääräinen läpimenoaika", "Ei tiedossa");
+			blackjackinTulosteet.put("Asiakkaiden keskimaarainen lapimenoaika", "Ei tiedossa");
 		} else {
-			blackjackinTulosteet.put("Asiakkaiden keskimääräinen läpimenoaika", String.format("%.02f", getBlackjack().getKeskimaarainenLapimenoaika()));
+			blackjackinTulosteet.put("Asiakkaiden keskimaarainen lapimenoaika", String.format("%.02f", getBlackjack().getKeskimaarainenLapimenoaika()));
 		}
 		blackjackinTulosteet.put("Suoritusteho", String.format("%.02f", getBlackjack().getSuoritusteho(getSimulointiaika()) * 100) + " %");
 		blackjackinTulosteet.put("Aktiiviaika", String.format("%.02f", getBlackjack().getAktiiviaika()));
-		blackjackinTulosteet.put("Käyttöaste", String.format("%.02f", getBlackjack().getKayttoaste(getSimulointiaika()) * 100) + " %");
+		blackjackinTulosteet.put("Kayttoaste", String.format("%.02f", getBlackjack().getKayttoaste(getSimulointiaika()) * 100) + " %");
 		blackjackinTulosteet.put("Asiakkaiden kokonaisoleskeluaika", String.format("%.02f", getBlackjack().getKokonaisoleskeluaika()));
 
 		return blackjackinTulosteet;
@@ -560,23 +560,23 @@ public class OmaMoottori extends Moottori {
 	public HashMap<String, String> getKrapsinTulosteet() {
 
 		HashMap<String, String> krapsinTulosteet = new HashMap<>();
-		krapsinTulosteet.put("Palveltuja asiakkaita yhteensä", Integer.toString(getKraps().getPalvellutAsiakkaat()) + " asiakasta");
-		// Tarkistetaan onko keskimääräinen palveluaika kelvollinen
+		krapsinTulosteet.put("Palveltuja asiakkaita yhteensa", Integer.toString(getKraps().getPalvellutAsiakkaat()) + " asiakasta");
+		// Tarkistetaan onko keskimaarainen palveluaika kelvollinen
 		if (Double.isInfinite(getKraps().getKeskimaarainenPalveluaika())) {
-			krapsinTulosteet.put("Asiakkaiden keskimääräinen palveluaika", "Ei tiedossa");
+			krapsinTulosteet.put("Asiakkaiden keskimaarainen palveluaika", "Ei tiedossa");
 		} else {
-			krapsinTulosteet.put("Asiakkaiden keskimääräinen palveluaika", String.format("%.02f", getKraps().getKeskimaarainenPalveluaika()));
+			krapsinTulosteet.put("Asiakkaiden keskimaarainen palveluaika", String.format("%.02f", getKraps().getKeskimaarainenPalveluaika()));
 		}
-		krapsinTulosteet.put("Keskimääräinen jononpituus", String.format("%.02f", getKraps().getKeskimaarainenJononpituus(getSimulointiaika())) + " asiakasta");
-		// Tarkistetaan onko keskimääräinen läpimenoaika kelvollinen
+		krapsinTulosteet.put("Keskimaarainen jononpituus", String.format("%.02f", getKraps().getKeskimaarainenJononpituus(getSimulointiaika())) + " asiakasta");
+		// Tarkistetaan onko keskimaarainen lapimenoaika kelvollinen
 		if (Double.isNaN(getKraps().getKeskimaarainenLapimenoaika())) {
-			krapsinTulosteet.put("Asiakkaiden keskimääräinen läpimenoaika", "Ei tiedossa");
+			krapsinTulosteet.put("Asiakkaiden keskimaarainen lapimenoaika", "Ei tiedossa");
 		} else {
-			krapsinTulosteet.put("Asiakkaiden keskimääräinen läpimenoaika", String.format("%.02f", getKraps().getKeskimaarainenLapimenoaika()));
+			krapsinTulosteet.put("Asiakkaiden keskimaarainen lapimenoaika", String.format("%.02f", getKraps().getKeskimaarainenLapimenoaika()));
 		}
 		krapsinTulosteet.put("Suoritusteho", String.format("%.02f", getKraps().getSuoritusteho(getSimulointiaika()) * 100) + " %");
 		krapsinTulosteet.put("Aktiiviaika", String.format("%.02f", getKraps().getAktiiviaika()));
-		krapsinTulosteet.put("Käyttöaste", String.format("%.02f", getKraps().getKayttoaste(getSimulointiaika()) * 100) + " %");
+		krapsinTulosteet.put("Kayttoaste", String.format("%.02f", getKraps().getKayttoaste(getSimulointiaika()) * 100) + " %");
 		krapsinTulosteet.put("Asiakkaiden kokonaisoleskeluaika", String.format("%.02f", getKraps().getKokonaisoleskeluaika()));
 
 		return krapsinTulosteet;
@@ -590,23 +590,23 @@ public class OmaMoottori extends Moottori {
 	public HashMap<String, String> getVoittojenNostopisteenTulosteet() {
 
 		HashMap<String, String> voittojenNostopisteenTulosteet = new HashMap<>();
-		voittojenNostopisteenTulosteet.put("Palveltuja asiakkaita yhteensä", Integer.toString(getVoittojenNostopiste().getPalvellutAsiakkaat()) + " asiakasta");
-		// Tarkistetaan onko keskimääräinen palveluaika kelvollinen
+		voittojenNostopisteenTulosteet.put("Palveltuja asiakkaita yhteensa", Integer.toString(getVoittojenNostopiste().getPalvellutAsiakkaat()) + " asiakasta");
+		// Tarkistetaan onko keskimaarainen palveluaika kelvollinen
 		if (Double.isInfinite(getVoittojenNostopiste().getKeskimaarainenPalveluaika())) {
-			voittojenNostopisteenTulosteet.put("Asiakkaiden keskimääräinen palveluaika", "Ei tiedossa");
+			voittojenNostopisteenTulosteet.put("Asiakkaiden keskimaarainen palveluaika", "Ei tiedossa");
 		} else {
-			voittojenNostopisteenTulosteet.put("Asiakkaiden keskimääräinen palveluaika", String.format("%.02f", getVoittojenNostopiste().getKeskimaarainenPalveluaika()));
+			voittojenNostopisteenTulosteet.put("Asiakkaiden keskimaarainen palveluaika", String.format("%.02f", getVoittojenNostopiste().getKeskimaarainenPalveluaika()));
 		}
-		voittojenNostopisteenTulosteet.put("Keskimääräinen jononpituus", String.format("%.02f", getVoittojenNostopiste().getKeskimaarainenJononpituus(getSimulointiaika())) + " asiakasta");
-		// Tarkistetaan onko keskimääräinen läpimenoaika kelvollinen
+		voittojenNostopisteenTulosteet.put("Keskimaarainen jononpituus", String.format("%.02f", getVoittojenNostopiste().getKeskimaarainenJononpituus(getSimulointiaika())) + " asiakasta");
+		// Tarkistetaan onko keskimaarainen lapimenoaika kelvollinen
 		if (Double.isNaN(getKraps().getKeskimaarainenLapimenoaika())) {
-			voittojenNostopisteenTulosteet.put("Asiakkaiden keskimääräinen läpimenoaika", "Ei tiedossa");
+			voittojenNostopisteenTulosteet.put("Asiakkaiden keskimaarainen lapimenoaika", "Ei tiedossa");
 		} else {
-			voittojenNostopisteenTulosteet.put("Asiakkaiden keskimääräinen läpimenoaika", String.format("%.02f", getVoittojenNostopiste().getKeskimaarainenLapimenoaika()));
+			voittojenNostopisteenTulosteet.put("Asiakkaiden keskimaarainen lapimenoaika", String.format("%.02f", getVoittojenNostopiste().getKeskimaarainenLapimenoaika()));
 		}
 		voittojenNostopisteenTulosteet.put("Suoritusteho", String.format("%.02f", getVoittojenNostopiste().getSuoritusteho(getSimulointiaika()) * 100) + " %");
 		voittojenNostopisteenTulosteet.put("Aktiiviaika", String.format("%.02f", getVoittojenNostopiste().getAktiiviaika()));
-		voittojenNostopisteenTulosteet.put("Käyttöaste", String.format("%.02f", getVoittojenNostopiste().getKayttoaste(getSimulointiaika()) * 100) + " %");
+		voittojenNostopisteenTulosteet.put("Kayttoaste", String.format("%.02f", getVoittojenNostopiste().getKayttoaste(getSimulointiaika()) * 100) + " %");
 		voittojenNostopisteenTulosteet.put("Asiakkaiden kokonaisoleskeluaika", String.format("%.02f", getVoittojenNostopiste().getKokonaisoleskeluaika()));
 
 		return voittojenNostopisteenTulosteet;

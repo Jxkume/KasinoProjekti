@@ -13,20 +13,20 @@ import simu.framework.Trace;
 import simu.framework.Trace.Level;
 
 /**
- * Luokka SimulaattoriMainille, jossa käynnistetään projektin käyttöliittymä
+ * Luokka SimulaattoriMainille, jossa kaynnistetaan projektin kayttoliittyma
  * 
  * @author Tapio Humaljoki, Valtteri Kuitula, Jhon Rastrojo
  */
 public class SimulaattoriMain extends Application {
 
-    /** Käyttöliittymän pääikkuna */
+    /** Kayttoliittyman paaikkuna */
     private Stage primaryStage;
     
-    /** Käyttöliittymän pohja */
+    /** Kayttoliittyman pohja */
     private BorderPane rootLayout;
 
     /**
-     * Luo käyttöliittymä-säikeen
+     * Luo kayttoliittyma-saikeen
      *
      * @param Stage-olio
      */
@@ -39,7 +39,7 @@ public class SimulaattoriMain extends Application {
     }
     
     /**
-     * Alustaa käyttöliittymän pääikkunan pohja
+     * Alustaa kayttoliittyman paaikkunan pohja
      */
     public void alustaSimulaattorinPaaikkunanPohja() {
         try {
@@ -59,7 +59,7 @@ public class SimulaattoriMain extends Application {
 
 
     /**
-     * Lataa käyttöliittymän pääikkunan käyttäjän nähtäville
+     * Lataa kayttoliittyman paaikkunan kayttajan nahtaville
      */
     public void naytaSimulaattorinPaaikkuna() {
     try {
@@ -73,7 +73,7 @@ public class SimulaattoriMain extends Application {
     }
     
 	/**
-	 * Palauttaa käyttöliittymän pääikkunan
+	 * Palauttaa kayttoliittyman paaikkunan
 	 *
 	 * @return Stage-olio
 	 */
@@ -82,14 +82,14 @@ public class SimulaattoriMain extends Application {
 	}
 
     /**
-     * Käynnistää simulaattorin
+     * Kaynnistaa simulaattorin
      *
      * @param merkkijonolista
      */
     public static void main(String[] args) {
     	// Asetetaan Trace-level
     	Trace.setTraceLevel(Level.INFO);
-    	// Käynnistetään simulaattori
+    	// Kaynnistetaan simulaattori
         launch(args);
     }
     

@@ -72,13 +72,13 @@ public class RulettiPopUpKontrolleri {
 	 */
 	public void naytaTulosteet() {
 		palvelupisteNimi.setText("Yhteenveto ruletista");
-		palvellutAsiakkaat.setText(ruletinTulosteet.get("Palveltuja asiakkaita yhteensä"));
-		keskimaarainenPalveluaika.setText(ruletinTulosteet.get("Asiakkaiden keskimääräinen palveluaika"));
-		keskimaarainenJononpituus.setText(ruletinTulosteet.get("Keskimääräinen jononpituus"));
-		keskimaarainenLapimenoaika.setText(ruletinTulosteet.get("Asiakkaiden keskimääräinen läpimenoaika"));
+		palvellutAsiakkaat.setText(ruletinTulosteet.get("Palveltuja asiakkaita yhteensa"));
+		keskimaarainenPalveluaika.setText(ruletinTulosteet.get("Asiakkaiden keskimaarainen palveluaika"));
+		keskimaarainenJononpituus.setText(ruletinTulosteet.get("Keskimaarainen jononpituus"));
+		keskimaarainenLapimenoaika.setText(ruletinTulosteet.get("Asiakkaiden keskimaarainen lapimenoaika"));
 		suoritusteho.setText(ruletinTulosteet.get("Suoritusteho"));
 		aktiiviaika.setText(ruletinTulosteet.get("Aktiiviaika"));
-		kayttoaste.setText(ruletinTulosteet.get("Käyttöaste"));
+		kayttoaste.setText(ruletinTulosteet.get("Kayttoaste"));
 		kokonaisoleskeluaika.setText(ruletinTulosteet.get("Asiakkaiden kokonaisoleskeluaika"));
 	}
 

@@ -71,14 +71,14 @@ public class VoittojenNostopistePopUpKontrolleri {
 	 * Asettaa kaikki tulosteet pop-up-ikkunan JavaFX-komponentteihin
 	 */
 	public void naytaTulosteet() {
-		palvelupisteNimi.setText("Yhteenveto voittojen nostopisteestä");
-		palvellutAsiakkaat.setText(voittojenNostopisteenTulosteet.get("Palveltuja asiakkaita yhteensä"));
-		keskimaarainenPalveluaika.setText(voittojenNostopisteenTulosteet.get("Asiakkaiden keskimääräinen palveluaika"));
-		keskimaarainenJononpituus.setText(voittojenNostopisteenTulosteet.get("Keskimääräinen jononpituus"));
-		keskimaarainenLapimenoaika.setText(voittojenNostopisteenTulosteet.get("Asiakkaiden keskimääräinen läpimenoaika"));
+		palvelupisteNimi.setText("Yhteenveto voittojen nostopisteesta");
+		palvellutAsiakkaat.setText(voittojenNostopisteenTulosteet.get("Palveltuja asiakkaita yhteensa"));
+		keskimaarainenPalveluaika.setText(voittojenNostopisteenTulosteet.get("Asiakkaiden keskimaarainen palveluaika"));
+		keskimaarainenJononpituus.setText(voittojenNostopisteenTulosteet.get("Keskimaarainen jononpituus"));
+		keskimaarainenLapimenoaika.setText(voittojenNostopisteenTulosteet.get("Asiakkaiden keskimaarainen lapimenoaika"));
 		suoritusteho.setText(voittojenNostopisteenTulosteet.get("Suoritusteho"));
 		aktiiviaika.setText(voittojenNostopisteenTulosteet.get("Aktiiviaika"));
-		kayttoaste.setText(voittojenNostopisteenTulosteet.get("Käyttöaste"));
+		kayttoaste.setText(voittojenNostopisteenTulosteet.get("Kayttoaste"));
 		kokonaisoleskeluaika.setText(voittojenNostopisteenTulosteet.get("Asiakkaiden kokonaisoleskeluaika"));
 	}
 

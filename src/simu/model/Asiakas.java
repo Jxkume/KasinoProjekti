@@ -25,22 +25,22 @@ public class Asiakas {
 	/** Asiakkaan id */
 	private int id;
 	
-	/** Kasinolle saapuneiden asiakkaiden määrä */
+	/** Kasinolle saapuneiden asiakkaiden maara */
 	private static int saapuneetAsiakkaat = 1;
 	
-	/** Kasinolta lähteneiden asiakkaiden määrä */
+	/** Kasinolta lahteneiden asiakkaiden maara */
 	private static int lahteneetAsiakkaat = 0;
 	
-	/** Asiakkaan kasinolla viettämä aika */
+	/** Asiakkaan kasinolla viettama aika */
 	private static double vietettyAika = 0;
 	
-	/** Kaikkien asiakkaiden kasinolla keskimäärin viettämä aika */
+	/** Kaikkien asiakkaiden kasinolla keskimaarin viettama aika */
 	private double keskimaarainenVietettyAika;
 	
-	/** Polettimäärä, jonka asiakas on nostanut palvelutiskiltä */
+	/** Polettimaara, jonka asiakas on nostanut palvelutiskilta */
 	private int alkuperainenPolettimaara = 0;
 	
-	/** Asiakkaan tämänhetkinen polettimäärä */
+	/** Asiakkaan tamanhetkinen polettimaara */
 	private int nykyinenPolettimaara = 0;
 	
 	/**
@@ -54,7 +54,7 @@ public class Asiakas {
 	}
 	
 	/**
-	 * Lisää asiakkaalle poletteja
+	 * Lisaa asiakkaalle poletteja
 	 */
 	public void annaPolettejaPalvelutiskilla() {
 		// Asiakkalle annetaan poletteja 100-1000
@@ -65,18 +65,18 @@ public class Asiakas {
 	}
 	
 	/**
-	 * Lisää asiakkaalle poletteja
+	 * Lisaa asiakkaalle poletteja
 	 *
-	 * @param lisättävien polettien määrä
+	 * @param lisattavien polettien maara
 	 */
 	public void lisaaPoletteja(int polettimaara) {
 		nykyinenPolettimaara += polettimaara;
 	}
 	
 	/**
-	 * Vähentää asiakkaalla olevien polettien määrää
+	 * Vahentaa asiakkaalla olevien polettien maaraa
 	 *
-	 * @param vähennettävien polettien määrä
+	 * @param vahennettavien polettien maara
 	 */
 	public void vahennaPoletteja(int polettimaara) {
 		nykyinenPolettimaara -= polettimaara;
@@ -89,9 +89,9 @@ public class Asiakas {
 		Trace.out(Trace.Level.INFO, "Asiakas " + id + " saapui: " + String.format("%.02f", saapumisaika));
 		Trace.out(Trace.Level.INFO, "Asiakas " + id + " poistui: " + String.format("%.02f", poistumisaika));
 		Trace.out(Trace.Level.INFO, "Asiakas " + id + " viipyi: " + String.format("%.02f", (poistumisaika-saapumisaika)));
-		// Lisätään lähteneiden asiakkaiden määrää
+		// Lisataan lahteneiden asiakkaiden maaraa
 		lahteneetAsiakkaat++;
-		// Lisätään asiakkaiden kasinolla viettämää kokonaisaikaa
+		// Lisataan asiakkaiden kasinolla viettamaa kokonaisaikaa
 		vietettyAika += (poistumisaika-saapumisaika);
 	}
 
@@ -105,7 +105,7 @@ public class Asiakas {
 	}
 	
 	/**
-	 * Palauttaa kasinolle saapuneiden asiakkaiden määrän
+	 * Palauttaa kasinolle saapuneiden asiakkaiden maaran
 	 *
 	 * @return kasinolle saapuneet asiakkaat
 	 */
@@ -125,7 +125,7 @@ public class Asiakas {
 	/**
 	 * Asettaa asiakkaan poistumisajan
 	 *
-	 * @param asiakkaan palvelupisteeltä poistumisen aika
+	 * @param asiakkaan palvelupisteelta poistumisen aika
 	 */
 	public void setPoistumisaika(double poistumisaika) {
 		this.poistumisaika = poistumisaika;
@@ -187,9 +187,9 @@ public class Asiakas {
 	}
 	
 	/**
-	 * Palauttaa asiakkaiden keskimäärin kasinolla viettämän ajan
+	 * Palauttaa asiakkaiden keskimaarin kasinolla viettaman ajan
 	 *
-	 * @return asiakkaiden keskimäärin viettämä aika kasinolla
+	 * @return asiakkaiden keskimaarin viettama aika kasinolla
 	 */
 	public double getKeskimaarainenVietettyAika() {
 		keskimaarainenVietettyAika = vietettyAika / lahteneetAsiakkaat;
@@ -197,18 +197,18 @@ public class Asiakas {
 	}
 	
 	/**
-	 * Palauttaa asiakkaan kasinon palvelutiskiltä nostamien polettien määrän
+	 * Palauttaa asiakkaan kasinon palvelutiskilta nostamien polettien maaran
 	 *
-	 * @return asiakkaan palvelutiskiltä nostamien polettien määrä
+	 * @return asiakkaan palvelutiskilta nostamien polettien maara
 	 */
 	public int getAlkuperainenPolettimaara() {
 		return alkuperainenPolettimaara;
 	}
 	
 	/**
-	 * Palauttaa asiakkaan tämänhetkisen polettimäärän
+	 * Palauttaa asiakkaan tamanhetkisen polettimaaran
 	 *
-	 * @return asiakkaan tämänhetkinen polettimäärä
+	 * @return asiakkaan tamanhetkinen polettimaara
 	 */
 	public int getNykyinenPolettimaara() {
 		return nykyinenPolettimaara;

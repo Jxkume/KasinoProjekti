@@ -6,17 +6,17 @@ import simu.model.Kasino;
 
 //
 /**
- * Luokka KasinoDaolle, jossa päivitetään tietokannassa olevan kasino-taulun arvoja
+ * Luokka KasinoDaolle, jossa paivitetaan tietokannassa olevan kasino-taulun arvoja
  * 
  * @author Tapio Humaljoki, Valtteri Kuitula, Jhon Rastrojo
  */
 public class KasinoDao {
 
 	/**
-	 * Päivittää kasino-taulun talonVoittoEuroina-sarakkeen arvon
+	 * Paivitta kasino-taulun talonVoittoEuroina-sarakkeen arvon
 	 *
 	 * @param Kasino olion
-	 * @return true, jos ehdot täyttyvät
+	 * @return true, jos ehdot tayttyvat
 	 */
 	public boolean updatetalonVoittoEuroina(Kasino kasino) {
     	EntityManager em = MariaDBJPAConnector.getInstance();
@@ -33,10 +33,10 @@ public class KasinoDao {
     }
 	
 	/**
-	 * Päivittää kasino-taulun asiakasLkm-sarakkeen arvon
+	 * Paivitta kasino-taulun asiakasLkm-sarakkeen arvon
 	 *
 	 * @param Kasino-olio
-	 * @return true, jos päivitys onnistuu
+	 * @return true, jos paivitys onnistuu
 	 */
 	public boolean updateAsiakasLKM(Kasino kasino) {
     	EntityManager em = MariaDBJPAConnector.getInstance();
@@ -53,10 +53,10 @@ public class KasinoDao {
     }
 	
 	/**
-	 * Päivittää kasino-taulun kello-sarakkeen arvon
+	 * Paivitta kasino-taulun kello-sarakkeen arvon
 	 *
 	 * @param Kasino-olio
-	 * @return true, jos päivitys onnistuu
+	 * @return true, jos paivitys onnistuu
 	 */
 	public boolean updateKello(Kasino kasino) {
     	EntityManager em = MariaDBJPAConnector.getInstance();
@@ -73,10 +73,10 @@ public class KasinoDao {
     }
 	
 	/**
-	 * Päivittää kasino-taulun keskimaarainenVietettyAika-sarakkeen arvon
+	 * Paivittaa kasino-taulun keskimaarainenVietettyAika-sarakkeen arvon
 	 *
 	 * @param Kasino-olio
-	 * @return true, jos päivitys onnistuu
+	 * @return true, jos paivitys onnistuu
 	 */
 	public boolean updatekeskimaarainenVietettyAika(Kasino kasino) {
     	EntityManager em = MariaDBJPAConnector.getInstance();

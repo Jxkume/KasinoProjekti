@@ -26,14 +26,14 @@ public class Kasino {
 	@Transient
 	Palvelupiste palvelupiste = new Palvelupiste();
 	
-	/** Kasinon tekemä tulos */
+	/** Kasinon tekema tulos */
 	@SuppressWarnings("unused")
 	private int talonVoittoEuroina;
 	
-	/** Kasinoon saapuvien asiakkaiden lukumäärä */
+	/** Kasinoon saapuvien asiakkaiden lukumaara */
 	private int asiakasLKM;
 	
-	/** Kasinon asiakkaiden keskimäärin vietetty aika */
+	/** Kasinon asiakkaiden keskimaarin vietetty aika */
 	private double keskimaarainenVietettyAika;
 	
 	/** Simulaattorin kello */
@@ -55,16 +55,16 @@ public class Kasino {
 	}
 	
 	/**
-	 * Palauttaa kasinon tekemän tuloksen palvelupisteen kautta
+	 * Palauttaa kasinon tekeman tuloksen palvelupisteen kautta
 	 *
-	 * @return kasinon tekemä tulos
+	 * @return kasinon tekema tulos
 	 */
 	public int getTalonVoittoEuroina() {
 		return palvelupiste.getTalonVoittoEuroina();
 	}
 	
 	/**
-	 * Asettaa kasinon tekemän voiton
+	 * Asettaa kasinon tekeman voiton
 	 *
 	 * @param kasinon voittosumma
 	 */
@@ -73,18 +73,18 @@ public class Kasino {
 	}
 	
 	/**
-	 * Asettaa kasinoon saapuneiden asiakkaiden lukumäärän
+	 * Asettaa kasinoon saapuneiden asiakkaiden lukumaaran
 	 *
-	 * @param kasinoon saapuvien asiakkaiden lukumäärä
+	 * @param kasinoon saapuvien asiakkaiden lukumaara
 	 */
 	public void setAsiakasLKM(int asiakasLKM) {
 		this.asiakasLKM = asiakasLKM;
 	}
 	
 	/**
-	 * Palauttaa kasinoon saapuneiden asiakkaiden lukumäärän
+	 * Palauttaa kasinoon saapuneiden asiakkaiden lukumaaran
 	 *
-	 * @return kasinoon saapuvien asiakkaiden lukumäärä
+	 * @return kasinoon saapuvien asiakkaiden lukumaara
 	 */
 	public int getAsiakasLKM() {
 		return asiakasLKM;
@@ -109,18 +109,18 @@ public class Kasino {
 	}
 	
 	/**
-	 * Asettaa asiakkaiden keskimäärin vietetyn ajan kasinolla
+	 * Asettaa asiakkaiden keskimaarin vietetyn ajan kasinolla
 	 *
-	 * @param asiakkaiden keskimäärin vietetty aika kasinolla
+	 * @param asiakkaiden keskimaarin vietetty aika kasinolla
 	 */
 	public void setkeskimaarainenVietettyAika(double keskimaarainenVietettyAika) {
 		this.keskimaarainenVietettyAika = keskimaarainenVietettyAika;
 	}
 	
 	/**
-	 * Palauttaa asiakkaiden keskimäärin vietetyn ajan kasinolla
+	 * Palauttaa asiakkaiden keskimaarin vietetyn ajan kasinolla
 	 *
-	 * @return asiakkaiden keskimäärin vietetty aika kasinolla
+	 * @return asiakkaiden keskimaarin vietetty aika kasinolla
 	 */
 	public double getkeskimaarainenVietettyAika() {
 		return keskimaarainenVietettyAika;

@@ -26,7 +26,7 @@ import view.SimulaattorinPaaikkunaKontrolleri;
 @Table(name="palvelupiste")
 public class Palvelupiste {
 	
-	/** Käyttöliittymän pääikkunan kontrolleri */
+	/** Kayttoliittyman paaikkunan kontrolleri */
 	@Transient
     SimulaattorinPaaikkunaKontrolleri kontrolleri = new SimulaattorinPaaikkunaKontrolleri();
 	
@@ -34,7 +34,7 @@ public class Palvelupiste {
 	@Transient
 	private LinkedList<Asiakas> jono = new LinkedList<Asiakas>();
 	
-	/** Lista, johon tallennetaan palvelupisteen asiakkaiden käyntimäärä */
+	/** Lista, johon tallennetaan palvelupisteen asiakkaiden kayntimaara */
 	@Transient
 	private ArrayList<Asiakas> kaynteja = new ArrayList<>();
 	
@@ -46,7 +46,7 @@ public class Palvelupiste {
 	@Transient
 	private ContinuousGenerator generator;
 	
-	/** Tapahtumalista, johon palvelupisteen tapahtumat lisätään */
+	/** Tapahtumalista, johon palvelupisteen tapahtumat lisataan */
 	@Transient
 	private Tapahtumalista tapahtumalista;
 	
@@ -54,7 +54,7 @@ public class Palvelupiste {
 	@Transient
 	private TapahtumanTyyppi skeduloitavanTapahtumanTyyppi;
 	
-	/** Asiakkaan läpimenoaika palvelupisteellä */
+	/** Asiakkaan lapimenoaika palvelupisteella */
 	@Transient
 	private double lapimenoaika;
 	
@@ -71,15 +71,15 @@ public class Palvelupiste {
     @Column(name="nimi")
 	private String nimi;
 	
-	/** Kasinon tekemä voitto euroina
+	/** Kasinon tekema voitto euroina
 	 * 	1 euro = 1 poletti
 	 */
 	private static int talonVoittoEuroina = 0;
 	
-	/** Palvelupisteen keskimääräinen jononpituus */
+	/** Palvelupisteen keskimaarainen jononpituus */
 	private double keskimaarainenJononpituus;
 	
-	/** Palvelupisteen keskimääräinen jononpituus */
+	/** Palvelupisteen keskimaarainen jononpituus */
 	private double keskimaarainenLapimenoaika;
 	
 	/** Palvelupisteen suoritusteho */
@@ -88,16 +88,16 @@ public class Palvelupiste {
 	/** Palvelupisteen aktiiviaika */
 	private double aktiiviaika;
 	
-	/** Palvelupisteen käyttöaste */
+	/** Palvelupisteen kayttoaste */
 	private double kayttoaste;
 	
-	/** Palvelupisteen keskimääräinen palveluaika */
+	/** Palvelupisteen keskimaarainen palveluaika */
 	private double keskimaarainenPalveluaika;
 	
-	/** Asiakkaiden kokonaisoleskeluaika palvelupisteellä */
+	/** Asiakkaiden kokonaisoleskeluaika palvelupisteella */
 	private double kokonaisoleskeluaika;
 	
-	/** Palvelupisteen palveltujen asiakkaiden määrä */
+	/** Palvelupisteen palveltujen asiakkaiden maara */
 	private int palvellutAsiakkaat;
 
 	/**
@@ -121,7 +121,7 @@ public class Palvelupiste {
 	public Palvelupiste() {}
 	
 	/**
-	 * Lisää asiakkaan palvelupisteen jonoon
+	 * Lisaa asiakkaan palvelupisteen jonoon
 	 *
 	 * @param Asiakas-olio
 	 */
@@ -148,53 +148,53 @@ public class Palvelupiste {
 	 * Poistaa asiakkaan palvelupisteen jonosta
 	 *
 	 * @param Asiakas-olio
-	 * @return jonon ensimmäinen Asiakas-olio
+	 * @return jonon ensimmainen Asiakas-olio
 	 */
 	public Asiakas otaJonosta(Asiakas asiakas) {
 		
 		// Asetetaan asiakkaalle poistumisaika
 		asiakas.setPoistumisaikaJonosta(kello.getAika());
-		// Lasketaan kyseisen asiakkaan läpimenoaika
+		// Lasketaan kyseisen asiakkaan lapimenoaika
 		laskeLapimenoaika(asiakas);
-		// Päivitetään palvelupisteen kokonaisoleskeluaikaa
+		// Paivitetaan palvelupisteen kokonaisoleskeluaikaa
 		laskeKokonaisoleskeluaika();
-		// Lisätään palveltujen asiakkaiden määrää
+		// Lisataan palveltujen asiakkaiden maaraa
 		palvellutAsiakkaat++;
-		// Lisätään asiakkaan käynti listaan
+		// Lisataan asiakkaan kaynti listaan
 		kaynteja.add(asiakas);
 		
 		if (nimi.equals("Palvelutiski")) {
 			Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " poistuu palvelutiskin jonosta.");
-			Trace.out(Trace.Level.INFO, "Asiakkaalla " + asiakas.getId() + " poletteja yhteensä " + asiakas.getNykyinenPolettimaara() + ".");
-			Trace.out(Trace.Level.INFO, nimi + " palvellut yhteensä " + palvellutAsiakkaat + " asiakasta.");
+			Trace.out(Trace.Level.INFO, "Asiakkaalla " + asiakas.getId() + " poletteja yhteensa " + asiakas.getNykyinenPolettimaara() + ".");
+			Trace.out(Trace.Level.INFO, nimi + " palvellut yhteensa " + palvellutAsiakkaat + " asiakasta.");
 		} else if (nimi.equals("Ruletti")) {
 			Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " poistuu ruletin jonosta.");
-			Trace.out(Trace.Level.INFO, nimi + " palvellut yhteensä " + palvellutAsiakkaat + " asiakasta.");
+			Trace.out(Trace.Level.INFO, nimi + " palvellut yhteensa " + palvellutAsiakkaat + " asiakasta.");
 		} else if (nimi.equals("Blackjack")) {
 			Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " poistuu Blackjackin jonosta.");
-			Trace.out(Trace.Level.INFO, nimi + " palvellut yhteensä " + palvellutAsiakkaat + " asiakasta.");
+			Trace.out(Trace.Level.INFO, nimi + " palvellut yhteensa " + palvellutAsiakkaat + " asiakasta.");
 		} else if (nimi.equals("Kraps")) {
 			Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " poistuu Krapsin jonosta.");
-			Trace.out(Trace.Level.INFO, nimi + " palvellut yhteensä " + palvellutAsiakkaat + " asiakasta.");
+			Trace.out(Trace.Level.INFO, nimi + " palvellut yhteensa " + palvellutAsiakkaat + " asiakasta.");
 		} else if (nimi.equals("Voittojen nostopiste")) {
 			Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " poistuu voittojen nostopisteen jonosta.");
-			Trace.out(Trace.Level.INFO, nimi + " palvellut yhteensä " + palvellutAsiakkaat + " asiakasta.");
+			Trace.out(Trace.Level.INFO, nimi + " palvellut yhteensa " + palvellutAsiakkaat + " asiakasta.");
 			if (asiakas.getNykyinenPolettimaara() > asiakas.getAlkuperainenPolettimaara()) {
-				// Vähennetään asiakkaan voittama polettimäärä kasinon tuloksesta
+				// Vahennetaan asiakkaan voittama polettimaara kasinon tuloksesta
 				talonVoittoEuroina -= (asiakas.getNykyinenPolettimaara() - asiakas.getAlkuperainenPolettimaara());
-				Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " voitti poletteja kasinolla yhteensä " + (asiakas.getNykyinenPolettimaara() - asiakas.getAlkuperainenPolettimaara()) + ".");
+				Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " voitti poletteja kasinolla yhteensa " + (asiakas.getNykyinenPolettimaara() - asiakas.getAlkuperainenPolettimaara()) + ".");
 			} else if (asiakas.getNykyinenPolettimaara() < asiakas.getAlkuperainenPolettimaara()) {
-				// Lisätään asiakkaan häviämä polettimäärä kasinon tulokseen
+				// Lisataan asiakkaan haviama polettimaara kasinon tulokseen
 				talonVoittoEuroina += (asiakas.getAlkuperainenPolettimaara() - asiakas.getNykyinenPolettimaara());
-				Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " hävisi poletteja kasinolla yhteensä " + (asiakas.getAlkuperainenPolettimaara() - asiakas.getNykyinenPolettimaara()) + ".");
+				Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " havisi poletteja kasinolla yhteensa " + (asiakas.getAlkuperainenPolettimaara() - asiakas.getNykyinenPolettimaara()) + ".");
 			} else {
-				Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " ei voittanut tai hävinnyt poletteja kasinolla.");
+				Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " ei voittanut tai havinnyt poletteja kasinolla.");
 			}
 			// Tulostetaan kasinon voitot
 			if (talonVoittoEuroina > 0) {
-				Trace.out(Trace.Level.INFO, "Kasino on tehnyt voittoa tähän mennessä yhteensä " + talonVoittoEuroina + " euroa.");
+				Trace.out(Trace.Level.INFO, "Kasino on tehnyt voittoa tahan mennessa yhteensa " + talonVoittoEuroina + " euroa.");
 			} else {
-				Trace.out(Trace.Level.INFO, "Kasino on tehnyt liiketappiota tähän mennessä yhteensä " + (talonVoittoEuroina * -1) + " euroa.");
+				Trace.out(Trace.Level.INFO, "Kasino on tehnyt liiketappiota tahan mennessa yhteensa " + (talonVoittoEuroina * -1) + " euroa.");
 			}
 		}
 		varattu = false;
@@ -202,14 +202,14 @@ public class Palvelupiste {
 	}
 	
 	/**
-	 * Aloittaa palvelun palvelupisteen jonon ensimmäiselle asiakkaalle
+	 * Aloittaa palvelun palvelupisteen jonon ensimmaiselle asiakkaalle
 	 */
 	public void aloitaPalvelu() {
 		varattu = true;
 		double palveluaika = generator.sample();
-		// Lisätään palvelupisteen aktiiviaikaan arvottu palveluaika
+		// Lisataan palvelupisteen aktiiviaikaan arvottu palveluaika
 		aktiiviaika += palveluaika;
-		// Lisätään tapahtumalistaan uusi tapahtuma
+		// Lisataan tapahtumalistaan uusi tapahtuma
 		tapahtumalista.lisaa(new Tapahtuma(skeduloitavanTapahtumanTyyppi, Kello.getInstance().getAika()+palveluaika));
 	}
 	
@@ -220,7 +220,7 @@ public class Palvelupiste {
 	 * @return pelimaksu
 	 */
 	public int arvotaanPelimaksu(Asiakas asiakas) {
-		// Arvotaan pelin maksu 50-100 polettia ottaen huomioon asiakkaan polettimäärä
+		// Arvotaan pelin maksu 50-100 polettia ottaen huomioon asiakkaan polettimaara
 		int maksimi;
 		if (asiakas.getNykyinenPolettimaara() < 100) {
 			maksimi = asiakas.getNykyinenPolettimaara() / 10;
@@ -232,14 +232,14 @@ public class Palvelupiste {
 	}
 	
 	/**
-	 * Tarkistaa voittiko asiakas palvelupisteellä (jos kyseessä on jokin kasinon peleistä)
+	 * Tarkistaa voittiko asiakas palvelupisteella (jos kyseessa on jokin kasinon peleista)
 	 *
 	 * @param Asiakas-olio
 	 * @return true, jos asiakas voittaa
 	 */
 	public boolean voittikoAsiakas(Asiakas asiakas) {
 			
-			// Arvotaan luku väliltä 1-100
+			// Arvotaan luku valilta 1-100
 			int todennakoisyysVoittoon = new Random().nextInt(100) + 1;
 			// Arvotaan pelimaksu asiakkaalle
 			int polettimaara = arvotaanPelimaksu(asiakas);
@@ -251,45 +251,45 @@ public class Palvelupiste {
 						// Voittosumma on 50-100 polettia.
 						Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " voitti ruletissa " + polettimaara + " polettia!");
 						asiakas.lisaaPoletteja(polettimaara);
-						Trace.out(Trace.Level.INFO, "Asiakkaalla " + asiakas.getId() + " poletteja yhteensä " + asiakas.getNykyinenPolettimaara() + ".");
+						Trace.out(Trace.Level.INFO, "Asiakkaalla " + asiakas.getId() + " poletteja yhteensa " + asiakas.getNykyinenPolettimaara() + ".");
 						return true;
 					} else { 
-						Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " hävisi pelin.");
-						// Asiakas häviää 50-100 polettia.
+						Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " havisi pelin.");
+						// Asiakas haviaa 50-100 polettia.
 						asiakas.vahennaPoletteja(polettimaara);
-						Trace.out(Trace.Level.INFO, "Asiakkaalla " + asiakas.getId() + " poletteja yhteensä " + asiakas.getNykyinenPolettimaara() + ".");
+						Trace.out(Trace.Level.INFO, "Asiakkaalla " + asiakas.getId() + " poletteja yhteensa " + asiakas.getNykyinenPolettimaara() + ".");
 						return false;
 					}
 					
 				case "Blackjack":
 					if (todennakoisyysVoittoon <= kontrolleri.getBlackjackinVoittotodennakoisyys()) {
 						// Voittosumma on 50-100 polettia.
-						Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " voitti Blackjackissä " + polettimaara + " polettia!");
+						Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " voitti Blackjackissa " + polettimaara + " polettia!");
 						asiakas.lisaaPoletteja(polettimaara);
-						Trace.out(Trace.Level.INFO, "Asiakkaalla " + asiakas.getId() + " poletteja yhteensä " + asiakas.getNykyinenPolettimaara() + ".");
+						Trace.out(Trace.Level.INFO, "Asiakkaalla " + asiakas.getId() + " poletteja yhteensa " + asiakas.getNykyinenPolettimaara() + ".");
 						return true;
 					} else {
-						Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " hävisi pelin.");
-						// Asiakas häviää 50-100 polettia.
+						Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " havisi pelin.");
+						// Asiakas haviaa 50-100 polettia.
 						asiakas.vahennaPoletteja(polettimaara);
-						Trace.out(Trace.Level.INFO, "Asiakkaalla " + asiakas.getId() + " poletteja yhteensä " + asiakas.getNykyinenPolettimaara() + ".");
+						Trace.out(Trace.Level.INFO, "Asiakkaalla " + asiakas.getId() + " poletteja yhteensa " + asiakas.getNykyinenPolettimaara() + ".");
 						return false;
 					}
 					
 				case "Kraps":
-					// Krapsissa on noin 50% mahdollisuus voittoon ja noin 50% mahdollisuus häviöön (pyöreästi)
+					// Krapsissa on noin 50% mahdollisuus voittoon ja noin 50% mahdollisuus havioon (pyoreasti)
 					Kraps.kahdenNopanSumma();
 					if (Kraps.voittaako()) {
 						// Voittosumma on 50-100 polettia.
-						Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " voitti Krapsissä " + polettimaara + " polettia!");
+						Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " voitti Krapsissa " + polettimaara + " polettia!");
 						asiakas.lisaaPoletteja(polettimaara);
-						Trace.out(Trace.Level.INFO, "Asiakkaalla " + asiakas.getId() + " poletteja yhteensä " + asiakas.getNykyinenPolettimaara() + ".");
+						Trace.out(Trace.Level.INFO, "Asiakkaalla " + asiakas.getId() + " poletteja yhteensa " + asiakas.getNykyinenPolettimaara() + ".");
 						return true;
 					} else {
-						Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " hävisi pelin.");
-						// Asiakas häviää 50-100 polettia.
+						Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " havisi pelin.");
+						// Asiakas haviaa 50-100 polettia.
 						asiakas.vahennaPoletteja(polettimaara);
-						Trace.out(Trace.Level.INFO, "Asiakkaalla " + asiakas.getId() + " poletteja yhteensä " + asiakas.getNykyinenPolettimaara() + ".");
+						Trace.out(Trace.Level.INFO, "Asiakkaalla " + asiakas.getId() + " poletteja yhteensa " + asiakas.getNykyinenPolettimaara() + ".");
 						return false;
 					}
 			}
@@ -297,7 +297,7 @@ public class Palvelupiste {
 		}
 	
 	/**
-	 * Pitää asiakkaan palvelupisteen jonon ensimmäisenä, jotta asiakas voi pelata uudestaan
+	 * Pitaa asiakkaan palvelupisteen jonon ensimmaisena, jotta asiakas voi pelata uudestaan
 	 *
 	 * @param Asiakas-olio
 	 */
@@ -307,9 +307,9 @@ public class Palvelupiste {
 	}
 	
 	/**
-	 * Palauttaa merkkijonoesityksen palvelupisteen jonon asiakkaiden id:stä ottaen huomioon palvelupisteen nimen
+	 * Palauttaa merkkijonoesityksen palvelupisteen jonon asiakkaiden id:sta ottaen huomioon palvelupisteen nimen
 	 *
-	 * @return merkkijonoesitys palvelupisteen jonon asiakkaiden id:stä
+	 * @return merkkijonoesitys palvelupisteen jonon asiakkaiden id:sta
 	 */
 	public String toString() {
 
@@ -354,7 +354,7 @@ public class Palvelupiste {
 	}
 	
 	/**
-	 * Palauttaa ArrayListin Asiakas-olioita asiakkaiden käyntikertojen selvittämiseksi
+	 * Palauttaa ArrayListin Asiakas-olioita asiakkaiden kayntikertojen selvittamiseksi
 	 *
 	 * @return ArrayList Asiakas-olioita
 	 */
@@ -363,19 +363,19 @@ public class Palvelupiste {
 	}
 	
 	/**
-	 * Asettaa palvelupisteen käyttöasteen
+	 * Asettaa palvelupisteen kayttoasteen
 	 *
-	 * @param palvelupisteen käyttöaste
+	 * @param palvelupisteen kayttoaste
 	 */
 	public void setKayttoaste(double kayttoaste) {
 		this.kayttoaste = kayttoaste;
 	}
 	
 	/**
-	 * Laskee palvelupisteen käyttöasteen ja palauttaa sen
+	 * Laskee palvelupisteen kayttoasteen ja palauttaa sen
 	 *
 	 * @param simulaattorin simulointiaika
-	 * @return palvelupisteen käyttöaste
+	 * @return palvelupisteen kayttoaste
 	 */
 	public double getKayttoaste(double simulointiaika) {
 		kayttoaste = aktiiviaika / simulointiaika;
@@ -403,18 +403,18 @@ public class Palvelupiste {
 	}
 	
 	/**
-	 * Asettaa palvelupisteen keskimääräisen palveluajan
+	 * Asettaa palvelupisteen keskimaaraisen palveluajan
 	 *
-	 * @param palvelupisteen keskimääräinen palveluaika
+	 * @param palvelupisteen keskimaarainen palveluaika
 	 */
 	public void setKeskimaarainenPalveluaika(double keskimaarainenPalveluaika) {
 		this.keskimaarainenPalveluaika = keskimaarainenPalveluaika;
 	}
 	
 	/**
-	 * Laskee palvelupisteen keskimääräisen palveluajan ja palauttaa sen
+	 * Laskee palvelupisteen keskimaaraisen palveluajan ja palauttaa sen
 	 *
-	 * @return palvelupisteen keskimääräinen palveluaika
+	 * @return palvelupisteen keskimaarainen palveluaika
 	 */
 	public double getKeskimaarainenPalveluaika() {
 		keskimaarainenPalveluaika = aktiiviaika / palvellutAsiakkaat;
@@ -438,7 +438,7 @@ public class Palvelupiste {
 	}
 	
 	/**
-	 * Asettaa simulaattorin simulointiajan, jotta palvelupisteellä on se tiedossa
+	 * Asettaa simulaattorin simulointiajan, jotta palvelupisteella on se tiedossa
 	 *
 	 * @param simulaattorin simulointiaika
 	 */
@@ -519,17 +519,17 @@ public class Palvelupiste {
 	}
 	
 	/**
-	 * Palauttaa asiakkaan läpimenoajan
+	 * Palauttaa asiakkaan lapimenoajan
 	 *
 	 * @param Asiakas-olio
-	 * @return asiakkaan läpimenoaika
+	 * @return asiakkaan lapimenoaika
 	 */
 	public double getLapimenoaika(Asiakas asiakas) {
 		return lapimenoaika;
 	}
 	
 	/**
-	 * Laskee palvelupisteen keskimääräisen
+	 * Laskee palvelupisteen keskimaaraisen
 	 *
 	 * @return the keskimaarainen lapimenoaika
 	 */
@@ -539,19 +539,19 @@ public class Palvelupiste {
 	}
 	
 	/**
-	 * Asettaa palvelupisteen asiakkaiden keskimääräisen läpimenoajan
+	 * Asettaa palvelupisteen asiakkaiden keskimaaraisen lapimenoajan
 	 *
-	 * @param palvelupisteen asiakkaiden keskimääräinen läpimenoaika
+	 * @param palvelupisteen asiakkaiden keskimaarainen lapimenoaika
 	 */
 	public void setKeskimaarainenLapimenoaika(double keskimaarainenLapimenoaika) {
 		this.keskimaarainenLapimenoaika = keskimaarainenLapimenoaika;
 	}
 	
 	/**
-	 * Laskee ja palauttaa palvelupisteen keskimääräisen jononpituuden
+	 * Laskee ja palauttaa palvelupisteen keskimaaraisen jononpituuden
 	 *
 	 * @param simulaattorin simulointiaika
-	 * @return palvelupisteen keskimääräinen jononpituus
+	 * @return palvelupisteen keskimaarainen jononpituus
 	 */
 	public double getKeskimaarainenJononpituus(double simulointiaika) {
 		keskimaarainenJononpituus = kokonaisoleskeluaika / simulointiaika;
@@ -559,9 +559,9 @@ public class Palvelupiste {
 	}
 	
 	/**
-	 * Asettaa palvelupisteen keskimääräisen jononpituuden
+	 * Asettaa palvelupisteen keskimaaraisen jononpituuden
 	 *
-	 * @param palvelupisteen keskimääräinen jononpituus
+	 * @param palvelupisteen keskimaarainen jononpituus
 	 */
 	public void setKeskimaarainenJononpituus(double keskimaarainenJononpituus) {
 		this.keskimaarainenJononpituus = keskimaarainenJononpituus;
@@ -595,18 +595,18 @@ public class Palvelupiste {
 	}
 	
 	/**
-	 * Palauttaa palvelupisteen jonon ensimmäisen asiakkaan
+	 * Palauttaa palvelupisteen jonon ensimmaisen asiakkaan
 	 *
-	 * @return palvelupisteen jonon ensimmäinen asiakas
+	 * @return palvelupisteen jonon ensimmainen asiakas
 	 */
 	public Asiakas getJononEnsimmainen() {
 		return jono.getFirst();
 	}
 
 	/**
-	 * Palauttaa kasinon tekemän voiton
+	 * Palauttaa kasinon tekeman voiton
 	 *
-	 * @return kasinon tekemä voitto
+	 * @return kasinon tekema voitto
 	 */
 	public int getTalonVoittoEuroina() {
 		return talonVoittoEuroina;

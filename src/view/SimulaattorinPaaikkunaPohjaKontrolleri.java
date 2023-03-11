@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 public class SimulaattorinPaaikkunaPohjaKontrolleri {
 
     /**
-     * Näyttää Prosessikaavio-pop-up-ikkunan käyttöliittymässä
+     * Nayttaa Prosessikaavio-pop-up-ikkunan kayttoliittymassa
      *
      * @param ActionEvent
      */

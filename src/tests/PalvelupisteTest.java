@@ -57,15 +57,15 @@ public class PalvelupisteTest {
 	public void testGetSuoritusteho() {
 		palvelupiste.setPalvellutAsiakkaat(10);
 		double suoritusteho = palvelupiste.getSuoritusteho(25.0);
-		assertEquals(0.4, suoritusteho, "Palvelupisteen suoritusteho lasketaan väärin.");
+		assertEquals(0.4, suoritusteho, "Palvelupisteen suoritusteho lasketaan vaarin.");
 	}
 	
 	/**
-	 * Laskee yksittäisen asiakkaan läpimenoajan palvelupisteellä
-	 * @result Läpimenoaika on 8.2
+	 * Laskee yksittaisen asiakkaan lapimenoajan palvelupisteella
+	 * @result Lapimenoaika on 8.2
 	 */
 	@Test
-	@DisplayName("getLapimenoaika(): Testaa lasketaanko asiakkaan läpimenoaika oikein.")
+	@DisplayName("getLapimenoaika(): Testaa lasketaanko asiakkaan lapimenoaika oikein.")
 	public void testGetLapimenoaika() {
 		Trace.setTraceLevel(Level.INFO);
 		Asiakas asiakas = new Asiakas();
@@ -75,7 +75,7 @@ public class PalvelupisteTest {
 		palvelupiste.otaJonosta(asiakas);
 		palvelupiste.laskeLapimenoaika(asiakas);
 		palvelupiste.getLapimenoaika(asiakas);
-		assertEquals(8.2, palvelupiste.getLapimenoaika(asiakas), "Asiakkaan läpimenoaika lasketaan väärin.");
+		assertEquals(8.2, palvelupiste.getLapimenoaika(asiakas), "Asiakkaan lapimenoaika lasketaan vaarin.");
 	}
 
 	/**
@@ -83,11 +83,11 @@ public class PalvelupisteTest {
 	 * @result Pelin hinta on maksimissaan 70
 	 */
 	@Test
-	@DisplayName("arvotaanPelimaksu(): Testaa, että peli voi maksaa enintään yhtä paljon kuin asiakkaan nykyinen polettimäärä")
+	@DisplayName("arvotaanPelimaksu(): Testaa, etta peli voi maksaa enintaan yhta paljon kuin asiakkaan nykyinen polettimaara")
 	public void testArvotaanPelimaksu() {
 		Trace.setTraceLevel(Level.INFO);
 		Asiakas asiakas = new Asiakas();
-		// Asiakkaalle annetaan 70 polettia, eli peli ei voi maksaa enempää kuin 70 polettia
+		// Asiakkaalle annetaan 70 polettia, eli peli ei voi maksaa enempaa kuin 70 polettia
 		asiakas.lisaaPoletteja(70);
 		int pelimaksu = palvelupiste.arvotaanPelimaksu(asiakas);
 		Assert.assertTrue(pelimaksu <= 70);
@@ -96,19 +96,19 @@ public class PalvelupisteTest {
 	
 	/**
 	 * Tulostaa palvelupisteen jonossa olevat asiakkaat
-	 * @result Palvelupiste on oikein ja jonossa on oikea määrä asiakkaita
+	 * @result Palvelupiste on oikein ja jonossa on oikea maara asiakkaita
 	 */
 	@Test
-	@DisplayName("toString(): Testaa tulostetaanko asiakkaat oikealta palvelupisteeltä.")
+	@DisplayName("toString(): Testaa tulostetaanko asiakkaat oikealta palvelupisteelta.")
 	public void testToString() {
-		// Trace-level täytyy asettaa, sillä sitä kutsutaan asiakkaan konstruktorissa
+		// Trace-level taytyy asettaa, silla sita kutsutaan asiakkaan konstruktorissa
 		Trace.setTraceLevel(Level.INFO);
 		// Luodaan 5 asiakasta ja laitetaan ne palvelupisteen jonoon
 		for (int i = 0; i < 5; i++) {
 			Asiakas asiakas = new Asiakas();
 			palvelupiste.lisaaJonoon(asiakas);
 		}
-		assertEquals("Asiakkaat ruletin jonossa: 3, 4, 5, 6, 7.", palvelupiste.toString(), "Tulostettiin väärä palvelupiste.");
+		assertEquals("Asiakkaat ruletin jonossa: 3, 4, 5, 6, 7.", palvelupiste.toString(), "Tulostettiin vaara palvelupiste.");
 	}
 
 }

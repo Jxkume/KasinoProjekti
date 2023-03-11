@@ -71,14 +71,14 @@ public class PalvelutiskiPopUpKontrolleri {
 	 * Asettaa kaikki tulosteet pop-up-ikkunan JavaFX-komponentteihin
 	 */
 	public void naytaTulosteet() {
-		palvelupisteNimi.setText("Yhteenveto palvelutiskistä");
-		palvellutAsiakkaat.setText(palvelutiskinTulosteet.get("Palveltuja asiakkaita yhteensä"));
-		keskimaarainenPalveluaika.setText(palvelutiskinTulosteet.get("Asiakkaiden keskimääräinen palveluaika"));
-		keskimaarainenJononpituus.setText(palvelutiskinTulosteet.get("Keskimääräinen jononpituus"));
-		keskimaarainenLapimenoaika.setText(palvelutiskinTulosteet.get("Asiakkaiden keskimääräinen läpimenoaika"));
+		palvelupisteNimi.setText("Yhteenveto palvelutiskista");
+		palvellutAsiakkaat.setText(palvelutiskinTulosteet.get("Palveltuja asiakkaita yhteensa"));
+		keskimaarainenPalveluaika.setText(palvelutiskinTulosteet.get("Asiakkaiden keskimaarainen palveluaika"));
+		keskimaarainenJononpituus.setText(palvelutiskinTulosteet.get("Keskimaarainen jononpituus"));
+		keskimaarainenLapimenoaika.setText(palvelutiskinTulosteet.get("Asiakkaiden keskimaarainen lapimenoaika"));
 		suoritusteho.setText(palvelutiskinTulosteet.get("Suoritusteho"));
 		aktiiviaika.setText(palvelutiskinTulosteet.get("Aktiiviaika"));
-		kayttoaste.setText(palvelutiskinTulosteet.get("Käyttöaste"));
+		kayttoaste.setText(palvelutiskinTulosteet.get("Kayttoaste"));
 		kokonaisoleskeluaika.setText(palvelutiskinTulosteet.get("Asiakkaiden kokonaisoleskeluaika"));
 	}
 

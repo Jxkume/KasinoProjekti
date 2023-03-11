@@ -71,14 +71,14 @@ public class KrapsPopUpKontrolleri {
 	 * Asettaa kaikki tulosteet pop-up-ikkunan JavaFX-komponentteihin
 	 */
 	public void naytaTulosteet() {
-		palvelupisteNimi.setText("Yhteenveto Krapsistä");
-		palvellutAsiakkaat.setText(krapsinTulosteet.get("Palveltuja asiakkaita yhteensä"));
-		keskimaarainenPalveluaika.setText(krapsinTulosteet.get("Asiakkaiden keskimääräinen palveluaika"));
-		keskimaarainenJononpituus.setText(krapsinTulosteet.get("Keskimääräinen jononpituus"));
-		keskimaarainenLapimenoaika.setText(krapsinTulosteet.get("Asiakkaiden keskimääräinen läpimenoaika"));
+		palvelupisteNimi.setText("Yhteenveto Krapsista");
+		palvellutAsiakkaat.setText(krapsinTulosteet.get("Palveltuja asiakkaita yhteensa"));
+		keskimaarainenPalveluaika.setText(krapsinTulosteet.get("Asiakkaiden keskimaarainen palveluaika"));
+		keskimaarainenJononpituus.setText(krapsinTulosteet.get("Keskimaarainen jononpituus"));
+		keskimaarainenLapimenoaika.setText(krapsinTulosteet.get("Asiakkaiden keskimaarainen lapimenoaika"));
 		suoritusteho.setText(krapsinTulosteet.get("Suoritusteho"));
 		aktiiviaika.setText(krapsinTulosteet.get("Aktiiviaika"));
-		kayttoaste.setText(krapsinTulosteet.get("Käyttöaste"));
+		kayttoaste.setText(krapsinTulosteet.get("Kayttoaste"));
 		kokonaisoleskeluaika.setText(krapsinTulosteet.get("Asiakkaiden kokonaisoleskeluaika"));
 	}
 
