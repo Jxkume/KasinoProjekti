@@ -13,7 +13,7 @@ import simu.model.Kasino;
 public class KasinoDao {
 
 	/**
-	 * Paivitta kasino-taulun talonVoittoEuroina-sarakkeen arvon
+	 * Paivittaa kasino-taulun talonVoittoEuroina-sarakkeen arvon
 	 *
 	 * @param Kasino olion
 	 * @return true, jos ehdot tayttyvat
@@ -33,7 +33,7 @@ public class KasinoDao {
     }
 	
 	/**
-	 * Paivitta kasino-taulun asiakasLkm-sarakkeen arvon
+	 * Paivittaa kasino-taulun asiakasLkm-sarakkeen arvon
 	 *
 	 * @param Kasino-olio
 	 * @return true, jos paivitys onnistuu
@@ -53,7 +53,7 @@ public class KasinoDao {
     }
 	
 	/**
-	 * Paivitta kasino-taulun kello-sarakkeen arvon
+	 * Paivittaa kasino-taulun kello-sarakkeen arvon
 	 *
 	 * @param Kasino-olio
 	 * @return true, jos paivitys onnistuu

@@ -5,7 +5,7 @@ import jakarta.persistence.EntityManager;
 import simu.model.Palvelupiste;
 
 /**
- * Luokka PalvelupisteDaolle, jossa paivitetan tietokannassa olevan palvelupiste-taulun arvoja
+ * Luokka PalvelupisteDaolle, jossa paivitetaan tietokannassa olevan palvelupiste-taulun arvoja
  * 
  * @author Tapio Humaljoki, Valtteri Kuitula, Jhon Rastrojo
  */

@@ -44,7 +44,7 @@ public class Asiakas {
 	private int nykyinenPolettimaara = 0;
 	
 	/**
-	 * Asiakkaan kostruktori
+	 * Asiakkaan kostruktori.
 	 * Tulostaa asiakkaan saapumisen konsoliin 
 	 */
 	public Asiakas() {
