@@ -1,25 +1,25 @@
 package simu.model;
 
-// 
 /**
- * Luokka jossa toteutetaan krapsin logiikka, eli miten krapsin peli toimii oikeassa elämässä
+ * Luokka Krapsille, jossa toteutetaan Kraps-pelin logiikka eli miten Kraps toimii reaalimaailmassa
  * 
  * @author Tapio Humaljoki, Valtteri Kuitula, Jhon Rastrojo
  */
 public class Kraps {
 	
 	/**
-	 * Arvotaan random luvun 0-n.
+	 * Arpoo satunnaisluvun
 	 *
-	 * @param luku n joka määrittää arvotun luvun välin päättymispiste
-	 * @return arvotun luvun
+	 * @param Integer-luku, joka määrittää arvotun luvun maksimiarvon (-1)
+	 * @return arvottu Integer-luku
 	 */
 	public static int randomLuku(int n) {
 		return (int) (Math.random() * n);
 	}
 	
 	/**
-	 * Arpoo kaksi lukua jonka jälkeen summataan ne
+	 * Palauttaa kahden arvotun luvun summan
+	 * Arpoo kaksi lukua väliltä 1-6
 	 *
 	 * @return arvottujen lukujen summa
 	 */
@@ -31,11 +31,12 @@ public class Kraps {
 	}
 	
 	/**
-	 * Metodi jolla tarkistetaan ja määritetään milloin asiakas voittaa
+	 * Tarkistaa milloin asiakas voittaa
 	 *
-	 * @return true silloin kun asiakas määritetään voittajaksi
+	 * @return true, jos asiakas määritetään voittajaksi
 	 */
 	public static boolean voittaako() {
+		
 		int ekaHeitto = kahdenNopanSumma();
 		if (ekaHeitto == 7 || ekaHeitto == 11) {
 			return true;
@@ -53,7 +54,6 @@ public class Kraps {
 				return true;
 			}
 		}
-		
 	}
 	
 }

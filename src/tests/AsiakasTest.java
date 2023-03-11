@@ -15,7 +15,7 @@ import simu.model.Asiakas;
 
 
 /**
- * Asiakkaita-luokan metodeita testaava luokka
+ * Luokka Asiakas-luokan metodien testaukseen
  */
 public class AsiakasTest {
 
@@ -24,7 +24,7 @@ public class AsiakasTest {
 	
 	/**
 	 * Antaa asiakkaalle poletteja
-	 * @result Asiakas saa vähintaan 100, ja enintään 1000 polettia
+	 * @result Asiakas saa vähintään 100, ja enintään 1000 polettia
 	 */
 	@Test
 	@DisplayName("annaPolettejaPalvelutiskilla(): Testaa onko asiakkaan saama polettimäärä vähintään 100 ja enintään 1000.")
@@ -39,7 +39,7 @@ public class AsiakasTest {
 	
 	/**
 	 * Lisää asiakkaalle poletteja
-	 * @result Asiakkaan polettimäärä on 100
+	 * @result Asiakkaalle lisätään 100 polettia
 	 *
 	 */
 	@Test
@@ -52,7 +52,7 @@ public class AsiakasTest {
 	}
 	
 	/**
-	 * Asiakkaalle asetetaan saapumisaika
+	 * Asettaa asiakkaalle saapumisajan
 	 * @result Asiakkaan saapumisaika on 10.4
 	 */
 	@Test
@@ -65,8 +65,8 @@ public class AsiakasTest {
 	}
 	
 	/**
-	 * Luodaan lista asiakkaita ja verrataan asiakkaiden id:tä toisiinsa
-	 * @result Kaikilla asiakkailla on eri id
+	 * Luo listan asiakkaita ja vertaa asiakkaiden id:tä toisiinsa
+	 * @result Kaikilla asiakkailla on eri id:t
 	 */
 	@Test
 	@DisplayName("getId(): Testaa onko kaikilla asiakkailla oma id.")
@@ -99,9 +99,8 @@ public class AsiakasTest {
 	}
 	
 	/**
-	 * Luodaan kaksi asiakasta
-	 * Lasketaan näiden asiakkaiden kasinolla keskimäärin viettämä aika
-	 * @result tuloksesi saadaan 15.0
+	 * Laskee kahden asiakkaan kasinolla viettämän ajan keskiarvon
+	 * @result Asiakkaiden keskimäärin viettämä aika on 15.0 aikayksikköä
 	 */
 	@Test
 	@DisplayName("getKeskimaarainenVietettyAika(): Testaa lasketaanko asiakkaiden keskimäärin vietetty aika oikein.")

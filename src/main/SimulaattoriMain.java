@@ -1,4 +1,5 @@
 package main;
+
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -11,9 +12,8 @@ import javafx.stage.Stage;
 import simu.framework.Trace;
 import simu.framework.Trace.Level;
 
-//
 /**
- * Luokka SimulaattoriMain käynnistää käyttöliittymän
+ * Luokka SimulaattoriMainille, jossa käynnistetään projektin käyttöliittymä
  * 
  * @author Tapio Humaljoki, Valtteri Kuitula, Jhon Rastrojo
  */
@@ -22,13 +22,13 @@ public class SimulaattoriMain extends Application {
     /** Käyttöliittymän pääikkuna */
     private Stage primaryStage;
     
-    /** Käyttöliittymän pohjan */
+    /** Käyttöliittymän pohja */
     private BorderPane rootLayout;
 
     /**
-     * Luo käyttöliittymä säikeen
+     * Luo käyttöliittymä-säikeen
      *
-     * @param Stage, primaryStage eli käyttöliittymän pääikkunan
+     * @param Stage-olio
      */
     @Override
     public void start(Stage primaryStage) {
@@ -39,7 +39,7 @@ public class SimulaattoriMain extends Application {
     }
     
     /**
-     * Alustaa simulaattorin pääikkunan pohja
+     * Alustaa käyttöliittymän pääikkunan pohja
      */
     public void alustaSimulaattorinPaaikkunanPohja() {
         try {
@@ -59,10 +59,8 @@ public class SimulaattoriMain extends Application {
 
 
     /**
-     * Metodi jolla saadaan käyttöliittymän pääikkunan näkyville
-     * 
+     * Lataa käyttöliittymän pääikkunan käyttäjän nähtäville
      */
-    
     public void naytaSimulaattorinPaaikkuna() {
     try {
         FXMLLoader loader = new FXMLLoader();
@@ -77,16 +75,16 @@ public class SimulaattoriMain extends Application {
 	/**
 	 * Palauttaa käyttöliittymän pääikkunan
 	 *
-	 * @return primaryStage eli käyttöliittymän pääikkunan
+	 * @return Stage-olio
 	 */
 	public Stage getPrimaryStage() {
 		return primaryStage;
 	}
 
     /**
-     * Käynnistää simulaattori
+     * Käynnistää simulaattorin
      *
-     * @param String[] args, eli komentorivin argumentteja
+     * @param merkkijonolista
      */
     public static void main(String[] args) {
     	// Asetetaan Trace-level

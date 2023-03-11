@@ -4,20 +4,18 @@ import datasource.MariaDBJPAConnector;
 import jakarta.persistence.EntityManager;
 import simu.model.Palvelupiste;
 
-
-//
 /**
- * Luokka PalvelupisteDao päivittää tietokannassa olevan palvelupisteet taulun arvot
+ * Luokka PalvelupisteDaolle, jossa päivitetään tietokannassa olevan palvelupiste-taulun arvoja
  * 
  * @author Tapio Humaljoki, Valtteri Kuitula, Jhon Rastrojo
  */
 public class PalvelupisteDao{
 	
 	/**
-	 * Päivittää kokonaisoleskeluaika sarakkeen arvon
+	 * Päivittää palvelupiste-taulun kokonaisoleskeluaika-sarakkeen arvon
 	 *
-	 * @param Palvelupiste olion
-	 * @return true, jos ehdot täyttyvät
+	 * @param Palvelupiste-olio
+	 * @return true, jos päivitys onnistuu
 	 */
 	public boolean updateKokonaisoleskeluaika(Palvelupiste palvelupiste) {
     	EntityManager em = MariaDBJPAConnector.getInstance();
@@ -34,10 +32,10 @@ public class PalvelupisteDao{
     }
     
     /**
-     * Päivittää suoritustehon sarakkeen arvon
+     * Päivittää palvelupiste-taulun suoritusteho-sarakkeen arvon
      *
-     * @param Palvelupiste olion
-     * @return true, jos ehdot täyttyvät
+     * @param Palvelupiste-olio
+     * @return true, jos päivitys onnistuu
      */
     public boolean updateSuoritusteho(Palvelupiste palvelupiste) {
     	EntityManager em = MariaDBJPAConnector.getInstance();
@@ -54,10 +52,10 @@ public class PalvelupisteDao{
     }
     
     /**
-     * Päivittää kayttoasteen sarakkeen arvon
+     * Päivittää palvelupiste-taulun kayttoaste-sarakkeen arvon
      *
-     * @param Palvelupiste olion
-     * @return true, jos ehdot täyttyvät
+     * @param Palvelupiste-olio
+     * @return true, jos päivitys onnistuu
      */
     public boolean updateKayttoaste(Palvelupiste palvelupiste) {
     	EntityManager em = MariaDBJPAConnector.getInstance();
@@ -74,10 +72,10 @@ public class PalvelupisteDao{
     }
 
     /**
-     * Päivittää palvellutAsiakkaat sarakkeen arvon
+     * Päivittää palvelupiste-taulun palvellutAsiakkaat-sarakkeen arvon
      *
-     * @param Palvelupiste olion
-     * @return true, jos ehdot täyttyvät
+     * @param Palvelupiste-olio
+     * @return true, jos päivitys onnistuu
      */
     public boolean updatePalveltujaasiakkaita(Palvelupiste palvelupiste) {
     	EntityManager em = MariaDBJPAConnector.getInstance();
@@ -94,10 +92,10 @@ public class PalvelupisteDao{
     }
     
     /**
-     * Päivittää keskimaarainenPalveluaika sarakkeen arvon
+     * Päivittää palvelupiste-taulun keskimaarainenPalveluaika-sarakkeen arvon
      *
-     * @param Palvelupiste olion
-     * @return true, jos ehdot täyttyvät
+     * @param Palvelupiste-olio
+     * @return true, jos päivitys onnistuu
      */
     public boolean updateKeskimaarainenPalveluaika(Palvelupiste palvelupiste) {
     	EntityManager em = MariaDBJPAConnector.getInstance();
@@ -114,10 +112,10 @@ public class PalvelupisteDao{
     }
     
     /**
-     * Päivittää keskimaarainenJononpituus sarakkeen arvon
+     * Päivittää palvelupiste-taulun keskimaarainenJononpituus-sarakkeen arvon
      *
-     * @param Palvelupiste eli palvelupiste olion
-     * @return true, jos ehdot täyttyvät
+     * @param Palvelupiste-olio
+     * @return true, jos päivitys onnistuu
      */
     public boolean updateKeskimaarainenJononpituus(Palvelupiste palvelupiste) {
     	EntityManager em = MariaDBJPAConnector.getInstance();
@@ -134,10 +132,10 @@ public class PalvelupisteDao{
     }
     
     /**
-     * Päivittää keskimaarainenLapimenoajan sarakkeen arvon
+     * Päivittää palvelupiste-taulun keskimaarainenLapimenoaika-sarakkeen arvon
      *
-     * @param Palvelupiste olion
-     * @return true, jos ehdot täyttyvät
+     * @param Palvelupiste-olio
+     * @return true, jos päivitys onnistuu
      */
     public boolean updateKeskimaarainenLapimenoaika(Palvelupiste palvelupiste) {
     	EntityManager em = MariaDBJPAConnector.getInstance();
@@ -154,10 +152,10 @@ public class PalvelupisteDao{
     }
     
     /**
-     * Päivittää aktiiviajan sarakkeen arvon
+     * Päivittää palvelupiste-taulun aktiiviaika-sarakkeen arvon
      *
-     * @param Palvelupiste olion
-     * @return true, jos ehdot täyttyvät
+     * @param Palvelupiste-olio
+     * @return true, jos päivitys onnistuu
      */
     public boolean updateAktiiviajat(Palvelupiste palvelupiste) {
     	EntityManager em = MariaDBJPAConnector.getInstance();
@@ -172,5 +170,5 @@ public class PalvelupisteDao{
             return false;
         }
     }
-	  
+    
 }

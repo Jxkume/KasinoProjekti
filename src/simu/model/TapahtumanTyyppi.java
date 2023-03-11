@@ -1,28 +1,28 @@
 package simu.model;
 
 /**
- * Luokka jossa määritetään mahdolliset tapahtumatyypit
+ * Enum-luokka, jossa määritetään simulaation tapahtumien tapahtumatyypit
  * 
  * @author Tapio Humaljoki, Valtteri Kuitula, Jhon Rastrojo
  */
-// Tapahtumien tyypit määritellään simulointimallin vaatimusten perusteella
 public enum TapahtumanTyyppi {
 	
-	/** Saapuminen järjestelmään ja palvelutiskille */
+	/** Asiakkaan saapuminen järjestelmään ja palvelutiskille */
 	ARR1,
 	
-	/** Poistuminen palvelutiskista */
+	/** Asiakkaan poistuminen palvelutiskiltä */
 	DEP1,
 	
-	/** Poistuminen ruletista */
+	/** Asiakkaan poistuminen ruletista */
 	DEP2,
 	
-	/** Poistuminen blackjackista */
+	/** Asiakkaan poistuminen Blackjackista */
 	DEP3,
 	
-	/** Poistuminen krapsista */
+	/** Asiakkaan poistuminen Krapsista */
 	DEP4,
 	
-	/** Poistuminen voittojen nostopisteelta ja järjestelmästä */
+	/** Asiakkaan poistuminen voittojen nostopisteeltä ja järjestelmästä */
 	DEP5
+	
 }

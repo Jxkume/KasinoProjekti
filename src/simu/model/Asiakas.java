@@ -3,9 +3,8 @@ package simu.model;
 import simu.framework.Kello;
 import simu.framework.Trace;
 
-
 /**
- * Asiakas-luokka. Sisältää Asiakas-olioille yhteisiä ominaisuuksia
+ * Luokka Asiakkaalle
  * 
  * @author Tapio Humaljoki, Valtteri Kuitula ja Jhon Rastrojo
  */
@@ -17,10 +16,10 @@ public class Asiakas {
 	/** Asiakkaan poistumisaika */
 	private double poistumisaika;
 	
-	/** Aika jolloin asiakas saapuu jonoon */
+	/** Aika, jolloin asiakas saapuu jonoon */
 	private double saapumisaikaJonoon;
 	
-	/** Aika jolloin asiakas poistuu jonosta */
+	/** Aika, jolloin asiakas poistuu jonosta */
 	private double poistumisaikaJonosta;
 	
 	/** Asiakkaan id */
@@ -38,26 +37,68 @@ public class Asiakas {
 	/** Kaikkien asiakkaiden kasinolla keskimäärin viettämä aika */
 	private double keskimaarainenVietettyAika;
 	
-	/** Polettimäärä jonka asiakas on nostanut palvelutiskiltä */
+	/** Polettimäärä, jonka asiakas on nostanut palvelutiskiltä */
 	private int alkuperainenPolettimaara = 0;
 	
-	/** Asiakkaan tämän hetkinen polettimäärä */
+	/** Asiakkaan tämänhetkinen polettimäärä */
 	private int nykyinenPolettimaara = 0;
 	
 	/**
 	 * Asiakkaan kostruktori
-	 * Tulostaa konsoliin 
+	 * Tulostaa asiakkaan saapumisen konsoliin 
 	 */
 	public Asiakas() {
 	    id = saapuneetAsiakkaat++;
 		saapumisaika = Kello.getInstance().getAika();
 		Trace.out(Trace.Level.INFO, "Uusi asiakas: " + id + ": " + String.format("%.02f", saapumisaika));
 	}
+	
+	/**
+	 * Lisää asiakkaalle poletteja
+	 */
+	public void annaPolettejaPalvelutiskilla() {
+		// Asiakkalle annetaan poletteja 100-1000
+		int polettimaara;
+		polettimaara = (int) Math.floor(Math.random() * (10 - 1 + 1) + 1) * 100;
+		nykyinenPolettimaara += polettimaara;
+		alkuperainenPolettimaara += polettimaara;
+	}
+	
+	/**
+	 * Lisää asiakkaalle poletteja
+	 *
+	 * @param lisättävien polettien määrä
+	 */
+	public void lisaaPoletteja(int polettimaara) {
+		nykyinenPolettimaara += polettimaara;
+	}
+	
+	/**
+	 * Vähentää asiakkaalla olevien polettien määrää
+	 *
+	 * @param vähennettävien polettien määrä
+	 */
+	public void vahennaPoletteja(int polettimaara) {
+		nykyinenPolettimaara -= polettimaara;
+	}
+	
+	/**
+	 * Tulostaa raportin asiakkaan poistuttua kasinolta
+	 */
+	public void raportti() {
+		Trace.out(Trace.Level.INFO, "Asiakas " + id + " saapui: " + String.format("%.02f", saapumisaika));
+		Trace.out(Trace.Level.INFO, "Asiakas " + id + " poistui: " + String.format("%.02f", poistumisaika));
+		Trace.out(Trace.Level.INFO, "Asiakas " + id + " viipyi: " + String.format("%.02f", (poistumisaika-saapumisaika)));
+		// Lisätään lähteneiden asiakkaiden määrää
+		lahteneetAsiakkaat++;
+		// Lisätään asiakkaiden kasinolla viettämää kokonaisaikaa
+		vietettyAika += (poistumisaika-saapumisaika);
+	}
 
 	/**
 	 * Palauttaa asiakkaan id:n
 	 *
-	 * @return asiakkaa id
+	 * @return asiakkaan id
 	 */
 	public int getId() {
 		return id;
@@ -66,7 +107,7 @@ public class Asiakas {
 	/**
 	 * Palauttaa kasinolle saapuneiden asiakkaiden määrän
 	 *
-	 * @return saapuneetAsiakkaat
+	 * @return kasinolle saapuneet asiakkaat
 	 */
 	public int getSaapuneetAsiakkaat() {
 		return saapuneetAsiakkaat;
@@ -75,16 +116,16 @@ public class Asiakas {
 	/**
 	 * Palauttaa asiakkaan poistumisajan
 	 *
-	 * @return poistumisaika
+	 * @return asiakkaan poistumisaika
 	 */
 	public double getPoistumisaika() {
 		return poistumisaika;
 	}
 
 	/**
-	 * Asettaa asiakkaan poitumisajan
+	 * Asettaa asiakkaan poistumisajan
 	 *
-	 * @param asiakkaan palvelupisteeltäpoistumisen aika
+	 * @param asiakkaan palvelupisteeltä poistumisen aika
 	 */
 	public void setPoistumisaika(double poistumisaika) {
 		this.poistumisaika = poistumisaika;
@@ -93,7 +134,7 @@ public class Asiakas {
 	/**
 	 * Palauttaa asiakkaan saapumisajan
 	 *
-	 * @return saapumisaika
+	 * @return asiakkaan saapumisaika
 	 */
 	public double getSaapumisaika() {
 		return saapumisaika;
@@ -110,34 +151,34 @@ public class Asiakas {
 	}
 	
 	/**
-	 * Palauttaa asiakkaan jonoon saapumisajan
+	 * Palauttaa asiakkaan saapumisajan jonoon
 	 *
-	 * @return saapumisaika jonoon
+	 * @return asiakkaan saapumisaika jonoon
 	 */
 	public double getSaapumisaikaJonoon() {
 		return saapumisaikaJonoon;
 	}
 	
 	/**
-	 * Asettaa asiakkaan jonoon saapumisajan
+	 * Asettaa asiakkaan saapumisajan jonoon
 	 *
-	 * @param asiakkaan palvelupisteen jonoon saapumisen aika
+	 * @param asiakkaan saapumisaika palvelupisteen jonoon
 	 */
 	public void setSaapumisaikaJonoon(double saapumisaikaJonoon) {
 		this.saapumisaikaJonoon = saapumisaikaJonoon;
 	}
 	
 	/**
-	 * Palauttaa asiakkaan jonosta poistumisajan
+	 * Palauttaa asiakkaan poistumisajan jonosta
 	 *
-	 * @return poistumisaikaJonosta
+	 * @return asiakkaan poistumisaika palvelupisteen jonosta
 	 */
 	public double getPoistumisaikaJonosta() {
 		return poistumisaikaJonosta;
 	}
 	
 	/**
-	 * Asettaa asiakkaan jonosta poistumisajan
+	 * Asettaa asiakkaan poistumisajan jonosta
 	 *
 	 * @param asiakkaan poistumisaika palvelupisteen jonosta
 	 */
@@ -146,22 +187,9 @@ public class Asiakas {
 	}
 	
 	/**
-	 * Asiakkaan simulaatiosta poistumisraportti
-	 * Tulostaa konsoliin asiakkaan saapumis-, poistumis- ja viipymisajan
-	 * Kasvattaa kasinolta lähteneiden asiakkaiden määrää, sekä kaikkien asiakkaiden yhteensä kasinolla viettämää aikaa
-	 */
-	public void raportti() {
-		Trace.out(Trace.Level.INFO, "Asiakas " + id + " saapui: " + String.format("%.02f", saapumisaika));
-		Trace.out(Trace.Level.INFO, "Asiakas " + id + " poistui: " + String.format("%.02f", poistumisaika));
-		Trace.out(Trace.Level.INFO, "Asiakas " + id + " viipyi: " + String.format("%.02f", (poistumisaika-saapumisaika)));
-		lahteneetAsiakkaat++;
-		vietettyAika += (poistumisaika-saapumisaika);
-	}
-	
-	/**
 	 * Palauttaa asiakkaiden keskimäärin kasinolla viettämän ajan
 	 *
-	 * @return keskimaarainenVietettyAika
+	 * @return asiakkaiden keskimäärin viettämä aika kasinolla
 	 */
 	public double getKeskimaarainenVietettyAika() {
 		keskimaarainenVietettyAika = vietettyAika / lahteneetAsiakkaat;
@@ -169,49 +197,21 @@ public class Asiakas {
 	}
 	
 	/**
-	 * Antaa asiakkaalle poletteja
-	 */
-	public void annaPolettejaPalvelutiskilla() {
-		// Asiakkalle annetaan poletteja 100-1000
-		int polettimaara;
-		polettimaara = (int) Math.floor(Math.random() * (10 - 1 + 1) + 1) * 100;
-		nykyinenPolettimaara += polettimaara;
-		alkuperainenPolettimaara += polettimaara;
-	}
-	
-	/**
-	 * Palauttaa Asiakkaan palvelutiskiltä nostamien polettejen määrän
+	 * Palauttaa asiakkaan kasinon palvelutiskiltä nostamien polettien määrän
 	 *
-	 * @return alkuperainenPoletimaara
+	 * @return asiakkaan palvelutiskiltä nostamien polettien määrä
 	 */
 	public int getAlkuperainenPolettimaara() {
 		return alkuperainenPolettimaara;
 	}
 	
 	/**
-	 * Palauttaa asiakkaalla olevien polettien määrän
+	 * Palauttaa asiakkaan tämänhetkisen polettimäärän
 	 *
-	 * @return nykyinenPolettimaara
+	 * @return asiakkaan tämänhetkinen polettimäärä
 	 */
 	public int getNykyinenPolettimaara() {
 		return nykyinenPolettimaara;
 	}
 
-	/**
-	 * Lisää asiakkaalle poletteja
-	 *
-	 * @param lisättävien polettien määrä
-	 */
-	public void lisaaPoletteja(int polettimaara) {
-		nykyinenPolettimaara += polettimaara;
-	}
-	
-	/**
-	 * vähentää asiakkaalla olevia poletteja
-	 *
-	 * @param vähennettävien polettien määrä
-	 */
-	public void vahennaPoletteja(int polettimaara) {
-		nykyinenPolettimaara -= polettimaara;
-	}
 }

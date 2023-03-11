@@ -24,28 +24,27 @@ import simu.framework.IMoottori;
 import simu.model.OmaMoottori;
 import simu.model.Palvelupiste;
 
-//
 /**
- * Luokka SimulaattorinPaaikkunaKontrolleri.
+ * Luokka käyttöliittymän pääikkunan kontrollerille
  */
 public class SimulaattorinPaaikkunaKontrolleri {
 
-	/** The simulaattori main. */
+	/** SimulaattoriMain-olio */
 	private SimulaattoriMain simulaattoriMain;
     
-    /** The moottori. */
+    /** IMoottori-rajapinnan instanssi */
     private IMoottori moottori;
     
-    /** The voittojen nosto piste jono. */
+    /** ArrayList-lista palvelupisteen jonon kuville */
     private ArrayList<ImageView> palvelutiskiJono, rulettiJono, blackjackJono, krapsJono, voittojenNostoPisteJono;
     
-    /** The ruletin voittotodennakoisyys. */
+    /** Ruletin voittotodennäköisyys, oletuksena 45% */
     private static int ruletinVoittotodennakoisyys = 45;
     
-    /** The blackjackin voittotodennakoisyys. */
+    /** Blackjackin voittotodennäköisyys, oletuksena 45% */
     private static int blackjackinVoittotodennakoisyys = 45;
     
-    // JavaFX-komponentteja
+    // Käyttöliittymän pääikkunan JavaFX-komponentit
     @FXML
     private ImageView PJ1, PJ2, PJ3, PJ4, PJ5, PJ6, PJ7, PJ8, PJ9, PJ10;			// Palvelutiskin jonon kuvat
    
@@ -89,7 +88,6 @@ public class SimulaattorinPaaikkunaKontrolleri {
      * Pääikkunan kontrollerin konstruktori
      */
     public SimulaattorinPaaikkunaKontrolleri() {
-    	
     	// Alustetaan tarvittavat JavaFX-komponentit ja muuttujat
     	hidastaButton = new Button();
     	nopeutaButton = new Button();
@@ -97,9 +95,8 @@ public class SimulaattorinPaaikkunaKontrolleri {
     }
     
     /**
-     * Alustaa pääikkunan elementtejä
+     * Alustaa tarvittavat käyttöliittymän pääikkunan elementit
      */
-    // Tätä metodia kutsutaan konstruktorin jälkeen
 	public void initialize() {
     	
     	palvelutiskiJono = new ArrayList<>();
@@ -223,7 +220,7 @@ public class SimulaattorinPaaikkunaKontrolleri {
 	}
     
 	/**
-	 * Käynnistää simulaation.
+	 * Käynnistää simulaation
 	 */
 	public void kaynnistaSimulointi() {
 
@@ -280,9 +277,9 @@ public class SimulaattorinPaaikkunaKontrolleri {
 	}
 
 	/**
-	 * Visualisoi jonon.
+	 * Visualisoi palvelupisteen jonon
 	 *
-	 * @param palvelupiste jonka jonoa visualisoidaan
+	 * @param palvelupiste, jonka jonoa visualisoidaan
 	 */
 	public void visualisoiJono(Palvelupiste palvelupiste) {
 		
@@ -348,9 +345,8 @@ public class SimulaattorinPaaikkunaKontrolleri {
 	/**
 	 * Hidastaa moottorisäiettä
 	 */
-	
 	public void hidasta() {
-		// Lisätään viiveeseen 10
+		// Lisätään viiveeseen 10 ja näytetään muutos käyttöliittymässä
 		moottori.setViive((long)(moottori.getViive() + 10));
 		viiveTextField.setText(Long.toString(moottori.getViive()));
 	}
@@ -358,21 +354,20 @@ public class SimulaattorinPaaikkunaKontrolleri {
 	/**
 	 * Nopeuttaa moottorisäiettä
 	 */
-	
 	public void nopeuta() {
 		// Varmistetaan ettei viive voi mennä negatiiviseksi
 		if (moottori.getViive() < 10) {
 			moottori.setViive(1);
 			viiveTextField.setText("1");
 		} else {
-			// Vähennetään viiveestä 10
+			// Vähennetään viiveestä 10 ja näytetään muutos käyttöliittymässä
 			moottori.setViive((long)(moottori.getViive() - 10));
 			viiveTextField.setText(Long.toString(moottori.getViive()));
 		}
 	}
 	
 	/**
-	 * Piilottaa simulaation tekijöiden nimet ja esittää niiden tilalla tulokset
+	 * Piilottaa käyttöliittymässä simulaation tekijöiden nimet ja esittää niiden tilalla tulokset
 	 */
 	public void naytaGridPane() {
 		Platform.runLater(()-> tekijat.setVisible(false));
@@ -391,7 +386,7 @@ public class SimulaattorinPaaikkunaKontrolleri {
 	/**
 	 * Asettaa kasinoon saapuneiden asiakkaiden määrän JavaFX-komponenttiin
 	 *
-	 * @param Saapuneiden asiakkaiden lukumäärä
+	 * @param saapuneiden asiakkaiden lukumäärä
 	 */
 	public void naytaAsiakasLkm(int asiakasLkm) {
 		Platform.runLater(()-> asiakasLkmLabel.setText(Integer.toString(asiakasLkm) + " asiakasta"));
@@ -400,16 +395,16 @@ public class SimulaattorinPaaikkunaKontrolleri {
 	/**
 	 * Asettaa asiakkaiden kasinolla keskimäärin viettämän ajan JavaFX-komponenttiin
 	 *
-	 * @param aika the aika
+	 * @param asiakkaiden keskimäärin viettämä aika kasinolla
 	 */
 	public void naytaKeskimaarainenVietettyAika(double aika) {
 		Platform.runLater(()-> keskimaarainenVietettyAikaLabel.setText((String.format("%.02f", aika))));
 	}
 	
 	/**
-	 * Päivittää JavaFX-komponenttiin kasinon tuottot 
+	 * Päivittää JavaFX-komponenttiin kasinon tekemän tuloksen 
 	 *
-	 * @param Kasinon tuotot
+	 * @param kasinon tulos
 	 */
 	public void paivitaTulos(int tulos) {
 		Platform.runLater(()-> kasinonTulosLabel.setText(tulos + " €"));
@@ -432,7 +427,7 @@ public class SimulaattorinPaaikkunaKontrolleri {
 	}
 	
 	/**
-	 * Avaa palvelutiskin pop-up ikkunan
+	 * Avaa palvelutiskin pop-up-ikkunan
 	 *
 	 * @param ActionEvent-olio
 	 */
@@ -453,7 +448,7 @@ public class SimulaattorinPaaikkunaKontrolleri {
 	}
 	
 	/**
-	* Avaa ruletin pop-up ikkunan
+	* Avaa ruletin pop-up-ikkunan
 	 *
 	 * @param ActionEvent-olio
 	 */
@@ -474,7 +469,7 @@ public class SimulaattorinPaaikkunaKontrolleri {
 	}
 	
 	/**
-	 * Avaa Blackjackin pop-up ikkunan
+	 * Avaa Blackjackin pop-up-ikkunan
 	 *
 	 * @param ActionEvent-olio
 	 */
@@ -495,7 +490,7 @@ public class SimulaattorinPaaikkunaKontrolleri {
 	}
 	
 	/**
-	 * Avaa krapsin pop-up ikkunan
+	 * Avaa krapsin pop-up-ikkunan
 	 *
 	 * @param ActionEvent-olio
 	 */
@@ -516,7 +511,7 @@ public class SimulaattorinPaaikkunaKontrolleri {
 	}
 	
 	/**
-	 * Avaa voittojen nostopisteen pop-up ikkunan
+	 * Avaa voittojen nostopisteen pop-up-ikkunan
 	 *
 	 * @param ActionEvent-olio
 	 */
@@ -537,9 +532,9 @@ public class SimulaattorinPaaikkunaKontrolleri {
 	}
 	
     /**
-     * Is called by the main application to give a reference back to itself.
+     * Pääsovellus viittaa itseensä
      *
-     * @param simulaattoriMain the new simulaattori main
+     * @param simulaation pääsovellus
      */
     public void setSimulaattoriMain(SimulaattoriMain simulaattoriMain) {
         this.simulaattoriMain = simulaattoriMain;

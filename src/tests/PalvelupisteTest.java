@@ -19,7 +19,7 @@ import simu.model.TapahtumanTyyppi;
 import view.SimulaattorinPaaikkunaKontrolleri;
 
 /**
- * Palvelupiste-luokan metodeita testaava luokka
+ * Luokka Palvelupiste-luokan metodien testaukseen
  */
 @RunWith(JfxRunner.class)
 public class PalvelupisteTest {
@@ -33,11 +33,8 @@ public class PalvelupisteTest {
 	/** Simulaation kello */
 	private Kello kello = Kello.getInstance();
 	
-	/** Käyttöliittymän pääikkunan kontrolleri */
-	private SimulaattorinPaaikkunaKontrolleri kontrolleri = new SimulaattorinPaaikkunaKontrolleri();
-	
 	/**
-	 * Asiakas jatkaa pelaamista
+	 * Antaa asiakkaan jatkaa pelaamista
 	 * @result Palvelupiste on varattuna
 	 */
 	@Test
@@ -50,10 +47,8 @@ public class PalvelupisteTest {
 	}
 	
 	/**
-	 * Asetetaan palvelupisteen palveltuja asiakkaita
-	 * Haetaan palvelupisteen suoritusteho ajassa
-	 * Lasketaan suoritusteho
-	 * @result Saaatu suoritusteho on 0.4
+	 * Laskee palvelupisteen suoritustehon annetussa ajassa
+	 * @result Saatu suoritusteho on 0.4
 	 */
 	@Test
 	@DisplayName("getSuoritusteho(): Testaa lasketaanko palvelupisteen suoritusteho oikein.")
@@ -64,7 +59,7 @@ public class PalvelupisteTest {
 	}
 	
 	/**
-	 * Lasketaan yksittäisen asiakkaan läpimenoaika palvelupisteellä
+	 * Laskee yksittäisen asiakkaan läpimenoajan palvelupisteellä
 	 * @result Läpimenoaika on 8.2
 	 */
 	@Test
@@ -82,9 +77,8 @@ public class PalvelupisteTest {
 	}
 
 	/**
-	 * Annetaan asiakkaalle poletteja
-	 * Arvotaan pelin hinta
-	 * @result Pelin hinta on alle 70
+	 * Arpoo asiakkaalle pelin hinnan
+	 * @result Pelin hinta on maksimissaan 70
 	 */
 	@Test
 	@DisplayName("arvotaanPelimaksu(): Testaa, että peli voi maksaa enintään yhtä paljon kuin asiakkaan nykyinen polettimäärä")
@@ -99,7 +93,7 @@ public class PalvelupisteTest {
 
 	
 	/**
-	 * Tulostetaan palvelupisteen jonossa olevat asiakkaat
+	 * Tulostaa palvelupisteen jonossa olevat asiakkaat
 	 * @result Palvelupiste on oikein ja jonossa on oikea määrä asiakkaita
 	 */
 	@Test
