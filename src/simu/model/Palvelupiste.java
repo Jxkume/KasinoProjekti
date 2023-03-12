@@ -278,7 +278,6 @@ public class Palvelupiste {
 					
 				case "Kraps":
 					// Krapsissa on noin 50% mahdollisuus voittoon ja noin 50% mahdollisuus havioon (pyoreasti)
-					Kraps.kahdenNopanSumma();
 					if (Kraps.voittaako()) {
 						// Voittosumma on 50-100 polettia.
 						Trace.out(Trace.Level.INFO, "Asiakas " + asiakas.getId() + " voitti Krapsissa " + polettimaara + " polettia!");
